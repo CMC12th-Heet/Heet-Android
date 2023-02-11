@@ -20,7 +20,7 @@ CMC 12기 Android 프로젝트 레포지토리입니다.
 
 ## *****Git Convention*****
 
-click ✔️(https://github.com/lee989898/Storage/wiki/3.-Android-Coding-Convention-(SOLO))
+click ✔️(https://github.com/lee989898/Storage/wiki/3.-Git-%EC%82%AC%EC%9A%A9%EB%B2%95-(SOLO))
 
 <br>
 
