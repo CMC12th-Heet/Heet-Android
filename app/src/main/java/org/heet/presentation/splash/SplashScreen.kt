@@ -34,7 +34,7 @@ fun SplashScreen(navController: NavController) {
                     .padding(top = 188.dp)
             )
             Image(
-                painter = painterResource(id = R.drawable.ic_text_logo),
+                painter = painterResource(id = R.drawable.ic_white_text_logo),
                 contentDescription = null,
                 modifier = Modifier
                     .align(Alignment.BottomCenter)
