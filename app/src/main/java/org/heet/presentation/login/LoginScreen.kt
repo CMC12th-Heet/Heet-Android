@@ -117,7 +117,7 @@ fun LoginScreen(navController: NavController) {
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Normal,
                     color = Grey500,
-                    modifier = Modifier.clickable { navController.navigate(HeetScreens.PasswordScreen.name) }
+                    modifier = Modifier.clickable { navController.navigate(HeetScreens.FindPasswordScreen.name) }
                 )
                 Divider(
                     Modifier

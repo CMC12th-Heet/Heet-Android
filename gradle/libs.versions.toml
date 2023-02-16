@@ -73,6 +73,7 @@ dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
 dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
 dagger-hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "dagger" }
 dagger-hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "dagger" }
+dagger-hilt-navigation = "androidx.hilt:hilt-navigation-compose:1.1.0-alpha01"
 ## retrofit
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 ## etc
@@ -90,5 +91,5 @@ androidx = ["androidx-arch-coreTesting", "androidx-core-ktx", "androidx-appcompa
 androidx-lifeycle = ["androidx-lifecycle-runtime-ktx", "androidx-lifecycle-viewmodel-compose", "androidx-lifecycle-runtimeTesting", "androidx-lifecycle-java8"]
 androidx-compose = ["androidx-compose-ui", "androidx-compose-material", "androidx-compose-ui-tooling-preview", "androidx-compose-ui-tooling"]
 kotlin = ["kotlin-serialization", "kotlin-coroutine-core", "kotlin-coroutine-android", "kotlin-coroutine-test"]
-dagger = ["dagger", "dagger-hilt-android"]
+dagger = ["dagger", "dagger-hilt-android", "dagger-hilt-navigation"]
 compiler = ["androidx-room-compiler", "dagger-compiler", "dagger-hilt-compiler"]

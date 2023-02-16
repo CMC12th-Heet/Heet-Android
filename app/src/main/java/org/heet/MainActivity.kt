@@ -11,9 +11,11 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import dagger.hilt.android.AndroidEntryPoint
 import org.heet.core.navigation.HeetNavigation
 import org.heet.ui.theme.HeetTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
