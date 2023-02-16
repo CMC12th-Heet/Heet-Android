@@ -277,7 +277,7 @@ private fun FindPasswordTitle(navController: NavController) {
             fontSize = 17.sp,
             fontWeight = FontWeight.Normal,
             color = Color.Black,
-            modifier = Modifier.padding(start = 105.dp)
+            modifier = Modifier.padding(start = 92.dp)
         )
     }
 }
