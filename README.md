@@ -14,7 +14,7 @@ CMC 12기 Android 프로젝트 레포지토리입니다.
 
 | [@lee989898](https://github.com/lee989898) |
 | :---: |
-|<img width="580" src="https://user-images.githubusercontent.com/48701368/178742530-2e473a27-e49a-44fb-876c-b88ceeb70162.png"/>|
+|<img width="580" src="https://user-images.githubusercontent.com/90037701/219402595-02943e63-a227-4a80-a552-281de984fb92.png"/>|
 
 <br>
 
