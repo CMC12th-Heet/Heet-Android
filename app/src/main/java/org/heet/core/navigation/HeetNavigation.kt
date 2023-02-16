@@ -4,10 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import org.heet.presentation.findpassword.PasswordScreen
 import org.heet.presentation.home.HomeScreen
 import org.heet.presentation.join.JoinScreen
 import org.heet.presentation.login.LoginScreen
-import org.heet.presentation.password.PasswordScreen
+import org.heet.presentation.resetpassword.ResetPasswordScreen
 import org.heet.presentation.splash.SplashScreen
 
 @Composable
@@ -23,8 +24,11 @@ fun HeetNavigation() {
         composable(HeetScreens.LoginScreen.name) {
             LoginScreen(navController = navController)
         }
-        composable(HeetScreens.PasswordScreen.name) {
+        composable(HeetScreens.FindPasswordScreen.name) {
             PasswordScreen(navController = navController)
+        }
+        composable(HeetScreens.ResetPasswordScreen.name) {
+            ResetPasswordScreen(navController = navController)
         }
         composable(HeetScreens.SplashScreen.name) {
             SplashScreen(navController = navController)

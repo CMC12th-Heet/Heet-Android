@@ -4,6 +4,7 @@ enum class HeetScreens {
     HomeScreen,
     JoinScreen,
     LoginScreen,
-    PasswordScreen,
+    FindPasswordScreen,
+    ResetPasswordScreen,
     SplashScreen
 }
