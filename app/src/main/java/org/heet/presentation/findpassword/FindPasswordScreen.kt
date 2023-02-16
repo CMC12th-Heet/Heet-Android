@@ -94,7 +94,11 @@ fun PasswordScreen(
 }
 
 @Composable
-private fun Next(navController: NavController, modifier: Modifier, findPasswordViewModel: FindPasswordViewModel) {
+private fun Next(
+    navController: NavController,
+    modifier: Modifier,
+    findPasswordViewModel: FindPasswordViewModel
+) {
     Row(
         modifier = modifier
             .padding(top = 98.dp)
