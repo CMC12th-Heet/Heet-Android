@@ -19,6 +19,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.heet.ui.theme.Grey200
@@ -136,14 +138,16 @@ fun FlatInputField(
     isSingleLine: Boolean,
     keyboardType: KeyboardType = KeyboardType.Text,
     imeAction: ImeAction = ImeAction.Done,
-    onAction: KeyboardActions = KeyboardActions.Default
+    onAction: KeyboardActions = KeyboardActions.Default,
+    isPassword: Boolean = false,
+    onValueChange: (String) -> Unit = { valueState.value = it }
 ) {
     BasicTextField(
         modifier = modifier,
         value = valueState.value,
-        onValueChange = {
-            valueState.value = it
-        },
+        onValueChange = onValueChange,
+        visualTransformation = if (isPassword) PasswordVisualTransformation()
+        else VisualTransformation.None,
         textStyle = TextStyle.Default.copy(
             color = Grey200,
             fontSize = 15.sp,
