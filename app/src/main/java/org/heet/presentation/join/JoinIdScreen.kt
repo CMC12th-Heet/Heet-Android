@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.heet.components.*
+import org.heet.core.navigation.HeetScreens
 import org.heet.ui.theme.Red400
 import org.heet.util.pretendardFamily
 
@@ -120,7 +121,7 @@ fun JoinIdScreen(navController: NavController) {
             }
         }
         BigRoundButton(
-            onClick = { },
+            onClick = { navController.navigate(HeetScreens.JoinFinish.name) },
             text = "회원 가입",
             modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 8.dp)
         )
