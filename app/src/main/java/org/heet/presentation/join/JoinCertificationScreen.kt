@@ -102,7 +102,7 @@ fun JoinCertificationScreen(
                             fontFamily = pretendardFamily,
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Normal,
-                            color = Grey100
+                            color = White800
                         )
                     }
                     InputVerificationCode(

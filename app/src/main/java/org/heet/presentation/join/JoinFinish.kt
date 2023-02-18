@@ -15,8 +15,8 @@ import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.BigRoundButton
 import org.heet.core.navigation.HeetScreens
-import org.heet.ui.theme.Grey900
 import org.heet.ui.theme.Red400
+import org.heet.ui.theme.White900
 import org.heet.util.pretendardFamily
 
 @Composable
@@ -70,7 +70,7 @@ private fun GreetingUser() {
             fontFamily = pretendardFamily,
             fontSize = 15.sp,
             fontWeight = FontWeight.Normal,
-            color = Grey900
+            color = White900
         )
         Spacer(modifier = Modifier.width(14.dp))
         Text(

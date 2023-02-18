@@ -196,7 +196,7 @@ fun GreyFixedTextField(title: String, content: String) {
         fontFamily = pretendardFamily,
         fontSize = 17.sp,
         fontWeight = FontWeight.Normal,
-        color = Grey800
+        color = Grey500
     )
     Spacer(modifier = Modifier.height(12.dp))
     Text(
@@ -204,14 +204,14 @@ fun GreyFixedTextField(title: String, content: String) {
         fontFamily = pretendardFamily,
         fontSize = 15.sp,
         fontWeight = FontWeight.Normal,
-        color = Grey500
+        color = White500
     )
     Spacer(modifier = Modifier.height(12.dp))
     Divider(
         Modifier
             .fillMaxWidth()
             .height(3.dp),
-        color = Grey400
+        color = White400
     )
 }
 
@@ -266,7 +266,7 @@ fun NextImage(
             color = Red400
         )
         Image(
-            painter = painterResource(id = R.drawable.ic_next),
+            painter = painterResource(id = R.drawable.ic_red_next),
             contentDescription = null
         )
     }
@@ -341,7 +341,7 @@ fun Terms(text: String, isChecked: Boolean = false) {
                 fontFamily = pretendardFamily,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Normal,
-                color = Grey900
+                color = White900
             )
         }
         Text(
@@ -350,7 +350,7 @@ fun Terms(text: String, isChecked: Boolean = false) {
             fontFamily = pretendardFamily,
             fontSize = 12.sp,
             fontWeight = FontWeight.Normal,
-            color = Grey900,
+            color = White900,
             textDecoration = TextDecoration.Underline
         )
     }
