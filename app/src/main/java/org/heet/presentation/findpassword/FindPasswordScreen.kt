@@ -1,6 +1,5 @@
 package org.heet.presentation.findpassword
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
@@ -10,10 +9,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -23,9 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.flow.StateFlow
-import org.heet.R
-import org.heet.components.FlatInputField
-import org.heet.components.SmallRoundButton
+import org.heet.components.*
 import org.heet.core.navigation.HeetScreens
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
@@ -55,27 +50,36 @@ fun PasswordScreen(
     val requestVerification = remember {
         mutableStateOf(false)
     }
+    val isRequestedEmail = remember {
+        mutableStateOf(false)
+    }
+    val isRequestedCode = remember {
+        mutableStateOf(false)
+    }
+
     val keyboardController = LocalSoftwareKeyboardController.current
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 20.dp)
+            .padding(top = 18.dp)
     ) {
-        Column(
-            modifier = Modifier
-                .align(Alignment.TopStart)
-                .padding(top = 14.dp)
-        ) {
-            FindPasswordTitle(navController)
-            Column(
-                modifier = Modifier
-                    .padding(top = 153.dp)
+        Column {
+            ScreenTitle(
+                title = "비밀번호 찾기",
+                modifier = Modifier.padding(start = 92.dp)
             ) {
+                navController.popBackStack()
+            }
+            Column {
+                Spacer(modifier = Modifier.height(153.dp))
+                RedDescription(description = "이메일*")
                 InputEmailField(
                     findEmail,
                     findPasswordViewModel,
                     findEmailValidState,
                     requestVerification,
+                    isRequestedEmail,
                     keyboardController
                 )
                 if (requestVerification.value) {
@@ -83,44 +87,20 @@ fun PasswordScreen(
                         verificationCode,
                         verificationTimer,
                         verificationCodeValidState,
+                        isRequestedCode,
                         keyboardController
                     )
                     ReVerificationCode(findPasswordViewModel)
-                    Next(navController, Modifier.align(Alignment.End), findPasswordViewModel)
+                    NextImage(
+                        navController,
+                        Modifier.align(Alignment.End),
+                        HeetScreens.ResetPasswordScreen.name
+                    ) {
+                        findPasswordViewModel.timerReset()
+                    }
                 }
             }
         }
-    }
-}
-
-@Composable
-private fun Next(
-    navController: NavController,
-    modifier: Modifier,
-    findPasswordViewModel: FindPasswordViewModel
-) {
-    Row(
-        modifier = modifier
-            .padding(top = 98.dp)
-            .clickable {
-                findPasswordViewModel.timerReset()
-                navController.navigate(HeetScreens.ResetPasswordScreen.name)
-            },
-        horizontalArrangement = Arrangement.End,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = "다음",
-            modifier = Modifier.padding(end = 5.dp),
-            fontFamily = FontFamily.SansSerif,
-            fontSize = 17.sp,
-            fontWeight = FontWeight.Black,
-            color = Red400
-        )
-        Image(
-            painter = painterResource(id = R.drawable.ic_next),
-            contentDescription = null
-        )
     }
 }
 
@@ -138,7 +118,7 @@ private fun ReVerificationCode(findPasswordViewModel: FindPasswordViewModel) {
             fontFamily = FontFamily.SansSerif,
             fontSize = 12.sp,
             fontWeight = FontWeight.Normal,
-            color = Grey200,
+            color = Grey300,
             modifier = Modifier.padding(start = 8.5.dp)
         )
         Text(
@@ -148,9 +128,11 @@ private fun ReVerificationCode(findPasswordViewModel: FindPasswordViewModel) {
             fontWeight = FontWeight.Medium,
             color = Grey700,
             textDecoration = TextDecoration.Underline,
-            modifier = Modifier.padding(end = 8.5.dp).clickable {
-                findPasswordViewModel.timerStart()
-            }
+            modifier = Modifier
+                .padding(end = 8.5.dp)
+                .clickable {
+                    findPasswordViewModel.timerStart()
+                }
         )
     }
 }
@@ -161,6 +143,7 @@ private fun InputVerificationCode(
     verificationCode: MutableState<String>,
     verificationTimer: StateFlow<String>,
     verificationCodeValidState: Boolean,
+    isRequestedEmail: MutableState<Boolean>,
     keyboardController: SoftwareKeyboardController?
 ) {
     Box(
@@ -170,7 +153,7 @@ private fun InputVerificationCode(
     ) {
         FlatInputField(
             modifier = Modifier
-                .padding(end = 117.dp)
+                .padding(start = 9.dp, end = 117.dp)
                 .align(Alignment.CenterStart),
             valueState = verificationCode,
             placeholder = "인증코드 입력",
@@ -196,7 +179,8 @@ private fun InputVerificationCode(
             )
             SmallRoundButton(
                 onClick = { },
-                text = "인증 요청"
+                text = "인증 요청",
+                isCheck = isRequestedEmail
             )
         }
     }
@@ -216,15 +200,9 @@ private fun InputEmailField(
     findPasswordViewModel: FindPasswordViewModel,
     findEmailValidState: Boolean,
     requestVerification: MutableState<Boolean>,
+    isRequestedCode: MutableState<Boolean>,
     keyboardController: SoftwareKeyboardController?
 ) {
-    Text(
-        text = "이메일*",
-        fontFamily = pretendardFamily,
-        fontSize = 17.sp,
-        fontWeight = FontWeight.Normal,
-        color = Red200
-    )
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -249,7 +227,8 @@ private fun InputEmailField(
                 requestVerification.value = true
             },
             modifier = Modifier.align(Alignment.CenterEnd),
-            text = "인증 요청"
+            text = "인증 요청",
+            isCheck = isRequestedCode
         )
     }
     Divider(
@@ -259,25 +238,4 @@ private fun InputEmailField(
             .height(3.dp),
         color = Red200
     )
-}
-
-@Composable
-private fun FindPasswordTitle(navController: NavController) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_back),
-            contentDescription = null,
-            modifier = Modifier.clickable {
-                navController.popBackStack()
-            }
-        )
-        Text(
-            text = "비밀번호 찾기",
-            fontFamily = pretendardFamily,
-            fontSize = 17.sp,
-            fontWeight = FontWeight.Normal,
-            color = Color.Black,
-            modifier = Modifier.padding(start = 92.dp)
-        )
-    }
 }

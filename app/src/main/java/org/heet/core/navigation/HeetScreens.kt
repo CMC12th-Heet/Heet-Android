@@ -2,7 +2,9 @@ package org.heet.core.navigation
 
 enum class HeetScreens {
     HomeScreen,
-    JoinScreen,
+    JoinCertificationScreen,
+    JoinEmailPwdScreen,
+    JoinIdScreen,
     LoginScreen,
     FindPasswordScreen,
     ResetPasswordScreen,
