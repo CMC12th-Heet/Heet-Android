@@ -25,6 +25,7 @@ import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.BigRoundButton
 import org.heet.components.ScreenTitle
+import org.heet.core.navigation.HeetScreens
 import org.heet.ui.theme.Grey800
 import org.heet.ui.theme.Red400
 import org.heet.util.pretendardFamily
@@ -104,7 +105,9 @@ fun NeighborhoodSettingScreen(navController: NavController) {
         Column(
             modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 8.dp)
         ) {
-            SettingButton()
+            SettingButton() {
+                navController.navigate(HeetScreens.SettingFinishScreen.name)
+            }
         }
     }
 }
@@ -195,9 +198,9 @@ private fun NoticeResidence() {
 }
 
 @Composable
-private fun SettingButton() {
+private fun SettingButton(onClick: () -> Unit) {
     BigRoundButton(
-        onClick = { },
+        onClick = onClick,
         text = "설정 완료"
     )
 }
