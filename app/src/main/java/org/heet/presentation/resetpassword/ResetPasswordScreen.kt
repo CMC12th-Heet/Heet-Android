@@ -10,7 +10,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
@@ -22,6 +21,8 @@ import androidx.navigation.NavController
 import kotlinx.coroutines.delay
 import org.heet.R
 import org.heet.components.FlatInputField
+import org.heet.components.RedDescription
+import org.heet.components.ScreenTitle
 import org.heet.core.navigation.HeetScreens
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
@@ -69,17 +70,18 @@ fun ResetPasswordScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 20.dp)
+            .padding(top = 18.dp)
     ) {
-        Column(
-            modifier = Modifier
-                .align(Alignment.TopStart)
-                .padding(top = 14.dp)
-        ) {
-            ResetPasswordTitle(navController)
-            Column(
-                modifier = Modifier
-                    .padding(top = 153.dp)
+        Column {
+            ScreenTitle(
+                title = "비밀번호 찾기",
+                modifier = Modifier.padding(start = 92.dp)
             ) {
+                navController.popBackStack()
+            }
+            Column {
+                Spacer(modifier = Modifier.height(153.dp))
+                RedDescription(description = "새 비밀번호를 입력하세요*")
                 InputPasswordField(
                     resetPassword = resetPassword,
                     restPasswordValidState = resetPasswordValidState,
@@ -104,7 +106,9 @@ fun ResetPasswordScreen(
                         }
                     }
                 } else {
-                    Column(modifier = Modifier.padding(top = 18.dp)) {
+                    Column {
+                        Spacer(modifier = Modifier.height(18.dp))
+                        RedDescription(description = "비밀번호 재확인*")
                         CheckPasswordField(
                             resetPassword = checkPwd,
                             restPasswordValidState = checkPwdValidState,
@@ -147,7 +151,7 @@ private fun ValidateText(text: String, isValidate: Boolean) {
             fontFamily = pretendardFamily,
             fontSize = 13.sp,
             fontWeight = FontWeight.Normal,
-            color = Grey400
+            color = Grey200
         )
     }
 }
@@ -160,13 +164,6 @@ private fun CheckPasswordField(
     isHide: MutableState<Boolean>,
     keyboardController: SoftwareKeyboardController?
 ) {
-    Text(
-        text = "비밀번호 재확인*",
-        fontFamily = pretendardFamily,
-        fontSize = 17.sp,
-        fontWeight = FontWeight.Normal,
-        color = Red200
-    )
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -223,13 +220,6 @@ private fun InputPasswordField(
     validateLength: MutableState<Boolean>,
     checkPassword: MutableState<Boolean>
 ) {
-    Text(
-        text = "새 비밀번호를 입력하세요*",
-        fontFamily = pretendardFamily,
-        fontSize = 17.sp,
-        fontWeight = FontWeight.Normal,
-        color = Red200
-    )
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -288,25 +278,4 @@ private fun InputPasswordField(
             .height(3.dp),
         color = Red200
     )
-}
-
-@Composable
-private fun ResetPasswordTitle(navController: NavController) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_back),
-            contentDescription = null,
-            modifier = Modifier.clickable {
-                navController.popBackStack()
-            }
-        )
-        Text(
-            text = "비밀번호 재설정",
-            fontFamily = pretendardFamily,
-            fontSize = 17.sp,
-            fontWeight = FontWeight.Normal,
-            color = Color.Black,
-            modifier = Modifier.padding(start = 85.dp)
-        )
-    }
 }
