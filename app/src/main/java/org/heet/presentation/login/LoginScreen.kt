@@ -20,7 +20,7 @@ import org.heet.R
 import org.heet.components.BigRoundButton
 import org.heet.components.RoundInputField
 import org.heet.core.navigation.HeetScreens
-import org.heet.ui.theme.Grey500
+import org.heet.ui.theme.Grey600
 import org.heet.ui.theme.Red200
 import org.heet.util.pretendardFamily
 
@@ -43,7 +43,7 @@ fun LoginScreen(navController: NavController) {
         loginIdOrEmail.value.trim().isNotEmpty()
     }
     val keyboardController = LocalSoftwareKeyboardController.current
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp)) {
         Image(
             painter = painterResource(id = R.drawable.ic_red_text_logo),
             contentDescription = null,
@@ -69,7 +69,7 @@ fun LoginScreen(navController: NavController) {
             if (!isSubscribed.value) {
                 Text(
                     text = "*가입되지 않은 이메일입니다.",
-                    modifier = Modifier.padding(top = 6.dp, start = 39.dp, bottom = 14.dp),
+                    modifier = Modifier.padding(top = 6.dp, start = 19.dp, bottom = 14.dp),
                     fontFamily = pretendardFamily,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.ExtraBold,
@@ -91,7 +91,7 @@ fun LoginScreen(navController: NavController) {
             if (!isSubscribed.value) {
                 Text(
                     text = "*가입되지 않은 비밀번호입니다.",
-                    modifier = Modifier.padding(top = 6.dp, start = 39.dp),
+                    modifier = Modifier.padding(top = 6.dp, start = 19.dp),
                     fontFamily = pretendardFamily,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.ExtraBold,
@@ -116,7 +116,7 @@ fun LoginScreen(navController: NavController) {
                     text = "비밀번호 찾기",
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Normal,
-                    color = Grey500,
+                    color = Grey600,
                     modifier = Modifier.clickable { navController.navigate(HeetScreens.FindPasswordScreen.name) }
                 )
                 Divider(
@@ -130,8 +130,8 @@ fun LoginScreen(navController: NavController) {
                     text = "회원가입 하기",
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Normal,
-                    color = Grey500,
-                    modifier = Modifier.clickable { navController.navigate(HeetScreens.JoinScreen.name) }
+                    color = Grey600,
+                    modifier = Modifier.clickable { navController.navigate(HeetScreens.JoinCertificationScreen.name) }
                 )
             }
         }
