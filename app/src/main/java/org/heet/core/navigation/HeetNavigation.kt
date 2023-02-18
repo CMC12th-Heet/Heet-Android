@@ -8,8 +8,10 @@ import org.heet.presentation.findpassword.PasswordScreen
 import org.heet.presentation.home.HomeScreen
 import org.heet.presentation.join.JoinCertificationScreen
 import org.heet.presentation.join.JoinEmailPwdScreen
+import org.heet.presentation.join.JoinFinish
 import org.heet.presentation.join.JoinIdScreen
 import org.heet.presentation.login.LoginScreen
+import org.heet.presentation.neighborhood.NeighborhoodSettingScreen
 import org.heet.presentation.resetpassword.ResetPasswordScreen
 import org.heet.presentation.splash.SplashScreen
 
@@ -26,11 +28,17 @@ fun HeetNavigation() {
         composable(HeetScreens.JoinEmailPwdScreen.name) {
             JoinEmailPwdScreen(navController = navController)
         }
+        composable(HeetScreens.JoinFinish.name) {
+            JoinFinish(navController = navController)
+        }
         composable(HeetScreens.JoinIdScreen.name) {
             JoinIdScreen(navController = navController)
         }
         composable(HeetScreens.LoginScreen.name) {
             LoginScreen(navController = navController)
+        }
+        composable(HeetScreens.NeighborhoodSettingScreen.name) {
+            NeighborhoodSettingScreen(navController = navController)
         }
         composable(HeetScreens.FindPasswordScreen.name) {
             PasswordScreen(navController = navController)
