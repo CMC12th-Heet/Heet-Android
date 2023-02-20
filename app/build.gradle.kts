@@ -42,6 +42,7 @@ android {
     }
     buildFeatures {
         compose = true
+        dataBinding = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = libs.versions.androidxComposeCompiler.get()
@@ -70,6 +71,7 @@ dependencies {
     implementation(libs.okhttp.bom)
     implementation(libs.okhttp.loggingInterceptor)
     implementation(libs.kotlin.serialization.converter)
+    implementation(libs.image.picker)
     implementation(libs.junit)
 }
 
