@@ -1,9 +1,6 @@
 package org.heet.components
 
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -50,21 +47,22 @@ fun RoundInputField(
         onValueChange = {
             valueState.value = it
         },
+        modifier = modifier,
+        enabled = enabled,
         textStyle = TextStyle.Default.copy(
             color = Grey300,
             fontSize = 15.sp,
             fontFamily = pretendardFamily,
             fontWeight = FontWeight.Normal
         ),
+        keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
+        keyboardActions = onAction,
+        singleLine = isSingleLine,
         decorationBox = { innerTextField ->
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .border(
-                        width = 1.dp,
-                        color = Red200,
-                        shape = RoundedCornerShape(23.dp)
-                    )
+                    .background(shape = RoundedCornerShape(23.dp), color = Grey100)
                     .padding(horizontal = 20.dp, vertical = 14.dp)
             ) {
                 if (valueState.value.isEmpty()) {
@@ -78,11 +76,7 @@ fun RoundInputField(
                 }
                 innerTextField()
             }
-        },
-        singleLine = isSingleLine,
-        enabled = enabled,
-        keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
-        keyboardActions = onAction
+        }
     )
 }
 
@@ -93,19 +87,19 @@ fun BigRoundButton(
     text: String
 ) {
     Button(
+        onClick = onClick,
         modifier = modifier
             .fillMaxWidth()
             .height(52.dp),
-        onClick = onClick,
         shape = RoundedCornerShape(28.dp),
         colors = ButtonDefaults.buttonColors(Red400)
     ) {
         Text(
             text = text,
-            fontFamily = pretendardFamily,
+            color = Color.White,
             fontSize = 17.sp,
             fontWeight = FontWeight.ExtraBold,
-            color = Color.White
+            fontFamily = pretendardFamily
         )
     }
 }
@@ -346,7 +340,10 @@ fun Terms(text: String, isChecked: Boolean = false) {
         }
         Text(
             text = "자세히",
-            modifier = Modifier.align(Alignment.CenterEnd).padding(end = 4.dp).clickable { },
+            modifier = Modifier
+                .align(Alignment.CenterEnd)
+                .padding(end = 4.dp)
+                .clickable { },
             fontFamily = pretendardFamily,
             fontSize = 12.sp,
             fontWeight = FontWeight.Normal,
