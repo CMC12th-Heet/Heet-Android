@@ -351,3 +351,77 @@ fun Terms(text: String, isChecked: Boolean = false) {
         )
     }
 }
+
+@Composable
+fun Back(back: () -> Unit) {
+    Image(
+        painter = painterResource(id = R.drawable.ic_back),
+        contentDescription = "back",
+        modifier = Modifier.clickable { back() }
+    )
+}
+
+@Composable
+fun Title(text: String) {
+    Text(
+        text = text,
+        color = Color.Black,
+        fontSize = 17.sp,
+        fontWeight = FontWeight.Normal,
+        fontFamily = pretendardFamily
+    )
+}
+
+@Composable
+fun EmptyText() {
+    Text(
+        text = "빈곳",
+        color = Color.White,
+        fontSize = 17.sp,
+        fontWeight = FontWeight.Black
+    )
+}
+
+@Composable
+fun Next(
+    timer: () -> Unit,
+    move: () -> Unit
+) {
+    Text(
+        text = "다음",
+        modifier = Modifier.clickable {
+            timer()
+            move()
+        },
+        color = Red400,
+        fontSize = 17.sp,
+        fontWeight = FontWeight.Black
+    )
+}
+
+@Composable
+fun Finish(
+    move: () -> Unit
+) {
+    Text(
+        text = "완료",
+        modifier = Modifier.clickable {
+            move()
+        },
+        color = Red400,
+        fontSize = 17.sp,
+        fontWeight = FontWeight.Black
+    )
+}
+
+@Composable
+fun PretendardDescription(text: String, modifier: Modifier = Modifier) {
+    Text(
+        text = text,
+        modifier = modifier,
+        fontFamily = pretendardFamily,
+        fontSize = 17.sp,
+        fontWeight = FontWeight.Normal,
+        color = Grey400
+    )
+}

@@ -13,7 +13,7 @@ import org.heet.presentation.join.JoinIdScreen
 import org.heet.presentation.login.LoginScreen
 import org.heet.presentation.neighborhood.NeighborhoodSettingScreen
 import org.heet.presentation.neighborhood.SettingFinishScreen
-import org.heet.presentation.resetpassword.ResetPasswordScreen
+import org.heet.presentation.resetpwd.ResetPasswordScreen
 import org.heet.presentation.splash.SplashScreen
 
 @Composable
