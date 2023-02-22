@@ -1,7 +1,6 @@
 package org.heet.presentation.findpwd
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,14 +15,12 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import org.heet.R
 import org.heet.components.*
 import org.heet.core.navigation.HeetScreens
 import org.heet.ui.theme.*
@@ -171,65 +168,6 @@ fun PasswordScreen(
             }
         }
     }
-}
-
-@Composable
-private fun Back(back: () -> Unit) {
-    Image(
-        painter = painterResource(id = R.drawable.ic_back),
-        contentDescription = "back",
-        modifier = Modifier.clickable { back() }
-    )
-}
-
-@Composable
-private fun Title(text: String) {
-    Text(
-        text = text,
-        color = Color.Black,
-        fontSize = 17.sp,
-        fontWeight = FontWeight.Normal,
-        fontFamily = pretendardFamily
-    )
-}
-
-@Composable
-private fun Next(
-    timer: () -> Unit,
-    move: () -> Unit
-) {
-    Text(
-        text = "다음",
-        modifier = Modifier.clickable {
-            timer()
-            move()
-        },
-        color = Red400,
-        fontSize = 17.sp,
-        fontWeight = FontWeight.Black
-    )
-}
-
-@Composable
-private fun EmptyText() {
-    Text(
-        text = "",
-        color = Color.White,
-        fontSize = 17.sp,
-        fontWeight = FontWeight.Black
-    )
-}
-
-@Composable
-private fun PretendardDescription(text: String, modifier: Modifier = Modifier) {
-    Text(
-        text = text,
-        modifier = modifier,
-        fontFamily = pretendardFamily,
-        fontSize = 17.sp,
-        fontWeight = FontWeight.Normal,
-        color = Grey400
-    )
 }
 
 @Composable
