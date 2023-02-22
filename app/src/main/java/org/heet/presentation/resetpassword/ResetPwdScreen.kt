@@ -65,7 +65,7 @@ fun ResetPasswordScreen(
                         .fillMaxWidth()
                         .padding(top = 13.dp)
                 ) {
-                    InputPasswordField(
+                    PwdField(
                         pwd = resetPwdHolder.pwd,
                         pwdValidState = resetPwdHolder.pwd.value.trim().isNotEmpty(),
                         isHide = resetPwdHolder.isHide,
@@ -99,7 +99,7 @@ fun ResetPasswordScreen(
                 } else {
                     Column(modifier = Modifier.padding(top = 18.dp)) {
                         PretendardDescription("비밀번호 재확인*")
-                        CheckPasswordField(
+                        SecondPwdField(
                             pwd = resetPwdHolder.pwd,
                             secondPwd = resetPwdHolder.secondPwd,
                             resetPwdHolder = resetPwdHolder,
@@ -176,7 +176,7 @@ private fun ValidateText(text: String, isValidate: Boolean) {
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-private fun CheckPasswordField(
+private fun SecondPwdField(
     pwd: MutableState<String>,
     secondPwd: MutableState<String>,
     resetPwdHolder: ResetPwdStateHolder,
@@ -223,7 +223,7 @@ private fun CheckPasswordField(
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-private fun InputPasswordField(
+private fun PwdField(
     pwd: MutableState<String>,
     pwdValidState: Boolean,
     isHide: MutableState<Boolean>,
