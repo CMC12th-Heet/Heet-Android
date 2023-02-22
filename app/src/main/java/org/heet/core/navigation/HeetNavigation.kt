@@ -6,10 +6,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import org.heet.presentation.findpwd.PasswordScreen
 import org.heet.presentation.home.HomeScreen
-import org.heet.presentation.join.JoinCertificationScreen
-import org.heet.presentation.join.JoinEmailPwdScreen
 import org.heet.presentation.join.JoinFinish
-import org.heet.presentation.join.JoinIdScreen
+import org.heet.presentation.join.email.JoinCertificationScreen
+import org.heet.presentation.join.id.JoinIdScreen
+import org.heet.presentation.join.pwd.JoinEmailPwdScreen
 import org.heet.presentation.login.LoginScreen
 import org.heet.presentation.neighborhood.NeighborhoodSettingScreen
 import org.heet.presentation.neighborhood.SettingFinishScreen
@@ -23,10 +23,10 @@ fun HeetNavigation() {
         composable(HeetScreens.HomeScreen.name) {
             HomeScreen(navController = navController)
         }
-        composable(HeetScreens.JoinCertificationScreen.name) {
+        composable(HeetScreens.JoinEmailScreen.name) {
             JoinCertificationScreen(navController = navController)
         }
-        composable(HeetScreens.JoinEmailPwdScreen.name) {
+        composable(HeetScreens.JoinPwdScreen.name) {
             JoinEmailPwdScreen(navController = navController)
         }
         composable(HeetScreens.JoinFinish.name) {
@@ -44,10 +44,10 @@ fun HeetNavigation() {
         composable(HeetScreens.SettingFinishScreen.name) {
             SettingFinishScreen(navController = navController)
         }
-        composable(HeetScreens.FindPasswordScreen.name) {
+        composable(HeetScreens.FindPwdScreen.name) {
             PasswordScreen(navController = navController)
         }
-        composable(HeetScreens.ResetPasswordScreen.name) {
+        composable(HeetScreens.ResetPwdScreen.name) {
             ResetPasswordScreen(navController = navController)
         }
         composable(HeetScreens.SplashScreen.name) {

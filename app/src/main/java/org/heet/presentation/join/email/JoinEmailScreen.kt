@@ -1,7 +1,6 @@
-package org.heet.presentation.join
+package org.heet.presentation.join.email
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.Divider
@@ -13,10 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -32,30 +29,13 @@ import org.heet.util.pretendardFamily
 @Composable
 fun JoinCertificationScreen(
     navController: NavController,
-    joinCertificationViewModel: JoinCertificationViewModel = hiltViewModel()
+    joinEmailViewModel: JoinEmailViewModel = hiltViewModel()
 ) {
-    val email = remember {
-        mutableStateOf("")
-    }
-    val sendCertification = remember {
-        mutableStateOf(false)
-    }
-    val verificationCode = remember {
-        mutableStateOf("")
-    }
-    val isRequestedCode = remember {
-        mutableStateOf(false)
-    }
-    val verificationCodeValidState = remember(verificationCode.value) {
-        verificationCode.value.trim().isNotEmpty()
-    }
-    val verificationTimer = remember {
-        joinCertificationViewModel.timer
-    }
-    val emailValidState = remember(email.value) {
-        email.value.trim().isNotEmpty()
-    }
+    val joinEmailStateHolder = remember { JoinEmailStateHolder() }
     val keyboardController = LocalSoftwareKeyboardController.current
+    val verificationTimer = remember {
+        joinEmailViewModel.timer
+    }
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -63,38 +43,44 @@ fun JoinCertificationScreen(
             .padding(top = 18.dp)
     ) {
         Column {
-            ScreenTitle(
-                title = "회원 가입",
-                modifier = Modifier.padding(start = 118.dp)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                navController.popBackStack()
+                Back { navController.popBackStack() }
+                Title("회원가입")
+                if (joinEmailStateHolder.requestCode.value) {
+                    Next(
+                        timer = { joinEmailViewModel.timerReset() },
+                        move = { navController.navigate(HeetScreens.JoinPwdScreen.name) }
+                    )
+                } else {
+                    EmptyText()
+                }
             }
             Spacer(modifier = Modifier.height(137.dp))
-            RoundInputField(
-                valueState = email,
+            EmailField(
+                email = joinEmailStateHolder.email,
                 placeholder = "이메일 입력",
-                enabled = true,
-                isSingleLine = true,
-                onAction = KeyboardActions {
-                    if (!emailValidState) return@KeyboardActions
-                    keyboardController?.hide()
-                }
+                keyboardController = keyboardController
             )
             BigRoundButton(
                 onClick = {
-                    sendCertification.value = true
-                    joinCertificationViewModel.timerStart()
+                    if (joinEmailStateHolder.email.value.trim().isNotEmpty()) {
+                        joinEmailStateHolder.sendEmail.value = true
+                    }
                 },
                 text = "이메일 인증하기",
                 modifier = Modifier.padding(top = 15.dp)
             )
             Spacer(modifier = Modifier.height(15.dp))
-            if (sendCertification.value) {
+            if (joinEmailStateHolder.sendEmail.value) {
                 Column {
                     Row(modifier = Modifier.padding(start = 6.dp)) {
                         Image(
-                            painter = painterResource(id = R.drawable.ic_green_check),
-                            contentDescription = null
+                            painter = painterResource(id = R.drawable.ic_black_check),
+                            contentDescription = "black_check"
                         )
                         Spacer(modifier = Modifier.width(9.dp))
                         Text(
@@ -105,22 +91,41 @@ fun JoinCertificationScreen(
                             color = White800
                         )
                     }
-                    InputVerificationCode(
-                        verificationCode = verificationCode,
+                    SendCode(
+                        verificationCode = joinEmailStateHolder.code,
                         verificationTimer = verificationTimer,
-                        verificationCodeValidState = verificationCodeValidState,
-                        isRequestCode = isRequestedCode,
+                        verificationCodeValidState = joinEmailStateHolder.code.value.trim()
+                            .isNotEmpty(),
+                        joinEmailViewModel = joinEmailViewModel,
+                        requestCode = joinEmailStateHolder.requestCode,
                         keyboardController = keyboardController
                     )
-                    ReVerificationCode(
-                        joinCertificationViewModel = joinCertificationViewModel
+                    Divider(
+                        Modifier
+                            .padding(top = 13.dp)
+                            .fillMaxWidth()
+                            .height(2.dp),
+                        color = Grey1000
                     )
-                    NextImage(
-                        navController,
-                        Modifier.align(Alignment.End),
-                        HeetScreens.JoinEmailPwdScreen.name
+                    Row(
+                        modifier = Modifier
+                            .padding(top = 20.dp)
+                            .fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
                     ) {
-                        joinCertificationViewModel.timerReset()
+                        Description("인증번호를 받지 못하셨나요?", modifier = Modifier.padding(start = 8.5.dp))
+                        Column(
+                            modifier = Modifier.width(IntrinsicSize.Max).padding(end = 8.5.dp)
+                        ) {
+                            ReSendBtn(joinEmailStateHolder.requestCode) { joinEmailViewModel.timerStart() }
+                            Divider(
+                                Modifier
+                                    .padding(top = 2.dp)
+                                    .height(1.dp),
+                                color = Grey700
+                            )
+                        }
                     }
                 }
             }
@@ -130,11 +135,12 @@ fun JoinCertificationScreen(
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-private fun InputVerificationCode(
+private fun SendCode(
     verificationCode: MutableState<String>,
     verificationTimer: StateFlow<String>,
     verificationCodeValidState: Boolean,
-    isRequestCode: MutableState<Boolean>,
+    requestCode: MutableState<Boolean>,
+    joinEmailViewModel: JoinEmailViewModel,
     keyboardController: SoftwareKeyboardController?
 ) {
     Box(
@@ -160,6 +166,7 @@ private fun InputVerificationCode(
             modifier = Modifier.align(Alignment.CenterEnd),
             verticalAlignment = Alignment.CenterVertically
         ) {
+            val text = if (requestCode.value) "인증 완료" else "인증 요청"
             Text(
                 text = verificationTimer.collectAsState().value,
                 fontFamily = pretendardFamily,
@@ -169,48 +176,34 @@ private fun InputVerificationCode(
                 modifier = Modifier.padding(end = 21.dp)
             )
             SmallRoundButton(
-                onClick = { },
-                text = "인증 요청",
-                isCheck = isRequestCode
+                onClick = {
+                    if (!requestCode.value) {
+                        joinEmailViewModel.timerStart()
+                        requestCode.value = true
+                    }
+                },
+                text = text,
+                isCheck = requestCode
             )
         }
     }
-    Divider(
-        Modifier
-            .padding(top = 13.dp)
-            .fillMaxWidth()
-            .height(2.dp),
-        color = Red100
-    )
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
 @Composable
-private fun ReVerificationCode(joinCertificationViewModel: JoinCertificationViewModel) {
-    Row(
-        modifier = Modifier
-            .padding(top = 20.dp)
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = "인증번호를 받지 못하셨나요?",
-            fontFamily = FontFamily.SansSerif,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Normal,
-            color = Grey300,
-            modifier = Modifier.padding(start = 8.5.dp)
-        )
-        Text(
-            text = "재전송하기",
-            fontFamily = FontFamily.SansSerif,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Medium,
-            color = Grey700,
-            textDecoration = TextDecoration.Underline,
-            modifier = Modifier.padding(end = 8.5.dp).clickable {
-                joinCertificationViewModel.timerStart()
-            }
-        )
-    }
+private fun EmailField(
+    email: MutableState<String>,
+    placeholder: String,
+    keyboardController: SoftwareKeyboardController?
+) {
+    RoundInputField(
+        valueState = email,
+        placeholder = placeholder,
+        enabled = true,
+        isSingleLine = true,
+        onAction = KeyboardActions {
+            if (email.value.trim().isEmpty()) return@KeyboardActions
+            keyboardController?.hide()
+        }
+    )
 }

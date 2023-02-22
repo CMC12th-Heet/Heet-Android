@@ -1,4 +1,4 @@
-package org.heet.presentation.join
+package org.heet.presentation.join.id
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions

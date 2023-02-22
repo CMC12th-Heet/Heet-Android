@@ -1,7 +1,6 @@
 package org.heet.presentation.findpwd
 
 import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
@@ -57,7 +56,7 @@ fun PasswordScreen(
                 if (findPwdHolder.requestCode.value) {
                     Next(
                         timer = { findPwdViewModel.timerReset() },
-                        move = { navController.navigate(HeetScreens.ResetPasswordScreen.name) }
+                        move = { navController.navigate(HeetScreens.ResetPwdScreen.name) }
                     )
                 } else {
                     EmptyText()
@@ -196,34 +195,4 @@ private fun CertificationBtn(isCheck: MutableState<Boolean>, onClick: () -> Unit
             fontFamily = pretendardFamily
         )
     }
-}
-
-@Composable
-private fun Description(text: String, modifier: Modifier = Modifier) {
-    Text(
-        text = text,
-        modifier = modifier,
-        color = Grey300,
-        fontSize = 12.sp,
-        fontWeight = FontWeight.Normal
-    )
-}
-
-@Composable
-private fun ReSendBtn(
-    isCheck: MutableState<Boolean>,
-    onClick: () -> Unit
-) {
-    Text(
-        text = "재전송하기",
-        modifier = Modifier
-            .clickable {
-                if (isCheck.value) {
-                    onClick()
-                }
-            },
-        color = Grey700,
-        fontSize = 12.sp,
-        fontWeight = FontWeight.Medium
-    )
 }

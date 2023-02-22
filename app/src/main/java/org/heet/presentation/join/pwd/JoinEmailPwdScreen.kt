@@ -1,4 +1,4 @@
-package org.heet.presentation.join
+package org.heet.presentation.join.pwd
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable

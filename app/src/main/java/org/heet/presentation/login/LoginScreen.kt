@@ -68,7 +68,7 @@ fun LoginScreen(navController: NavController) {
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Auth("비밀번호 찾기") { navController.navigate(HeetScreens.FindPasswordScreen.name) }
+            Auth("비밀번호 찾기") { navController.navigate(HeetScreens.FindPwdScreen.name) }
             Divider(
                 Modifier
                     .padding(horizontal = 29.dp)
@@ -76,7 +76,7 @@ fun LoginScreen(navController: NavController) {
                     .width(2.dp),
                 color = Red400
             )
-            Auth("회원가입 하기") { navController.navigate(HeetScreens.JoinCertificationScreen.name) }
+            Auth("회원가입 하기") { navController.navigate(HeetScreens.JoinEmailScreen.name) }
         }
     }
 }
@@ -94,17 +94,17 @@ private fun HeetLogo() {
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun LoginField(
-    loginStateHolder: MutableState<String>,
+    value: MutableState<String>,
     placeholder: String,
     keyboardController: SoftwareKeyboardController?
 ) {
     RoundInputField(
-        valueState = loginStateHolder,
+        valueState = value,
         placeholder = placeholder,
         enabled = true,
         isSingleLine = true,
         onAction = KeyboardActions {
-            if (loginStateHolder.value.trim().isEmpty()) return@KeyboardActions
+            if (value.value.trim().isEmpty()) return@KeyboardActions
             keyboardController?.hide()
         }
     )
