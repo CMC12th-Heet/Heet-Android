@@ -4,7 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import org.heet.presentation.findpassword.PasswordScreen
+import org.heet.presentation.findpwd.PasswordScreen
 import org.heet.presentation.home.HomeScreen
 import org.heet.presentation.join.JoinCertificationScreen
 import org.heet.presentation.join.JoinEmailPwdScreen

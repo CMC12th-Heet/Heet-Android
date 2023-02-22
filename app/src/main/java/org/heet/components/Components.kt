@@ -118,9 +118,9 @@ fun SmallRoundButton(
         shape = RoundedCornerShape(22.dp),
         border = BorderStroke(1.dp, Red200),
         colors = if (isCheck.value) {
-            ButtonDefaults.buttonColors(Color.White)
-        } else {
             ButtonDefaults.buttonColors(Red400)
+        } else {
+            ButtonDefaults.buttonColors(Color.White)
         }
     ) {
         Text(
@@ -129,9 +129,9 @@ fun SmallRoundButton(
             fontSize = 16.sp,
             fontWeight = FontWeight.Normal,
             color = if (isCheck.value) {
-                Red400
-            } else {
                 Color.White
+            } else {
+                Red400
             }
         )
     }
@@ -157,10 +157,9 @@ fun FlatInputField(
         visualTransformation = if (isPassword) PasswordVisualTransformation()
         else VisualTransformation.None,
         textStyle = TextStyle.Default.copy(
-            color = Grey300,
-            fontSize = 15.sp,
-            fontFamily = FontFamily.SansSerif,
-            fontWeight = FontWeight.Normal
+            color = Grey900,
+            fontSize = 16.sp,
+            fontWeight = FontWeight.SemiBold
         ),
         decorationBox = { innerTextField ->
             Box {
