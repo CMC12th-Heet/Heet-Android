@@ -1,4 +1,4 @@
-package org.heet.presentation.resetpassword
+package org.heet.presentation.resetpwd
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
