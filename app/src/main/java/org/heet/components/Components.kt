@@ -425,3 +425,33 @@ fun PretendardDescription(text: String, modifier: Modifier = Modifier) {
         color = Grey400
     )
 }
+
+@Composable
+fun Description(text: String, modifier: Modifier = Modifier) {
+    Text(
+        text = text,
+        modifier = modifier,
+        color = Grey300,
+        fontSize = 12.sp,
+        fontWeight = FontWeight.Normal
+    )
+}
+
+@Composable
+fun ReSendBtn(
+    isCheck: MutableState<Boolean>,
+    onClick: () -> Unit
+) {
+    Text(
+        text = "재전송하기",
+        modifier = Modifier
+            .clickable {
+                if (isCheck.value) {
+                    onClick()
+                }
+            },
+        color = Grey700,
+        fontSize = 12.sp,
+        fontWeight = FontWeight.Medium
+    )
+}
