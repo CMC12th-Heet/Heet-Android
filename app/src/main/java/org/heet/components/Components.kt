@@ -279,7 +279,7 @@ fun RedDescription(description: String) {
 @Composable
 fun GreyValidateText(text: String, isValidate: Boolean = true) {
     Row(modifier = Modifier.padding(bottom = 6.dp)) {
-        val check = if (isValidate) painterResource(id = R.drawable.ic_green_check)
+        val check = if (isValidate) painterResource(id = R.drawable.ic_black_check)
         else painterResource(id = R.drawable.ic_grey_check)
         Image(
             painter = check,
@@ -299,7 +299,7 @@ fun GreyValidateText(text: String, isValidate: Boolean = true) {
 @Composable
 fun BlackValidateText(text: String, isValidate: Boolean = true) {
     Row(modifier = Modifier.padding(bottom = 6.dp)) {
-        val check = if (isValidate) painterResource(id = R.drawable.ic_green_check)
+        val check = if (isValidate) painterResource(id = R.drawable.ic_black_check)
         else painterResource(id = R.drawable.ic_grey_check)
         Image(
             painter = check,
@@ -318,7 +318,7 @@ fun BlackValidateText(text: String, isValidate: Boolean = true) {
 
 @Composable
 fun Terms(text: String, isChecked: Boolean = false) {
-    val check = if (isChecked) painterResource(id = R.drawable.ic_green_check)
+    val check = if (isChecked) painterResource(id = R.drawable.ic_black_check)
     else painterResource(id = R.drawable.ic_grey_check)
     Box(modifier = Modifier.fillMaxWidth()) {
         Row(modifier = Modifier.align(Alignment.CenterStart)) {
