@@ -1,18 +1,13 @@
 package org.heet.presentation.findpwd
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -82,7 +77,7 @@ fun PasswordScreen(
                             keyboardController?.hide()
                         }
                     )
-                    CertificationBtn(findPwdHolder.requestEmail) {
+                    RequestBtn(findPwdHolder.requestEmail, "인증 요청") {
                         findPwdHolder.requestEmail.value = true
                     }
                 }
@@ -127,7 +122,7 @@ fun PasswordScreen(
                                     fontWeight = FontWeight.Normal,
                                     fontFamily = pretendardFamily
                                 )
-                                CertificationBtn(isCheck = findPwdHolder.requestCode) {
+                                RequestBtn(isCheck = findPwdHolder.requestCode, "인증 요청") {
                                     if (!findPwdHolder.requestCode.value) {
                                         findPwdViewModel.timerStart()
                                     }
@@ -166,33 +161,5 @@ fun PasswordScreen(
                 }
             }
         }
-    }
-}
-
-@Composable
-private fun CertificationBtn(isCheck: MutableState<Boolean>, onClick: () -> Unit) {
-    Button(
-        onClick = { onClick() },
-        modifier = Modifier
-            .height(38.dp),
-        shape = RoundedCornerShape(22.dp),
-        border = BorderStroke(1.dp, Red200),
-        colors = if (isCheck.value) {
-            ButtonDefaults.buttonColors(Red400)
-        } else {
-            ButtonDefaults.buttonColors(Color.White)
-        }
-    ) {
-        Text(
-            text = "인증 요청",
-            color = if (isCheck.value) {
-                Color.White
-            } else {
-                Red400
-            },
-            fontSize = 17.sp,
-            fontWeight = FontWeight.Normal,
-            fontFamily = pretendardFamily
-        )
     }
 }
