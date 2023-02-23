@@ -13,11 +13,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -26,7 +27,6 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
 import org.heet.R
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
@@ -234,38 +234,6 @@ fun ScreenTitle(
 }
 
 @Composable
-fun NextImage(
-    navController: NavController,
-    modifier: Modifier,
-    destination: String,
-    timerReset: () -> Unit = {}
-) {
-    Row(
-        modifier = modifier
-            .padding(top = 98.dp)
-            .clickable {
-                timerReset()
-                navController.navigate(destination)
-            },
-        horizontalArrangement = Arrangement.End,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Text(
-            text = "다음",
-            modifier = Modifier.padding(end = 5.dp),
-            fontFamily = FontFamily.SansSerif,
-            fontSize = 17.sp,
-            fontWeight = FontWeight.Black,
-            color = Red400
-        )
-        Image(
-            painter = painterResource(id = R.drawable.ic_red_next),
-            contentDescription = null
-        )
-    }
-}
-
-@Composable
 fun RedDescription(description: String) {
     Text(
         text = description,
@@ -384,7 +352,7 @@ fun EmptyText() {
 
 @Composable
 fun Next(
-    timer: () -> Unit,
+    timer: () -> Unit = {},
     move: () -> Unit
 ) {
     Text(
@@ -454,4 +422,138 @@ fun ReSendBtn(
         fontSize = 12.sp,
         fontWeight = FontWeight.Medium
     )
+}
+
+@Composable
+fun Hide(
+    isHide: Boolean,
+    modifier: Modifier,
+    onClick: () -> Unit
+) {
+    val passwordImage = if (isHide) {
+        painterResource(id = R.drawable.ic_hide_pwd)
+    } else {
+        painterResource(id = R.drawable.ic_show_pwd)
+    }
+    Image(
+        painter = passwordImage,
+        contentDescription = null,
+        modifier = modifier
+            .size(44.dp)
+            .clickable { onClick() }
+    )
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun PwdField(
+    pwd: MutableState<String>,
+    pwdValidState: Boolean,
+    isHide: MutableState<Boolean>,
+    keyboardController: SoftwareKeyboardController?,
+    isNumber: MutableState<Boolean>,
+    isAlphabet: MutableState<Boolean>,
+    isSpecialChar: MutableState<Boolean>,
+    isValidateLength: MutableState<Boolean>,
+    isValidatePwd: MutableState<Boolean>,
+    checkPwd: MutableState<Boolean>
+) {
+    val containValidation = listOf(isNumber.value, isAlphabet.value, isSpecialChar.value)
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 13.dp)
+    ) {
+        isNumber.value = pwd.value.contains("[0-9]".toRegex())
+        isAlphabet.value = pwd.value.contains("[a-zA-Z]".toRegex())
+        isSpecialChar.value = pwd.value.contains("[^가-힣\\d\\w]".toRegex())
+        isValidateLength.value = pwd.value.length in 8..32
+        isValidatePwd.value = isValidateLength.value && containValidation.count { it } >= 2
+        checkPwd.value = isValidatePwd.value
+
+        FlatInputField(
+            modifier = Modifier
+                .padding(end = 45.dp)
+                .align(Alignment.CenterStart),
+            placeholder = "숫자/영문/특수문자 중 두가지 이상, 8자~32자",
+            valueState = pwd,
+            enabled = true,
+            isSingleLine = true,
+            keyboardType = KeyboardType.Email,
+            onAction = KeyboardActions {
+                if (!pwdValidState) return@KeyboardActions
+                keyboardController?.hide()
+            },
+            isPassword = isHide.value
+        )
+    }
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun SecondPwdField(
+    pwd: MutableState<String>,
+    secondPwd: MutableState<String>,
+    secondPwdValidState: Boolean,
+    isHide: MutableState<Boolean>,
+    isSame: MutableState<Boolean>,
+    keyboardController: SoftwareKeyboardController?
+) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 13.dp)
+    ) {
+        if (pwd.value.isNotEmpty()) {
+            isSame.value = pwd.value == secondPwd.value
+        }
+
+        FlatInputField(
+            modifier = Modifier
+                .padding(end = 45.dp)
+                .align(Alignment.CenterStart),
+            valueState = secondPwd,
+            enabled = true,
+            isSingleLine = true,
+            keyboardType = KeyboardType.Email,
+            onAction = KeyboardActions {
+                if (!secondPwdValidState) return@KeyboardActions
+                keyboardController?.hide()
+            },
+            isPassword = isHide.value
+        )
+        val passwordImage = if (isHide.value) {
+            painterResource(id = R.drawable.ic_hide_pwd)
+        } else {
+            painterResource(id = R.drawable.ic_show_pwd)
+        }
+        Image(
+            painter = passwordImage,
+            contentDescription = null,
+            modifier = Modifier
+                .size(44.dp)
+                .align(Alignment.CenterEnd)
+                .clickable { isHide.value = !isHide.value }
+        )
+    }
+}
+
+@Composable
+fun ValidateText(text: String, isValidate: Boolean) {
+    Row(modifier = Modifier.padding(bottom = 6.dp)) {
+        val check = if (isValidate) painterResource(id = R.drawable.ic_black_check)
+        else painterResource(id = R.drawable.ic_grey_check)
+        Image(
+            painter = check,
+            contentDescription = null,
+            modifier = Modifier.padding(end = 7.dp)
+        )
+        Text(
+            text = text,
+            fontFamily = pretendardFamily,
+            fontSize = 13.sp,
+            fontWeight = FontWeight.Normal,
+            color = Grey200
+        )
+    }
 }
