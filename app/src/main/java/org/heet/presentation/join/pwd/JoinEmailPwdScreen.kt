@@ -172,7 +172,7 @@ private fun CheckPasswordField(
     if (joinPassword.value == checkPassword.value && joinPassword.value.isNotEmpty()) {
         Row(modifier = Modifier.padding(top = 15.dp, start = 12.dp)) {
             Image(
-                painter = painterResource(id = R.drawable.ic_green_check),
+                painter = painterResource(id = R.drawable.ic_black_check),
                 contentDescription = null
             )
             Spacer(modifier = Modifier.width(7.dp))
@@ -190,7 +190,7 @@ private fun CheckPasswordField(
 @Composable
 private fun ValidateText(text: String, isValidate: Boolean) {
     Row(modifier = Modifier.padding(bottom = 6.dp)) {
-        val check = if (isValidate) painterResource(id = R.drawable.ic_green_check)
+        val check = if (isValidate) painterResource(id = R.drawable.ic_black_check)
         else painterResource(id = R.drawable.ic_grey_check)
         Image(
             painter = check,

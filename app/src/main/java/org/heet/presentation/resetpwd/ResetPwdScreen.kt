@@ -118,7 +118,7 @@ fun ResetPasswordScreen(
                         if (resetPwdHolder.isSame.value) {
                             Row(modifier = Modifier.padding(top = 15.dp, start = 12.dp)) {
                                 Image(
-                                    painter = painterResource(id = R.drawable.ic_blue_check),
+                                    painter = painterResource(id = R.drawable.ic_black_check),
                                     contentDescription = null,
                                     modifier = Modifier.padding(end = 7.dp)
                                 )
@@ -157,7 +157,7 @@ private fun Hide(resetPwdHolder: ResetPwdStateHolder, modifier: Modifier) {
 @Composable
 private fun ValidateText(text: String, isValidate: Boolean) {
     Row(modifier = Modifier.padding(bottom = 6.dp)) {
-        val check = if (isValidate) painterResource(id = R.drawable.ic_blue_check)
+        val check = if (isValidate) painterResource(id = R.drawable.ic_black_check)
         else painterResource(id = R.drawable.ic_grey_check)
         Image(
             painter = check,
