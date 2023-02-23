@@ -8,7 +8,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -183,32 +182,6 @@ fun FlatInputField(
 }
 
 @Composable
-fun GreyFixedTextField(title: String, content: String) {
-    Text(
-        text = title,
-        fontFamily = pretendardFamily,
-        fontSize = 17.sp,
-        fontWeight = FontWeight.Normal,
-        color = Grey500
-    )
-    Spacer(modifier = Modifier.height(12.dp))
-    Text(
-        text = content,
-        fontFamily = pretendardFamily,
-        fontSize = 15.sp,
-        fontWeight = FontWeight.Normal,
-        color = White500
-    )
-    Spacer(modifier = Modifier.height(12.dp))
-    Divider(
-        Modifier
-            .fillMaxWidth()
-            .height(3.dp),
-        color = White400
-    )
-}
-
-@Composable
 fun ScreenTitle(
     title: String,
     modifier: Modifier = Modifier,
@@ -231,17 +204,6 @@ fun ScreenTitle(
             modifier = modifier
         )
     }
-}
-
-@Composable
-fun RedDescription(description: String) {
-    Text(
-        text = description,
-        fontFamily = pretendardFamily,
-        fontSize = 17.sp,
-        fontWeight = FontWeight.Normal,
-        color = Red200
-    )
 }
 
 @Composable
@@ -556,4 +518,81 @@ fun ValidateText(text: String, isValidate: Boolean) {
             color = Grey200
         )
     }
+}
+
+@Composable
+fun RequestBtn(isCheck: MutableState<Boolean>, text: String, onClick: () -> Unit) {
+    Button(
+        onClick = { onClick() },
+        modifier = Modifier
+            .height(38.dp),
+        shape = RoundedCornerShape(22.dp),
+        border = BorderStroke(1.dp, Red200),
+        colors = if (isCheck.value) {
+            ButtonDefaults.buttonColors(Red400)
+        } else {
+            ButtonDefaults.buttonColors(Color.White)
+        }
+    ) {
+        Text(
+            text = text,
+            color = if (isCheck.value) {
+                Color.White
+            } else {
+                Red400
+            },
+            fontSize = 17.sp,
+            fontWeight = FontWeight.Normal,
+            fontFamily = pretendardFamily
+        )
+    }
+}
+
+@Composable
+fun RegularFlatInputField(
+    modifier: Modifier = Modifier,
+    valueState: MutableState<String>,
+    placeholder: String = "",
+    enabled: Boolean,
+    isSingleLine: Boolean,
+    keyboardType: KeyboardType = KeyboardType.Text,
+    imeAction: ImeAction = ImeAction.Done,
+    onAction: KeyboardActions = KeyboardActions.Default,
+    isPassword: Boolean = false,
+    isDuplicate: MutableState<Boolean>,
+    onValueChange: (String) -> Unit = {
+        valueState.value = it
+        isDuplicate.value = true
+    }
+) {
+    BasicTextField(
+        modifier = modifier,
+        value = valueState.value,
+        onValueChange = onValueChange,
+        visualTransformation = if (isPassword) PasswordVisualTransformation()
+        else VisualTransformation.None,
+        textStyle = TextStyle.Default.copy(
+            color = White500,
+            fontSize = 15.sp,
+            fontWeight = FontWeight.Normal
+        ),
+        decorationBox = { innerTextField ->
+            Box {
+                if (valueState.value.isEmpty()) {
+                    Text(
+                        text = placeholder,
+                        fontFamily = pretendardFamily,
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Normal,
+                        color = Grey300
+                    )
+                }
+                innerTextField()
+            }
+        },
+        singleLine = isSingleLine,
+        enabled = enabled,
+        keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
+        keyboardActions = onAction
+    )
 }
