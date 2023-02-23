@@ -83,7 +83,7 @@ fun ResetPasswordScreen(
                         .padding(top = 13.dp)
                         .fillMaxWidth()
                         .height(3.dp),
-                    color = Red200
+                    color = Grey1000
                 )
                 if (!resetPwdHolder.checkPwd.value) {
                     if (resetPwdHolder.pwd.value.isNotEmpty()) {
@@ -113,7 +113,7 @@ fun ResetPasswordScreen(
                                 .padding(top = 13.dp)
                                 .fillMaxWidth()
                                 .height(3.dp),
-                            color = Red200
+                            color = Grey1000
                         )
                         if (resetPwdHolder.isSame.value) {
                             Row(modifier = Modifier.padding(top = 15.dp, start = 12.dp)) {
