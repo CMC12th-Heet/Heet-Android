@@ -77,14 +77,7 @@ fun NeighborhoodSettingScreen(navController: NavController) {
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        CityItem(
-                            city,
-                            image,
-                            expanded,
-                            residenceStateHolder.checkWard,
-                            residenceStateHolder.checkCity,
-                            residenceStateHolder.city
-                        )
+                        CityItem(city, image, expanded, residenceStateHolder.checkWard, residenceStateHolder.checkCity, residenceStateHolder.city)
                     }
                     if (expanded.value) {
                         Spacer(modifier = Modifier.height(18.dp))
@@ -96,11 +89,7 @@ fun NeighborhoodSettingScreen(navController: NavController) {
                                     "종로구", "용산구", "종로구", "용산구", "종로구", "용산구"
                                 )
                             ) { ward ->
-                                WardItem(
-                                    ward,
-                                    residenceStateHolder.checkWard,
-                                    residenceStateHolder.ward
-                                )
+                                WardItem(ward, residenceStateHolder.checkWard, residenceStateHolder.ward)
                             }
                         }
                         Divider(modifier = Modifier.height(0.5.dp).shadow(2.dp))
