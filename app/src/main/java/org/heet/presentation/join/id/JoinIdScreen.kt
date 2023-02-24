@@ -177,7 +177,7 @@ fun JoinIdScreen(navController: NavController) {
             }
         }
         BigRoundButton(
-            onClick = { navController.navigate(HeetScreens.JoinFinish.name) },
+            onClick = { navController.navigate(HeetScreens.JoinWelcome.name) },
             text = "회원 가입",
             modifier = Modifier.padding(bottom = 8.dp).align(Alignment.BottomCenter)
         )
