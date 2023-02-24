@@ -39,7 +39,7 @@ fun JoinFinish(navController: NavController) {
             modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 8.dp)
         ) {
             NeighborhoodButton() {
-                navController.navigate(HeetScreens.NeighborhoodSettingScreen.name)
+                navController.navigate(HeetScreens.ResidenceSettingScreen.name)
             }
         }
     }

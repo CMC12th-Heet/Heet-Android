@@ -9,10 +9,10 @@ import org.heet.presentation.home.HomeScreen
 import org.heet.presentation.join.email.JoinCertificationScreen
 import org.heet.presentation.join.id.JoinIdScreen
 import org.heet.presentation.join.pwd.JoinEmailPwdScreen
+import org.heet.presentation.join.residence.NeighborhoodSettingScreen
 import org.heet.presentation.join.welcome.JoinFinish
+import org.heet.presentation.join.welcome.SettingFinishScreen
 import org.heet.presentation.login.LoginScreen
-import org.heet.presentation.neighborhood.NeighborhoodSettingScreen
-import org.heet.presentation.neighborhood.SettingFinishScreen
 import org.heet.presentation.resetpwd.ResetPasswordScreen
 import org.heet.presentation.splash.SplashScreen
 
@@ -38,10 +38,10 @@ fun HeetNavigation() {
         composable(HeetScreens.LoginScreen.name) {
             LoginScreen(navController = navController)
         }
-        composable(HeetScreens.NeighborhoodSettingScreen.name) {
+        composable(HeetScreens.ResidenceSettingScreen.name) {
             NeighborhoodSettingScreen(navController = navController)
         }
-        composable(HeetScreens.SettingFinishScreen.name) {
+        composable(HeetScreens.ResidenceWelcomeScreen.name) {
             SettingFinishScreen(navController = navController)
         }
         composable(HeetScreens.FindPwdScreen.name) {

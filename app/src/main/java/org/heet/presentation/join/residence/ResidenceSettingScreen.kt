@@ -1,4 +1,4 @@
-package org.heet.presentation.neighborhood
+package org.heet.presentation.join.residence
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -15,7 +15,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -23,50 +22,47 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.heet.R
-import org.heet.components.BigRoundButton
-import org.heet.components.ScreenTitle
+import org.heet.components.*
 import org.heet.core.navigation.HeetScreens
+import org.heet.ui.theme.Grey100
+import org.heet.ui.theme.Grey1200
 import org.heet.ui.theme.Grey800
 import org.heet.ui.theme.Red400
 import org.heet.util.pretendardFamily
 
 @Composable
 fun NeighborhoodSettingScreen(navController: NavController) {
-    val cityName = remember {
-        mutableStateOf("")
-    }
-    val wardName = remember {
-        mutableStateOf("")
-    }
-    val checkCity = remember {
-        mutableStateOf(false)
-    }
-    val checkWard = remember {
-        mutableStateOf(false)
-    }
+    val residenceStateHolder = remember { ResidenceStateHolder() }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(20.dp)
+            .padding(horizontal = 20.dp)
+            .padding(top = 18.dp)
     ) {
         Column(modifier = Modifier.align(Alignment.TopStart)) {
-            ScreenTitle(title = "동네 설정하기", modifier = Modifier.padding(start = 84.dp)) {
-                navController.popBackStack()
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Back { navController.popBackStack() }
+                Title(text = "동네 설정하기")
+                EmptyText()
             }
-            Spacer(modifier = Modifier.height(36.dp))
-            Row(modifier = Modifier.padding(start = 8.dp)) {
-                if (checkCity.value) {
-                    ResidenceChip(cityName)
+            Row(modifier = Modifier.padding(start = 8.dp, top = 36.dp)) {
+                if (residenceStateHolder.checkCity.value) {
+                    ResidenceChip(residenceStateHolder.city)
                     Spacer(modifier = Modifier.width(9.dp))
-                    if (checkWard.value) {
-                        ResidenceChip(wardName)
+                    if (residenceStateHolder.checkWard.value) {
+                        ResidenceChip(residenceStateHolder.ward)
                     }
                 }
             }
             Spacer(modifier = Modifier.height(10.dp))
             NoticeResidence()
-            Spacer(modifier = Modifier.height(18.dp))
-            LazyColumn {
+
+            LazyColumn(modifier = Modifier.padding(top = 18.dp)) {
                 items(listOf("서울", "경기", "인천")) { city ->
                     val expanded = remember {
                         mutableStateOf(false)
@@ -81,7 +77,7 @@ fun NeighborhoodSettingScreen(navController: NavController) {
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        CityItem(city, image, expanded, checkWard, checkCity, cityName)
+                        CityItem(city, image, expanded, residenceStateHolder.checkWard, residenceStateHolder.checkCity, residenceStateHolder.city)
                     }
                     if (expanded.value) {
                         Spacer(modifier = Modifier.height(18.dp))
@@ -93,7 +89,7 @@ fun NeighborhoodSettingScreen(navController: NavController) {
                                     "종로구", "용산구", "종로구", "용산구", "종로구", "용산구"
                                 )
                             ) { ward ->
-                                WardItem(ward, checkWard, wardName)
+                                WardItem(ward, residenceStateHolder.checkWard, residenceStateHolder.ward)
                             }
                         }
                         Divider(modifier = Modifier.height(0.5.dp).shadow(2.dp))
@@ -106,7 +102,7 @@ fun NeighborhoodSettingScreen(navController: NavController) {
             modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 8.dp)
         ) {
             SettingButton() {
-                navController.navigate(HeetScreens.SettingFinishScreen.name)
+                navController.navigate(HeetScreens.ResidenceWelcomeScreen.name)
             }
         }
     }
@@ -164,13 +160,13 @@ private fun WardItem(
 private fun ResidenceChip(name: MutableState<String>) {
     Surface(
         shape = RoundedCornerShape(16.5.dp),
-        color = Red400,
+        color = Grey100,
         modifier = Modifier.size(width = 84.dp, height = 30.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Spacer(modifier = Modifier.width(6.dp))
             Image(
-                painter = painterResource(id = R.drawable.ic_white_check),
+                painter = painterResource(id = R.drawable.ic_red_check),
                 contentDescription = null
             )
             Text(
@@ -178,7 +174,7 @@ private fun ResidenceChip(name: MutableState<String>) {
                 fontFamily = pretendardFamily,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Normal,
-                color = Color.White,
+                color = Red400,
                 modifier = Modifier.padding(start = 9.dp, end = 10.dp)
             )
         }
@@ -192,7 +188,7 @@ private fun NoticeResidence() {
         fontFamily = pretendardFamily,
         fontSize = 16.sp,
         fontWeight = FontWeight.SemiBold,
-        color = Red400,
+        color = Grey1200,
         modifier = Modifier.padding(start = 10.dp)
     )
 }
