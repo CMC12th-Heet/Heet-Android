@@ -1,4 +1,4 @@
-package org.heet.presentation.join
+package org.heet.presentation.join.welcome
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -15,7 +15,9 @@ import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.BigRoundButton
 import org.heet.core.navigation.HeetScreens
+import org.heet.ui.theme.Grey1300
 import org.heet.ui.theme.Red400
+import org.heet.ui.theme.White500
 import org.heet.ui.theme.White900
 import org.heet.util.pretendardFamily
 
@@ -30,7 +32,7 @@ fun JoinFinish(navController: NavController) {
             Logo()
             Spacer(modifier = Modifier.height(182.dp))
             Greeting()
-            Spacer(modifier = Modifier.height(42.dp))
+            Spacer(modifier = Modifier.height(32.dp))
             GreetingUser()
         }
         Column(
@@ -78,11 +80,11 @@ private fun GreetingUser() {
             fontFamily = pretendardFamily,
             fontSize = 15.sp,
             fontWeight = FontWeight.Medium,
-            color = Red400
+            color = Grey1300
         )
     }
     Spacer(modifier = Modifier.width(2.dp))
-    Divider(color = Red400, modifier = Modifier.width(159.dp))
+    Divider(color = White500, modifier = Modifier.width(159.dp))
 }
 
 @Composable
