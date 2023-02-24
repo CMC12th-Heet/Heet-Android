@@ -6,10 +6,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import org.heet.presentation.findpwd.PasswordScreen
 import org.heet.presentation.home.HomeScreen
-import org.heet.presentation.join.JoinFinish
 import org.heet.presentation.join.email.JoinCertificationScreen
 import org.heet.presentation.join.id.JoinIdScreen
 import org.heet.presentation.join.pwd.JoinEmailPwdScreen
+import org.heet.presentation.join.welcome.JoinFinish
 import org.heet.presentation.login.LoginScreen
 import org.heet.presentation.neighborhood.NeighborhoodSettingScreen
 import org.heet.presentation.neighborhood.SettingFinishScreen
@@ -29,7 +29,7 @@ fun HeetNavigation() {
         composable(HeetScreens.JoinPwdScreen.name) {
             JoinEmailPwdScreen(navController = navController)
         }
-        composable(HeetScreens.JoinFinish.name) {
+        composable(HeetScreens.JoinWelcome.name) {
             JoinFinish(navController = navController)
         }
         composable(HeetScreens.JoinIdScreen.name) {

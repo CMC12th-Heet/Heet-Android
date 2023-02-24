@@ -4,7 +4,7 @@ enum class HeetScreens {
     HomeScreen,
     JoinEmailScreen,
     JoinPwdScreen,
-    JoinFinish,
+    JoinWelcome,
     JoinIdScreen,
     LoginScreen,
     NeighborhoodSettingScreen,
