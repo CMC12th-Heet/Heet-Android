@@ -7,8 +7,8 @@ enum class HeetScreens {
     JoinWelcome,
     JoinIdScreen,
     LoginScreen,
-    NeighborhoodSettingScreen,
-    SettingFinishScreen,
+    ResidenceSettingScreen,
+    ResidenceWelcomeScreen,
     FindPwdScreen,
     ResetPwdScreen,
     SplashScreen

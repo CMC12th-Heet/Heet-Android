@@ -1,4 +1,4 @@
-package org.heet.presentation.neighborhood
+package org.heet.presentation.join.welcome
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
