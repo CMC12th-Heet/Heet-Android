@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import org.heet.presentation.declaration.DeclarationFinishScreen
+import org.heet.presentation.declaration.DeclarationScreen
 import org.heet.presentation.findpwd.PasswordScreen
 import org.heet.presentation.home.HomeScreen
 import org.heet.presentation.join.email.JoinCertificationScreen
@@ -52,6 +54,12 @@ fun HeetNavigation() {
         }
         composable(HeetScreens.SplashScreen.name) {
             SplashScreen(navController = navController)
+        }
+        composable(HeetScreens.DeclarationScreen.name) {
+            DeclarationScreen(navController = navController)
+        }
+        composable(HeetScreens.DeclarationFinishScreen.name) {
+            DeclarationFinishScreen(navController = navController)
         }
     }
 }

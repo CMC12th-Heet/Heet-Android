@@ -182,31 +182,6 @@ fun FlatInputField(
 }
 
 @Composable
-fun ScreenTitle(
-    title: String,
-    modifier: Modifier = Modifier,
-    goBack: () -> Unit = {}
-) {
-    Row(verticalAlignment = Alignment.CenterVertically) {
-        Image(
-            painter = painterResource(id = R.drawable.ic_back),
-            contentDescription = title,
-            modifier = Modifier.clickable {
-                goBack()
-            }
-        )
-        Text(
-            text = title,
-            fontFamily = pretendardFamily,
-            fontSize = 17.sp,
-            fontWeight = FontWeight.Normal,
-            color = Color.Black,
-            modifier = modifier
-        )
-    }
-}
-
-@Composable
 fun GreyValidateText(text: String, isValidate: Boolean = true) {
     Row(modifier = Modifier.padding(bottom = 6.dp)) {
         val check = if (isValidate) painterResource(id = R.drawable.ic_black_check)
@@ -331,11 +306,12 @@ fun Next(
 
 @Composable
 fun Finish(
+    modifier: Modifier = Modifier,
     move: () -> Unit
 ) {
     Text(
         text = "완료",
-        modifier = Modifier.clickable {
+        modifier = modifier.clickable {
             move()
         },
         color = Red400,
