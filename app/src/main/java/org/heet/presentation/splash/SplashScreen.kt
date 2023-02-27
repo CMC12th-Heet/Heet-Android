@@ -12,7 +12,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import kotlinx.coroutines.delay
 import org.heet.R
-import org.heet.core.navigation.HeetScreens
+import org.heet.core.navigation.navscreen.AuthScreen
 
 @Composable
 fun SplashScreen(navController: NavController) {
@@ -23,7 +23,8 @@ fun SplashScreen(navController: NavController) {
     ) {
         LaunchedEffect(key1 = true, block = {
             delay(1500)
-            navController.navigate(HeetScreens.LoginScreen.name)
+            navController.popBackStack()
+            navController.navigate(AuthScreen.Login.route)
         })
 
         Image(

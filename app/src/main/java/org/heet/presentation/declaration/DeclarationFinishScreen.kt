@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.Finish
-import org.heet.core.navigation.HeetScreens
+import org.heet.core.navigation.Graph
 import org.heet.ui.theme.Grey1600
 import org.heet.ui.theme.Red400
 import org.heet.ui.theme.Red600
@@ -29,7 +29,7 @@ fun DeclarationFinishScreen(navController: NavController) {
     ) {
         Spacer(modifier = Modifier.height(19.dp))
         Finish(modifier = Modifier.align(Alignment.End).padding(end = 19.dp)) {
-            navController.navigate(HeetScreens.HomeScreen.name)
+            navController.navigate(Graph.HOME)
         }
         Image(
             painter = painterResource(id = R.drawable.ic_big_black_check),

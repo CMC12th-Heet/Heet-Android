@@ -11,8 +11,9 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
-import org.heet.core.navigation.HeetNavigation
+import org.heet.core.navigation.RootNavigationGraph
 import org.heet.ui.theme.HeetTheme
 
 @AndroidEntryPoint
@@ -36,7 +37,7 @@ fun HeetApp() {
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                HeetNavigation()
+                RootNavigationGraph(navController = rememberNavController())
             }
         }
     }
