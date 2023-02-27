@@ -21,8 +21,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import org.heet.core.navigation.HomeNavGraph
 import org.heet.core.navigation.navscreen.BottomBarScreen
-import org.heet.ui.theme.Grey1700
-import org.heet.ui.theme.Red400
+import org.heet.ui.theme.Grey200
+import org.heet.ui.theme.Red200
 import org.heet.util.pretendardFamily
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -72,7 +72,7 @@ fun AddItem(
 ) {
     val selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true
     val background = Color.White
-    val contentColor = if (selected) Red400 else Grey1700
+    val contentColor = if (selected) Red200 else Grey200
 
     Box(
         modifier = Modifier

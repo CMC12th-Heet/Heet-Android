@@ -99,7 +99,7 @@ fun SignUpEmailScreen(
                             fontFamily = pretendardFamily,
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Normal,
-                            color = White800
+                            color = White500
                         )
                     }
                     SendCode(
@@ -116,7 +116,7 @@ fun SignUpEmailScreen(
                             .padding(top = 13.dp)
                             .fillMaxWidth()
                             .height(2.dp),
-                        color = Grey1000
+                        color = White400
                     )
                     Row(
                         modifier = Modifier
@@ -183,7 +183,7 @@ private fun SendCode(
                 fontFamily = pretendardFamily,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Normal,
-                color = Red500,
+                color = Red400,
                 modifier = Modifier.padding(end = 21.dp)
             )
             SmallRoundButton(

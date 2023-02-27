@@ -15,10 +15,10 @@ import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.BigRoundButton
 import org.heet.core.navigation.navscreen.AuthScreen
-import org.heet.ui.theme.Grey1300
-import org.heet.ui.theme.Red400
-import org.heet.ui.theme.White500
-import org.heet.ui.theme.White900
+import org.heet.ui.theme.Grey100
+import org.heet.ui.theme.Grey800
+import org.heet.ui.theme.Red200
+import org.heet.ui.theme.White300
 import org.heet.util.pretendardFamily
 
 @Composable
@@ -46,7 +46,7 @@ fun SignUpResidenceWelcomeScreen(navController: NavController) {
                 fontFamily = pretendardFamily,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Medium,
-                color = Red400
+                color = Red200
             )
             Spacer(modifier = Modifier.height(18.dp))
             StartButton() {
@@ -73,7 +73,7 @@ private fun Greeting() {
         fontFamily = pretendardFamily,
         fontSize = 24.sp,
         fontWeight = FontWeight.ExtraBold,
-        color = Red400
+        color = Red200
     )
 }
 
@@ -85,7 +85,7 @@ private fun GreetingUser() {
             fontFamily = pretendardFamily,
             fontSize = 15.sp,
             fontWeight = FontWeight.Normal,
-            color = White900
+            color = Grey100
         )
         Spacer(modifier = Modifier.width(14.dp))
         Text(
@@ -93,11 +93,11 @@ private fun GreetingUser() {
             fontFamily = pretendardFamily,
             fontSize = 15.sp,
             fontWeight = FontWeight.Medium,
-            color = Grey1300
+            color = Grey800
         )
     }
     Spacer(modifier = Modifier.width(2.dp))
-    Divider(color = White500, modifier = Modifier.width(159.dp))
+    Divider(color = White300, modifier = Modifier.width(159.dp))
 }
 
 @Composable
