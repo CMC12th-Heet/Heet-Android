@@ -7,6 +7,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -25,8 +26,16 @@ import org.heet.util.pretendardFamily
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SignUpIdScreen(navController: NavController) {
-    val signUpIdStateHolder = remember { SignUpIdStateHolder() }
     val keyboardController = LocalSoftwareKeyboardController.current
+    val id = remember {
+        mutableStateOf("")
+    }
+    val isDuplicate = remember {
+        mutableStateOf(true)
+    }
+    val requestCheckDuplicate = remember {
+        mutableStateOf(false)
+    }
 
     Box(
         modifier = Modifier
@@ -95,37 +104,39 @@ fun SignUpIdScreen(navController: NavController) {
                     color = Grey1200
                 )
                 Box(
-                    modifier = Modifier.fillMaxWidth().padding(
-                        top = 13.dp
-                    )
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(
+                            top = 13.dp
+                        )
                 ) {
                     RegularFlatInputField(
                         modifier = Modifier
                             .padding(end = 117.dp)
                             .align(Alignment.CenterStart),
-                        valueState = signUpIdStateHolder.id,
+                        valueState = id,
                         enabled = true,
                         isSingleLine = true,
                         keyboardType = KeyboardType.Text,
                         onAction = KeyboardActions {
-                            if (signUpIdStateHolder.id.value.trim().isEmpty()
+                            if (id.value.trim().isEmpty()
                             ) return@KeyboardActions
                             keyboardController?.hide()
                         },
-                        isDuplicate = signUpIdStateHolder.isDuplicate
+                        isDuplicate = isDuplicate
                     )
                     Row(
                         modifier = Modifier.align(Alignment.CenterEnd),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        if (signUpIdStateHolder.isDuplicate.value) {
+                        if (isDuplicate.value) {
                             RequestBtn(
-                                isCheck = signUpIdStateHolder.requestCheckDuplicate,
+                                isCheck = requestCheckDuplicate,
                                 text = "중복 확인"
                             ) {
-                                signUpIdStateHolder.requestCheckDuplicate.value = true
-                                signUpIdStateHolder.isDuplicate.value =
-                                    !signUpIdStateHolder.isDuplicate.value
+                                requestCheckDuplicate.value = true
+                                isDuplicate.value =
+                                    !isDuplicate.value
                             }
                         } else {
                             Spacer(modifier = Modifier.height(38.dp))
@@ -135,13 +146,16 @@ fun SignUpIdScreen(navController: NavController) {
             }
 
             Divider(
-                Modifier.fillMaxWidth().padding(
-                    top = 10.dp,
-                    bottom = 15.dp
-                ).height(3.dp),
+                Modifier
+                    .fillMaxWidth()
+                    .padding(
+                        top = 10.dp,
+                        bottom = 15.dp
+                    )
+                    .height(3.dp),
                 color = Grey300
             )
-            if (signUpIdStateHolder.isDuplicate.value) {
+            if (isDuplicate.value) {
                 Text(
                     text = "*이미 사용 중인 아이디입니다.",
                     fontFamily = pretendardFamily,
@@ -179,7 +193,9 @@ fun SignUpIdScreen(navController: NavController) {
         BigRoundButton(
             onClick = { navController.navigate(SignUpScreen.SignUpWelcome.route) },
             text = "회원 가입",
-            modifier = Modifier.padding(bottom = 8.dp).align(Alignment.BottomCenter)
+            modifier = Modifier
+                .padding(bottom = 8.dp)
+                .align(Alignment.BottomCenter)
         )
     }
 }

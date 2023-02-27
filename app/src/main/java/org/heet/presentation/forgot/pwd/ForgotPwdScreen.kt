@@ -25,8 +25,37 @@ import org.heet.util.pretendardFamily
 fun ForgotPwdScreen(
     navController: NavController
 ) {
-    val resetPwdHolder = remember { ForgotPwdStateHolder() }
     val keyboardController = LocalSoftwareKeyboardController.current
+    val pwd = remember {
+        mutableStateOf("")
+    }
+    val secondPwd = remember {
+        mutableStateOf("")
+    }
+    val isNumber = remember {
+        mutableStateOf(false)
+    }
+    val isAlphabet = remember {
+        mutableStateOf(false)
+    }
+    val isSpecialChar = remember {
+        mutableStateOf(false)
+    }
+    val isValidateLength = remember {
+        mutableStateOf(false)
+    }
+    val isValidatePwd = remember {
+        mutableStateOf(false)
+    }
+    val checkPwd = remember {
+        mutableStateOf(false)
+    }
+    val isHide = remember {
+        mutableStateOf(true)
+    }
+    val isSame = remember {
+        mutableStateOf(false)
+    }
 
     Box(
         modifier = Modifier
@@ -42,7 +71,7 @@ fun ForgotPwdScreen(
             ) {
                 Back { navController.popBackStack() }
                 Title("비밀번호 재설정")
-                if (resetPwdHolder.isSame.value) {
+                if (isSame.value) {
                     Finish(
                         move = {
                             navController.navigate(AuthScreen.Login.route) {
@@ -62,22 +91,22 @@ fun ForgotPwdScreen(
                         .padding(top = 13.dp)
                 ) {
                     PwdField(
-                        pwd = resetPwdHolder.pwd,
-                        pwdValidState = resetPwdHolder.pwd.value.trim().isNotEmpty(),
-                        isHide = resetPwdHolder.isHide,
+                        pwd = pwd,
+                        pwdValidState = pwd.value.trim().isNotEmpty(),
+                        isHide = isHide,
                         keyboardController = keyboardController,
-                        isNumber = resetPwdHolder.isNumber,
-                        isAlphabet = resetPwdHolder.isAlphabet,
-                        isSpecialChar = resetPwdHolder.isSpecialChar,
-                        isValidateLength = resetPwdHolder.isValidateLength,
-                        isValidatePwd = resetPwdHolder.isValidatePwd,
-                        checkPwd = resetPwdHolder.checkPwd
+                        isNumber = isNumber,
+                        isAlphabet = isAlphabet,
+                        isSpecialChar = isSpecialChar,
+                        isValidateLength = isValidateLength,
+                        isValidatePwd = isValidatePwd,
+                        checkPwd = checkPwd
                     )
                     Hide(
-                        isHide = resetPwdHolder.isHide.value,
+                        isHide = isHide.value,
                         modifier = Modifier.align(Alignment.CenterEnd)
                     ) {
-                        resetPwdHolder.isHide.value = !resetPwdHolder.isHide.value
+                        isHide.value = !isHide.value
                     }
                 }
                 Divider(
@@ -87,27 +116,25 @@ fun ForgotPwdScreen(
                         .height(3.dp),
                     color = Grey1000
                 )
-                if (!resetPwdHolder.checkPwd.value) {
-                    if (resetPwdHolder.pwd.value.isNotEmpty()) {
+                if (!checkPwd.value) {
+                    if (pwd.value.isNotEmpty()) {
                         Column(modifier = Modifier.padding(12.dp)) {
-                            with(resetPwdHolder) {
-                                ValidateText("숫자", isNumber.value)
-                                ValidateText("영문", isAlphabet.value)
-                                ValidateText("특수문자", isSpecialChar.value)
-                                ValidateText("8자 이상", isValidateLength.value)
-                            }
+                            ValidateText("숫자", isNumber.value)
+                            ValidateText("영문", isAlphabet.value)
+                            ValidateText("특수문자", isSpecialChar.value)
+                            ValidateText("8자 이상", isValidateLength.value)
                         }
                     }
                 } else {
                     Column(modifier = Modifier.padding(top = 18.dp)) {
                         PretendardDescription("비밀번호 재확인*")
                         SecondPwdField(
-                            pwd = resetPwdHolder.pwd,
-                            secondPwd = resetPwdHolder.secondPwd,
-                            secondPwdValidState = resetPwdHolder.secondPwd.value.trim()
+                            pwd = pwd,
+                            secondPwd = secondPwd,
+                            secondPwdValidState = secondPwd.value.trim()
                                 .isNotEmpty(),
-                            isHide = resetPwdHolder.isHide,
-                            isSame = resetPwdHolder.isSame,
+                            isHide = isHide,
+                            isSame = isSame,
                             keyboardController = keyboardController
                         )
                         Divider(
@@ -117,7 +144,7 @@ fun ForgotPwdScreen(
                                 .height(3.dp),
                             color = Grey1000
                         )
-                        if (resetPwdHolder.isSame.value) {
+                        if (isSame.value) {
                             Row(modifier = Modifier.padding(top = 15.dp, start = 12.dp)) {
                                 Image(
                                     painter = painterResource(id = R.drawable.ic_black_check),

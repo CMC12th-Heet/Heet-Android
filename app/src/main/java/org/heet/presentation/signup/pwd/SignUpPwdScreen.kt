@@ -23,8 +23,37 @@ import org.heet.util.pretendardFamily
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun SignUpPwd(navController: NavController) {
-    val signUpPwdStateHolder = remember { SignUpPwdStateHolder() }
     val keyboardController = LocalSoftwareKeyboardController.current
+    val pwd = remember {
+        mutableStateOf("")
+    }
+    val secondPwd = remember {
+        mutableStateOf("")
+    }
+    val isNumber = remember {
+        mutableStateOf(false)
+    }
+    val isAlphabet = remember {
+        mutableStateOf(false)
+    }
+    val isSpecialChar = remember {
+        mutableStateOf(false)
+    }
+    val isValidateLength = remember {
+        mutableStateOf(false)
+    }
+    val isValidatePwd = remember {
+        mutableStateOf(false)
+    }
+    val checkPwd = remember {
+        mutableStateOf(false)
+    }
+    val isHide = remember {
+        mutableStateOf(true)
+    }
+    val isSame = remember {
+        mutableStateOf(false)
+    }
 
     Box(
         modifier = Modifier
@@ -40,7 +69,7 @@ fun SignUpPwd(navController: NavController) {
             ) {
                 Back { navController.popBackStack() }
                 Title("회원 가입")
-                if (signUpPwdStateHolder.isSame.value) {
+                if (isSame.value) {
                     Next { navController.navigate(SignUpScreen.SignUpId.route) }
                 } else {
                     EmptyText()
@@ -81,22 +110,22 @@ fun SignUpPwd(navController: NavController) {
                         .padding(top = 18.dp)
                 ) {
                     PwdField(
-                        pwd = signUpPwdStateHolder.pwd,
-                        pwdValidState = signUpPwdStateHolder.pwd.value.trim().isNotEmpty(),
-                        isHide = signUpPwdStateHolder.isHide,
+                        pwd = pwd,
+                        pwdValidState = pwd.value.trim().isNotEmpty(),
+                        isHide = isHide,
                         keyboardController = keyboardController,
-                        isNumber = signUpPwdStateHolder.isNumber,
-                        isAlphabet = signUpPwdStateHolder.isAlphabet,
-                        isSpecialChar = signUpPwdStateHolder.isSpecialChar,
-                        isValidateLength = signUpPwdStateHolder.isValidateLength,
-                        isValidatePwd = signUpPwdStateHolder.isValidatePwd,
-                        checkPwd = signUpPwdStateHolder.checkPwd
+                        isNumber = isNumber,
+                        isAlphabet = isAlphabet,
+                        isSpecialChar = isSpecialChar,
+                        isValidateLength = isValidateLength,
+                        isValidatePwd = isValidatePwd,
+                        checkPwd = checkPwd
                     )
                     Hide(
-                        isHide = signUpPwdStateHolder.isHide.value,
+                        isHide = isHide.value,
                         modifier = Modifier.align(Alignment.CenterEnd)
                     ) {
-                        signUpPwdStateHolder.isHide.value = !signUpPwdStateHolder.isHide.value
+                        isHide.value = !isHide.value
                     }
                 }
                 Divider(
@@ -107,12 +136,12 @@ fun SignUpPwd(navController: NavController) {
                     color = Grey1000
                 )
             }
-            if (!signUpPwdStateHolder.checkPwd.value) {
+            if (!checkPwd.value) {
                 Column(modifier = Modifier.padding(12.dp)) {
-                    ValidateText("숫자", signUpPwdStateHolder.isNumber.value)
-                    ValidateText("영문", signUpPwdStateHolder.isAlphabet.value)
-                    ValidateText("특수문자", signUpPwdStateHolder.isSpecialChar.value)
-                    ValidateText("8자 이상", signUpPwdStateHolder.isValidateLength.value)
+                    ValidateText("숫자", isNumber.value)
+                    ValidateText("영문", isAlphabet.value)
+                    ValidateText("특수문자", isSpecialChar.value)
+                    ValidateText("8자 이상", isValidateLength.value)
                 }
             }
 
@@ -125,12 +154,12 @@ fun SignUpPwd(navController: NavController) {
                     color = Grey1200
                 )
                 SecondPwdField(
-                    pwd = signUpPwdStateHolder.pwd,
-                    secondPwd = signUpPwdStateHolder.secondPwd,
-                    secondPwdValidState = signUpPwdStateHolder.secondPwd.value.trim()
+                    pwd = pwd,
+                    secondPwd = secondPwd,
+                    secondPwdValidState = secondPwd.value.trim()
                         .isNotEmpty(),
-                    isHide = signUpPwdStateHolder.isHide,
-                    isSame = signUpPwdStateHolder.isSame,
+                    isHide = isHide,
+                    isSame = isSame,
                     keyboardController = keyboardController
                 )
                 Divider(
@@ -140,7 +169,7 @@ fun SignUpPwd(navController: NavController) {
                         .height(3.dp),
                     color = Grey1000
                 )
-                if (signUpPwdStateHolder.isSame.value) {
+                if (isSame.value) {
                     Row(modifier = Modifier.padding(top = 15.dp, start = 12.dp)) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_black_check),
