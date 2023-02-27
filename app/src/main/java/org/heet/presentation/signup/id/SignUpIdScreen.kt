@@ -61,14 +61,14 @@ fun SignUpIdScreen(navController: NavController) {
             ) {
                 Text(
                     text = "이메일",
-                    color = Grey500,
+                    color = Grey400,
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Normal,
                     fontFamily = pretendardFamily
                 )
                 Text(
                     text = "jenny0810@naver.com",
-                    color = White500,
+                    color = White300,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Normal,
                     fontFamily = pretendardFamily
@@ -82,14 +82,14 @@ fun SignUpIdScreen(navController: NavController) {
             ) {
                 Text(
                     text = "비밀번호",
-                    color = Grey500,
+                    color = Grey400,
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Normal,
                     fontFamily = pretendardFamily
                 )
                 Text(
                     text = "********",
-                    color = White500,
+                    color = White300,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Normal,
                     fontFamily = pretendardFamily
@@ -101,7 +101,7 @@ fun SignUpIdScreen(navController: NavController) {
                     fontFamily = pretendardFamily,
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Normal,
-                    color = Grey1200
+                    color = Black200
                 )
                 Box(
                     modifier = Modifier
@@ -153,7 +153,7 @@ fun SignUpIdScreen(navController: NavController) {
                         bottom = 15.dp
                     )
                     .height(3.dp),
-                color = Grey300
+                color = White700
             )
             if (isDuplicate.value) {
                 Text(
@@ -161,7 +161,7 @@ fun SignUpIdScreen(navController: NavController) {
                     fontFamily = pretendardFamily,
                     fontSize = 10.sp,
                     fontWeight = FontWeight.ExtraBold,
-                    color = Red400
+                    color = Red200
                 )
             } else {
                 Row {

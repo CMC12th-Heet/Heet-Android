@@ -18,10 +18,10 @@ import org.heet.R
 import org.heet.components.*
 import org.heet.core.navigation.navscreen.SignUpScreen
 import org.heet.data.datasource.LocalDeclarationDataSource
-import org.heet.ui.theme.Grey1400
-import org.heet.ui.theme.Grey1500
-import org.heet.ui.theme.Grey800
-import org.heet.ui.theme.Red400
+import org.heet.ui.theme.Black100
+import org.heet.ui.theme.Grey500
+import org.heet.ui.theme.Red200
+import org.heet.ui.theme.White600
 import org.heet.util.pretendardFamily
 
 @Composable
@@ -56,7 +56,7 @@ fun DeclarationScreen(navController: NavController) {
             Text(
                 text = "이 게시물에 대한 신고 이유를 선택해주세요.",
                 modifier = Modifier.padding(start = 10.dp, top = 56.5.dp),
-                color = Grey1400,
+                color = Black100,
                 fontSize = 16.sp,
                 fontWeight = FontWeight.SemiBold,
                 fontFamily = pretendardFamily
@@ -66,7 +66,7 @@ fun DeclarationScreen(navController: NavController) {
                     .padding(top = 8.5.dp)
                     .fillMaxWidth()
                     .height(2.dp),
-                color = Grey1500
+                color = White600
             )
             LazyColumn(
                 modifier = Modifier.padding(top = 22.dp, start = 10.dp, end = 7.dp)
@@ -87,9 +87,9 @@ fun DeclarationScreen(navController: NavController) {
                                 }
                             },
                             color = if (declarationList[index].isSelected) {
-                                Red400
+                                Red200
                             } else {
-                                Grey800
+                                Grey500
                             }
                         )
 

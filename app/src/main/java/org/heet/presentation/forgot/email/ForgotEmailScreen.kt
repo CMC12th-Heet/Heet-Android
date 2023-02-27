@@ -97,7 +97,7 @@ fun ForgotEmailScreen(
                         .padding(top = 13.dp)
                         .fillMaxWidth()
                         .height(3.dp),
-                    color = Grey1000
+                    color = White400
                 )
                 if (requestEmail.value) {
                     Column(
@@ -128,7 +128,7 @@ fun ForgotEmailScreen(
                                 Text(
                                     text = verificationTimer.collectAsState().value,
                                     modifier = Modifier.padding(end = 21.dp),
-                                    color = Red500,
+                                    color = Red400,
                                     fontSize = 14.sp,
                                     fontWeight = FontWeight.Normal,
                                     fontFamily = pretendardFamily
@@ -146,7 +146,7 @@ fun ForgotEmailScreen(
                                 .padding(top = 10.dp)
                                 .fillMaxWidth()
                                 .height(2.dp),
-                            color = Grey1100
+                            color = White200
                         )
                     }
                     Row(

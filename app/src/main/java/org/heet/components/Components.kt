@@ -49,7 +49,7 @@ fun RoundInputField(
         modifier = modifier,
         enabled = enabled,
         textStyle = TextStyle.Default.copy(
-            color = Grey300,
+            color = White700,
             fontSize = 15.sp,
             fontFamily = pretendardFamily,
             fontWeight = FontWeight.Normal
@@ -61,7 +61,7 @@ fun RoundInputField(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(shape = RoundedCornerShape(23.dp), color = Grey100)
+                    .background(shape = RoundedCornerShape(23.dp), color = White100)
                     .padding(horizontal = 20.dp, vertical = 14.dp)
             ) {
                 if (valueState.value.isEmpty()) {
@@ -70,7 +70,7 @@ fun RoundInputField(
                         fontFamily = pretendardFamily,
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Normal,
-                        color = Grey300
+                        color = White700
                     )
                 }
                 innerTextField()
@@ -91,7 +91,7 @@ fun BigRoundButton(
             .fillMaxWidth()
             .height(52.dp),
         shape = RoundedCornerShape(28.dp),
-        colors = ButtonDefaults.buttonColors(Red400)
+        colors = ButtonDefaults.buttonColors(Red200)
     ) {
         Text(
             text = text,
@@ -115,9 +115,9 @@ fun SmallRoundButton(
             .height(38.dp),
         onClick = onClick,
         shape = RoundedCornerShape(22.dp),
-        border = BorderStroke(1.dp, Red200),
+        border = BorderStroke(1.dp, Red300),
         colors = if (isCheck.value) {
-            ButtonDefaults.buttonColors(Red400)
+            ButtonDefaults.buttonColors(Red200)
         } else {
             ButtonDefaults.buttonColors(Color.White)
         }
@@ -130,7 +130,7 @@ fun SmallRoundButton(
             color = if (isCheck.value) {
                 Color.White
             } else {
-                Red400
+                Red200
             }
         )
     }
@@ -156,7 +156,7 @@ fun FlatInputField(
         visualTransformation = if (isPassword) PasswordVisualTransformation()
         else VisualTransformation.None,
         textStyle = TextStyle.Default.copy(
-            color = Grey900,
+            color = Grey300,
             fontSize = 16.sp,
             fontWeight = FontWeight.SemiBold
         ),
@@ -168,7 +168,7 @@ fun FlatInputField(
                         fontFamily = pretendardFamily,
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Normal,
-                        color = Grey300
+                        color = White700
                     )
                 }
                 innerTextField()
@@ -196,7 +196,7 @@ fun GreyValidateText(text: String, isValidate: Boolean = true) {
             fontFamily = pretendardFamily,
             fontSize = 13.sp,
             fontWeight = FontWeight.Normal,
-            color = Grey200
+            color = White800
         )
     }
 }
@@ -239,7 +239,7 @@ fun Terms(text: String, isChecked: Boolean = false) {
                 fontFamily = pretendardFamily,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Normal,
-                color = White900
+                color = Grey100
             )
         }
         Text(
@@ -251,7 +251,7 @@ fun Terms(text: String, isChecked: Boolean = false) {
             fontFamily = pretendardFamily,
             fontSize = 12.sp,
             fontWeight = FontWeight.Normal,
-            color = White900,
+            color = Grey100,
             textDecoration = TextDecoration.Underline
         )
     }
@@ -298,7 +298,7 @@ fun Next(
             timer()
             move()
         },
-        color = Red400,
+        color = Red200,
         fontSize = 17.sp,
         fontWeight = FontWeight.Black
     )
@@ -314,7 +314,7 @@ fun Finish(
         modifier = modifier.clickable {
             move()
         },
-        color = Red400,
+        color = Red200,
         fontSize = 17.sp,
         fontWeight = FontWeight.Black
     )
@@ -328,7 +328,7 @@ fun PretendardDescription(text: String, modifier: Modifier = Modifier) {
         fontFamily = pretendardFamily,
         fontSize = 17.sp,
         fontWeight = FontWeight.Normal,
-        color = Grey400
+        color = White900
     )
 }
 
@@ -337,7 +337,7 @@ fun Description(text: String, modifier: Modifier = Modifier) {
     Text(
         text = text,
         modifier = modifier,
-        color = Grey300,
+        color = White700,
         fontSize = 12.sp,
         fontWeight = FontWeight.Normal
     )
@@ -491,7 +491,7 @@ fun ValidateText(text: String, isValidate: Boolean) {
             fontFamily = pretendardFamily,
             fontSize = 13.sp,
             fontWeight = FontWeight.Normal,
-            color = Grey200
+            color = White800
         )
     }
 }
@@ -503,9 +503,9 @@ fun RequestBtn(isCheck: MutableState<Boolean>, text: String, onClick: () -> Unit
         modifier = Modifier
             .height(38.dp),
         shape = RoundedCornerShape(22.dp),
-        border = BorderStroke(1.dp, Red200),
+        border = BorderStroke(1.dp, Red300),
         colors = if (isCheck.value) {
-            ButtonDefaults.buttonColors(Red400)
+            ButtonDefaults.buttonColors(Red200)
         } else {
             ButtonDefaults.buttonColors(Color.White)
         }
@@ -515,7 +515,7 @@ fun RequestBtn(isCheck: MutableState<Boolean>, text: String, onClick: () -> Unit
             color = if (isCheck.value) {
                 Color.White
             } else {
-                Red400
+                Red200
             },
             fontSize = 17.sp,
             fontWeight = FontWeight.Normal,
@@ -548,7 +548,7 @@ fun RegularFlatInputField(
         visualTransformation = if (isPassword) PasswordVisualTransformation()
         else VisualTransformation.None,
         textStyle = TextStyle.Default.copy(
-            color = White500,
+            color = White300,
             fontSize = 15.sp,
             fontWeight = FontWeight.Normal
         ),
@@ -560,7 +560,7 @@ fun RegularFlatInputField(
                         fontFamily = pretendardFamily,
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Normal,
-                        color = Grey300
+                        color = White700
                     )
                 }
                 innerTextField()
