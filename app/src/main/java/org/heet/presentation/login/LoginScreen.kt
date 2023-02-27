@@ -30,8 +30,16 @@ import org.heet.util.pretendardFamily
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun LoginScreen(navController: NavController) {
-    val loginStateHolder = remember { LoginStateHolder() }
     val keyboardController = LocalSoftwareKeyboardController.current
+    val idOrEmail = remember {
+        mutableStateOf("")
+    }
+    val pwd = remember {
+        mutableStateOf("")
+    }
+    val isRegistered = remember {
+        mutableStateOf(true)
+    }
 
     Column(
         modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp),
@@ -41,8 +49,8 @@ fun LoginScreen(navController: NavController) {
         Column(
             modifier = Modifier.padding(top = 113.dp)
         ) {
-            LoginField(loginStateHolder.idOrEmail, "아이디 또는 이메일 입력", keyboardController)
-            if (!loginStateHolder.isRegistered.value) {
+            LoginField(idOrEmail, "아이디 또는 이메일 입력", keyboardController)
+            if (!isRegistered.value) {
                 RegisterInfo(
                     "*가입되지 않은 이메일입니다.",
                     Modifier.padding(top = 6.dp, start = 19.dp, bottom = 14.dp)
@@ -50,8 +58,8 @@ fun LoginScreen(navController: NavController) {
             } else {
                 EmptyText(Modifier.padding(top = 20.dp))
             }
-            LoginField(loginStateHolder.pwd, "비밀번호 입력", keyboardController)
-            if (!loginStateHolder.isRegistered.value) {
+            LoginField(pwd, "비밀번호 입력", keyboardController)
+            if (!isRegistered.value) {
                 RegisterInfo(
                     text = "*가입되지 않은 비밀번호입니다.",
                     modifier = Modifier.padding(top = 6.dp, start = 19.dp, bottom = 34.dp)

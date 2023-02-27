@@ -31,8 +31,19 @@ fun SignUpEmailScreen(
     navController: NavController,
     signUpEmailViewModel: SignUpEmailViewModel = hiltViewModel()
 ) {
-    val signUpEmailStateHolder = remember { SignUpEmailStateHolder() }
     val keyboardController = LocalSoftwareKeyboardController.current
+    val email = remember {
+        mutableStateOf("")
+    }
+    val code = remember {
+        mutableStateOf("")
+    }
+    val requestCode = remember {
+        mutableStateOf(false)
+    }
+    val sendEmail = remember {
+        mutableStateOf(false)
+    }
     val verificationTimer = remember {
         signUpEmailViewModel.timer
     }
@@ -50,7 +61,7 @@ fun SignUpEmailScreen(
             ) {
                 Back { navController.popBackStack() }
                 Title("회원가입")
-                if (signUpEmailStateHolder.requestCode.value) {
+                if (requestCode.value) {
                     Next(
                         timer = { signUpEmailViewModel.timerReset() },
                         move = { navController.navigate(SignUpScreen.SignUpPwd.route) }
@@ -61,21 +72,21 @@ fun SignUpEmailScreen(
             }
             Spacer(modifier = Modifier.height(137.dp))
             EmailField(
-                email = signUpEmailStateHolder.email,
+                email = email,
                 placeholder = "이메일 입력",
                 keyboardController = keyboardController
             )
             BigRoundButton(
                 onClick = {
-                    if (signUpEmailStateHolder.email.value.trim().isNotEmpty()) {
-                        signUpEmailStateHolder.sendEmail.value = true
+                    if (email.value.trim().isNotEmpty()) {
+                        sendEmail.value = true
                     }
                 },
                 text = "이메일 인증하기",
                 modifier = Modifier.padding(top = 15.dp)
             )
             Spacer(modifier = Modifier.height(15.dp))
-            if (signUpEmailStateHolder.sendEmail.value) {
+            if (sendEmail.value) {
                 Column {
                     Row(modifier = Modifier.padding(start = 6.dp)) {
                         Image(
@@ -92,12 +103,12 @@ fun SignUpEmailScreen(
                         )
                     }
                     SendCode(
-                        verificationCode = signUpEmailStateHolder.code,
+                        verificationCode = code,
                         verificationTimer = verificationTimer,
-                        verificationCodeValidState = signUpEmailStateHolder.code.value.trim()
+                        verificationCodeValidState = code.value.trim()
                             .isNotEmpty(),
                         signUpEmailViewModel = signUpEmailViewModel,
-                        requestCode = signUpEmailStateHolder.requestCode,
+                        requestCode = requestCode,
                         keyboardController = keyboardController
                     )
                     Divider(
@@ -118,7 +129,7 @@ fun SignUpEmailScreen(
                         Column(
                             modifier = Modifier.width(IntrinsicSize.Max).padding(end = 8.5.dp)
                         ) {
-                            ReSendBtn(signUpEmailStateHolder.requestCode) { signUpEmailViewModel.timerStart() }
+                            ReSendBtn(requestCode) { signUpEmailViewModel.timerStart() }
                             Divider(
                                 Modifier
                                     .padding(top = 2.dp)

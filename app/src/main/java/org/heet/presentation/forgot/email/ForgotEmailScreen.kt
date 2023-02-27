@@ -17,7 +17,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.heet.components.*
 import org.heet.core.navigation.navscreen.ForgotScreen
-import org.heet.presentation.forgot.email.ForgotEmailHolder
 import org.heet.presentation.forgot.email.ForgotEmailViewModel
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
@@ -29,9 +28,19 @@ fun ForgotEmailScreen(
     navController: NavController,
     forgotEmailViewModel: ForgotEmailViewModel = hiltViewModel()
 ) {
-    val findPwdHolder = remember { ForgotEmailHolder() }
     val keyboardController = LocalSoftwareKeyboardController.current
-
+    val email = remember {
+        mutableStateOf("")
+    }
+    val code = remember {
+        mutableStateOf("")
+    }
+    val requestEmail = remember {
+        mutableStateOf(false)
+    }
+    val requestCode = remember {
+        mutableStateOf(false)
+    }
     val verificationTimer = remember {
         forgotEmailViewModel.timer
     }
@@ -50,7 +59,7 @@ fun ForgotEmailScreen(
             ) {
                 Back { navController.popBackStack() }
                 Title("비밀번호 찾기")
-                if (findPwdHolder.requestCode.value) {
+                if (requestCode.value) {
                     Next(
                         timer = { forgotEmailViewModel.timerReset() },
                         move = { navController.navigate(ForgotScreen.ForgotPwd.route) }
@@ -70,17 +79,17 @@ fun ForgotEmailScreen(
                 ) {
                     FlatInputField(
                         modifier = Modifier.width(203.dp),
-                        valueState = findPwdHolder.email,
+                        valueState = email,
                         enabled = true,
                         isSingleLine = true,
                         keyboardType = KeyboardType.Email,
                         onAction = KeyboardActions {
-                            if (findPwdHolder.email.value.trim().isEmpty()) return@KeyboardActions
+                            if (email.value.trim().isEmpty()) return@KeyboardActions
                             keyboardController?.hide()
                         }
                     )
-                    RequestBtn(findPwdHolder.requestEmail, "인증 요청") {
-                        findPwdHolder.requestEmail.value = true
+                    RequestBtn(requestEmail, "인증 요청") {
+                        requestEmail.value = true
                     }
                 }
                 Divider(
@@ -90,7 +99,7 @@ fun ForgotEmailScreen(
                         .height(3.dp),
                     color = Grey1000
                 )
-                if (findPwdHolder.requestEmail.value) {
+                if (requestEmail.value) {
                     Column(
                         modifier = Modifier
                             .padding(top = 36.dp)
@@ -100,13 +109,13 @@ fun ForgotEmailScreen(
                                 modifier = Modifier
                                     .padding(end = 182.dp)
                                     .align(Alignment.CenterStart),
-                                valueState = findPwdHolder.code,
+                                valueState = code,
                                 placeholder = "인증코드 입력",
                                 enabled = true,
                                 isSingleLine = true,
                                 keyboardType = KeyboardType.Email,
                                 onAction = KeyboardActions {
-                                    if (findPwdHolder.code.value.trim()
+                                    if (code.value.trim()
                                         .isEmpty()
                                     ) return@KeyboardActions
                                     keyboardController?.hide()
@@ -124,11 +133,11 @@ fun ForgotEmailScreen(
                                     fontWeight = FontWeight.Normal,
                                     fontFamily = pretendardFamily
                                 )
-                                RequestBtn(isCheck = findPwdHolder.requestCode, "인증 요청") {
-                                    if (!findPwdHolder.requestCode.value) {
+                                RequestBtn(isCheck = requestCode, "인증 요청") {
+                                    if (!requestCode.value) {
                                         forgotEmailViewModel.timerStart()
                                     }
-                                    findPwdHolder.requestCode.value = true
+                                    requestCode.value = true
                                 }
                             }
                         }
@@ -151,7 +160,7 @@ fun ForgotEmailScreen(
                         Column(
                             modifier = Modifier.width(IntrinsicSize.Max).padding(end = 8.5.dp)
                         ) {
-                            ReSendBtn(findPwdHolder.requestCode) { forgotEmailViewModel.timerStart() }
+                            ReSendBtn(requestCode) { forgotEmailViewModel.timerStart() }
                             Divider(
                                 Modifier
                                     .padding(top = 2.dp)

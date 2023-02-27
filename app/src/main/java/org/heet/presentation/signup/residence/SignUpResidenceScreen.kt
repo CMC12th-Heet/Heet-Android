@@ -32,7 +32,18 @@ import org.heet.util.pretendardFamily
 
 @Composable
 fun SignUpResidenceScreen(navController: NavController) {
-    val signUpResidenceStateHolder = remember { SignUpResidenceStateHolder() }
+    val cityName = remember {
+        mutableStateOf("")
+    }
+    val wardName = remember {
+        mutableStateOf("")
+    }
+    val checkCity = remember {
+        mutableStateOf(false)
+    }
+    val checkWard = remember {
+        mutableStateOf(false)
+    }
 
     Box(
         modifier = Modifier
@@ -51,11 +62,11 @@ fun SignUpResidenceScreen(navController: NavController) {
                 EmptyText()
             }
             Row(modifier = Modifier.padding(start = 8.dp, top = 36.dp)) {
-                if (signUpResidenceStateHolder.checkCity.value) {
-                    ResidenceChip(signUpResidenceStateHolder.city)
+                if (checkCity.value) {
+                    ResidenceChip(cityName)
                     Spacer(modifier = Modifier.width(9.dp))
-                    if (signUpResidenceStateHolder.checkWard.value) {
-                        ResidenceChip(signUpResidenceStateHolder.ward)
+                    if (checkWard.value) {
+                        ResidenceChip(wardName)
                     }
                 }
             }
@@ -77,7 +88,14 @@ fun SignUpResidenceScreen(navController: NavController) {
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        CityItem(city, image, expanded, signUpResidenceStateHolder.checkWard, signUpResidenceStateHolder.checkCity, signUpResidenceStateHolder.city)
+                        CityItem(
+                            city,
+                            image,
+                            expanded,
+                            checkWard,
+                            checkCity,
+                            cityName
+                        )
                     }
                     if (expanded.value) {
                         Spacer(modifier = Modifier.height(18.dp))
@@ -89,7 +107,11 @@ fun SignUpResidenceScreen(navController: NavController) {
                                     "종로구", "용산구", "종로구", "용산구", "종로구", "용산구"
                                 )
                             ) { ward ->
-                                WardItem(ward, signUpResidenceStateHolder.checkWard, signUpResidenceStateHolder.ward)
+                                WardItem(
+                                    ward,
+                                    checkWard,
+                                    wardName
+                                )
                             }
                         }
                         Divider(modifier = Modifier.height(0.5.dp).shadow(2.dp))
