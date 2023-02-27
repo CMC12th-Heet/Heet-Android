@@ -1,4 +1,4 @@
-package org.heet.presentation.join.pwd
+package org.heet.presentation.signup.pwd
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -16,14 +16,14 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.*
-import org.heet.core.navigation.HeetScreens
+import org.heet.core.navigation.navscreen.SignUpScreen
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun JoinEmailPwdScreen(navController: NavController) {
-    val joinEmailPwdStateHolder = remember { JoinEmailPwdStateHolder() }
+fun SignUpPwd(navController: NavController) {
+    val signUpPwdStateHolder = remember { SignUpPwdStateHolder() }
     val keyboardController = LocalSoftwareKeyboardController.current
 
     Box(
@@ -40,8 +40,8 @@ fun JoinEmailPwdScreen(navController: NavController) {
             ) {
                 Back { navController.popBackStack() }
                 Title("회원 가입")
-                if (joinEmailPwdStateHolder.isSame.value) {
-                    Next { navController.navigate(HeetScreens.JoinIdScreen.name) }
+                if (signUpPwdStateHolder.isSame.value) {
+                    Next { navController.navigate(SignUpScreen.SignUpId.route) }
                 } else {
                     EmptyText()
                 }
@@ -81,22 +81,22 @@ fun JoinEmailPwdScreen(navController: NavController) {
                         .padding(top = 18.dp)
                 ) {
                     PwdField(
-                        pwd = joinEmailPwdStateHolder.pwd,
-                        pwdValidState = joinEmailPwdStateHolder.pwd.value.trim().isNotEmpty(),
-                        isHide = joinEmailPwdStateHolder.isHide,
+                        pwd = signUpPwdStateHolder.pwd,
+                        pwdValidState = signUpPwdStateHolder.pwd.value.trim().isNotEmpty(),
+                        isHide = signUpPwdStateHolder.isHide,
                         keyboardController = keyboardController,
-                        isNumber = joinEmailPwdStateHolder.isNumber,
-                        isAlphabet = joinEmailPwdStateHolder.isAlphabet,
-                        isSpecialChar = joinEmailPwdStateHolder.isSpecialChar,
-                        isValidateLength = joinEmailPwdStateHolder.isValidateLength,
-                        isValidatePwd = joinEmailPwdStateHolder.isValidatePwd,
-                        checkPwd = joinEmailPwdStateHolder.checkPwd
+                        isNumber = signUpPwdStateHolder.isNumber,
+                        isAlphabet = signUpPwdStateHolder.isAlphabet,
+                        isSpecialChar = signUpPwdStateHolder.isSpecialChar,
+                        isValidateLength = signUpPwdStateHolder.isValidateLength,
+                        isValidatePwd = signUpPwdStateHolder.isValidatePwd,
+                        checkPwd = signUpPwdStateHolder.checkPwd
                     )
                     Hide(
-                        isHide = joinEmailPwdStateHolder.isHide.value,
+                        isHide = signUpPwdStateHolder.isHide.value,
                         modifier = Modifier.align(Alignment.CenterEnd)
                     ) {
-                        joinEmailPwdStateHolder.isHide.value = !joinEmailPwdStateHolder.isHide.value
+                        signUpPwdStateHolder.isHide.value = !signUpPwdStateHolder.isHide.value
                     }
                 }
                 Divider(
@@ -107,12 +107,12 @@ fun JoinEmailPwdScreen(navController: NavController) {
                     color = Grey1000
                 )
             }
-            if (!joinEmailPwdStateHolder.checkPwd.value) {
+            if (!signUpPwdStateHolder.checkPwd.value) {
                 Column(modifier = Modifier.padding(12.dp)) {
-                    ValidateText("숫자", joinEmailPwdStateHolder.isNumber.value)
-                    ValidateText("영문", joinEmailPwdStateHolder.isAlphabet.value)
-                    ValidateText("특수문자", joinEmailPwdStateHolder.isSpecialChar.value)
-                    ValidateText("8자 이상", joinEmailPwdStateHolder.isValidateLength.value)
+                    ValidateText("숫자", signUpPwdStateHolder.isNumber.value)
+                    ValidateText("영문", signUpPwdStateHolder.isAlphabet.value)
+                    ValidateText("특수문자", signUpPwdStateHolder.isSpecialChar.value)
+                    ValidateText("8자 이상", signUpPwdStateHolder.isValidateLength.value)
                 }
             }
 
@@ -125,12 +125,12 @@ fun JoinEmailPwdScreen(navController: NavController) {
                     color = Grey1200
                 )
                 SecondPwdField(
-                    pwd = joinEmailPwdStateHolder.pwd,
-                    secondPwd = joinEmailPwdStateHolder.secondPwd,
-                    secondPwdValidState = joinEmailPwdStateHolder.secondPwd.value.trim()
+                    pwd = signUpPwdStateHolder.pwd,
+                    secondPwd = signUpPwdStateHolder.secondPwd,
+                    secondPwdValidState = signUpPwdStateHolder.secondPwd.value.trim()
                         .isNotEmpty(),
-                    isHide = joinEmailPwdStateHolder.isHide,
-                    isSame = joinEmailPwdStateHolder.isSame,
+                    isHide = signUpPwdStateHolder.isHide,
+                    isSame = signUpPwdStateHolder.isSame,
                     keyboardController = keyboardController
                 )
                 Divider(
@@ -140,7 +140,7 @@ fun JoinEmailPwdScreen(navController: NavController) {
                         .height(3.dp),
                     color = Grey1000
                 )
-                if (joinEmailPwdStateHolder.isSame.value) {
+                if (signUpPwdStateHolder.isSame.value) {
                     Row(modifier = Modifier.padding(top = 15.dp, start = 12.dp)) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_black_check),

@@ -1,4 +1,4 @@
-package org.heet.presentation.join.email
+package org.heet.presentation.signup.email
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -21,20 +21,20 @@ import androidx.navigation.NavController
 import kotlinx.coroutines.flow.StateFlow
 import org.heet.R
 import org.heet.components.*
-import org.heet.core.navigation.HeetScreens
+import org.heet.core.navigation.navscreen.SignUpScreen
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun JoinCertificationScreen(
+fun SignUpEmailScreen(
     navController: NavController,
-    joinEmailViewModel: JoinEmailViewModel = hiltViewModel()
+    signUpEmailViewModel: SignUpEmailViewModel = hiltViewModel()
 ) {
-    val joinEmailStateHolder = remember { JoinEmailStateHolder() }
+    val signUpEmailStateHolder = remember { SignUpEmailStateHolder() }
     val keyboardController = LocalSoftwareKeyboardController.current
     val verificationTimer = remember {
-        joinEmailViewModel.timer
+        signUpEmailViewModel.timer
     }
     Box(
         modifier = Modifier
@@ -50,10 +50,10 @@ fun JoinCertificationScreen(
             ) {
                 Back { navController.popBackStack() }
                 Title("회원가입")
-                if (joinEmailStateHolder.requestCode.value) {
+                if (signUpEmailStateHolder.requestCode.value) {
                     Next(
-                        timer = { joinEmailViewModel.timerReset() },
-                        move = { navController.navigate(HeetScreens.JoinPwdScreen.name) }
+                        timer = { signUpEmailViewModel.timerReset() },
+                        move = { navController.navigate(SignUpScreen.SignUpPwd.route) }
                     )
                 } else {
                     EmptyText()
@@ -61,21 +61,21 @@ fun JoinCertificationScreen(
             }
             Spacer(modifier = Modifier.height(137.dp))
             EmailField(
-                email = joinEmailStateHolder.email,
+                email = signUpEmailStateHolder.email,
                 placeholder = "이메일 입력",
                 keyboardController = keyboardController
             )
             BigRoundButton(
                 onClick = {
-                    if (joinEmailStateHolder.email.value.trim().isNotEmpty()) {
-                        joinEmailStateHolder.sendEmail.value = true
+                    if (signUpEmailStateHolder.email.value.trim().isNotEmpty()) {
+                        signUpEmailStateHolder.sendEmail.value = true
                     }
                 },
                 text = "이메일 인증하기",
                 modifier = Modifier.padding(top = 15.dp)
             )
             Spacer(modifier = Modifier.height(15.dp))
-            if (joinEmailStateHolder.sendEmail.value) {
+            if (signUpEmailStateHolder.sendEmail.value) {
                 Column {
                     Row(modifier = Modifier.padding(start = 6.dp)) {
                         Image(
@@ -92,12 +92,12 @@ fun JoinCertificationScreen(
                         )
                     }
                     SendCode(
-                        verificationCode = joinEmailStateHolder.code,
+                        verificationCode = signUpEmailStateHolder.code,
                         verificationTimer = verificationTimer,
-                        verificationCodeValidState = joinEmailStateHolder.code.value.trim()
+                        verificationCodeValidState = signUpEmailStateHolder.code.value.trim()
                             .isNotEmpty(),
-                        joinEmailViewModel = joinEmailViewModel,
-                        requestCode = joinEmailStateHolder.requestCode,
+                        signUpEmailViewModel = signUpEmailViewModel,
+                        requestCode = signUpEmailStateHolder.requestCode,
                         keyboardController = keyboardController
                     )
                     Divider(
@@ -118,7 +118,7 @@ fun JoinCertificationScreen(
                         Column(
                             modifier = Modifier.width(IntrinsicSize.Max).padding(end = 8.5.dp)
                         ) {
-                            ReSendBtn(joinEmailStateHolder.requestCode) { joinEmailViewModel.timerStart() }
+                            ReSendBtn(signUpEmailStateHolder.requestCode) { signUpEmailViewModel.timerStart() }
                             Divider(
                                 Modifier
                                     .padding(top = 2.dp)
@@ -140,7 +140,7 @@ private fun SendCode(
     verificationTimer: StateFlow<String>,
     verificationCodeValidState: Boolean,
     requestCode: MutableState<Boolean>,
-    joinEmailViewModel: JoinEmailViewModel,
+    signUpEmailViewModel: SignUpEmailViewModel,
     keyboardController: SoftwareKeyboardController?
 ) {
     Box(
@@ -178,7 +178,7 @@ private fun SendCode(
             SmallRoundButton(
                 onClick = {
                     if (!requestCode.value) {
-                        joinEmailViewModel.timerStart()
+                        signUpEmailViewModel.timerStart()
                         requestCode.value = true
                     }
                 },

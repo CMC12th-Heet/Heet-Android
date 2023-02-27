@@ -6,7 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import org.heet.core.navigation.navscreen.ForgotScreen
 import org.heet.presentation.forgot.ForgotEmailScreen
-import org.heet.presentation.resetpwd.ForgotPwdScreen
+import org.heet.presentation.forgot.pwd.ForgotPwdScreen
 
 fun NavGraphBuilder.forgotNavGraph(navController: NavHostController) {
     navigation(

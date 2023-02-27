@@ -1,8 +1,8 @@
-package org.heet.presentation.resetpwd
+package org.heet.presentation.signup.pwd
 
 import androidx.compose.runtime.mutableStateOf
 
-class ResetPwdStateHolder {
+class SignUpPwdStateHolder {
 
     var pwd = mutableStateOf("")
         private set

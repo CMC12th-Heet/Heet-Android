@@ -21,7 +21,7 @@ import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.BigRoundButton
 import org.heet.components.RoundInputField
-import org.heet.core.navigation.HeetScreens
+import org.heet.core.navigation.Graph
 import org.heet.ui.theme.Grey600
 import org.heet.ui.theme.Red200
 import org.heet.ui.theme.Red400
@@ -68,7 +68,7 @@ fun LoginScreen(navController: NavController) {
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Auth("비밀번호 찾기") { navController.navigate(HeetScreens.FindPwdScreen.name) }
+            Auth("비밀번호 찾기") { navController.navigate(Graph.FORGOT) }
             Divider(
                 Modifier
                     .padding(horizontal = 29.dp)
@@ -76,7 +76,7 @@ fun LoginScreen(navController: NavController) {
                     .width(2.dp),
                 color = Red400
             )
-            Auth("회원가입 하기") { navController.navigate(HeetScreens.JoinEmailScreen.name) }
+            Auth("회원가입 하기") { navController.navigate(Graph.SIGNUP) }
         }
     }
 }
@@ -137,7 +137,10 @@ private fun EmptyText(modifier: Modifier) {
 @Composable
 private fun LoginButton(navController: NavController) {
     BigRoundButton(
-        onClick = { navController.navigate(HeetScreens.HomeScreen.name) },
+        onClick = {
+            navController.popBackStack()
+            navController.navigate(Graph.HOME)
+        },
         text = "로그인"
     )
 }

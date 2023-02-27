@@ -1,8 +1,8 @@
-package org.heet.presentation.join.email
+package org.heet.presentation.signup.email
 
 import androidx.compose.runtime.mutableStateOf
 
-class JoinEmailStateHolder {
+class SignUpEmailStateHolder {
 
     var email = mutableStateOf("")
         private set

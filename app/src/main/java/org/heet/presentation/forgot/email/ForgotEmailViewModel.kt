@@ -1,4 +1,4 @@
-package org.heet.presentation.findpwd
+package org.heet.presentation.forgot.email
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
-class FindPwdViewModel : ViewModel() {
+class ForgotEmailViewModel : ViewModel() {
 
     private var timerCount = 300000
     private val _timer = MutableStateFlow("05:00")

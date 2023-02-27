@@ -1,8 +1,8 @@
-package org.heet.presentation.join.residence
+package org.heet.presentation.signup.residence
 
 import androidx.compose.runtime.mutableStateOf
 
-class ResidenceStateHolder {
+class SignUpResidenceStateHolder {
     var city = mutableStateOf("")
         private set
     var ward = mutableStateOf("")

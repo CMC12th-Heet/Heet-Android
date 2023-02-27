@@ -1,4 +1,4 @@
-package org.heet.presentation.join.residence
+package org.heet.presentation.signup.residence
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.*
-import org.heet.core.navigation.HeetScreens
+import org.heet.core.navigation.navscreen.SignUpScreen
 import org.heet.ui.theme.Grey100
 import org.heet.ui.theme.Grey1200
 import org.heet.ui.theme.Grey800
@@ -31,8 +31,8 @@ import org.heet.ui.theme.Red400
 import org.heet.util.pretendardFamily
 
 @Composable
-fun NeighborhoodSettingScreen(navController: NavController) {
-    val residenceStateHolder = remember { ResidenceStateHolder() }
+fun SignUpResidenceScreen(navController: NavController) {
+    val signUpResidenceStateHolder = remember { SignUpResidenceStateHolder() }
 
     Box(
         modifier = Modifier
@@ -51,11 +51,11 @@ fun NeighborhoodSettingScreen(navController: NavController) {
                 EmptyText()
             }
             Row(modifier = Modifier.padding(start = 8.dp, top = 36.dp)) {
-                if (residenceStateHolder.checkCity.value) {
-                    ResidenceChip(residenceStateHolder.city)
+                if (signUpResidenceStateHolder.checkCity.value) {
+                    ResidenceChip(signUpResidenceStateHolder.city)
                     Spacer(modifier = Modifier.width(9.dp))
-                    if (residenceStateHolder.checkWard.value) {
-                        ResidenceChip(residenceStateHolder.ward)
+                    if (signUpResidenceStateHolder.checkWard.value) {
+                        ResidenceChip(signUpResidenceStateHolder.ward)
                     }
                 }
             }
@@ -77,7 +77,7 @@ fun NeighborhoodSettingScreen(navController: NavController) {
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        CityItem(city, image, expanded, residenceStateHolder.checkWard, residenceStateHolder.checkCity, residenceStateHolder.city)
+                        CityItem(city, image, expanded, signUpResidenceStateHolder.checkWard, signUpResidenceStateHolder.checkCity, signUpResidenceStateHolder.city)
                     }
                     if (expanded.value) {
                         Spacer(modifier = Modifier.height(18.dp))
@@ -89,7 +89,7 @@ fun NeighborhoodSettingScreen(navController: NavController) {
                                     "종로구", "용산구", "종로구", "용산구", "종로구", "용산구"
                                 )
                             ) { ward ->
-                                WardItem(ward, residenceStateHolder.checkWard, residenceStateHolder.ward)
+                                WardItem(ward, signUpResidenceStateHolder.checkWard, signUpResidenceStateHolder.ward)
                             }
                         }
                         Divider(modifier = Modifier.height(0.5.dp).shadow(2.dp))
@@ -102,7 +102,7 @@ fun NeighborhoodSettingScreen(navController: NavController) {
             modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 8.dp)
         ) {
             SettingButton() {
-                navController.navigate(HeetScreens.ResidenceWelcomeScreen.name)
+                navController.navigate(SignUpScreen.SignUpResidenceWelcome.route)
             }
         }
     }

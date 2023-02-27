@@ -1,4 +1,4 @@
-package org.heet.presentation.join.welcome
+package org.heet.presentation.signup.welcome
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.BigRoundButton
-import org.heet.core.navigation.HeetScreens
+import org.heet.core.navigation.navscreen.SignUpScreen
 import org.heet.ui.theme.Grey1300
 import org.heet.ui.theme.Red400
 import org.heet.ui.theme.White500
@@ -22,7 +22,7 @@ import org.heet.ui.theme.White900
 import org.heet.util.pretendardFamily
 
 @Composable
-fun JoinFinish(navController: NavController) {
+fun SignUpWelcomeScreen(navController: NavController) {
     Box(modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp)) {
         Column(
             modifier = Modifier.align(Alignment.TopCenter),
@@ -39,7 +39,7 @@ fun JoinFinish(navController: NavController) {
             modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 8.dp)
         ) {
             NeighborhoodButton() {
-                navController.navigate(HeetScreens.ResidenceSettingScreen.name)
+                navController.navigate(SignUpScreen.SignUpResidence.route)
             }
         }
     }

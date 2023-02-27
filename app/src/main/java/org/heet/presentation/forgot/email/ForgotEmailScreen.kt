@@ -1,4 +1,4 @@
-package org.heet.presentation.findpwd
+package org.heet.presentation.forgot
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
@@ -16,22 +16,24 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.heet.components.*
-import org.heet.core.navigation.HeetScreens
+import org.heet.core.navigation.navscreen.ForgotScreen
+import org.heet.presentation.forgot.email.ForgotEmailHolder
+import org.heet.presentation.forgot.email.ForgotEmailViewModel
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
 import java.util.*
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun PasswordScreen(
+fun ForgotEmailScreen(
     navController: NavController,
-    findPwdViewModel: FindPwdViewModel = hiltViewModel()
+    forgotEmailViewModel: ForgotEmailViewModel = hiltViewModel()
 ) {
-    val findPwdHolder = remember { FindPwdStateHolder() }
+    val findPwdHolder = remember { ForgotEmailHolder() }
     val keyboardController = LocalSoftwareKeyboardController.current
 
     val verificationTimer = remember {
-        findPwdViewModel.timer
+        forgotEmailViewModel.timer
     }
 
     Box(
@@ -50,8 +52,8 @@ fun PasswordScreen(
                 Title("비밀번호 찾기")
                 if (findPwdHolder.requestCode.value) {
                     Next(
-                        timer = { findPwdViewModel.timerReset() },
-                        move = { navController.navigate(HeetScreens.ResetPwdScreen.name) }
+                        timer = { forgotEmailViewModel.timerReset() },
+                        move = { navController.navigate(ForgotScreen.ForgotPwd.route) }
                     )
                 } else {
                     EmptyText()
@@ -124,7 +126,7 @@ fun PasswordScreen(
                                 )
                                 RequestBtn(isCheck = findPwdHolder.requestCode, "인증 요청") {
                                     if (!findPwdHolder.requestCode.value) {
-                                        findPwdViewModel.timerStart()
+                                        forgotEmailViewModel.timerStart()
                                     }
                                     findPwdHolder.requestCode.value = true
                                 }
@@ -149,7 +151,7 @@ fun PasswordScreen(
                         Column(
                             modifier = Modifier.width(IntrinsicSize.Max).padding(end = 8.5.dp)
                         ) {
-                            ReSendBtn(findPwdHolder.requestCode) { findPwdViewModel.timerStart() }
+                            ReSendBtn(findPwdHolder.requestCode) { forgotEmailViewModel.timerStart() }
                             Divider(
                                 Modifier
                                     .padding(top = 2.dp)

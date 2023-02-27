@@ -1,4 +1,4 @@
-package org.heet.presentation.resetpwd
+package org.heet.presentation.forgot.pwd
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -16,16 +16,16 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.*
-import org.heet.core.navigation.HeetScreens
+import org.heet.core.navigation.navscreen.AuthScreen
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun ResetPasswordScreen(
+fun ForgotPwdScreen(
     navController: NavController
 ) {
-    val resetPwdHolder = remember { ResetPwdStateHolder() }
+    val resetPwdHolder = remember { ForgotPwdStateHolder() }
     val keyboardController = LocalSoftwareKeyboardController.current
 
     Box(
@@ -45,7 +45,7 @@ fun ResetPasswordScreen(
                 if (resetPwdHolder.isSame.value) {
                     Finish(
                         move = {
-                            navController.navigate(HeetScreens.LoginScreen.name) {
+                            navController.navigate(AuthScreen.Login.route) {
                                 popUpTo(0)
                             }
                         }

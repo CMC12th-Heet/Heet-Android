@@ -1,4 +1,4 @@
-package org.heet.presentation.join.id
+package org.heet.presentation.signup.id
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,14 +18,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.heet.components.*
-import org.heet.core.navigation.HeetScreens
+import org.heet.core.navigation.navscreen.SignUpScreen
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun JoinIdScreen(navController: NavController) {
-    val joinIdStateHolder = remember { JoinIdStateHolder() }
+fun SignUpIdScreen(navController: NavController) {
+    val signUpIdStateHolder = remember { SignUpIdStateHolder() }
     val keyboardController = LocalSoftwareKeyboardController.current
 
     Box(
@@ -103,29 +103,29 @@ fun JoinIdScreen(navController: NavController) {
                         modifier = Modifier
                             .padding(end = 117.dp)
                             .align(Alignment.CenterStart),
-                        valueState = joinIdStateHolder.id,
+                        valueState = signUpIdStateHolder.id,
                         enabled = true,
                         isSingleLine = true,
                         keyboardType = KeyboardType.Text,
                         onAction = KeyboardActions {
-                            if (joinIdStateHolder.id.value.trim().isEmpty()
+                            if (signUpIdStateHolder.id.value.trim().isEmpty()
                             ) return@KeyboardActions
                             keyboardController?.hide()
                         },
-                        isDuplicate = joinIdStateHolder.isDuplicate
+                        isDuplicate = signUpIdStateHolder.isDuplicate
                     )
                     Row(
                         modifier = Modifier.align(Alignment.CenterEnd),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        if (joinIdStateHolder.isDuplicate.value) {
+                        if (signUpIdStateHolder.isDuplicate.value) {
                             RequestBtn(
-                                isCheck = joinIdStateHolder.requestCheckDuplicate,
+                                isCheck = signUpIdStateHolder.requestCheckDuplicate,
                                 text = "중복 확인"
                             ) {
-                                joinIdStateHolder.requestCheckDuplicate.value = true
-                                joinIdStateHolder.isDuplicate.value =
-                                    !joinIdStateHolder.isDuplicate.value
+                                signUpIdStateHolder.requestCheckDuplicate.value = true
+                                signUpIdStateHolder.isDuplicate.value =
+                                    !signUpIdStateHolder.isDuplicate.value
                             }
                         } else {
                             Spacer(modifier = Modifier.height(38.dp))
@@ -141,7 +141,7 @@ fun JoinIdScreen(navController: NavController) {
                 ).height(3.dp),
                 color = Grey300
             )
-            if (joinIdStateHolder.isDuplicate.value) {
+            if (signUpIdStateHolder.isDuplicate.value) {
                 Text(
                     text = "*이미 사용 중인 아이디입니다.",
                     fontFamily = pretendardFamily,
@@ -177,7 +177,7 @@ fun JoinIdScreen(navController: NavController) {
             }
         }
         BigRoundButton(
-            onClick = { navController.navigate(HeetScreens.JoinWelcome.name) },
+            onClick = { navController.navigate(SignUpScreen.SignUpWelcome.route) },
             text = "회원 가입",
             modifier = Modifier.padding(bottom = 8.dp).align(Alignment.BottomCenter)
         )

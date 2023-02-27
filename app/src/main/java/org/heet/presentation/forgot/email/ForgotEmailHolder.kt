@@ -1,8 +1,8 @@
-package org.heet.presentation.findpwd
+package org.heet.presentation.forgot.email
 
 import androidx.compose.runtime.mutableStateOf
 
-class FindPwdStateHolder {
+class ForgotEmailHolder {
     var email = mutableStateOf("")
         private set
 

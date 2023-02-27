@@ -1,8 +1,8 @@
-package org.heet.presentation.join.id
+package org.heet.presentation.signup.id
 
 import androidx.compose.runtime.mutableStateOf
 
-class JoinIdStateHolder {
+class SignUpIdStateHolder {
 
     var id = mutableStateOf("")
         private set

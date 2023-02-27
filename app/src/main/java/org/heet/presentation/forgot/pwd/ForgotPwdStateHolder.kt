@@ -1,8 +1,8 @@
-package org.heet.presentation.join.pwd
+package org.heet.presentation.forgot.pwd
 
 import androidx.compose.runtime.mutableStateOf
 
-class JoinEmailPwdStateHolder {
+class ForgotPwdStateHolder {
 
     var pwd = mutableStateOf("")
         private set
