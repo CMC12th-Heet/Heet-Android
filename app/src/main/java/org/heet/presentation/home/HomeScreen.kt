@@ -32,10 +32,20 @@ import org.heet.util.pretendardFamily
 @Composable
 fun HomeScreen(navController: NavHostController = rememberNavController()) {
     val isWrite = remember { mutableStateOf(false) }
+    val isFloatingButton = remember { mutableStateOf(false) }
 
     Scaffold(
-        bottomBar = { BottomBar(navController = navController) },
-        floatingActionButton = { WriteButton(isWrite = isWrite) }
+        bottomBar = {
+            BottomBar(
+                navController = navController,
+                isFloatingButton = isFloatingButton
+            )
+        },
+        floatingActionButton = {
+            if (isFloatingButton.value) {
+                WriteButton(isWrite = isWrite)
+            }
+        }
     ) {
         HomeNavGraph(navController = navController)
     }
@@ -70,16 +80,20 @@ private fun WriteButton(isWrite: MutableState<Boolean>) {
 }
 
 @Composable
-fun BottomBar(navController: NavHostController) {
+fun BottomBar(navController: NavHostController, isFloatingButton: MutableState<Boolean>) {
     val screens = listOf(
         BottomBarScreen.Hometown,
-        BottomBarScreen.FOLLOWING,
+        BottomBarScreen.Following,
         BottomBarScreen.MyPage
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
 
     val bottomBarDestination = screens.any { it.route == currentDestination?.route }
+
+    isFloatingButton.value = currentDestination?.route == BottomBarScreen.Hometown.route ||
+        currentDestination?.route == BottomBarScreen.MyPage.route
+
     if (bottomBarDestination) {
         BottomNavigation(backgroundColor = Color.White) {
             Row(
