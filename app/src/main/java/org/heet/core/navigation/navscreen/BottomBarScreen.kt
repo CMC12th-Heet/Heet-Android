@@ -15,7 +15,7 @@ sealed class BottomBarScreen(
         icon_focused = R.drawable.ic_nav_red_location
     )
 
-    object FOLLOWING : BottomBarScreen(
+    object Following : BottomBarScreen(
         route = "FOLLOWING",
         title = "팔로잉",
         icon = R.drawable.ic_nav_grey_following,

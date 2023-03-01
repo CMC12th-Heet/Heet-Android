@@ -19,7 +19,7 @@ fun HomeNavGraph(navController: NavHostController) {
         composable(route = BottomBarScreen.Hometown.route) {
             HomeTownScreen(navController = navController)
         }
-        composable(route = BottomBarScreen.FOLLOWING.route) {
+        composable(route = BottomBarScreen.Following.route) {
             FollowingScreen(navController = navController)
         }
         composable(route = BottomBarScreen.MyPage.route) {
