@@ -14,7 +14,9 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -571,4 +573,21 @@ fun RegularFlatInputField(
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
         keyboardActions = onAction
     )
+}
+
+@Composable
+fun DotDivider() {
+    val pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
+    Canvas(
+        Modifier
+            .fillMaxWidth()
+            .height(0.3.dp)
+    ) {
+        drawLine(
+            color = Grey1000,
+            start = Offset(0f, 0f),
+            end = Offset(size.width, 0f),
+            pathEffect = pathEffect
+        )
+    }
 }
