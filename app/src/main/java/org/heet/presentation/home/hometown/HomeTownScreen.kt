@@ -1,7 +1,7 @@
 package org.heet.presentation.home.hometown
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -12,9 +12,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -22,6 +20,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.heet.R
+import org.heet.components.DotDivider
+import org.heet.core.navigation.navscreen.DetailScreen
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
 
@@ -37,13 +37,13 @@ fun HomeTownScreen(navController: NavController) {
             Divider(modifier = Modifier.padding(top = 9.dp), color = Grey900)
             Filter()
             Divider(color = Grey900)
-            ContentList()
+            ContentList(navController)
         }
     }
 }
 
 @Composable
-private fun ContentList() {
+private fun ContentList(navController: NavController) {
     LazyColumn(
         modifier = Modifier.padding(
             start = 20.dp,
@@ -126,7 +126,7 @@ private fun ContentList() {
             ) {
                 Row {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_default_profile),
+                        painter = painterResource(id = R.drawable.ic_black_default_profile),
                         contentDescription = "profile"
                     )
                     Text(text = "heet_member", modifier = Modifier.padding(start = 7.dp))
@@ -135,7 +135,9 @@ private fun ContentList() {
                     Image(
                         painter = painterResource(id = R.drawable.ic_list_comment),
                         contentDescription = "comment",
-                        modifier = Modifier.padding(end = 22.dp)
+                        modifier = Modifier.padding(end = 22.dp).clickable {
+                            navController.navigate(DetailScreen.Comment.route)
+                        }
                     )
                     Image(
                         painter = painterResource(id = R.drawable.ic_list_bookmark),
@@ -243,23 +245,6 @@ private fun Filter() {
             fontSize = 13.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = pretendardFamily
-        )
-    }
-}
-
-@Composable
-private fun DotDivider() {
-    val pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f), 0f)
-    Canvas(
-        Modifier
-            .fillMaxWidth()
-            .height(0.3.dp)
-    ) {
-        drawLine(
-            color = Grey1000,
-            start = Offset(0f, 0f),
-            end = Offset(size.width, 0f),
-            pathEffect = pathEffect
         )
     }
 }
