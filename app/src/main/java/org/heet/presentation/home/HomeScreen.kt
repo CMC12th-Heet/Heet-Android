@@ -1,9 +1,11 @@
 package org.heet.presentation.home
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -19,6 +21,7 @@ import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import org.heet.R
 import org.heet.core.navigation.HomeNavGraph
 import org.heet.core.navigation.navscreen.BottomBarScreen
 import org.heet.ui.theme.Grey200
@@ -28,10 +31,41 @@ import org.heet.util.pretendardFamily
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(navController: NavHostController = rememberNavController()) {
+    val isWrite = remember { mutableStateOf(false) }
+
     Scaffold(
-        bottomBar = { BottomBar(navController = navController) }
+        bottomBar = { BottomBar(navController = navController) },
+        floatingActionButton = { WriteButton(isWrite = isWrite) }
     ) {
         HomeNavGraph(navController = navController)
+    }
+}
+
+@Composable
+private fun WriteButton(isWrite: MutableState<Boolean>) {
+    val writeImage = if (isWrite.value) {
+        R.drawable.ic_white_wrtie
+    } else {
+        R.drawable.ic_red_write
+    }
+    val backgroundColor = if (isWrite.value) {
+        Red200
+    } else {
+        Color.White
+    }
+    FloatingActionButton(
+        onClick = { isWrite.value = !isWrite.value },
+        modifier = Modifier
+            .padding(end = 26.dp, bottom = 21.dp)
+            .size(42.dp),
+        shape = RoundedCornerShape(7.dp),
+        backgroundColor = backgroundColor,
+        elevation = FloatingActionButtonDefaults.elevation(2.dp)
+    ) {
+        Image(
+            painter = painterResource(writeImage),
+            contentDescription = "write"
+        )
     }
 }
 
@@ -49,7 +83,9 @@ fun BottomBar(navController: NavHostController) {
     if (bottomBarDestination) {
         BottomNavigation(backgroundColor = Color.White) {
             Row(
-                modifier = Modifier.fillMaxWidth().padding(start = 41.dp, end = 38.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 41.dp, end = 38.dp),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 screens.forEach { screen ->
