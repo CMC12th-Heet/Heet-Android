@@ -7,6 +7,7 @@ import androidx.navigation.navigation
 import org.heet.core.navigation.navscreen.DetailScreen
 import org.heet.presentation.declaration.DeclarationFinishScreen
 import org.heet.presentation.declaration.DeclarationScreen
+import org.heet.presentation.home.hometown.AddressScreen
 import org.heet.presentation.home.hometown.CommentScreen
 
 fun NavGraphBuilder.detailsNavGraph(navController: NavHostController) {
@@ -22,6 +23,9 @@ fun NavGraphBuilder.detailsNavGraph(navController: NavHostController) {
         }
         composable(route = DetailScreen.Comment.route) {
             CommentScreen(navController = navController)
+        }
+        composable(route = DetailScreen.Address.route) {
+            AddressScreen(navController = navController)
         }
     }
 }
