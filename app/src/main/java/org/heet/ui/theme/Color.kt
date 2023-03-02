@@ -36,6 +36,10 @@ val Black600 = Color(0xFF373737)
 val Black700 = Color(0xFF6F6F6F)
 val Black800 = Color(0xFF6E6E6E)
 val Black900 = Color(0xFFDDDDDD)
+val Black1000 = Color(0xFF3D3D3D)
+val Black1100 = Color(0xFF202020)
+val Black1200 = Color(0xFF797979)
+val Black1300 = Color(0xFFA6A6A6)
 
 // Red
 val Red100 = Color(0xFFFFC9C9)

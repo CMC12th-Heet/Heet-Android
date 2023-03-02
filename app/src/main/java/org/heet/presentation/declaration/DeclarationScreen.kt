@@ -83,7 +83,7 @@ fun DeclarationScreen(navController: NavController) {
                                 declarationList = declarationList.mapIndexed { j, declaration ->
                                     if (index == j) {
                                         declaration.copy(isSelected = !declaration.isSelected)
-                                    } else declaration
+                                    } else declaration.copy(isSelected = false)
                                 }
                             },
                             color = if (declarationList[index].isSelected) {
