@@ -7,6 +7,7 @@ import androidx.navigation.navigation
 import org.heet.core.navigation.navscreen.DetailScreen
 import org.heet.presentation.declaration.DeclarationFinishScreen
 import org.heet.presentation.declaration.DeclarationScreen
+import org.heet.presentation.home.following.FollowingListScreen
 import org.heet.presentation.home.hometown.AddressScreen
 import org.heet.presentation.home.hometown.CommentScreen
 import org.heet.presentation.home.mypage.AboutUsScreen
@@ -42,6 +43,9 @@ fun NavGraphBuilder.detailsNavGraph(navController: NavHostController) {
         }
         composable(route = DetailScreen.Terms.route) {
             TermsScreen(navController = navController)
+        }
+        composable(route = DetailScreen.FollowingList.route) {
+            FollowingListScreen(navController = navController)
         }
     }
 }

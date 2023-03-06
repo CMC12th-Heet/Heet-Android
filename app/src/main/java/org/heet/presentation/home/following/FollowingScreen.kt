@@ -1,6 +1,7 @@
 package org.heet.presentation.home.following
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -19,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.DotDivider
+import org.heet.core.navigation.navscreen.DetailScreen
 import org.heet.ui.theme.Black600
 import org.heet.ui.theme.Grey1200
 import org.heet.ui.theme.Grey500
@@ -35,6 +37,9 @@ fun FollowingScreen(navController: NavController) {
         LazyColumn(horizontalAlignment = Alignment.CenterHorizontally) {
             item {
                 Surface(
+                    modifier = Modifier.clickable {
+                        navController.navigate(DetailScreen.FollowingList.route)
+                    },
                     shape = RoundedCornerShape(30.dp),
                     color = Black600
                 ) {
