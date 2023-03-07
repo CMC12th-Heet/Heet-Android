@@ -11,10 +11,7 @@ import org.heet.presentation.home.following.FollowerListScreen
 import org.heet.presentation.home.following.FollowingListScreen
 import org.heet.presentation.home.hometown.AddressScreen
 import org.heet.presentation.home.hometown.CommentScreen
-import org.heet.presentation.home.mypage.AboutUsScreen
-import org.heet.presentation.home.mypage.ModifyProfileScreen
-import org.heet.presentation.home.mypage.SettingScreen
-import org.heet.presentation.home.mypage.TermsScreen
+import org.heet.presentation.home.mypage.*
 
 fun NavGraphBuilder.detailsNavGraph(navController: NavHostController) {
     navigation(
@@ -50,6 +47,9 @@ fun NavGraphBuilder.detailsNavGraph(navController: NavHostController) {
         }
         composable(route = DetailScreen.FollowerList.route) {
             FollowerListScreen(navController = navController)
+        }
+        composable(route = DetailScreen.Scrap.route) {
+            ScrapScreen(navController = navController)
         }
     }
 }
