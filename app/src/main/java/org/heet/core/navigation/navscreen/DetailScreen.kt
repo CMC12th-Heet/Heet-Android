@@ -12,4 +12,5 @@ sealed class DetailScreen(val route: String) {
     object FollowingList : DetailScreen(route = "following_list")
     object FollowerList : DetailScreen(route = "follower_list")
     object Scrap : DetailScreen(route = "scrap")
+    object FindUser : DetailScreen(route = "find_user")
 }
