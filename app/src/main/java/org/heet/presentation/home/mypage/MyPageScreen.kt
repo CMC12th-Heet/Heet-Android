@@ -18,7 +18,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -126,71 +125,59 @@ fun MyPage(navController: NavController) {
                     )
                 }
                 Spacer(modifier = Modifier.height(18.dp))
-            }
-        }
-
-        if (existPost.value) {
-            Spacer(modifier = Modifier.height(18.dp))
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 65.dp),
-                horizontalArrangement = Arrangement.spacedBy(4.dp),
-                verticalArrangement = Arrangement.spacedBy(5.dp)
-            ) {
-                items(listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)) {
-                    Surface(shape = RoundedCornerShape(5.dp)) {
-                        Box {
-                            Image(
-                                painter = painterResource(id = R.drawable.img_scrap_default),
-                                contentDescription = "image",
-                                contentScale = ContentScale.FillWidth,
-                                modifier = Modifier.fillMaxWidth()
-                            )
-                            Row(
-                                modifier = Modifier
-                                    .align(Alignment.TopStart)
-                                    .padding(start = 6.dp, top = 7.dp),
-                                verticalAlignment = Alignment.CenterVertically
+                if (existPost.value) {
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 65.dp),
+                        horizontalArrangement = Arrangement.spacedBy(4.dp),
+                        verticalArrangement = Arrangement.spacedBy((-13).dp)
+                    ) {
+                        items(listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)) {
+                            Surface(
+                                shape = RoundedCornerShape(5.dp),
+                                modifier = Modifier.padding(top = 18.dp)
                             ) {
-                                Image(
-                                    painter = painterResource(id = R.drawable.ic_mypage_location),
-                                    contentDescription = null
-                                )
-                                Spacer(modifier = Modifier.width(3.dp))
-                                Text(
-                                    text = "중구 약수동",
-                                    color = Color.White,
-                                    fontSize = 13.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    fontFamily = pretendardFamily
-                                )
+                                Box {
+                                    Image(
+                                        painter = painterResource(id = R.drawable.img_scrap_default),
+                                        contentDescription = "image",
+                                        contentScale = ContentScale.FillWidth,
+                                        modifier = Modifier.fillMaxWidth()
+                                    )
+                                    Row(
+                                        modifier = Modifier
+                                            .align(Alignment.TopStart)
+                                            .padding(start = 6.dp, top = 7.dp),
+                                        verticalAlignment = Alignment.CenterVertically
+                                    ) {
+                                        Image(
+                                            painter = painterResource(id = R.drawable.ic_mypage_location),
+                                            contentDescription = null
+                                        )
+                                        Spacer(modifier = Modifier.width(3.dp))
+                                        Text(
+                                            text = "중구 약수동",
+                                            color = Color.White,
+                                            fontSize = 13.sp,
+                                            fontWeight = FontWeight.Bold,
+                                            fontFamily = pretendardFamily
+                                        )
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
-        } else {
-            Box(
-                modifier = Modifier
-                    .padding(start = 38.dp, bottom = 161.dp, end = 38.dp)
-                    .align(Alignment.BottomCenter)
-            ) {
-                Surface(
-                    modifier = Modifier.fillMaxWidth(),
-                    shape = RoundedCornerShape(10.dp),
-                    elevation = 10.dp
-                ) {
-                    Text(
-                        text = "아직 게시글이 없어요 ㅠㅠ\n우리 동네 숨은 공간을 소개해 주세요!",
-                        modifier = Modifier.padding(vertical = 35.dp),
-                        color = Grey800,
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.SemiBold,
-                        fontFamily = pretendardFamily,
-                        textAlign = TextAlign.Center
-                    )
-                }
-            }
+        }
+        if (!existPost.value) {
+            Image(
+                painter = painterResource(id = R.drawable.img_alert),
+                contentDescription = null,
+                contentScale = ContentScale.FillWidth,
+                modifier = Modifier.align(Alignment.BottomCenter).fillMaxWidth()
+                    .padding(start = 38.dp, end = 38.dp, bottom = 141.dp)
+            )
         }
     }
 }
