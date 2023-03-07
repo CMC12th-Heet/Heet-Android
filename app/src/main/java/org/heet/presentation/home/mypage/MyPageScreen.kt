@@ -194,9 +194,3 @@ fun MyPage(navController: NavController) {
         }
     }
 }
-
-// 결핍률
-// 세이노
-// 현승원
-// 원효띠
-// 세이먼 자천
