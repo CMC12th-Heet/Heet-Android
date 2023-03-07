@@ -33,11 +33,11 @@ fun HomeTownScreen(navController: NavController) {
             .padding(top = 10.dp)
     ) {
         Column(modifier = Modifier.align(Alignment.TopCenter)) {
-            TopBar()
+            TopBar(navController = navController)
             Divider(modifier = Modifier.padding(top = 9.dp), color = Grey900)
             Filter()
             Divider(color = Grey900)
-            ContentList(navController)
+            ContentList(navController = navController)
         }
     }
 }
@@ -160,7 +160,7 @@ private fun ContentList(navController: NavController) {
 }
 
 @Composable
-private fun TopBar() {
+private fun TopBar(navController: NavController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -196,11 +196,17 @@ private fun TopBar() {
         Row {
             Image(
                 painter = painterResource(id = R.drawable.ic_search),
-                contentDescription = "search"
+                contentDescription = "search",
+                modifier = Modifier.clickable {
+                    navController.navigate(DetailScreen.FindUser.route)
+                }
             )
             Image(
                 painter = painterResource(id = R.drawable.ic_bookmark),
-                contentDescription = "bookmark"
+                contentDescription = "bookmark",
+                modifier = Modifier.clickable {
+                    navController.navigate(DetailScreen.Scrap.route)
+                }
             )
         }
     }
