@@ -9,6 +9,7 @@ sealed class DetailScreen(val route: String) {
     object ModifyProfile : DetailScreen(route = "modify_profile")
     object AboutUs : DetailScreen(route = "about_us")
     object Terms : DetailScreen(route = "terms")
-    object FollowingList : DetailScreen(route = "FollowingList")
-    object FollowerList : DetailScreen(route = "FollowerList")
+    object FollowingList : DetailScreen(route = "following_list")
+    object FollowerList : DetailScreen(route = "follower_list")
+    object Scrap : DetailScreen(route = "scrap")
 }
