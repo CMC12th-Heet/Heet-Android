@@ -263,11 +263,11 @@ fun Terms(text: String, isChecked: Boolean = false) {
 }
 
 @Composable
-fun Back(back: () -> Unit) {
+fun Back(modifier: Modifier = Modifier, back: () -> Unit) {
     Image(
         painter = painterResource(id = R.drawable.ic_back),
         contentDescription = "back",
-        modifier = Modifier.clickable { back() }
+        modifier = modifier.clickable { back() }
     )
 }
 
