@@ -55,9 +55,9 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
 @Composable
 private fun WriteButton(isWrite: MutableState<Boolean>, navController: NavHostController) {
     val writeImage = if (isWrite.value) {
-        R.drawable.ic_white_wrtie
+        R.drawable.ic_pencil_white_25
     } else {
-        R.drawable.ic_red_write
+        R.drawable.ic_pencil_red_25
     }
     val backgroundColor = if (isWrite.value) {
         Red500

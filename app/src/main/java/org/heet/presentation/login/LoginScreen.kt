@@ -92,7 +92,7 @@ fun LoginScreen(navController: NavController) {
 @Composable
 private fun HeetLogo() {
     Image(
-        painter = painterResource(id = R.drawable.ic_red_text_logo),
+        painter = painterResource(id = R.drawable.ic_text_logo_65),
         contentDescription = "heet_logo",
         modifier = Modifier
             .padding(top = 50.dp)

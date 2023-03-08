@@ -59,7 +59,7 @@ fun AddressScreen(navController: NavController) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_cancel),
+                    painter = painterResource(id = R.drawable.ic_cancel_black_30),
                     contentDescription = "cancel",
                     modifier = Modifier.clickable {
                         navController.popBackStack()
@@ -136,9 +136,9 @@ private fun AddressInputResult(didSearch: MutableState<Boolean>) {
                 Spacer(modifier = Modifier.height(16.dp))
                 Row {
                     val image = if (searchResultList[index].isSelected) {
-                        R.drawable.ic_red_address_location
+                        R.drawable.ic_location_red_20
                     } else {
-                        R.drawable.ic_grey_address_location
+                        R.drawable.ic_location_grey_20
                     }
                     Image(
                         painter = painterResource(id = image),
@@ -275,7 +275,7 @@ private fun AddressTextField(
                             color = Color.White
                         )
                         Image(
-                            painter = painterResource(id = R.drawable.ic_write_search),
+                            painter = painterResource(id = R.drawable.ic_search_white_14),
                             contentDescription = "search"
                         )
                     }
@@ -286,7 +286,7 @@ private fun AddressTextField(
                     ) {
                         innerTextField()
                         Image(
-                            painter = painterResource(id = R.drawable.ic_wrtie_cancel),
+                            painter = painterResource(id = R.drawable.ic_circle_cancel_white_16),
                             contentDescription = "cancel",
                             modifier = Modifier.clickable { address.value = "" }
                         )

@@ -92,7 +92,7 @@ private fun CommentField(
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            painter = painterResource(id = R.drawable.ic_grey_default_profile),
+            painter = painterResource(id = R.drawable.ic_profile_grey_30),
             contentDescription = "profile",
             modifier = Modifier.padding(vertical = 7.dp)
         )
@@ -155,7 +155,7 @@ private fun CommentTextField(
 private fun CommentList() {
     Row {
         Image(
-            painter = painterResource(id = R.drawable.ic_grey_default_profile),
+            painter = painterResource(id = R.drawable.ic_profile_grey_30),
             contentDescription = "profile"
         )
         Column(modifier = Modifier.padding(start = 7.dp)) {

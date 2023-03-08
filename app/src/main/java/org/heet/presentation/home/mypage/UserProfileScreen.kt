@@ -42,7 +42,7 @@ fun UserProfileScreen(navController: NavController) {
                 Back(modifier = Modifier.align(Alignment.Start)) { navController.popBackStack() }
                 Spacer(modifier = Modifier.height(31.dp))
                 Image(
-                    painter = painterResource(id = R.drawable.ic_mypage_default_profile),
+                    painter = painterResource(id = R.drawable.ic_profile_grey_55),
                     contentDescription = null
                 )
                 Spacer(modifier = Modifier.height(4.dp))
@@ -62,7 +62,7 @@ fun UserProfileScreen(navController: NavController) {
                 Spacer(modifier = Modifier.height(24.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_mypage_profile_location),
+                        painter = painterResource(id = R.drawable.ic_location_red_15),
                         contentDescription = null
                     )
                     Spacer(modifier = Modifier.width(2.dp))
@@ -74,7 +74,7 @@ fun UserProfileScreen(navController: NavController) {
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Image(
-                        painter = painterResource(id = R.drawable.ic_mypage_local),
+                        painter = painterResource(id = R.drawable.ic_local_red_27),
                         contentDescription = null
                     )
                 }
@@ -122,7 +122,7 @@ fun UserProfileScreen(navController: NavController) {
                             ) {
                                 Box {
                                     Image(
-                                        painter = painterResource(id = R.drawable.img_scrap_default),
+                                        painter = painterResource(id = R.drawable.img_default_scrap),
                                         contentDescription = "image",
                                         contentScale = ContentScale.FillWidth,
                                         modifier = Modifier.fillMaxWidth()
@@ -134,7 +134,7 @@ fun UserProfileScreen(navController: NavController) {
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
                                         Image(
-                                            painter = painterResource(id = R.drawable.ic_mypage_location),
+                                            painter = painterResource(id = R.drawable.ic_location_white_16),
                                             contentDescription = null
                                         )
                                         Spacer(modifier = Modifier.width(3.dp))
@@ -155,7 +155,7 @@ fun UserProfileScreen(navController: NavController) {
         }
         if (!existPost.value) {
             Image(
-                painter = painterResource(id = R.drawable.img_alert),
+                painter = painterResource(id = R.drawable.img_notify),
                 contentDescription = null,
                 contentScale = ContentScale.FillWidth,
                 modifier = Modifier.align(Alignment.BottomCenter).fillMaxWidth()

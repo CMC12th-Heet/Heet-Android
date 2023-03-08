@@ -62,12 +62,12 @@ fun ModifyProfileScreen(navController: NavController) {
                     border = BorderStroke(1.dp, White250)
                 ) {
                     Image(
-                        painter = painterResource(id = org.heet.R.drawable.img_modify_profile_default_profile),
+                        painter = painterResource(id = org.heet.R.drawable.img_profile_modify),
                         contentDescription = null
                     )
                 }
                 Image(
-                    painter = painterResource(id = org.heet.R.drawable.ic_gallery),
+                    painter = painterResource(id = org.heet.R.drawable.ic_gallery_grey_26),
                     contentDescription = null,
                     modifier = Modifier.align(Alignment.BottomEnd)
                 )
@@ -79,7 +79,7 @@ fun ModifyProfileScreen(navController: NavController) {
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Image(
-                        painter = painterResource(id = org.heet.R.drawable.ic_mypage_profile_location),
+                        painter = painterResource(id = org.heet.R.drawable.ic_location_red_15),
                         contentDescription = null
                     )
                     Spacer(modifier = Modifier.width(10.dp))

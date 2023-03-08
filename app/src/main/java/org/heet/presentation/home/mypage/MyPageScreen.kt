@@ -45,16 +45,16 @@ fun MyPage(navController: NavController) {
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_mypage_logo),
+                        painter = painterResource(id = R.drawable.ic_text_logo_67),
                         contentDescription = null
                     )
                     Row {
                         Image(
-                            painter = painterResource(id = R.drawable.ic_mypage_bookmark),
+                            painter = painterResource(id = R.drawable.ic_bookmark_grey_44),
                             contentDescription = null
                         )
                         Image(
-                            painter = painterResource(id = R.drawable.ic_mypage_setting),
+                            painter = painterResource(id = R.drawable.ic_setting_grey_44),
                             contentDescription = null,
                             modifier = Modifier.clickable {
                                 navController.navigate(DetailScreen.Setting.route)
@@ -64,7 +64,7 @@ fun MyPage(navController: NavController) {
                 }
                 Spacer(modifier = Modifier.height(31.dp))
                 Image(
-                    painter = painterResource(id = R.drawable.ic_mypage_default_profile),
+                    painter = painterResource(id = R.drawable.ic_profile_grey_55),
                     contentDescription = null
                 )
                 Spacer(modifier = Modifier.height(4.dp))
@@ -84,7 +84,7 @@ fun MyPage(navController: NavController) {
                 Spacer(modifier = Modifier.height(24.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_mypage_profile_location),
+                        painter = painterResource(id = R.drawable.ic_location_red_15),
                         contentDescription = null
                     )
                     Spacer(modifier = Modifier.width(2.dp))
@@ -96,7 +96,7 @@ fun MyPage(navController: NavController) {
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Image(
-                        painter = painterResource(id = R.drawable.ic_mypage_local),
+                        painter = painterResource(id = R.drawable.ic_local_red_27),
                         contentDescription = null
                     )
                 }
@@ -144,7 +144,7 @@ fun MyPage(navController: NavController) {
                             ) {
                                 Box {
                                     Image(
-                                        painter = painterResource(id = R.drawable.img_scrap_default),
+                                        painter = painterResource(id = R.drawable.img_default_scrap),
                                         contentDescription = "image",
                                         contentScale = ContentScale.FillWidth,
                                         modifier = Modifier.fillMaxWidth()
@@ -156,7 +156,7 @@ fun MyPage(navController: NavController) {
                                         verticalAlignment = Alignment.CenterVertically
                                     ) {
                                         Image(
-                                            painter = painterResource(id = R.drawable.ic_mypage_location),
+                                            painter = painterResource(id = R.drawable.ic_location_white_16),
                                             contentDescription = null
                                         )
                                         Spacer(modifier = Modifier.width(3.dp))
@@ -177,7 +177,7 @@ fun MyPage(navController: NavController) {
         }
         if (!existPost.value) {
             Image(
-                painter = painterResource(id = R.drawable.img_alert),
+                painter = painterResource(id = R.drawable.img_notify),
                 contentDescription = null,
                 contentScale = ContentScale.FillWidth,
                 modifier = Modifier.align(Alignment.BottomCenter).fillMaxWidth()

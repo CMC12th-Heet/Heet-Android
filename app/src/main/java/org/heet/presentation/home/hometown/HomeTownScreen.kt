@@ -87,7 +87,7 @@ private fun ContentList(navController: NavController) {
                             )
                         }
                         Image(
-                            painter = painterResource(id = R.drawable.ic_local),
+                            painter = painterResource(id = R.drawable.ic_local_red_28),
                             contentDescription = "local",
                             modifier = Modifier.padding(end = 10.dp)
                         )
@@ -95,7 +95,7 @@ private fun ContentList(navController: NavController) {
                     Spacer(modifier = Modifier.height(5.dp))
                     Box {
                         Image(
-                            painter = painterResource(id = R.drawable.img_default),
+                            painter = painterResource(id = R.drawable.img_default_hometown),
                             contentDescription = "image",
                             contentScale = ContentScale.FillWidth,
                             modifier = Modifier.fillMaxWidth()
@@ -126,21 +126,21 @@ private fun ContentList(navController: NavController) {
             ) {
                 Row {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_black_default_profile),
+                        painter = painterResource(id = R.drawable.ic_profile_grey_27),
                         contentDescription = "profile"
                     )
                     Text(text = "heet_member", modifier = Modifier.padding(start = 7.dp))
                 }
                 Row {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_list_comment),
+                        painter = painterResource(id = R.drawable.ic_comment_grey_19),
                         contentDescription = "comment",
                         modifier = Modifier.padding(end = 22.dp).clickable {
                             navController.navigate(DetailScreen.Comment.route)
                         }
                     )
                     Image(
-                        painter = painterResource(id = R.drawable.ic_list_bookmark),
+                        painter = painterResource(id = R.drawable.ic_bookmark_grey_17),
                         contentDescription = "bookmark",
                         modifier = Modifier.padding(end = 3.dp)
                     )
@@ -175,7 +175,7 @@ private fun TopBar(navController: NavController) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Spacer(modifier = Modifier.width(6.dp))
                 Image(
-                    painter = painterResource(id = R.drawable.ic_hometown_location),
+                    painter = painterResource(id = R.drawable.ic_location_white_17),
                     contentDescription = null
                 )
                 Text(
@@ -195,14 +195,14 @@ private fun TopBar(navController: NavController) {
         }
         Row {
             Image(
-                painter = painterResource(id = R.drawable.ic_search),
+                painter = painterResource(id = R.drawable.ic_search_grey_44),
                 contentDescription = "search",
                 modifier = Modifier.clickable {
                     navController.navigate(DetailScreen.FindUser.route)
                 }
             )
             Image(
-                painter = painterResource(id = R.drawable.ic_bookmark),
+                painter = painterResource(id = R.drawable.ic_grey_bookmark_44),
                 contentDescription = "bookmark",
                 modifier = Modifier.clickable {
                     navController.navigate(DetailScreen.Scrap.route)
@@ -221,7 +221,7 @@ private fun Filter() {
         verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
-            painter = painterResource(id = R.drawable.ic_filter),
+            painter = painterResource(id = R.drawable.ic_grey_filter_25),
             contentDescription = null
         )
         Divider(

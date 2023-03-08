@@ -48,7 +48,7 @@ fun SignUpWelcomeScreen(navController: NavController) {
 @Composable
 private fun Logo() {
     Image(
-        painter = painterResource(id = R.drawable.ic_red_text_logo),
+        painter = painterResource(id = R.drawable.ic_text_logo_65),
         contentDescription = null
     )
 }

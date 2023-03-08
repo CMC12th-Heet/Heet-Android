@@ -98,7 +98,7 @@ fun FindUserScreen(navController: NavController) {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Image(
-                            painter = painterResource(id = R.drawable.img_find_user_default_profile),
+                            painter = painterResource(id = R.drawable.img_profile_find_user),
                             contentDescription = null,
                             modifier = Modifier.size(30.dp)
                         )
@@ -180,7 +180,7 @@ private fun FindUserTextField(
                             color = Color.White
                         )
                         Image(
-                            painter = painterResource(id = R.drawable.ic_write_search),
+                            painter = painterResource(id = R.drawable.ic_search_white_14),
                             contentDescription = "search"
                         )
                     }
@@ -191,7 +191,7 @@ private fun FindUserTextField(
                     ) {
                         innerTextField()
                         Image(
-                            painter = painterResource(id = R.drawable.ic_wrtie_cancel),
+                            painter = painterResource(id = R.drawable.ic_circle_cancel_white_16),
                             contentDescription = "cancel",
                             modifier = Modifier.clickable { id.value = "" }
                         )

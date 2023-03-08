@@ -79,9 +79,9 @@ fun SignUpResidenceScreen(navController: NavController) {
                         mutableStateOf(false)
                     }
                     val image = if (expanded.value) {
-                        painterResource(id = R.drawable.ic_grey_down)
+                        painterResource(id = R.drawable.ic_down_grey_24)
                     } else {
-                        painterResource(id = R.drawable.ic_grey_next)
+                        painterResource(id = R.drawable.ic_next_grey_24)
                     }
                     Row(
                         modifier = Modifier.fillMaxSize().padding(start = 10.dp, end = 7.dp),
@@ -188,7 +188,7 @@ private fun ResidenceChip(name: MutableState<String>) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Spacer(modifier = Modifier.width(6.dp))
             Image(
-                painter = painterResource(id = R.drawable.ic_red_check),
+                painter = painterResource(id = R.drawable.ic_check_red_12),
                 contentDescription = null
             )
             Text(

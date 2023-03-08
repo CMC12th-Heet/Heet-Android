@@ -39,7 +39,7 @@ fun SignUpResidenceWelcomeScreen(navController: NavController) {
             modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(painter = painterResource(id = R.drawable.ic_location), contentDescription = null)
+            Image(painter = painterResource(id = R.drawable.ic_location_red_28), contentDescription = null)
             Spacer(modifier = Modifier.height(6.dp))
             Text(
                 text = "서울시 용산구",
@@ -61,7 +61,7 @@ fun SignUpResidenceWelcomeScreen(navController: NavController) {
 @Composable
 private fun Logo() {
     Image(
-        painter = painterResource(id = R.drawable.ic_red_text_logo),
+        painter = painterResource(id = R.drawable.ic_text_logo_65),
         contentDescription = null
     )
 }

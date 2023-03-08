@@ -63,7 +63,7 @@ fun FollowerListScreen(navController: NavController) {
                             ).size(30.dp)
                         ) {
                             Image(
-                                painter = painterResource(id = org.heet.R.drawable.img_following_default),
+                                painter = painterResource(id = org.heet.R.drawable.img_profile_following),
                                 contentDescription = null
                             )
                         }

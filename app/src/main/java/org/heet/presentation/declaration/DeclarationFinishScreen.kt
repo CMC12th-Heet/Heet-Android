@@ -32,7 +32,7 @@ fun DeclarationFinishScreen(navController: NavController) {
             navController.navigate(Graph.HOME)
         }
         Image(
-            painter = painterResource(id = R.drawable.ic_big_black_check),
+            painter = painterResource(id = R.drawable.ic_check_black_33),
             contentDescription = null,
             modifier = Modifier.padding(top = 226.dp)
         )

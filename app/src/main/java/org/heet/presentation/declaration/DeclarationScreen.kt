@@ -94,7 +94,7 @@ fun DeclarationScreen(navController: NavController) {
                         )
 
                         Image(
-                            painter = painterResource(id = R.drawable.ic_grey_next),
+                            painter = painterResource(id = R.drawable.ic_next_grey_24),
                             contentDescription = "detail"
                         )
                     }

@@ -57,7 +57,7 @@ fun SettingScreen(navController: NavController) {
                             fontFamily = pretendardFamily
                         )
                         Image(
-                            painter = painterResource(id = org.heet.R.drawable.ic_grey_next),
+                            painter = painterResource(id = org.heet.R.drawable.ic_next_grey_24),
                             contentDescription = "move",
                             modifier = Modifier.clickable {
                                 navController.navigate(it.destination.route)
