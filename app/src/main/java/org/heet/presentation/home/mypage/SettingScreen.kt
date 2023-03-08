@@ -19,8 +19,8 @@ import org.heet.components.Back
 import org.heet.components.EmptyText
 import org.heet.components.Title
 import org.heet.data.datasource.LocalSettingDataSource
-import org.heet.ui.theme.Grey500
-import org.heet.ui.theme.Red200
+import org.heet.ui.theme.Grey400
+import org.heet.ui.theme.Red500
 import org.heet.util.pretendardFamily
 
 @Composable
@@ -51,7 +51,7 @@ fun SettingScreen(navController: NavController) {
                     ) {
                         Text(
                             it.title,
-                            color = Grey500,
+                            color = Grey400,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Normal,
                             fontFamily = pretendardFamily
@@ -71,7 +71,7 @@ fun SettingScreen(navController: NavController) {
         Column(modifier = Modifier.align(Alignment.BottomStart)) {
             Text(
                 text = "V.1.0.0",
-                color = Red200,
+                color = Red500,
                 fontSize = 11.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = pretendardFamily

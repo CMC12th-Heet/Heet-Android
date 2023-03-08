@@ -34,9 +34,9 @@ fun HomeTownScreen(navController: NavController) {
     ) {
         Column(modifier = Modifier.align(Alignment.TopCenter)) {
             TopBar(navController = navController)
-            Divider(modifier = Modifier.padding(top = 9.dp), color = Grey900)
+            Divider(modifier = Modifier.padding(top = 9.dp), color = White100)
             Filter()
-            Divider(color = Grey900)
+            Divider(color = White100)
             ContentList(navController = navController)
         }
     }
@@ -74,7 +74,7 @@ private fun ContentList(navController: NavController) {
                                 text = "약수 로컬 스콘 맛집 약수 로컬 스콘 맛집",
                                 modifier = Modifier.padding(top = 11.dp),
                                 fontSize = 16.sp,
-                                color = Black500,
+                                color = Black100,
                                 fontWeight = FontWeight.Bold,
                                 fontFamily = pretendardFamily
                             )
@@ -110,7 +110,7 @@ private fun ContentList(navController: NavController) {
                             Text(
                                 text = "1/7",
                                 modifier = Modifier.padding(horizontal = 13.dp),
-                                color = Black600,
+                                color = Black400,
                                 fontSize = 10.sp,
                                 fontWeight = FontWeight.ExtraBold,
                                 fontFamily = pretendardFamily
@@ -150,7 +150,7 @@ private fun ContentList(navController: NavController) {
                 text = "2분 전",
                 modifier = Modifier.padding(start = 10.dp, top = 10.dp),
                 fontSize = 10.sp,
-                color = Grey1100,
+                color = White300,
                 fontWeight = FontWeight.Normal,
                 fontFamily = pretendardFamily
             )
@@ -170,7 +170,7 @@ private fun TopBar(navController: NavController) {
     ) {
         Surface(
             shape = RoundedCornerShape(13.dp),
-            color = Red200
+            color = Red500
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Spacer(modifier = Modifier.width(6.dp))
@@ -229,11 +229,11 @@ private fun Filter() {
                 .padding(start = 5.dp, end = 9.dp)
                 .width(1.dp)
                 .height(11.dp),
-            color = Black400
+            color = Grey750
         )
         Text(
             text = "최신순",
-            color = Red200,
+            color = Red500,
             fontSize = 13.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = pretendardFamily
@@ -243,11 +243,11 @@ private fun Filter() {
                 .padding(start = 16.dp, end = 15.dp)
                 .width(1.dp)
                 .height(11.dp),
-            color = Black400
+            color = Grey750
         )
         Text(
             text = "베스트순",
-            color = Red200,
+            color = Red500,
             fontSize = 13.sp,
             fontWeight = FontWeight.Bold,
             fontFamily = pretendardFamily

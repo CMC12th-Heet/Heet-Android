@@ -59,7 +59,7 @@ fun ModifyProfileScreen(navController: NavController) {
                 Surface(
                     modifier = Modifier.size(71.dp),
                     shape = CircleShape,
-                    border = BorderStroke(1.dp, White300)
+                    border = BorderStroke(1.dp, White250)
                 ) {
                     Image(
                         painter = painterResource(id = org.heet.R.drawable.img_modify_profile_default_profile),
@@ -85,7 +85,7 @@ fun ModifyProfileScreen(navController: NavController) {
                     Spacer(modifier = Modifier.width(10.dp))
                     Text(
                         text = "중구 약수동",
-                        color = Red200,
+                        color = Red500,
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Bold,
                         fontFamily = pretendardFamily
@@ -94,7 +94,7 @@ fun ModifyProfileScreen(navController: NavController) {
                 Text(
                     text = "지역 변경하기",
                     modifier = Modifier.align(Alignment.Bottom),
-                    color = Grey1400,
+                    color = Grey50,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Normal
                 )
@@ -109,14 +109,14 @@ fun ModifyProfileScreen(navController: NavController) {
             ) {
                 Text(
                     text = "이름",
-                    color = Grey1400,
+                    color = Grey50,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Normal,
                     fontFamily = pretendardFamily
                 )
                 Text(
                     text = "(필수)",
-                    color = Black1500,
+                    color = Black900,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Normal,
                     fontFamily = pretendardFamily
@@ -128,7 +128,7 @@ fun ModifyProfileScreen(navController: NavController) {
                 placeholder = "이름",
                 enabled = true,
                 isSingleLine = true,
-                color = Black1600
+                color = Grey150
             )
             Spacer(modifier = Modifier.height(20.dp))
             Row(
@@ -138,14 +138,14 @@ fun ModifyProfileScreen(navController: NavController) {
             ) {
                 Text(
                     text = "아이디",
-                    color = Grey1400,
+                    color = Grey50,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Normal,
                     fontFamily = pretendardFamily
                 )
                 Text(
                     text = "(필수)",
-                    color = Black1500,
+                    color = Black900,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Normal,
                     fontFamily = pretendardFamily
@@ -157,13 +157,13 @@ fun ModifyProfileScreen(navController: NavController) {
                 placeholder = "아이디",
                 enabled = true,
                 isSingleLine = true,
-                color = Black1600
+                color = Grey150
             )
             Spacer(modifier = Modifier.height(7.dp))
             Text(
                 text = "숫자/영문/특수문자 중 두가지 이상, 8지~32자",
                 modifier = Modifier.align(Alignment.End).padding(13.dp),
-                color = Grey1500,
+                color = White850,
                 fontSize = 11.sp,
                 fontWeight = FontWeight.Normal,
                 fontFamily = pretendardFamily
@@ -172,7 +172,7 @@ fun ModifyProfileScreen(navController: NavController) {
             Text(
                 text = "소개글 작성",
                 modifier = Modifier.padding(start = 15.dp).fillMaxWidth(),
-                color = Grey1400,
+                color = Grey50,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Normal,
                 fontFamily = pretendardFamily
@@ -184,13 +184,13 @@ fun ModifyProfileScreen(navController: NavController) {
                 placeholder = "소개글",
                 enabled = true,
                 isSingleLine = true,
-                color = Black1600
+                color = Grey150
             )
             Spacer(modifier = Modifier.height(7.dp))
             Text(
                 text = "최대 30 자",
                 modifier = Modifier.align(Alignment.End).padding(end = 13.dp),
-                color = Grey1400,
+                color = Grey50,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Normal,
                 fontFamily = pretendardFamily

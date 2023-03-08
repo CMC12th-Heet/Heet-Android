@@ -70,14 +70,14 @@ fun MyPage(navController: NavController) {
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = "abcdef112",
-                    color = Black1200,
+                    color = Grey350,
                     fontSize = 17.sp,
                     fontWeight = FontWeight.ExtraBold
                 )
                 Spacer(modifier = Modifier.height(9.dp))
                 Text(
                     text = "소개글을 작성해주세요",
-                    color = Grey1300,
+                    color = White650,
                     fontSize = 11.sp,
                     fontWeight = FontWeight.Normal
                 )
@@ -90,7 +90,7 @@ fun MyPage(navController: NavController) {
                     Spacer(modifier = Modifier.width(2.dp))
                     Text(
                         text = "중구 약수동",
-                        color = Red200,
+                        color = Red500,
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Bold
                     )
@@ -104,27 +104,27 @@ fun MyPage(navController: NavController) {
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                     Text(
                         text = "게시글 0",
-                        color = Black1400,
+                        color = Grey850,
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Normal
                     )
                     Divider(
                         modifier = Modifier.size(width = 1.dp, height = 12.dp),
-                        color = Black400
+                        color = Grey750
                     )
                     Text(
                         text = "팔로잉 0",
-                        color = Black1400,
+                        color = Grey850,
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Normal
                     )
                     Divider(
                         modifier = Modifier.size(width = 1.dp, height = 12.dp),
-                        color = Black400
+                        color = Grey750
                     )
                     Text(
                         text = "팔로워 0",
-                        color = Black1400,
+                        color = Grey850,
                         fontSize = 12.sp,
                         fontWeight = FontWeight.Normal
                     )

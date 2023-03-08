@@ -10,15 +10,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 
 private val DarkColorPalette = darkColors(
-    primary = Red200,
-    primaryVariant = Red300,
-    secondary = Red400
+    primary = Red500,
+    primaryVariant = Red600,
+    secondary = Red900
 )
 
 private val LightColorPalette = lightColors(
-    primary = Red200,
-    primaryVariant = Red300,
-    secondary = Red400
+    primary = Red500,
+    primaryVariant = Red600,
+    secondary = Red900
 )
 
 @OptIn(ExperimentalFoundationApi::class)
