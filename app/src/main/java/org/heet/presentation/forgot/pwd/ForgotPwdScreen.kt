@@ -114,7 +114,7 @@ fun ForgotPwdScreen(
                         .padding(top = 13.dp)
                         .fillMaxWidth()
                         .height(3.dp),
-                    color = White400
+                    color = White350
                 )
                 if (!checkPwd.value) {
                     if (pwd.value.isNotEmpty()) {
@@ -142,7 +142,7 @@ fun ForgotPwdScreen(
                                 .padding(top = 13.dp)
                                 .fillMaxWidth()
                                 .height(3.dp),
-                            color = White400
+                            color = White350
                         )
                         if (isSame.value) {
                             Row(modifier = Modifier.padding(top = 15.dp, start = 12.dp)) {
@@ -153,7 +153,7 @@ fun ForgotPwdScreen(
                                 )
                                 Text(
                                     text = "일치합니다.",
-                                    color = White800,
+                                    color = White750,
                                     fontSize = 13.sp,
                                     fontWeight = FontWeight.Normal,
                                     fontFamily = pretendardFamily

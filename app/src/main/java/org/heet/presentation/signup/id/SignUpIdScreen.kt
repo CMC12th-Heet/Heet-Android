@@ -61,14 +61,14 @@ fun SignUpIdScreen(navController: NavController) {
             ) {
                 Text(
                     text = "이메일",
-                    color = Grey400,
+                    color = Grey300,
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Normal,
                     fontFamily = pretendardFamily
                 )
                 Text(
                     text = "jenny0810@naver.com",
-                    color = White300,
+                    color = White250,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Normal,
                     fontFamily = pretendardFamily
@@ -82,14 +82,14 @@ fun SignUpIdScreen(navController: NavController) {
             ) {
                 Text(
                     text = "비밀번호",
-                    color = Grey400,
+                    color = Grey300,
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Normal,
                     fontFamily = pretendardFamily
                 )
                 Text(
                     text = "********",
-                    color = White300,
+                    color = White250,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Normal,
                     fontFamily = pretendardFamily
@@ -101,7 +101,7 @@ fun SignUpIdScreen(navController: NavController) {
                     fontFamily = pretendardFamily,
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Normal,
-                    color = Black200
+                    color = Grey900
                 )
                 Box(
                     modifier = Modifier
@@ -161,7 +161,7 @@ fun SignUpIdScreen(navController: NavController) {
                     fontFamily = pretendardFamily,
                     fontSize = 10.sp,
                     fontWeight = FontWeight.ExtraBold,
-                    color = Red200
+                    color = Red500
                 )
             } else {
                 Row {

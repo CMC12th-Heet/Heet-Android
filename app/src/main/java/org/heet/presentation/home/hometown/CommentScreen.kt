@@ -115,7 +115,7 @@ private fun CommentTextField(
         modifier = Modifier.padding(vertical = 7.dp),
         enabled = true,
         textStyle = TextStyle.Default.copy(
-            color = Black800,
+            color = Grey500,
             fontSize = 13.sp,
             fontFamily = pretendardFamily,
             fontWeight = FontWeight.SemiBold
@@ -133,7 +133,7 @@ private fun CommentTextField(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(shape = RoundedCornerShape(20.dp), color = Black900)
+                    .background(shape = RoundedCornerShape(20.dp), color = White200)
                     .padding(horizontal = 14.dp, vertical = 8.dp)
             ) {
                 if (comment.value.isEmpty()) {
@@ -169,7 +169,7 @@ private fun CommentList() {
             Text(
                 text = "댓글달기댓글달기댓글달기댓글달기댓글달기댓글달기댓글달기댓글달기",
                 fontSize = 13.sp,
-                color = Black700,
+                color = Grey450,
                 fontWeight = FontWeight.Normal,
                 fontFamily = pretendardFamily
             )

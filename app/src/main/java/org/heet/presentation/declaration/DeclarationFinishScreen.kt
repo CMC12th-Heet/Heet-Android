@@ -16,9 +16,9 @@ import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.Finish
 import org.heet.core.navigation.Graph
-import org.heet.ui.theme.Black300
+import org.heet.ui.theme.Grey800
 import org.heet.ui.theme.Red100
-import org.heet.ui.theme.Red200
+import org.heet.ui.theme.Red500
 import org.heet.util.pretendardFamily
 
 @Composable
@@ -39,7 +39,7 @@ fun DeclarationFinishScreen(navController: NavController) {
         Column(modifier = Modifier.width(IntrinsicSize.Max).padding(top = 19.dp)) {
             Text(
                 text = "신고해주셔서 감사합니다",
-                color = Red200,
+                color = Red500,
                 fontSize = 20.sp,
                 fontWeight = FontWeight.ExtraBold,
                 fontFamily = pretendardFamily
@@ -52,7 +52,7 @@ fun DeclarationFinishScreen(navController: NavController) {
         Text(
             text = "HEET 서비스 팀에서 정책에 위반되는지 검토 후 결과를\n알려드리겠습니다. 안전한 HEET 서비스가 될 수 있도록\n도와주셔서 감사합니다.",
             modifier = Modifier.padding(top = 59.dp),
-            color = Black300,
+            color = Grey800,
             fontSize = 12.sp,
             fontWeight = FontWeight.Normal,
             fontFamily = pretendardFamily,

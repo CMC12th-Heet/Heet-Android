@@ -23,8 +23,8 @@ import org.heet.components.BigRoundButton
 import org.heet.components.RoundInputField
 import org.heet.core.navigation.Graph
 import org.heet.ui.theme.Grey600
-import org.heet.ui.theme.Red200
-import org.heet.ui.theme.Red300
+import org.heet.ui.theme.Red500
+import org.heet.ui.theme.Red600
 import org.heet.util.pretendardFamily
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -82,7 +82,7 @@ fun LoginScreen(navController: NavController) {
                     .padding(horizontal = 29.dp)
                     .height(16.5.dp)
                     .width(2.dp),
-                color = Red200
+                color = Red500
             )
             Auth("회원가입 하기") { navController.navigate(Graph.SIGNUP) }
         }
@@ -123,7 +123,7 @@ private fun RegisterInfo(text: String, modifier: Modifier) {
     Text(
         text = text,
         modifier = modifier,
-        color = Red300,
+        color = Red600,
         fontSize = 12.sp,
         fontWeight = FontWeight.ExtraBold,
         fontFamily = pretendardFamily

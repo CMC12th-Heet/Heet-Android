@@ -71,7 +71,7 @@ fun AddressScreen(navController: NavController) {
                         text = "등록",
                         modifier = Modifier.clickable {
                         },
-                        color = Red200,
+                        color = Red500,
                         fontSize = 17.sp,
                         fontWeight = FontWeight.Black,
                         fontFamily = pretendardFamily
@@ -124,7 +124,7 @@ private fun AddressInputResult(didSearch: MutableState<Boolean>) {
         Text(
             text = "검색결과",
             modifier = Modifier.padding(start = 15.dp),
-            color = Black1100,
+            color = Black700,
             fontSize = 13.sp,
             fontWeight = FontWeight.Medium,
             fontFamily = pretendardFamily
@@ -148,9 +148,9 @@ private fun AddressInputResult(didSearch: MutableState<Boolean>) {
                         Text(
                             text = searchResultList[index].storeName,
                             color = if (searchResultList[index].isSelected) {
-                                Red200
+                                Red500
                             } else {
-                                Grey500
+                                Grey400
                             },
                             fontSize = 16.sp,
                             fontWeight = FontWeight.SemiBold,
@@ -169,7 +169,7 @@ private fun AddressInputResult(didSearch: MutableState<Boolean>) {
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
                             text = searchResultList[index].address,
-                            color = Black1300,
+                            color = White800,
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Normal,
                             fontFamily = pretendardFamily
@@ -191,7 +191,7 @@ private fun AddressInputGuide() {
     ) {
         Text(
             text = "게시글을 작성하려는 장소를 검색해보세요.",
-            color = Black1100,
+            color = Black700,
             fontSize = 13.sp,
             fontWeight = FontWeight.Medium,
             fontFamily = pretendardFamily
@@ -206,14 +206,14 @@ private fun AddressInputGuide() {
             items(LocalSearchHelpDataSource().loadSearchHelps()) {
                 Text(
                     text = it.title,
-                    color = Black1200,
+                    color = Grey350,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Normal,
                     fontFamily = pretendardFamily
                 )
                 Text(
                     text = it.example,
-                    color = Black1200,
+                    color = Grey350,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Normal,
                     fontFamily = pretendardFamily
@@ -240,7 +240,7 @@ private fun AddressTextField(
         modifier = Modifier.padding(top = 12.dp),
         enabled = true,
         textStyle = TextStyle.Default.copy(
-            color = Black1000,
+            color = Black350,
             fontSize = 13.sp,
             fontFamily = pretendardFamily,
             fontWeight = FontWeight.Bold

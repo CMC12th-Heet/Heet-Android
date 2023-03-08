@@ -11,7 +11,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import org.heet.ui.theme.Grey800
+import org.heet.ui.theme.Grey650
 import org.heet.util.pretendardFamily
 
 @Composable
@@ -36,7 +36,7 @@ fun WithdrawDialog(showDialog: MutableState<Boolean>) {
             onClick = { showDialog.value = false },
             text = "취소",
             color = Color.White,
-            textColor = Grey800
+            textColor = Grey650
         )
         Spacer(modifier = Modifier.height(41.dp))
     }

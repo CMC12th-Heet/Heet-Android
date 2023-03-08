@@ -65,7 +65,7 @@ fun RoundInputField(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(shape = RoundedCornerShape(23.dp), color = White100)
+                    .background(shape = RoundedCornerShape(23.dp), color = White50)
                     .padding(horizontal = 20.dp, vertical = 14.dp)
             ) {
                 if (valueState.value.isEmpty()) {
@@ -104,7 +104,7 @@ fun NormalInputField(
         modifier = modifier,
         enabled = enabled,
         textStyle = TextStyle.Default.copy(
-            color = Grey1700,
+            color = Grey550,
             fontSize = fontSize,
             fontFamily = pretendardFamily,
             fontWeight = fontWeight
@@ -123,7 +123,7 @@ fun NormalInputField(
                         fontFamily = pretendardFamily,
                         fontSize = fontSize,
                         fontWeight = fontWeight,
-                        color = Grey1600
+                        color = White450
                     )
                 }
                 innerTextField()
@@ -137,7 +137,7 @@ fun BigRoundButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     text: String,
-    color: Color = Red200,
+    color: Color = Red500,
     textColor: Color = Color.White
 ) {
     Button(
@@ -170,9 +170,9 @@ fun SmallRoundButton(
             .height(38.dp),
         onClick = onClick,
         shape = RoundedCornerShape(22.dp),
-        border = BorderStroke(1.dp, Red300),
+        border = BorderStroke(1.dp, Red600),
         colors = if (isCheck.value) {
-            ButtonDefaults.buttonColors(Red200)
+            ButtonDefaults.buttonColors(Red500)
         } else {
             ButtonDefaults.buttonColors(Color.White)
         }
@@ -185,7 +185,7 @@ fun SmallRoundButton(
             color = if (isCheck.value) {
                 Color.White
             } else {
-                Red200
+                Red500
             }
         )
     }
@@ -211,7 +211,7 @@ fun FlatInputField(
         visualTransformation = if (isPassword) PasswordVisualTransformation()
         else VisualTransformation.None,
         textStyle = TextStyle.Default.copy(
-            color = Grey300,
+            color = Grey200,
             fontSize = 16.sp,
             fontWeight = FontWeight.SemiBold
         ),
@@ -251,7 +251,7 @@ fun GreyValidateText(text: String, isValidate: Boolean = true) {
             fontFamily = pretendardFamily,
             fontSize = 13.sp,
             fontWeight = FontWeight.Normal,
-            color = White800
+            color = White750
         )
     }
 }
@@ -294,7 +294,7 @@ fun Terms(text: String, isChecked: Boolean = false) {
                 fontFamily = pretendardFamily,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Normal,
-                color = Grey100
+                color = White600
             )
         }
         Text(
@@ -306,7 +306,7 @@ fun Terms(text: String, isChecked: Boolean = false) {
             fontFamily = pretendardFamily,
             fontSize = 12.sp,
             fontWeight = FontWeight.Normal,
-            color = Grey100,
+            color = White600,
             textDecoration = TextDecoration.Underline
         )
     }
@@ -353,7 +353,7 @@ fun Next(
             timer()
             move()
         },
-        color = Red200,
+        color = Red500,
         fontSize = 17.sp,
         fontWeight = FontWeight.Black
     )
@@ -369,7 +369,7 @@ fun Finish(
         modifier = modifier.clickable {
             move()
         },
-        color = Red200,
+        color = Red500,
         fontSize = 17.sp,
         fontWeight = FontWeight.Black
     )
@@ -546,7 +546,7 @@ fun ValidateText(text: String, isValidate: Boolean) {
             fontFamily = pretendardFamily,
             fontSize = 13.sp,
             fontWeight = FontWeight.Normal,
-            color = White800
+            color = White750
         )
     }
 }
@@ -558,9 +558,9 @@ fun RequestBtn(isCheck: MutableState<Boolean>, text: String, onClick: () -> Unit
         modifier = Modifier
             .height(38.dp),
         shape = RoundedCornerShape(22.dp),
-        border = BorderStroke(1.dp, Red300),
+        border = BorderStroke(1.dp, Red600),
         colors = if (isCheck.value) {
-            ButtonDefaults.buttonColors(Red200)
+            ButtonDefaults.buttonColors(Red500)
         } else {
             ButtonDefaults.buttonColors(Color.White)
         }
@@ -570,7 +570,7 @@ fun RequestBtn(isCheck: MutableState<Boolean>, text: String, onClick: () -> Unit
             color = if (isCheck.value) {
                 Color.White
             } else {
-                Red200
+                Red500
             },
             fontSize = 17.sp,
             fontWeight = FontWeight.Normal,
@@ -603,7 +603,7 @@ fun RegularFlatInputField(
         visualTransformation = if (isPassword) PasswordVisualTransformation()
         else VisualTransformation.None,
         textStyle = TextStyle.Default.copy(
-            color = White300,
+            color = White250,
             fontSize = 15.sp,
             fontWeight = FontWeight.Normal
         ),
@@ -637,7 +637,7 @@ fun DotDivider() {
             .height(0.3.dp)
     ) {
         drawLine(
-            color = Grey1000,
+            color = White400,
             start = Offset(0f, 0f),
             end = Offset(size.width, 0f),
             pathEffect = pathEffect

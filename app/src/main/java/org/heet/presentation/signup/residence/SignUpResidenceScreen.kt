@@ -24,10 +24,10 @@ import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.*
 import org.heet.core.navigation.navscreen.SignUpScreen
-import org.heet.ui.theme.Black200
-import org.heet.ui.theme.Grey500
-import org.heet.ui.theme.Red200
-import org.heet.ui.theme.White100
+import org.heet.ui.theme.Grey400
+import org.heet.ui.theme.Grey900
+import org.heet.ui.theme.Red500
+import org.heet.ui.theme.White50
 import org.heet.util.pretendardFamily
 
 @Composable
@@ -144,7 +144,7 @@ private fun CityItem(
         fontFamily = pretendardFamily,
         fontSize = 16.sp,
         fontWeight = FontWeight.Normal,
-        color = Grey500
+        color = Grey400
     )
     Image(
         painter = image,
@@ -169,7 +169,7 @@ private fun WardItem(
         fontFamily = pretendardFamily,
         fontSize = 16.sp,
         fontWeight = FontWeight.Normal,
-        color = Grey500,
+        color = Grey400,
         modifier = Modifier.clickable {
             checkWard.value = true
             wardName.value = ward
@@ -182,7 +182,7 @@ private fun WardItem(
 private fun ResidenceChip(name: MutableState<String>) {
     Surface(
         shape = RoundedCornerShape(16.5.dp),
-        color = White100,
+        color = White50,
         modifier = Modifier.size(width = 84.dp, height = 30.dp)
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -196,7 +196,7 @@ private fun ResidenceChip(name: MutableState<String>) {
                 fontFamily = pretendardFamily,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Normal,
-                color = Red200,
+                color = Red500,
                 modifier = Modifier.padding(start = 9.dp, end = 10.dp)
             )
         }
@@ -210,7 +210,7 @@ private fun NoticeResidence() {
         fontFamily = pretendardFamily,
         fontSize = 16.sp,
         fontWeight = FontWeight.SemiBold,
-        color = Black200,
+        color = Grey900,
         modifier = Modifier.padding(start = 10.dp)
     )
 }

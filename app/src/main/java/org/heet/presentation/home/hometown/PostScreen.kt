@@ -25,8 +25,8 @@ import org.heet.components.DotDivider
 import org.heet.components.EmptyText
 import org.heet.components.NormalInputField
 import org.heet.components.Title
-import org.heet.ui.theme.Black600
-import org.heet.ui.theme.Grey200
+import org.heet.ui.theme.Black400
+import org.heet.ui.theme.Grey100
 import org.heet.ui.theme.White700
 import org.heet.util.pretendardFamily
 
@@ -102,7 +102,7 @@ fun PostScreen(navController: NavController) {
                         Text(
                             text = "1/7",
                             modifier = Modifier.padding(horizontal = 13.dp),
-                            color = Black600,
+                            color = Black400,
                             fontSize = 10.sp,
                             fontWeight = FontWeight.ExtraBold,
                             fontFamily = pretendardFamily
@@ -210,7 +210,7 @@ fun PostScreen(navController: NavController) {
             modifier = Modifier
                 .align(Alignment.Start)
                 .padding(start = 20.dp, bottom = 69.dp),
-            color = Grey200,
+            color = Grey100,
             fontSize = 12.sp,
             fontWeight = FontWeight.SemiBold,
             fontFamily = pretendardFamily

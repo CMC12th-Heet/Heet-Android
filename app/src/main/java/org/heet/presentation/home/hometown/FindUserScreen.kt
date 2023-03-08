@@ -67,7 +67,7 @@ fun FindUserScreen(navController: NavController) {
                 Text(
                     text = "검색결과",
                     modifier = Modifier.padding(start = 15.dp),
-                    color = Black1100,
+                    color = Black700,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Medium,
                     fontFamily = pretendardFamily
@@ -75,7 +75,7 @@ fun FindUserScreen(navController: NavController) {
             } else {
                 Text(
                     text = "찾고자 하는 유저를 검색해 보세요",
-                    color = Black1100,
+                    color = Black700,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Medium,
                     fontFamily = pretendardFamily
@@ -104,7 +104,7 @@ fun FindUserScreen(navController: NavController) {
                         )
                         Text(
                             text = "heet_member",
-                            color = Red200,
+                            color = Red500,
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Normal,
                             fontFamily = pretendardFamily
@@ -118,7 +118,7 @@ fun FindUserScreen(navController: NavController) {
                 Text(
                     text = "유저\nex) HEET_USER0318",
                     modifier = Modifier.fillMaxWidth(),
-                    color = Black1200,
+                    color = Grey350,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Normal,
                     fontFamily = pretendardFamily,
@@ -145,7 +145,7 @@ private fun FindUserTextField(
         modifier = Modifier.padding(top = 12.dp),
         enabled = true,
         textStyle = TextStyle.Default.copy(
-            color = Black1000,
+            color = Black350,
             fontSize = 13.sp,
             fontFamily = pretendardFamily,
             fontWeight = FontWeight.Bold

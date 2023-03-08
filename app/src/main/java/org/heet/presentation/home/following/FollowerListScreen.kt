@@ -21,7 +21,7 @@ import org.heet.components.Back
 import org.heet.components.DotDivider
 import org.heet.components.EmptyText
 import org.heet.components.Title
-import org.heet.ui.theme.Red200
+import org.heet.ui.theme.Red500
 import org.heet.util.pretendardFamily
 
 @Composable
@@ -78,7 +78,7 @@ fun FollowerListScreen(navController: NavController) {
                     Text(
                         text = "팔로우",
                         modifier = Modifier.padding(end = 13.dp),
-                        color = Red200,
+                        color = Red500,
                         fontSize = 15.sp,
                         fontWeight = FontWeight.SemiBold,
                         fontFamily = pretendardFamily

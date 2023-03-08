@@ -83,14 +83,14 @@ fun SignUpPwd(navController: NavController) {
             ) {
                 Text(
                     text = "이메일",
-                    color = Grey400,
+                    color = Grey300,
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Normal,
                     fontFamily = pretendardFamily
                 )
                 Text(
                     text = "jenny0810@naver.com",
-                    color = White300,
+                    color = White250,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Normal,
                     fontFamily = pretendardFamily
@@ -102,7 +102,7 @@ fun SignUpPwd(navController: NavController) {
                     fontFamily = pretendardFamily,
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Normal,
-                    color = Black200
+                    color = Grey900
                 )
                 Box(
                     modifier = Modifier
@@ -133,7 +133,7 @@ fun SignUpPwd(navController: NavController) {
                         .padding(top = 12.dp)
                         .fillMaxWidth()
                         .height(3.dp),
-                    color = White400
+                    color = White350
                 )
             }
             if (!checkPwd.value) {
@@ -151,7 +151,7 @@ fun SignUpPwd(navController: NavController) {
                     fontFamily = pretendardFamily,
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Normal,
-                    color = Black200
+                    color = Grey900
                 )
                 SecondPwdField(
                     pwd = pwd,
@@ -167,7 +167,7 @@ fun SignUpPwd(navController: NavController) {
                         .padding(top = 12.dp)
                         .fillMaxWidth()
                         .height(3.dp),
-                    color = White400
+                    color = White350
                 )
                 if (isSame.value) {
                     Row(modifier = Modifier.padding(top = 15.dp, start = 12.dp)) {
@@ -178,7 +178,7 @@ fun SignUpPwd(navController: NavController) {
                         )
                         Text(
                             text = "일치합니다.",
-                            color = White800,
+                            color = White750,
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Normal,
                             fontFamily = pretendardFamily

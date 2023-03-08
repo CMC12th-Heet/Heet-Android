@@ -25,8 +25,8 @@ import org.heet.R
 import org.heet.core.navigation.HomeNavGraph
 import org.heet.core.navigation.navscreen.BottomBarScreen
 import org.heet.core.navigation.navscreen.DetailScreen
-import org.heet.ui.theme.Grey200
-import org.heet.ui.theme.Red200
+import org.heet.ui.theme.Grey100
+import org.heet.ui.theme.Red500
 import org.heet.util.pretendardFamily
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
@@ -60,7 +60,7 @@ private fun WriteButton(isWrite: MutableState<Boolean>, navController: NavHostCo
         R.drawable.ic_red_write
     }
     val backgroundColor = if (isWrite.value) {
-        Red200
+        Red500
     } else {
         Color.White
     }
@@ -126,7 +126,7 @@ fun AddItem(
 ) {
     val selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true
     val background = Color.White
-    val contentColor = if (selected) Red200 else Grey200
+    val contentColor = if (selected) Red500 else Grey100
 
     Box(
         modifier = Modifier

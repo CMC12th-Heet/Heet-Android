@@ -21,10 +21,10 @@ import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.DotDivider
 import org.heet.core.navigation.navscreen.DetailScreen
-import org.heet.ui.theme.Black600
-import org.heet.ui.theme.Grey1200
-import org.heet.ui.theme.Grey500
-import org.heet.ui.theme.Red200
+import org.heet.ui.theme.Black400
+import org.heet.ui.theme.Grey250
+import org.heet.ui.theme.Grey400
+import org.heet.ui.theme.Red500
 import org.heet.util.pretendardFamily
 
 @Composable
@@ -41,7 +41,7 @@ fun FollowingScreen(navController: NavController) {
                         navController.navigate(DetailScreen.FollowingList.route)
                     },
                     shape = RoundedCornerShape(30.dp),
-                    color = Black600
+                    color = Black400
                 ) {
                     Row(
                         horizontalArrangement = Arrangement.SpaceBetween,
@@ -70,7 +70,7 @@ fun FollowingScreen(navController: NavController) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         text = "최근 24시간",
-                        color = Grey1200,
+                        color = Grey250,
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Normal,
                         fontFamily = pretendardFamily
@@ -100,7 +100,7 @@ fun FollowingScreen(navController: NavController) {
                                 Spacer(modifier = Modifier.width(6.dp))
                                 Text(
                                     text = "heet_member",
-                                    color = Grey500,
+                                    color = Grey400,
                                     fontSize = 13.sp,
                                     fontWeight = FontWeight.Normal,
                                     fontFamily = pretendardFamily
@@ -109,7 +109,7 @@ fun FollowingScreen(navController: NavController) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Text(
                                     text = "카페 704",
-                                    color = Red200,
+                                    color = Red500,
                                     fontSize = 13.sp,
                                     fontWeight = FontWeight.Black,
                                     fontFamily = pretendardFamily
@@ -141,7 +141,7 @@ fun FollowingScreen(navController: NavController) {
                                 Text(
                                     text = "1/7",
                                     modifier = Modifier.padding(horizontal = 13.dp),
-                                    color = Black600,
+                                    color = Black400,
                                     fontSize = 10.sp,
                                     fontWeight = FontWeight.ExtraBold,
                                     fontFamily = pretendardFamily
@@ -162,7 +162,7 @@ fun FollowingScreen(navController: NavController) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text(
                         text = "이전 게시물",
-                        color = Grey1200,
+                        color = Grey250,
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Normal,
                         fontFamily = pretendardFamily
@@ -192,7 +192,7 @@ fun FollowingScreen(navController: NavController) {
                                 Spacer(modifier = Modifier.width(6.dp))
                                 Text(
                                     text = "heet_member",
-                                    color = Grey500,
+                                    color = Grey400,
                                     fontSize = 13.sp,
                                     fontWeight = FontWeight.Normal,
                                     fontFamily = pretendardFamily
@@ -201,7 +201,7 @@ fun FollowingScreen(navController: NavController) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Text(
                                     text = "카페 704",
-                                    color = Red200,
+                                    color = Red500,
                                     fontSize = 13.sp,
                                     fontWeight = FontWeight.Black,
                                     fontFamily = pretendardFamily
@@ -233,7 +233,7 @@ fun FollowingScreen(navController: NavController) {
                                 Text(
                                     text = "1/7",
                                     modifier = Modifier.padding(horizontal = 13.dp),
-                                    color = Black600,
+                                    color = Black400,
                                     fontSize = 10.sp,
                                     fontWeight = FontWeight.ExtraBold,
                                     fontFamily = pretendardFamily
