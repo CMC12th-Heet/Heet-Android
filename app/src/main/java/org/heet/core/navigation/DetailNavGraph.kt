@@ -55,5 +55,8 @@ fun NavGraphBuilder.detailsNavGraph(navController: NavHostController) {
         composable(route = DetailScreen.FindUser.route) {
             FindUserScreen(navController = navController)
         }
+        composable(route = DetailScreen.UserProfile.route) {
+            UserProfileScreen(navController = navController)
+        }
     }
 }
