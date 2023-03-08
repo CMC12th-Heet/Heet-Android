@@ -172,7 +172,7 @@ fun SignUpPwd(navController: NavController) {
                 if (isSame.value) {
                     Row(modifier = Modifier.padding(top = 15.dp, start = 12.dp)) {
                         Image(
-                            painter = painterResource(id = R.drawable.ic_black_check),
+                            painter = painterResource(id = R.drawable.ic_check_black_20),
                             contentDescription = null,
                             modifier = Modifier.padding(end = 7.dp)
                         )

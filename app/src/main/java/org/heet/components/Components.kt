@@ -239,8 +239,8 @@ fun FlatInputField(
 @Composable
 fun GreyValidateText(text: String, isValidate: Boolean = true) {
     Row(modifier = Modifier.padding(bottom = 6.dp)) {
-        val check = if (isValidate) painterResource(id = R.drawable.ic_black_check)
-        else painterResource(id = R.drawable.ic_grey_check)
+        val check = if (isValidate) painterResource(id = R.drawable.ic_check_black_20)
+        else painterResource(id = R.drawable.ic_check_grey_20)
         Image(
             painter = check,
             contentDescription = null,
@@ -259,8 +259,8 @@ fun GreyValidateText(text: String, isValidate: Boolean = true) {
 @Composable
 fun BlackValidateText(text: String, isValidate: Boolean = true) {
     Row(modifier = Modifier.padding(bottom = 6.dp)) {
-        val check = if (isValidate) painterResource(id = R.drawable.ic_black_check)
-        else painterResource(id = R.drawable.ic_grey_check)
+        val check = if (isValidate) painterResource(id = R.drawable.ic_check_black_20)
+        else painterResource(id = R.drawable.ic_check_grey_20)
         Image(
             painter = check,
             contentDescription = null,
@@ -278,8 +278,8 @@ fun BlackValidateText(text: String, isValidate: Boolean = true) {
 
 @Composable
 fun Terms(text: String, isChecked: Boolean = false) {
-    val check = if (isChecked) painterResource(id = R.drawable.ic_black_check)
-    else painterResource(id = R.drawable.ic_grey_check)
+    val check = if (isChecked) painterResource(id = R.drawable.ic_check_black_20)
+    else painterResource(id = R.drawable.ic_check_grey_20)
     Box(modifier = Modifier.fillMaxWidth()) {
         Row(modifier = Modifier.align(Alignment.CenterStart)) {
             Image(
@@ -315,7 +315,7 @@ fun Terms(text: String, isChecked: Boolean = false) {
 @Composable
 fun Back(modifier: Modifier = Modifier, back: () -> Unit) {
     Image(
-        painter = painterResource(id = R.drawable.ic_back),
+        painter = painterResource(id = R.drawable.ic_back_black_30),
         contentDescription = "back",
         modifier = modifier.clickable { back() }
     )
@@ -424,9 +424,9 @@ fun Hide(
     onClick: () -> Unit
 ) {
     val passwordImage = if (isHide) {
-        painterResource(id = R.drawable.ic_hide_pwd)
+        painterResource(id = R.drawable.ic_eye_close_grey_44)
     } else {
-        painterResource(id = R.drawable.ic_show_pwd)
+        painterResource(id = R.drawable.ic_eye_open_grey_44)
     }
     Image(
         painter = passwordImage,
@@ -516,9 +516,9 @@ fun SecondPwdField(
             isPassword = isHide.value
         )
         val passwordImage = if (isHide.value) {
-            painterResource(id = R.drawable.ic_hide_pwd)
+            painterResource(id = R.drawable.ic_eye_close_grey_44)
         } else {
-            painterResource(id = R.drawable.ic_show_pwd)
+            painterResource(id = R.drawable.ic_eye_open_grey_44)
         }
         Image(
             painter = passwordImage,
@@ -534,8 +534,8 @@ fun SecondPwdField(
 @Composable
 fun ValidateText(text: String, isValidate: Boolean) {
     Row(modifier = Modifier.padding(bottom = 6.dp)) {
-        val check = if (isValidate) painterResource(id = R.drawable.ic_black_check)
-        else painterResource(id = R.drawable.ic_grey_check)
+        val check = if (isValidate) painterResource(id = R.drawable.ic_check_black_20)
+        else painterResource(id = R.drawable.ic_check_grey_20)
         Image(
             painter = check,
             contentDescription = null,

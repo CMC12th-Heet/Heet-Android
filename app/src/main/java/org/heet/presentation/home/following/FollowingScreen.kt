@@ -60,7 +60,7 @@ fun FollowingScreen(navController: NavController) {
                             fontFamily = pretendardFamily
                         )
                         Image(
-                            painter = painterResource(id = R.drawable.ic_white_next),
+                            painter = painterResource(id = R.drawable.ic_next_white_16),
                             contentDescription = "following_list",
                             modifier = Modifier.padding(start = 30.dp, end = 18.5.dp)
                         )
@@ -94,7 +94,7 @@ fun FollowingScreen(navController: NavController) {
                         ) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Image(
-                                    painter = painterResource(id = R.drawable.ic_following_default_profile),
+                                    painter = painterResource(id = R.drawable.ic_profile_grey_22),
                                     contentDescription = "profile"
                                 )
                                 Spacer(modifier = Modifier.width(6.dp))
@@ -116,7 +116,7 @@ fun FollowingScreen(navController: NavController) {
                                 )
                                 Spacer(modifier = Modifier.width(5.dp))
                                 Image(
-                                    painter = painterResource(id = R.drawable.ic_following_location),
+                                    painter = painterResource(id = R.drawable.ic_location_red_18),
                                     contentDescription = "location"
                                 )
                             }
@@ -126,7 +126,7 @@ fun FollowingScreen(navController: NavController) {
 
                         Box {
                             Image(
-                                painter = painterResource(id = R.drawable.img_default),
+                                painter = painterResource(id = R.drawable.img_default_hometown),
                                 contentDescription = "image",
                                 contentScale = ContentScale.FillWidth,
                                 modifier = Modifier.fillMaxWidth()
@@ -148,7 +148,7 @@ fun FollowingScreen(navController: NavController) {
                                 )
                             }
                             Image(
-                                painter = painterResource(id = R.drawable.ic_following_bookmark),
+                                painter = painterResource(id = R.drawable.ic_white_bookmark_50),
                                 contentDescription = "bookmark",
                                 modifier = Modifier.align(Alignment.BottomEnd)
                             )
@@ -186,7 +186,7 @@ fun FollowingScreen(navController: NavController) {
                         ) {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Image(
-                                    painter = painterResource(id = R.drawable.ic_following_default_profile),
+                                    painter = painterResource(id = R.drawable.ic_profile_grey_22),
                                     contentDescription = "profile"
                                 )
                                 Spacer(modifier = Modifier.width(6.dp))
@@ -208,7 +208,7 @@ fun FollowingScreen(navController: NavController) {
                                 )
                                 Spacer(modifier = Modifier.width(5.dp))
                                 Image(
-                                    painter = painterResource(id = R.drawable.ic_following_location),
+                                    painter = painterResource(id = R.drawable.ic_location_red_18),
                                     contentDescription = "location"
                                 )
                             }
@@ -218,7 +218,7 @@ fun FollowingScreen(navController: NavController) {
 
                         Box {
                             Image(
-                                painter = painterResource(id = R.drawable.img_default),
+                                painter = painterResource(id = R.drawable.img_default_hometown),
                                 contentDescription = "image",
                                 contentScale = ContentScale.FillWidth,
                                 modifier = Modifier.fillMaxWidth()
@@ -240,7 +240,7 @@ fun FollowingScreen(navController: NavController) {
                                 )
                             }
                             Image(
-                                painter = painterResource(id = R.drawable.ic_following_bookmark),
+                                painter = painterResource(id = R.drawable.ic_white_bookmark_50),
                                 contentDescription = "bookmark",
                                 modifier = Modifier.align(Alignment.BottomEnd)
                             )

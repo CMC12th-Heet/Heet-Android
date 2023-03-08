@@ -53,7 +53,7 @@ fun ScrapScreen(navController: NavController) {
                 Surface(shape = RoundedCornerShape(5.dp)) {
                     Box {
                         Image(
-                            painter = painterResource(id = R.drawable.img_scrap_default),
+                            painter = painterResource(id = R.drawable.img_default_scrap),
                             contentDescription = "image",
                             contentScale = ContentScale.FillWidth,
                             modifier = Modifier.fillMaxWidth()
@@ -64,7 +64,7 @@ fun ScrapScreen(navController: NavController) {
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Image(
-                                painter = painterResource(id = R.drawable.ic_scrap_location),
+                                painter = painterResource(id = R.drawable.ic_location_white_11),
                                 contentDescription = null
                             )
                             Spacer(modifier = Modifier.width(3.dp))

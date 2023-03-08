@@ -50,7 +50,7 @@ fun PostScreen(navController: NavController) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_cancel),
+                painter = painterResource(id = R.drawable.ic_cancel_black_30),
                 contentDescription = "cancel",
                 modifier = Modifier.clickable { navController.popBackStack() }
             )
@@ -73,7 +73,7 @@ fun PostScreen(navController: NavController) {
                 )
                 Spacer(modifier = Modifier.width(10.dp))
                 Image(
-                    painter = painterResource(id = R.drawable.ic_white_12_search),
+                    painter = painterResource(id = R.drawable.ic_white_search_14),
                     contentDescription = null
                 )
                 Spacer(modifier = Modifier.width(17.dp))
@@ -87,7 +87,7 @@ fun PostScreen(navController: NavController) {
             Surface(shape = RoundedCornerShape(5.dp)) {
                 Box {
                     Image(
-                        painter = painterResource(id = R.drawable.img_default),
+                        painter = painterResource(id = R.drawable.img_default_hometown),
                         contentDescription = "image",
                         contentScale = ContentScale.FillWidth,
                         modifier = Modifier.fillMaxWidth()
@@ -161,9 +161,9 @@ fun PostScreen(navController: NavController) {
                     Spacer(modifier = Modifier.width(1.dp))
                     Image(
                         painter = if (expandShare.value) {
-                            painterResource(id = R.drawable.ic_15_white_down)
+                            painterResource(id = R.drawable.ic_white_down_16)
                         } else {
-                            painterResource(id = R.drawable.ic_white_next)
+                            painterResource(id = R.drawable.ic_next_white_16)
                         },
                         contentDescription = null,
                         modifier = Modifier.clickable {
@@ -190,9 +190,9 @@ fun PostScreen(navController: NavController) {
                     Spacer(modifier = Modifier.width(10.dp))
                     Image(
                         painter = if (expandSatisfaction.value) {
-                            painterResource(id = R.drawable.ic_15_white_down)
+                            painterResource(id = R.drawable.ic_white_down_16)
                         } else {
-                            painterResource(id = R.drawable.ic_white_next)
+                            painterResource(id = R.drawable.ic_next_white_16)
                         },
                         contentDescription = null,
                         modifier = Modifier.clickable {

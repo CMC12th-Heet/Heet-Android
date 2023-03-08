@@ -28,7 +28,7 @@ fun SplashScreen(navController: NavController) {
         })
 
         Image(
-            painter = painterResource(id = R.drawable.ic_image_logo),
+            painter = painterResource(id = R.drawable.ic_logo),
             contentDescription = "heet_logo"
         )
     }
