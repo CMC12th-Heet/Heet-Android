@@ -29,6 +29,8 @@ val Grey1200 = Color(0xFF8D8D8D)
 val Grey1300 = Color(0xFFB1B1B1)
 val Grey1400 = Color(0xFF9E9E9E)
 val Grey1500 = Color(0xFFA1A1A1)
+val Grey1600 = Color(0xFFBEC2C4)
+val Grey1700 = Color(0xFF6D6D6D)
 
 // Black
 val Black100 = Color(0xFF474747)
