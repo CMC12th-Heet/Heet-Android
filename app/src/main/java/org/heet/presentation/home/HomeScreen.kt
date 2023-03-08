@@ -24,6 +24,7 @@ import androidx.navigation.compose.rememberNavController
 import org.heet.R
 import org.heet.core.navigation.HomeNavGraph
 import org.heet.core.navigation.navscreen.BottomBarScreen
+import org.heet.core.navigation.navscreen.DetailScreen
 import org.heet.ui.theme.Grey200
 import org.heet.ui.theme.Red200
 import org.heet.util.pretendardFamily
@@ -43,7 +44,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
         },
         floatingActionButton = {
             if (isFloatingButton.value) {
-                WriteButton(isWrite = isWrite)
+                WriteButton(isWrite = isWrite, navController = navController)
             }
         }
     ) {
@@ -52,7 +53,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
 }
 
 @Composable
-private fun WriteButton(isWrite: MutableState<Boolean>) {
+private fun WriteButton(isWrite: MutableState<Boolean>, navController: NavHostController) {
     val writeImage = if (isWrite.value) {
         R.drawable.ic_white_wrtie
     } else {
@@ -64,7 +65,10 @@ private fun WriteButton(isWrite: MutableState<Boolean>) {
         Color.White
     }
     FloatingActionButton(
-        onClick = { isWrite.value = !isWrite.value },
+        onClick = {
+            isWrite.value = !isWrite.value
+            navController.navigate(DetailScreen.Post.route)
+        },
         modifier = Modifier
             .padding(end = 26.dp, bottom = 21.dp)
             .size(42.dp),

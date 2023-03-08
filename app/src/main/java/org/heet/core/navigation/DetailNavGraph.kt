@@ -12,6 +12,7 @@ import org.heet.presentation.home.following.FollowingListScreen
 import org.heet.presentation.home.hometown.AddressScreen
 import org.heet.presentation.home.hometown.CommentScreen
 import org.heet.presentation.home.hometown.FindUserScreen
+import org.heet.presentation.home.hometown.PostScreen
 import org.heet.presentation.home.mypage.*
 
 fun NavGraphBuilder.detailsNavGraph(navController: NavHostController) {
@@ -57,6 +58,9 @@ fun NavGraphBuilder.detailsNavGraph(navController: NavHostController) {
         }
         composable(route = DetailScreen.UserProfile.route) {
             UserProfileScreen(navController = navController)
+        }
+        composable(route = DetailScreen.Post.route) {
+            PostScreen(navController = navController)
         }
     }
 }
