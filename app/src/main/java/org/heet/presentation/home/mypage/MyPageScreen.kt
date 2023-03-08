@@ -1,6 +1,7 @@
 package org.heet.presentation.home.mypage
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -22,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.heet.R
+import org.heet.core.navigation.navscreen.DetailScreen
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
 
@@ -53,7 +55,10 @@ fun MyPage(navController: NavController) {
                         )
                         Image(
                             painter = painterResource(id = R.drawable.ic_mypage_setting),
-                            contentDescription = null
+                            contentDescription = null,
+                            modifier = Modifier.clickable {
+                                navController.navigate(DetailScreen.Setting.route)
+                            }
                         )
                     }
                 }

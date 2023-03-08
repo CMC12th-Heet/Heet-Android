@@ -39,6 +39,7 @@ fun RoundInputField(
     placeholder: String,
     enabled: Boolean,
     isSingleLine: Boolean,
+    color: Color = White700,
     keyboardType: KeyboardType = KeyboardType.Text,
     imeAction: ImeAction = ImeAction.Next,
     onAction: KeyboardActions = KeyboardActions.Default
@@ -51,7 +52,7 @@ fun RoundInputField(
         modifier = modifier,
         enabled = enabled,
         textStyle = TextStyle.Default.copy(
-            color = White700,
+            color = color,
             fontSize = 15.sp,
             fontFamily = pretendardFamily,
             fontWeight = FontWeight.Normal
@@ -85,7 +86,9 @@ fun RoundInputField(
 fun BigRoundButton(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
-    text: String
+    text: String,
+    color: Color = Red200,
+    textColor: Color = Color.White
 ) {
     Button(
         onClick = onClick,
@@ -93,11 +96,11 @@ fun BigRoundButton(
             .fillMaxWidth()
             .height(52.dp),
         shape = RoundedCornerShape(28.dp),
-        colors = ButtonDefaults.buttonColors(Red200)
+        colors = ButtonDefaults.buttonColors(color)
     ) {
         Text(
             text = text,
-            color = Color.White,
+            color = textColor,
             fontSize = 17.sp,
             fontWeight = FontWeight.ExtraBold,
             fontFamily = pretendardFamily
