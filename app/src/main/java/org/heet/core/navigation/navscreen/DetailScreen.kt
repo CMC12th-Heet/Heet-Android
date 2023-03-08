@@ -14,4 +14,5 @@ sealed class DetailScreen(val route: String) {
     object Scrap : DetailScreen(route = "scrap")
     object FindUser : DetailScreen(route = "find_user")
     object UserProfile : DetailScreen(route = "user_profile")
+    object Post : DetailScreen(route = "post")
 }

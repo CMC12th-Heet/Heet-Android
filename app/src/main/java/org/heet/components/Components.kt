@@ -26,6 +26,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.heet.R
@@ -74,6 +75,55 @@ fun RoundInputField(
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Normal,
                         color = White700
+                    )
+                }
+                innerTextField()
+            }
+        }
+    )
+}
+
+@Composable
+fun NormalInputField(
+    modifier: Modifier = Modifier,
+    valueState: MutableState<String>,
+    placeholder: String,
+    enabled: Boolean,
+    isSingleLine: Boolean,
+    fontSize: TextUnit = 17.sp,
+    fontWeight: FontWeight = FontWeight.SemiBold,
+    keyboardType: KeyboardType = KeyboardType.Text,
+    imeAction: ImeAction = ImeAction.Next,
+    onAction: KeyboardActions = KeyboardActions.Default
+) {
+    BasicTextField(
+        value = valueState.value,
+        onValueChange = {
+            valueState.value = it
+        },
+        modifier = modifier,
+        enabled = enabled,
+        textStyle = TextStyle.Default.copy(
+            color = Grey1700,
+            fontSize = fontSize,
+            fontFamily = pretendardFamily,
+            fontWeight = fontWeight
+        ),
+        keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
+        keyboardActions = onAction,
+        singleLine = isSingleLine,
+        decorationBox = { innerTextField ->
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                if (valueState.value.isEmpty()) {
+                    Text(
+                        text = placeholder,
+                        fontFamily = pretendardFamily,
+                        fontSize = fontSize,
+                        fontWeight = fontWeight,
+                        color = Grey1600
                     )
                 }
                 innerTextField()
