@@ -18,7 +18,7 @@ class SplashViewModel @Inject constructor(private val autoLoginRepository: AutoL
 
     init {
         viewModelScope.launch {
-            autoLoginRepository.getPreferencesDidLogin().collect() {
+            autoLoginRepository.getDidLogin().collect() {
                 _didLogin.value = it
             }
         }
