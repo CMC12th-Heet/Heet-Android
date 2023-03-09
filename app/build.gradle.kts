@@ -88,7 +88,7 @@ ktlint {
     coloredOutput.set(true)
     verbose.set(true)
     outputToConsole.set(true)
-    disabledRules.set(setOf("max-line-length", "no-wildcard-imports", "import-ordering"))
+    disabledRules.set(setOf("max-line-length", "no-wildcard-imports", "import-ordering", "local.properties"))
     reporters {
         reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.PLAIN)
         reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE)
