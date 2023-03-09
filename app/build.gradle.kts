@@ -26,11 +26,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-        buildConfigField(
-            "String",
-            "USER_PREFERENCES_NAME",
-            properties.getProperty("USER_PREFERENCES_NAME")
-        )
+        buildConfigField("String", "USER_PREFERENCES_NAME", properties.getProperty("USER_PREFERENCES_NAME"))
     }
     buildTypes {
         release {
@@ -84,11 +80,20 @@ dependencies {
 }
 
 ktlint {
+    filter {
+        exclude("**/local.properties/**")
+    }
     android.set(true)
     coloredOutput.set(true)
     verbose.set(true)
     outputToConsole.set(true)
-    disabledRules.set(setOf("max-line-length", "no-wildcard-imports", "import-ordering", "local.properties"))
+    disabledRules.set(
+        setOf(
+            "max-line-length",
+            "no-wildcard-imports",
+            "import-ordering"
+        )
+    )
     reporters {
         reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.PLAIN)
         reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE)
