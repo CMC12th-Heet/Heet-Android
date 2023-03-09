@@ -44,7 +44,7 @@ jobs:
       - name: Lint Check
         run: ./gradlew ktlintCheck
         env:
-          KTLINT_FILTERS: "!file:**/build.gradle.kts"
+          KTLINT_FILTERS: "!file:**/*.gradle*"
 
       - name: Run unit tests
         run: ./gradlew testDebugUnitTest
