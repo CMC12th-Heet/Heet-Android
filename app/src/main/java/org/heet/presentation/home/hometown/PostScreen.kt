@@ -87,7 +87,7 @@ fun PostScreen(navController: NavController) {
             Surface(shape = RoundedCornerShape(5.dp)) {
                 Box {
                     Image(
-                        painter = painterResource(id = R.drawable.img_default_hometown),
+                        painter = painterResource(id = R.drawable.img_default_post),
                         contentDescription = "image",
                         contentScale = ContentScale.FillWidth,
                         modifier = Modifier.fillMaxWidth()
