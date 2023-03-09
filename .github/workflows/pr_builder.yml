@@ -42,7 +42,7 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Lint Check
-        run: ./gradlew ktlintCheck --exclude 'build.gradle.kts' '**/*.kt'
+        run: ./gradlew ktlintCheck
 
       - name: Run unit tests
         run: ./gradlew testDebugUnitTest
