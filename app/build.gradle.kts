@@ -80,9 +80,6 @@ dependencies {
 }
 
 ktlint {
-    filter {
-        exclude("build.gradle.kts")
-    }
     android.set(true)
     coloredOutput.set(true)
     verbose.set(true)
