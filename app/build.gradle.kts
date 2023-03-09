@@ -1,7 +1,10 @@
 import org.jetbrains.kotlin.konan.properties.Properties
 
 val properties = Properties()
-properties.load(project.rootProject.file("local.properties").inputStream())
+val localPropertyFile = project.rootProject.file("local.properties")
+if (localPropertyFile.canRead()) {
+    properties.load(localPropertyFile.inputStream())
+}
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
