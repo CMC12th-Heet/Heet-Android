@@ -43,6 +43,8 @@ jobs:
 
       - name: Lint Check
         run: ./gradlew ktlintCheck
+        env:
+          USER_PREFERENCES_NAME: ${{ secrets.USER_PREFERENCES_NAME }}
 
       - name: Run unit tests
         run: ./gradlew testDebugUnitTest
