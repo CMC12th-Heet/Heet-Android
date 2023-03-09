@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.DotDivider
-import org.heet.core.navigation.navscreen.DetailScreen
+import org.heet.core.navigation.navscreen.FollowingScreen
 import org.heet.ui.theme.Black400
 import org.heet.ui.theme.Grey250
 import org.heet.ui.theme.Grey400
@@ -38,7 +38,7 @@ fun FollowingScreen(navController: NavController) {
             item {
                 Surface(
                     modifier = Modifier.clickable {
-                        navController.navigate(DetailScreen.FollowingList.route)
+                        navController.navigate(FollowingScreen.FollowingList.route)
                     },
                     shape = RoundedCornerShape(30.dp),
                     color = Black400

@@ -24,7 +24,7 @@ import androidx.navigation.compose.rememberNavController
 import org.heet.R
 import org.heet.core.navigation.HomeNavGraph
 import org.heet.core.navigation.navscreen.BottomBarScreen
-import org.heet.core.navigation.navscreen.DetailScreen
+import org.heet.core.navigation.navscreen.HomeTownScreen
 import org.heet.ui.theme.Grey100
 import org.heet.ui.theme.Red500
 import org.heet.util.pretendardFamily
@@ -67,7 +67,7 @@ private fun WriteButton(isWrite: MutableState<Boolean>, navController: NavHostCo
     FloatingActionButton(
         onClick = {
             isWrite.value = !isWrite.value
-            navController.navigate(DetailScreen.Post.route)
+            navController.navigate(HomeTownScreen.Post.route)
         },
         modifier = Modifier
             .padding(end = 26.dp, bottom = 21.dp)

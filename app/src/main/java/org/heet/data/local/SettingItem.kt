@@ -1,8 +1,8 @@
 package org.heet.data.local
 
-import org.heet.core.navigation.navscreen.DetailScreen
+import org.heet.core.navigation.navscreen.MyPageScreen
 
 data class SettingItem(
     val title: String,
-    val destination: DetailScreen
+    val destination: MyPageScreen
 )

@@ -25,6 +25,8 @@ fun HomeNavGraph(navController: NavHostController) {
         composable(route = BottomBarScreen.MyPage.route) {
             MyPage(navController = navController)
         }
-        detailsNavGraph(navController = navController)
+        homeTownNavGraph(navController = navController)
+        followingNavGraph(navController = navController)
+        myPageNavGraph(navController = navController)
     }
 }

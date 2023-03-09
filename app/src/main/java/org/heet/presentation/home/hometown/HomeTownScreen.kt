@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.DotDivider
-import org.heet.core.navigation.navscreen.DetailScreen
+import org.heet.core.navigation.navscreen.HomeTownScreen
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
 
@@ -136,7 +136,7 @@ private fun ContentList(navController: NavController) {
                         painter = painterResource(id = R.drawable.ic_comment_grey_19),
                         contentDescription = "comment",
                         modifier = Modifier.padding(end = 22.dp).clickable {
-                            navController.navigate(DetailScreen.Comment.route)
+                            navController.navigate(HomeTownScreen.Comment.route)
                         }
                     )
                     Image(
@@ -198,14 +198,14 @@ private fun TopBar(navController: NavController) {
                 painter = painterResource(id = R.drawable.ic_search_grey_44),
                 contentDescription = "search",
                 modifier = Modifier.clickable {
-                    navController.navigate(DetailScreen.FindUser.route)
+                    navController.navigate(HomeTownScreen.FindUser.route)
                 }
             )
             Image(
                 painter = painterResource(id = R.drawable.ic_grey_bookmark_44),
                 contentDescription = "bookmark",
                 modifier = Modifier.clickable {
-                    navController.navigate(DetailScreen.Scrap.route)
+                    navController.navigate(HomeTownScreen.Scrap.route)
                 }
             )
         }
