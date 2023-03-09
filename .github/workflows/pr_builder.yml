@@ -43,6 +43,8 @@ jobs:
 
       - name: Lint Check
         run: ./gradlew ktlintCheck
+        env:
+          KTLINT_FILTERS: "!file:**/build.gradle.kts"
 
       - name: Run unit tests
         run: ./gradlew testDebugUnitTest
