@@ -6,4 +6,5 @@ sealed class MyPageScreen(val route: String) {
     object Setting : MyPageScreen(route = "setting")
     object ModifyProfile : MyPageScreen(route = "modify_profile")
     object Scrap : MyPageScreen(route = "scrap")
+    object Login : MyPageScreen(route = "login")
 }

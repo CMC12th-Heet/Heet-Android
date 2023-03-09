@@ -1,4 +1,7 @@
-@file:Suppress("UnstableApiUsage")
+import org.jetbrains.kotlin.konan.properties.Properties
+
+val properties = Properties()
+properties.load(project.rootProject.file("local.properties").inputStream())
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
@@ -23,6 +26,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        buildConfigField("String", "USER_PREFERENCES_NAME", properties.getProperty("USER_PREFERENCES_NAME"))
     }
     buildTypes {
         release {
@@ -80,7 +84,13 @@ ktlint {
     coloredOutput.set(true)
     verbose.set(true)
     outputToConsole.set(true)
-    disabledRules.set(setOf("max-line-length", "no-wildcard-imports", "import-ordering"))
+    disabledRules.set(
+        setOf(
+            "max-line-length",
+            "no-wildcard-imports",
+            "import-ordering"
+        )
+    )
     reporters {
         reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.PLAIN)
         reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.CHECKSTYLE)

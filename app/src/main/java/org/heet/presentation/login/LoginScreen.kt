@@ -17,6 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.BigRoundButton
@@ -29,7 +30,7 @@ import org.heet.util.pretendardFamily
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun LoginScreen(navController: NavController) {
+fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = hiltViewModel()) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val idOrEmail = remember {
         mutableStateOf("")
@@ -68,7 +69,7 @@ fun LoginScreen(navController: NavController) {
                 EmptyText(Modifier.padding(top = 40.dp))
             }
         }
-        LoginButton(navController)
+        LoginButton(navController, loginViewModel)
         Row(
             modifier = Modifier
                 .padding(top = 12.dp)
@@ -143,11 +144,12 @@ private fun EmptyText(modifier: Modifier) {
 }
 
 @Composable
-private fun LoginButton(navController: NavController) {
+private fun LoginButton(navController: NavController, loginViewModel: LoginViewModel) {
     BigRoundButton(
         onClick = {
             navController.popBackStack()
             navController.navigate(Graph.HOME)
+            loginViewModel.updateUserPreferences()
         },
         text = "로그인"
     )

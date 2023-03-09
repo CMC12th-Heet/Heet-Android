@@ -1,4 +1,4 @@
-package org.heet.presentation.home.mypage
+package org.heet.presentation.home.mypage.modify
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -21,13 +21,18 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.heet.components.*
+import org.heet.core.navigation.navscreen.MyPageScreen
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
 
 @Composable
-fun ModifyProfileScreen(navController: NavController) {
+fun ModifyProfileScreen(
+    navController: NavController,
+    modifyProfileViewModel: ModifyProfileViewModel = hiltViewModel()
+) {
     val name = remember { mutableStateOf("") }
     val id = remember { mutableStateOf("") }
     val introduce = remember { mutableStateOf("") }
@@ -199,6 +204,10 @@ fun ModifyProfileScreen(navController: NavController) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
                 text = "로그아웃",
+                modifier = Modifier.clickable {
+                    modifyProfileViewModel.deleteUserPreferences()
+                    navController.navigate(MyPageScreen.Login.route)
+                },
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Normal,
                 fontFamily = pretendardFamily
