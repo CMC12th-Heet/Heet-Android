@@ -1,4 +1,7 @@
-@file:Suppress("UnstableApiUsage")
+import org.jetbrains.kotlin.konan.properties.Properties
+
+val properties = Properties()
+properties.load(project.rootProject.file("local.properties").inputStream())
 
 @Suppress("DSL_SCOPE_VIOLATION")
 plugins {
@@ -23,6 +26,11 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        buildConfigField(
+            "String",
+            "USER_PREFERENCES_NAME",
+            properties.getProperty("USER_PREFERENCES_NAME")
+        )
     }
     buildTypes {
         release {
