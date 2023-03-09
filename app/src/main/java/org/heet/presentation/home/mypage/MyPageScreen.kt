@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.heet.R
-import org.heet.core.navigation.navscreen.DetailScreen
+import org.heet.core.navigation.navscreen.MyPageScreen
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
 
@@ -51,13 +51,16 @@ fun MyPage(navController: NavController) {
                     Row {
                         Image(
                             painter = painterResource(id = R.drawable.ic_bookmark_grey_44),
-                            contentDescription = null
+                            contentDescription = null,
+                            modifier = Modifier.clickable {
+                                navController.navigate(MyPageScreen.Scrap.route)
+                            }
                         )
                         Image(
                             painter = painterResource(id = R.drawable.ic_setting_grey_44),
                             contentDescription = null,
                             modifier = Modifier.clickable {
-                                navController.navigate(DetailScreen.Setting.route)
+                                navController.navigate(MyPageScreen.Setting.route)
                             }
                         )
                     }
