@@ -13,8 +13,6 @@ jobs:
   build:
     name: PR Checker
     runs-on: ubuntu-latest
-    env:
-      USER_PREFERENCES_NAME: ${{ secrets.USER_PREFERENCES_NAME }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -42,6 +40,14 @@ jobs:
           
       - name: Change gradlew permissions
         run: chmod +x ./gradlew
+              
+      - name: Touch local properties
+        run: touch local.properties
+
+      - name: Access USER_PREFERENCES_NAME
+        env:
+            USER_PREFERENCES_NAME: ${{ secrets.USER_PREFERENCES_NAME }}
+        run: echo "USER_PREFERENCES_NAME=\"$USER_PREFERENCES_NAME\"" >> local.properties
 
       - name: Lint Check
         run: ./gradlew ktlintCheck
