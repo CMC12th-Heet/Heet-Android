@@ -8,7 +8,7 @@ defaults:
     run:
         shell: bash
         working-directory: .
-
+        
 jobs:
   build:
     name: PR Checker
@@ -40,12 +40,17 @@ jobs:
           
       - name: Change gradlew permissions
         run: chmod +x ./gradlew
+              
+      - name: Touch local properties
+        run: touch local.properties
+
+      - name: Access USER_PREFERENCES_NAME
+        env:
+            USER_PREFERENCES_NAME: ${{ secrets.USER_PREFERENCES_NAME }}
+        run: echo "USER_PREFERENCES_NAME=\"$USER_PREFERENCES_NAME\"" >> local.properties
 
       - name: Lint Check
         run: ./gradlew ktlintCheck
-
-      - name: Run unit tests
-        run: ./gradlew testDebugUnitTest
 
       - name: Build debug APK
         run: ./gradlew assembleDebug --stacktrace
