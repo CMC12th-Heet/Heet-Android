@@ -49,6 +49,11 @@ jobs:
             USER_PREFERENCES_NAME: ${{ secrets.USER_PREFERENCES_NAME }}
         run: echo "USER_PREFERENCES_NAME=\"$USER_PREFERENCES_NAME\"" >> local.properties
 
+      - name: Access HEET_BASE_URL
+        env:
+            HEET_BASE_URL: ${{ secrets.HEET_BASE_URL }}
+        run: echo "HEET_BASE_URL=\"$HEET_BASE_URL\"" >> local.properties
+
       - name: Lint Check
         run: ./gradlew ktlintCheck
         
