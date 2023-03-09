@@ -8,9 +8,9 @@ import org.heet.domain.repository.AutoLoginRepository
 import javax.inject.Inject
 
 @HiltViewModel
-class ModifyProfileViewModel @Inject constructor(private val autoLoginRepository: AutoLoginRepository) :
-    ViewModel() {
-
+class ModifyProfileViewModel @Inject constructor(
+    private val autoLoginRepository: AutoLoginRepository
+) : ViewModel() {
     fun deleteUserPreferences() {
         viewModelScope.launch {
             autoLoginRepository.deletePreferencesDidLogin()
