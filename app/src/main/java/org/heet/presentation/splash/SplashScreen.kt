@@ -9,13 +9,15 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.delay
 import org.heet.R
+import org.heet.core.navigation.Graph
 import org.heet.core.navigation.navscreen.AuthScreen
 
 @Composable
-fun SplashScreen(navController: NavController) {
+fun SplashScreen(navController: NavController, splashViewModel: SplashViewModel = hiltViewModel()) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -24,7 +26,11 @@ fun SplashScreen(navController: NavController) {
         LaunchedEffect(key1 = true, block = {
             delay(1500)
             navController.popBackStack()
-            navController.navigate(AuthScreen.Login.route)
+            if (splashViewModel.didLogin.value) {
+                navController.navigate(Graph.HOME)
+            } else {
+                navController.navigate(AuthScreen.Login.route)
+            }
         })
 
         Image(
