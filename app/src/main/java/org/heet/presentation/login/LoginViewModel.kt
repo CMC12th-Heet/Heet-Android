@@ -13,7 +13,7 @@ class LoginViewModel @Inject constructor(private val autoLoginRepository: AutoLo
 
     fun updateUserPreferences() {
         viewModelScope.launch {
-            autoLoginRepository.updatePreferencesDidLogin()
+            autoLoginRepository.updateDidLogin()
         }
     }
 }

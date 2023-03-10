@@ -3,7 +3,12 @@ package org.heet.domain.repository
 import kotlinx.coroutines.flow.Flow
 
 interface AutoLoginRepository {
-    fun getPreferencesDidLogin(): Flow<Boolean>
-    suspend fun updatePreferencesDidLogin()
-    suspend fun deletePreferencesDidLogin()
+
+    var accessToken: String
+    fun getDidLogin(): Flow<Boolean>
+    fun getAccessToken(): Flow<String>
+    suspend fun updateDidLogin()
+    suspend fun deleteDidLogin()
+    suspend fun updateAccessToken(token: String)
+    suspend fun deleteAccessToken()
 }

@@ -27,6 +27,7 @@ android {
             useSupportLibrary = true
         }
         buildConfigField("String", "USER_PREFERENCES_NAME", properties.getProperty("USER_PREFERENCES_NAME"))
+        buildConfigField("String", "HEET_BASE_URL", properties.getProperty("HEET_BASE_URL"))
     }
     buildTypes {
         release {
@@ -76,6 +77,7 @@ dependencies {
     implementation(libs.okhttp.loggingInterceptor)
     implementation(libs.kotlin.serialization.converter)
     implementation(libs.image.picker)
+    implementation(libs.gson)
     implementation(libs.junit)
 }
 

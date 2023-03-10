@@ -13,7 +13,7 @@ class ModifyProfileViewModel @Inject constructor(
 ) : ViewModel() {
     fun deleteUserPreferences() {
         viewModelScope.launch {
-            autoLoginRepository.deletePreferencesDidLogin()
+            autoLoginRepository.deleteDidLogin()
         }
     }
 }
