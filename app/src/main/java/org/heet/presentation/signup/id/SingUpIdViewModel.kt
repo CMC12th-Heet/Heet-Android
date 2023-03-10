@@ -10,8 +10,9 @@ import org.heet.domain.repository.StoreEmailPwdRepository
 import javax.inject.Inject
 
 @HiltViewModel
-class SingUpIdViewModel @Inject constructor(private val storeEmailPwdRepository: StoreEmailPwdRepository) :
-    ViewModel() {
+class SingUpIdViewModel @Inject constructor(
+    private val storeEmailPwdRepository: StoreEmailPwdRepository
+) : ViewModel() {
 
     private val _pwd = MutableStateFlow("")
     val pwd = _pwd.asStateFlow()
