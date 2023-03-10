@@ -13,6 +13,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.*
@@ -22,7 +23,10 @@ import org.heet.util.pretendardFamily
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun SignUpPwd(navController: NavController) {
+fun SignUpPwd(
+    navController: NavController,
+    signupPwdViewModel: SingUpPwdViewModel = hiltViewModel()
+) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val pwd = remember {
         mutableStateOf("")
@@ -89,7 +93,7 @@ fun SignUpPwd(navController: NavController) {
                     fontFamily = pretendardFamily
                 )
                 Text(
-                    text = "jenny0810@naver.com",
+                    text = signupPwdViewModel.email.collectAsState().value,
                     color = White250,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Normal,
@@ -170,6 +174,8 @@ fun SignUpPwd(navController: NavController) {
                     color = White350
                 )
                 if (isSame.value) {
+                    signupPwdViewModel.updatePwd(pwd.value)
+
                     Row(modifier = Modifier.padding(top = 15.dp, start = 12.dp)) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_check_black_20),

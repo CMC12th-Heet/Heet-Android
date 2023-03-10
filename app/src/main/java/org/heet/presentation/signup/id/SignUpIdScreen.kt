@@ -7,6 +7,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -17,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.heet.components.*
 import org.heet.core.navigation.navscreen.SignUpScreen
@@ -25,7 +27,10 @@ import org.heet.util.pretendardFamily
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun SignUpIdScreen(navController: NavController) {
+fun SignUpIdScreen(
+    navController: NavController,
+    signUpIdViewModel: SingUpIdViewModel = hiltViewModel()
+) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val id = remember {
         mutableStateOf("")
@@ -88,7 +93,7 @@ fun SignUpIdScreen(navController: NavController) {
                     fontFamily = pretendardFamily
                 )
                 Text(
-                    text = "********",
+                    text = signUpIdViewModel.pwd.collectAsState().value,
                     color = White250,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Normal,

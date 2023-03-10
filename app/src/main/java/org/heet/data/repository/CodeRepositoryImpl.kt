@@ -4,18 +4,11 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import org.heet.data.repository.CodeRepositoryImpl.PreferencesKeys.CODE
 import org.heet.domain.repository.CodeRepository
 import javax.inject.Inject
 
 class CodeRepositoryImpl @Inject constructor(private val dataStore: DataStore<Preferences>) :
     CodeRepository {
-
-    override var code = 0L
-
-    private object PreferencesKeys {
-        val CODE = longPreferencesKey("code")
-    }
 
     override fun getCode(): Flow<Long> = dataStore.data.map { preferences ->
         preferences[CODE] ?: 0
@@ -31,5 +24,9 @@ class CodeRepositoryImpl @Inject constructor(private val dataStore: DataStore<Pr
         dataStore.edit { preferences ->
             preferences[CODE] = 0
         }
+    }
+
+    companion object {
+        val CODE = longPreferencesKey("code")
     }
 }

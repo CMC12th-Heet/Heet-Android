@@ -7,9 +7,11 @@ import dagger.hilt.components.SingletonComponent
 import org.heet.data.repository.AutoLoginRepositoryImpl
 import org.heet.data.repository.CodeRepositoryImpl
 import org.heet.data.repository.SignUpRepositoryImpl
+import org.heet.data.repository.StoreEmailPwdRepositoryImpl
 import org.heet.domain.repository.AutoLoginRepository
 import org.heet.domain.repository.CodeRepository
 import org.heet.domain.repository.SignUpRepository
+import org.heet.domain.repository.StoreEmailPwdRepository
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -33,4 +35,10 @@ interface RepositoryModule {
     fun bindCodeRepository(
         codeRepositoryImpl: CodeRepositoryImpl
     ): CodeRepository
+
+    @Binds
+    @Singleton
+    fun bindStoreEmailPwdRepository(
+        storeEmailPwdRepositoryImpl: StoreEmailPwdRepositoryImpl
+    ): StoreEmailPwdRepository
 }

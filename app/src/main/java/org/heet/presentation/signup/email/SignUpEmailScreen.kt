@@ -79,6 +79,7 @@ fun SignUpEmailScreen(
             BigRoundButton(
                 onClick = {
                     if (email.value.trim().isNotEmpty()) {
+                        signUpEmailViewModel.updateEmail(email.value)
                         signUpEmailViewModel.postEmail(RequestPostEmail(email = email.value))
                     }
                 },
