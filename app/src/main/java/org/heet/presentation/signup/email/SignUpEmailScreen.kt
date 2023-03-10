@@ -62,6 +62,7 @@ fun SignUpEmailScreen(
                 Title("회원가입")
                 if (requestCode.value) {
                     Next(
+                        delete = { signUpEmailViewModel.deleteCode() },
                         timer = { signUpEmailViewModel.timerReset() },
                         move = { navController.navigate(SignUpScreen.SignUpPwd.route) }
                     )
@@ -188,8 +189,10 @@ private fun SendCode(
             SmallRoundButton(
                 onClick = {
                     if (!requestCode.value) {
-                        signUpEmailViewModel.timerStart()
-                        requestCode.value = true
+                        if (verificationCode.value == signUpEmailViewModel.code.value.toString()) {
+                            signUpEmailViewModel.timerReset()
+                            requestCode.value = true
+                        }
                     }
                 },
                 text = text,
