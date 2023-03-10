@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.heet.data.model.request.RequestPostEmail
+import org.heet.domain.repository.CodeRepository
 import org.heet.domain.repository.SignUpRepository
 import timber.log.Timber
 import java.text.SimpleDateFormat
@@ -16,7 +17,10 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class SignUpEmailViewModel @Inject constructor(private val signUpRepository: SignUpRepository) :
+class SignUpEmailViewModel @Inject constructor(
+    private val signUpRepository: SignUpRepository,
+    private val codeRepository: CodeRepository
+) :
     ViewModel() {
 
     private var timerCount = 300000
@@ -26,6 +30,17 @@ class SignUpEmailViewModel @Inject constructor(private val signUpRepository: Sig
     private val _sendEmail = MutableStateFlow(false)
     val sendEmail = _sendEmail.asStateFlow()
 
+    private val _code = MutableStateFlow(0L)
+    val code = _code.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            codeRepository.getCode().collect() { code ->
+                _code.value = code
+            }
+        }
+    }
+
     private lateinit var job: Job
 
     fun postEmail(requestPostEmail: RequestPostEmail) {
@@ -33,10 +48,18 @@ class SignUpEmailViewModel @Inject constructor(private val signUpRepository: Sig
             runCatching {
                 signUpRepository.postEmail(requestPostEmail)
             }.onSuccess {
+                timerStart()
+                codeRepository.updateCode(it.code)
                 _sendEmail.value = true
             }.onFailure {
                 Timber.d(it.message)
             }
+        }
+    }
+
+    fun deleteCode() {
+        viewModelScope.launch {
+            codeRepository.deleteCode()
         }
     }
 
