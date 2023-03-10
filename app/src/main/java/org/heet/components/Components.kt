@@ -592,10 +592,8 @@ fun RegularFlatInputField(
     imeAction: ImeAction = ImeAction.Done,
     onAction: KeyboardActions = KeyboardActions.Default,
     isPassword: Boolean = false,
-    isDuplicate: MutableState<Boolean>,
     onValueChange: (String) -> Unit = {
         valueState.value = it
-        isDuplicate.value = true
     }
 ) {
     BasicTextField(
