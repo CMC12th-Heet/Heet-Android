@@ -344,12 +344,14 @@ fun EmptyText() {
 
 @Composable
 fun Next(
+    delete: () -> Unit = {},
     timer: () -> Unit = {},
     move: () -> Unit
 ) {
     Text(
         text = "다음",
         modifier = Modifier.clickable {
+            delete()
             timer()
             move()
         },
