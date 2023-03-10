@@ -93,7 +93,7 @@ fun SignUpPwd(
                     fontFamily = pretendardFamily
                 )
                 Text(
-                    text = signupPwdViewModel.email.collectAsState().value,
+                    text = signupPwdViewModel.getEmail(),
                     color = White250,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Normal,
@@ -175,7 +175,6 @@ fun SignUpPwd(
                 )
                 if (isSame.value) {
                     signupPwdViewModel.updatePwd(pwd.value)
-
                     Row(modifier = Modifier.padding(top = 15.dp, start = 12.dp)) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_check_black_20),
