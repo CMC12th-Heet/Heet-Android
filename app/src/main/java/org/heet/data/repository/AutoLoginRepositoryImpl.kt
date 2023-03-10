@@ -7,8 +7,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import org.heet.data.repository.AutoLoginRepositoryImpl.PreferencesKeys.ACCESS_TOKEN
-import org.heet.data.repository.AutoLoginRepositoryImpl.PreferencesKeys.DID_LOGIN
 import org.heet.domain.repository.AutoLoginRepository
 import javax.inject.Inject
 
@@ -16,11 +14,6 @@ class AutoLoginRepositoryImpl @Inject constructor(private val dataStore: DataSto
     AutoLoginRepository {
 
     override var accessToken = ""
-
-    private object PreferencesKeys {
-        val DID_LOGIN = booleanPreferencesKey("did_login")
-        val ACCESS_TOKEN = stringPreferencesKey("access_token")
-    }
 
     init {
         CoroutineScope(Dispatchers.IO).launch {
@@ -60,5 +53,10 @@ class AutoLoginRepositoryImpl @Inject constructor(private val dataStore: DataSto
         dataStore.edit { preferences ->
             preferences[ACCESS_TOKEN] = ""
         }
+    }
+
+    companion object {
+        val DID_LOGIN = booleanPreferencesKey("did_login")
+        val ACCESS_TOKEN = stringPreferencesKey("access_token")
     }
 }
