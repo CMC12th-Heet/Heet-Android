@@ -1,11 +1,9 @@
 package org.heet.domain.repository
 
-import kotlinx.coroutines.flow.Flow
-
 interface StoreEmailPwdRepository {
 
-    fun getEmail(): Flow<String>
-    fun getPwd(): Flow<String>
+    suspend fun getEmail(): String
+    suspend fun getPwd(): String
 
     suspend fun updateEmail(email: String)
     suspend fun updatePwd(pwd: String)

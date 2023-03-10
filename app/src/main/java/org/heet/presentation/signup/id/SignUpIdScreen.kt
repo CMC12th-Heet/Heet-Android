@@ -35,20 +35,18 @@ fun SignUpIdScreen(
     val id = remember {
         mutableStateOf("")
     }
-    val isDuplicate = remember {
-        mutableStateOf(true)
-    }
+    val isDuplicate = signUpIdViewModel.isDuplicate.collectAsState().value
     val requestCheckDuplicate = remember {
         mutableStateOf(false)
     }
 
-    Box(
+    LazyColumn(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 20.dp)
             .padding(top = 18.dp)
     ) {
-        Column {
+        item {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
@@ -72,7 +70,7 @@ fun SignUpIdScreen(
                     fontFamily = pretendardFamily
                 )
                 Text(
-                    text = "jenny0810@naver.com",
+                    text = signUpIdViewModel.getEmail(),
                     color = White250,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Normal,
@@ -93,7 +91,7 @@ fun SignUpIdScreen(
                     fontFamily = pretendardFamily
                 )
                 Text(
-                    text = signUpIdViewModel.pwd.collectAsState().value,
+                    text = signUpIdViewModel.getPwd().replace(Regex("."), "*"),
                     color = White250,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Normal,
@@ -124,24 +122,21 @@ fun SignUpIdScreen(
                         isSingleLine = true,
                         keyboardType = KeyboardType.Text,
                         onAction = KeyboardActions {
-                            if (id.value.trim().isEmpty()
-                            ) return@KeyboardActions
+                            if (id.value.trim().isEmpty()) return@KeyboardActions
                             keyboardController?.hide()
-                        },
-                        isDuplicate = isDuplicate
+                        }
                     )
                     Row(
                         modifier = Modifier.align(Alignment.CenterEnd),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        if (isDuplicate.value) {
+                        if (!isDuplicate) {
                             RequestBtn(
                                 isCheck = requestCheckDuplicate,
                                 text = "중복 확인"
                             ) {
+                                signUpIdViewModel.postFindDuplicate(id.value)
                                 requestCheckDuplicate.value = true
-                                isDuplicate.value =
-                                    !isDuplicate.value
                             }
                         } else {
                             Spacer(modifier = Modifier.height(38.dp))
@@ -149,7 +144,6 @@ fun SignUpIdScreen(
                     }
                 }
             }
-
             Divider(
                 Modifier
                     .fillMaxWidth()
@@ -160,7 +154,9 @@ fun SignUpIdScreen(
                     .height(3.dp),
                 color = White700
             )
-            if (isDuplicate.value) {
+        }
+        if (isDuplicate) {
+            item {
                 Text(
                     text = "*이미 사용 중인 아이디입니다.",
                     fontFamily = pretendardFamily,
@@ -168,7 +164,15 @@ fun SignUpIdScreen(
                     fontWeight = FontWeight.ExtraBold,
                     color = Red500
                 )
-            } else {
+            }
+        } else if (requestCheckDuplicate.value) {
+            val terms = listOf(
+                "[필수] 개인정보 수징 및 이용 동의",
+                "[필수] HEET 이용 약관 동의",
+                "[필수]만 14세 이상입니다.",
+                "[필수]마케팅 활용 및 광고성 정보 수신 동의"
+            )
+            item {
                 Row {
                     Spacer(modifier = Modifier.width(12.dp))
                     GreyValidateText(text = "사용 가능합니다.")
@@ -178,29 +182,27 @@ fun SignUpIdScreen(
                     Spacer(modifier = Modifier.width(12.dp))
                     BlackValidateText(text = "약관 전체 동의하기")
                 }
-                val terms = listOf(
-                    "[필수] 개인정보 수징 및 이용 동의",
-                    "[필수] HEET 이용 약관 동의",
-                    "[필수]만 14세 이상입니다.",
-                    "[필수]마케팅 활용 및 광고성 정보 수신 동의"
-                )
-                LazyColumn(modifier = Modifier.padding(top = 32.dp)) {
-                    items(terms) {
-                        Row {
-                            Spacer(modifier = Modifier.width(12.dp))
-                            Terms(text = it)
-                        }
-                        Spacer(modifier = Modifier.height(15.dp))
-                    }
+                Spacer(modifier = Modifier.height(32.dp))
+            }
+            items(terms) {
+                Row {
+                    Spacer(modifier = Modifier.width(12.dp))
+                    Terms(text = it)
                 }
+                Spacer(modifier = Modifier.height(80.dp))
+            }
+        } else {
+            item {
+                Spacer(modifier = Modifier.height(325.dp))
             }
         }
-        BigRoundButton(
-            onClick = { navController.navigate(SignUpScreen.SignUpWelcome.route) },
-            text = "회원 가입",
-            modifier = Modifier
-                .padding(bottom = 8.dp)
-                .align(Alignment.BottomCenter)
-        )
+        item {
+            BigRoundButton(
+                onClick = { navController.navigate(SignUpScreen.SignUpWelcome.route) },
+                text = "회원 가입",
+                modifier = Modifier
+                    .padding(bottom = 8.dp)
+            )
+        }
     }
 }
