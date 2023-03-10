@@ -22,6 +22,7 @@ import kotlinx.coroutines.flow.StateFlow
 import org.heet.R
 import org.heet.components.*
 import org.heet.core.navigation.navscreen.SignUpScreen
+import org.heet.data.model.request.RequestPostEmail
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
 
@@ -41,9 +42,7 @@ fun SignUpEmailScreen(
     val requestCode = remember {
         mutableStateOf(false)
     }
-    val sendEmail = remember {
-        mutableStateOf(false)
-    }
+    val sendEmail = signUpEmailViewModel.sendEmail.collectAsState().value
     val verificationTimer = remember {
         signUpEmailViewModel.timer
     }
@@ -79,14 +78,14 @@ fun SignUpEmailScreen(
             BigRoundButton(
                 onClick = {
                     if (email.value.trim().isNotEmpty()) {
-                        sendEmail.value = true
+                        signUpEmailViewModel.postEmail(RequestPostEmail(email = email.value))
                     }
                 },
                 text = "이메일 인증하기",
                 modifier = Modifier.padding(top = 15.dp)
             )
             Spacer(modifier = Modifier.height(15.dp))
-            if (sendEmail.value) {
+            if (sendEmail) {
                 Column {
                     Row(modifier = Modifier.padding(start = 6.dp)) {
                         Image(

@@ -5,7 +5,9 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import org.heet.data.repository.AutoLoginRepositoryImpl
+import org.heet.data.repository.SignUpRepositoryImpl
 import org.heet.domain.repository.AutoLoginRepository
+import org.heet.domain.repository.SignUpRepository
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -15,6 +17,12 @@ interface RepositoryModule {
     @Binds
     @Singleton
     fun bindAutoLoginRepository(
-        autoLoginRepository: AutoLoginRepositoryImpl
+        autoLoginRepositoryImpl: AutoLoginRepositoryImpl
     ): AutoLoginRepository
+
+    @Binds
+    @Singleton
+    fun bindSignUpRepository(
+        singUpRepositoryImpl: SignUpRepositoryImpl
+    ): SignUpRepository
 }
