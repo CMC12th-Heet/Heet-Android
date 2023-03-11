@@ -34,6 +34,7 @@ class SingUpIdViewModel @Inject constructor(
             runCatching {
                 singUpRepository.findDuplicate(username)
             }.onSuccess {
+                storeEmailPwdRepository.updateId(username)
                 _isDuplicate.value = it.isDuplicated
             }.onFailure {
                 Timber.d(it.message)
