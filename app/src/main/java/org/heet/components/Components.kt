@@ -43,13 +43,15 @@ fun RoundInputField(
     color: Color = White700,
     keyboardType: KeyboardType = KeyboardType.Text,
     imeAction: ImeAction = ImeAction.Next,
-    onAction: KeyboardActions = KeyboardActions.Default
+    onAction: KeyboardActions = KeyboardActions.Default,
+    isPwd: Boolean = false
 ) {
     BasicTextField(
         value = valueState.value,
         onValueChange = {
             valueState.value = it
         },
+        visualTransformation = if (isPwd) PasswordVisualTransformation() else VisualTransformation.None,
         modifier = modifier,
         enabled = enabled,
         textStyle = TextStyle.Default.copy(
