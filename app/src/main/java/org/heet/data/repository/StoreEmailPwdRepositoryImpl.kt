@@ -15,6 +15,7 @@ class StoreEmailPwdRepositoryImpl @Inject constructor(private val dataStore: Dat
 
     override suspend fun getPwd(): String = dataStore.data.first()[PWD] ?: ""
     override suspend fun getId(): String = dataStore.data.first()[ID] ?: ""
+    override suspend fun getHometown(): String = dataStore.data.first()[HOMETOWN] ?: ""
 
     override suspend fun updateEmail(email: String) {
         dataStore.edit { preferences ->
@@ -34,21 +35,33 @@ class StoreEmailPwdRepositoryImpl @Inject constructor(private val dataStore: Dat
         }
     }
 
-    override suspend fun deleteEmail(email: String) {
+    override suspend fun updateHometown(hometown: String) {
+        dataStore.edit { preferences ->
+            preferences[HOMETOWN] = hometown
+        }
+    }
+
+    override suspend fun deleteEmail() {
         dataStore.edit {
             it[EMAIL] = ""
         }
     }
 
-    override suspend fun deletePwd(pwd: String) {
+    override suspend fun deletePwd() {
         dataStore.edit {
             it[PWD] = ""
         }
     }
 
-    override suspend fun deleteId(id: String) {
+    override suspend fun deleteId() {
         dataStore.edit {
             it[PWD] = ""
+        }
+    }
+
+    override suspend fun deleteHometown() {
+        dataStore.edit {
+            it[HOMETOWN] = ""
         }
     }
 
@@ -56,5 +69,6 @@ class StoreEmailPwdRepositoryImpl @Inject constructor(private val dataStore: Dat
         val EMAIL = stringPreferencesKey("email")
         val PWD = stringPreferencesKey("pwd")
         val ID = stringPreferencesKey("id")
+        val HOMETOWN = stringPreferencesKey("hometown")
     }
 }
