@@ -1,6 +1,6 @@
 package org.heet.domain.repository
 
-interface StoreEmailPwdRepository {
+interface StoreSignUpRepository {
 
     suspend fun getEmail(): String
     suspend fun getPwd(): String

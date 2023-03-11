@@ -5,11 +5,11 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.first
-import org.heet.domain.repository.StoreEmailPwdRepository
+import org.heet.domain.repository.StoreSignUpRepository
 import javax.inject.Inject
 
-class StoreEmailPwdRepositoryImpl @Inject constructor(private val dataStore: DataStore<Preferences>) :
-    StoreEmailPwdRepository {
+class StoreSignUpRepositoryImpl @Inject constructor(private val dataStore: DataStore<Preferences>) :
+    StoreSignUpRepository {
 
     override suspend fun getEmail(): String = dataStore.data.first()[EMAIL] ?: ""
 

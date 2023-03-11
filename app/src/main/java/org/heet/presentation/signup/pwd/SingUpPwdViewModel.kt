@@ -5,21 +5,21 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import org.heet.domain.repository.StoreEmailPwdRepository
+import org.heet.domain.repository.StoreSignUpRepository
 import javax.inject.Inject
 
 @HiltViewModel
 class SingUpPwdViewModel @Inject constructor(
-    private val storeEmailPwdRepository: StoreEmailPwdRepository
+    private val storeSignUpRepository: StoreSignUpRepository
 ) : ViewModel() {
 
     fun getEmail(): String = runBlocking {
-        storeEmailPwdRepository.getEmail()
+        storeSignUpRepository.getEmail()
     }
 
     fun updatePwd(pwd: String) {
         viewModelScope.launch {
-            storeEmailPwdRepository.updatePwd(pwd)
+            storeSignUpRepository.updatePwd(pwd)
         }
     }
 }
