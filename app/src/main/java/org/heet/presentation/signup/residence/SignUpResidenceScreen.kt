@@ -8,10 +8,7 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -20,10 +17,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.*
 import org.heet.core.navigation.navscreen.SignUpScreen
+import org.heet.data.datasource.LocalHometownDataSource
 import org.heet.ui.theme.Grey400
 import org.heet.ui.theme.Grey900
 import org.heet.ui.theme.Red500
@@ -31,7 +30,10 @@ import org.heet.ui.theme.White50
 import org.heet.util.pretendardFamily
 
 @Composable
-fun SignUpResidenceScreen(navController: NavController) {
+fun SignUpResidenceScreen(
+    navController: NavController,
+    signUpResidenceViewModel: SignUpResidenceViewModel = hiltViewModel()
+) {
     val cityName = remember {
         mutableStateOf("")
     }
@@ -74,7 +76,7 @@ fun SignUpResidenceScreen(navController: NavController) {
             NoticeResidence()
 
             LazyColumn(modifier = Modifier.padding(top = 18.dp)) {
-                items(listOf("서울", "경기", "인천")) { city ->
+                items(LocalHometownDataSource().loadHometowns()) { city ->
                     val expanded = remember {
                         mutableStateOf(false)
                     }
@@ -89,7 +91,7 @@ fun SignUpResidenceScreen(navController: NavController) {
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         CityItem(
-                            city,
+                            city.cityKr,
                             image,
                             expanded,
                             checkWard,
@@ -98,16 +100,29 @@ fun SignUpResidenceScreen(navController: NavController) {
                         )
                     }
                     if (expanded.value) {
+                        var where = listOf<String>()
+                        when (city.cityEng) {
+                            "seoul" -> {
+                                signUpResidenceViewModel.getSeoulCity(city.cityEng)
+                                where = signUpResidenceViewModel.seoul.collectAsState().value
+                            }
+                            "gyeonggi" -> {
+                                signUpResidenceViewModel.getGyeonggiCity(city.cityEng)
+                                where = signUpResidenceViewModel.gyeonggi.collectAsState().value
+                            }
+                            "incheon" -> {
+                                signUpResidenceViewModel.getIncheonCity(city.cityEng)
+                                where = signUpResidenceViewModel.incheon.collectAsState().value
+                            }
+                        }
                         Spacer(modifier = Modifier.height(18.dp))
                         Divider(modifier = Modifier.height(0.5.dp).shadow(2.dp))
                         LazyRow(modifier = Modifier.padding(start = 11.dp)) {
                             items(
-                                listOf(
-                                    "종로구", "용산구", "종로구", "용산구", "종로구", "용산구",
-                                    "종로구", "용산구", "종로구", "용산구", "종로구", "용산구"
-                                )
+                                where
                             ) { ward ->
                                 WardItem(
+                                    updateResidence = { signUpResidenceViewModel.updateResidence("${city.cityKr} $ward") },
                                     ward,
                                     checkWard,
                                     wardName
@@ -160,6 +175,7 @@ private fun CityItem(
 
 @Composable
 private fun WardItem(
+    updateResidence: () -> Unit,
     ward: String,
     checkWard: MutableState<Boolean>,
     wardName: MutableState<String>
@@ -171,6 +187,7 @@ private fun WardItem(
         fontWeight = FontWeight.Normal,
         color = Grey400,
         modifier = Modifier.clickable {
+            updateResidence()
             checkWard.value = true
             wardName.value = ward
         }
