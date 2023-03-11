@@ -19,10 +19,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import kotlinx.coroutines.*
 import org.heet.R
 import org.heet.components.BigRoundButton
 import org.heet.components.RoundInputField
 import org.heet.core.navigation.Graph
+import org.heet.data.model.request.RequestLogin
 import org.heet.ui.theme.Grey600
 import org.heet.ui.theme.Red500
 import org.heet.ui.theme.Red600
@@ -42,6 +44,15 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = h
         mutableStateOf(true)
     }
 
+    LaunchedEffect(key1 = true) {
+        loginViewModel.loginSuccess.collect {
+            if (it) {
+                navController.popBackStack()
+                navController.navigate(Graph.HOME)
+            }
+        }
+    }
+
     Column(
         modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -59,7 +70,7 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = h
             } else {
                 EmptyText(Modifier.padding(top = 20.dp))
             }
-            LoginField(pwd, "비밀번호 입력", keyboardController)
+            PwdField(pwd, "비밀번호 입력", keyboardController)
             if (!isRegistered.value) {
                 RegisterInfo(
                     text = "*가입되지 않은 비밀번호입니다.",
@@ -69,7 +80,12 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = h
                 EmptyText(Modifier.padding(top = 40.dp))
             }
         }
-        LoginButton(navController, loginViewModel)
+        BigRoundButton(
+            onClick = {
+                loginViewModel.login(RequestLogin(idOrEmail.value, pwd.value))
+            },
+            text = "로그인"
+        )
         Row(
             modifier = Modifier
                 .padding(top = 12.dp)
@@ -119,6 +135,26 @@ private fun LoginField(
     )
 }
 
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+private fun PwdField(
+    value: MutableState<String>,
+    placeholder: String,
+    keyboardController: SoftwareKeyboardController?
+) {
+    RoundInputField(
+        valueState = value,
+        placeholder = placeholder,
+        enabled = true,
+        isSingleLine = true,
+        onAction = KeyboardActions {
+            if (value.value.trim().isEmpty()) return@KeyboardActions
+            keyboardController?.hide()
+        },
+        isPwd = true
+    )
+}
+
 @Composable
 private fun RegisterInfo(text: String, modifier: Modifier) {
     Text(
@@ -140,18 +176,6 @@ private fun EmptyText(modifier: Modifier) {
         fontSize = 12.sp,
         fontWeight = FontWeight.ExtraBold,
         fontFamily = pretendardFamily
-    )
-}
-
-@Composable
-private fun LoginButton(navController: NavController, loginViewModel: LoginViewModel) {
-    BigRoundButton(
-        onClick = {
-            navController.popBackStack()
-            navController.navigate(Graph.HOME)
-            loginViewModel.updateUserPreferences()
-        },
-        text = "로그인"
     )
 }
 
