@@ -8,13 +8,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.heet.domain.repository.SignUpRepository
-import org.heet.domain.repository.StoreEmailPwdRepository
+import org.heet.domain.repository.StoreSignUpRepository
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class SingUpIdViewModel @Inject constructor(
-    private val storeEmailPwdRepository: StoreEmailPwdRepository,
+    private val storeSignUpRepository: StoreSignUpRepository,
     private val singUpRepository: SignUpRepository
 ) : ViewModel() {
 
@@ -22,11 +22,11 @@ class SingUpIdViewModel @Inject constructor(
     val isDuplicate = _isDuplicate.asStateFlow()
 
     fun getPwd(): String = runBlocking {
-        storeEmailPwdRepository.getPwd()
+        storeSignUpRepository.getPwd()
     }
 
     fun getEmail(): String = runBlocking {
-        storeEmailPwdRepository.getEmail()
+        storeSignUpRepository.getEmail()
     }
 
     fun postFindDuplicate(username: String) {
@@ -34,7 +34,7 @@ class SingUpIdViewModel @Inject constructor(
             runCatching {
                 singUpRepository.findDuplicate(username)
             }.onSuccess {
-                storeEmailPwdRepository.updateId(username)
+                storeSignUpRepository.updateId(username)
                 _isDuplicate.value = it.isDuplicated
             }.onFailure {
                 Timber.d(it.message)

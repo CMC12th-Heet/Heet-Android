@@ -7,14 +7,14 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.heet.domain.repository.SignUpRepository
-import org.heet.domain.repository.StoreEmailPwdRepository
+import org.heet.domain.repository.StoreSignUpRepository
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class SignUpResidenceViewModel @Inject constructor(
     private val signUpRepository: SignUpRepository,
-    private val storeEmailPwdRepository: StoreEmailPwdRepository
+    private val storeSignUpRepository: StoreSignUpRepository
 ) : ViewModel() {
 
     private val _seoul = MutableStateFlow(listOf<String>())
@@ -26,7 +26,7 @@ class SignUpResidenceViewModel @Inject constructor(
 
     fun updateResidence(residence: String) {
         viewModelScope.launch {
-            storeEmailPwdRepository.updateHometown(residence)
+            storeSignUpRepository.updateHometown(residence)
         }
     }
 

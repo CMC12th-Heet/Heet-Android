@@ -1,11 +1,8 @@
 package org.heet.presentation.splash
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import org.heet.domain.repository.AutoLoginRepository
 import javax.inject.Inject
 
@@ -13,14 +10,7 @@ import javax.inject.Inject
 class SplashViewModel @Inject constructor(private val autoLoginRepository: AutoLoginRepository) :
     ViewModel() {
 
-    private val _didLogin = MutableStateFlow(false)
-    val didLogin = _didLogin.asStateFlow()
-
-    init {
-        viewModelScope.launch {
-            autoLoginRepository.getDidLogin().collect() {
-                _didLogin.value = it
-            }
-        }
+    fun getToken(): String = runBlocking {
+        autoLoginRepository.getToken()
     }
 }
