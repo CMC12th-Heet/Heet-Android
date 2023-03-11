@@ -11,6 +11,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.BigRoundButton
@@ -22,7 +23,10 @@ import org.heet.ui.theme.White600
 import org.heet.util.pretendardFamily
 
 @Composable
-fun SignUpWelcomeScreen(navController: NavController) {
+fun SignUpWelcomeScreen(
+    navController: NavController,
+    signUpWelcomeViewModel: SignUpWelcomeViewModel = hiltViewModel()
+) {
     Box(modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp)) {
         Column(
             modifier = Modifier.align(Alignment.TopCenter),
@@ -33,7 +37,7 @@ fun SignUpWelcomeScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(182.dp))
             Greeting()
             Spacer(modifier = Modifier.height(32.dp))
-            GreetingUser()
+            GreetingUser(signUpWelcomeViewModel)
         }
         Column(
             modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 8.dp)
@@ -65,10 +69,10 @@ private fun Greeting() {
 }
 
 @Composable
-private fun GreetingUser() {
+private fun GreetingUser(signUpWelcomeViewModel: SignUpWelcomeViewModel) {
     Row {
         Text(
-            text = "kimjaehee",
+            text = signUpWelcomeViewModel.getId(),
             fontFamily = pretendardFamily,
             fontSize = 15.sp,
             fontWeight = FontWeight.Normal,

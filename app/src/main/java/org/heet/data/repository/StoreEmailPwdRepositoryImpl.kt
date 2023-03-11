@@ -14,6 +14,7 @@ class StoreEmailPwdRepositoryImpl @Inject constructor(private val dataStore: Dat
     override suspend fun getEmail(): String = dataStore.data.first()[EMAIL] ?: ""
 
     override suspend fun getPwd(): String = dataStore.data.first()[PWD] ?: ""
+    override suspend fun getId(): String = dataStore.data.first()[ID] ?: ""
 
     override suspend fun updateEmail(email: String) {
         dataStore.edit { preferences ->
@@ -24,6 +25,12 @@ class StoreEmailPwdRepositoryImpl @Inject constructor(private val dataStore: Dat
     override suspend fun updatePwd(pwd: String) {
         dataStore.edit { preferences ->
             preferences[PWD] = pwd
+        }
+    }
+
+    override suspend fun updateId(id: String) {
+        dataStore.edit { preferences ->
+            preferences[ID] = id
         }
     }
 
@@ -39,8 +46,15 @@ class StoreEmailPwdRepositoryImpl @Inject constructor(private val dataStore: Dat
         }
     }
 
+    override suspend fun deleteId(id: String) {
+        dataStore.edit {
+            it[PWD] = ""
+        }
+    }
+
     companion object {
         val EMAIL = stringPreferencesKey("email")
         val PWD = stringPreferencesKey("pwd")
+        val ID = stringPreferencesKey("id")
     }
 }
