@@ -1,6 +1,7 @@
 package org.heet.data.repository
 
 import org.heet.data.model.request.RequestPostEmail
+import org.heet.data.model.request.RequestPostSignUp
 import org.heet.data.model.response.*
 import org.heet.data.service.SignUpService
 import org.heet.domain.repository.SignUpRepository
@@ -14,6 +15,10 @@ class SignUpRepositoryImpl @Inject constructor(private val signUpService: SignUp
 
     override suspend fun findDuplicate(username: String): ResponseFindDuplicate {
         return signUpService.postFindDuplicate(username)
+    }
+
+    override suspend fun signUp(requestPostSignUp: RequestPostSignUp): ResponseSignUp {
+        return signUpService.postSingUp(requestPostSignUp)
     }
 
     override suspend fun getSeoulCity(name: String): ResponseSeoulCity {

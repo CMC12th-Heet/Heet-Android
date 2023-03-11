@@ -1,6 +1,7 @@
 package org.heet.data.service
 
 import org.heet.data.model.request.RequestPostEmail
+import org.heet.data.model.request.RequestPostSignUp
 import org.heet.data.model.response.*
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -14,6 +15,9 @@ interface SignUpService {
 
     @POST("/user/find-duplicate")
     suspend fun postFindDuplicate(@Query("username") username: String): ResponseFindDuplicate
+
+    @POST("/user")
+    suspend fun postSingUp(@Body requestPostSignUp: RequestPostSignUp): ResponseSignUp
 
     @GET("/user/city")
     suspend fun getSeoulCity(@Query("name") name: String): ResponseSeoulCity

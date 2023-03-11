@@ -1,4 +1,4 @@
-package org.heet.presentation.signup.welcome
+package org.heet.presentation.signup.welcomeresidence
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -58,7 +58,10 @@ fun SignUpResidenceWelcomeScreen(
             Spacer(modifier = Modifier.height(18.dp))
             StartButton() {
                 navController.navigate(AuthScreen.Login.route) {
-                    popUpTo(0)
+                    signUpResidenceWelcomeViewModel.signUp()
+                    if (signUpResidenceWelcomeViewModel.signUp.value) {
+                        popUpTo(0)
+                    }
                 }
             }
         }
