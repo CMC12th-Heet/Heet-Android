@@ -11,6 +11,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.BigRoundButton
@@ -22,7 +23,7 @@ import org.heet.ui.theme.White600
 import org.heet.util.pretendardFamily
 
 @Composable
-fun SignUpResidenceWelcomeScreen(navController: NavController) {
+fun SignUpResidenceWelcomeScreen(navController: NavController, signUpResidenceWelcomeViewModel: SignUpResidenceWelcomeViewModel = hiltViewModel()) {
     Box(modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp)) {
         Column(
             modifier = Modifier.align(Alignment.TopCenter),
@@ -33,7 +34,7 @@ fun SignUpResidenceWelcomeScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(182.dp))
             Greeting()
             Spacer(modifier = Modifier.height(32.dp))
-            GreetingUser()
+            GreetingUser(signUpResidenceWelcomeViewModel.getUsername())
         }
         Column(
             modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 8.dp),
@@ -42,7 +43,7 @@ fun SignUpResidenceWelcomeScreen(navController: NavController) {
             Image(painter = painterResource(id = R.drawable.ic_location_red_28), contentDescription = null)
             Spacer(modifier = Modifier.height(6.dp))
             Text(
-                text = "서울시 용산구",
+                text = signUpResidenceWelcomeViewModel.getResidence(),
                 fontFamily = pretendardFamily,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Medium,
@@ -78,10 +79,10 @@ private fun Greeting() {
 }
 
 @Composable
-private fun GreetingUser() {
+private fun GreetingUser(username: String) {
     Row {
         Text(
-            text = "kimjaehee",
+            text = username,
             fontFamily = pretendardFamily,
             fontSize = 15.sp,
             fontWeight = FontWeight.Normal,
