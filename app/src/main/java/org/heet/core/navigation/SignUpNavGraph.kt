@@ -9,8 +9,8 @@ import org.heet.presentation.signup.email.SignUpEmailScreen
 import org.heet.presentation.signup.id.SignUpIdScreen
 import org.heet.presentation.signup.pwd.SignUpPwd
 import org.heet.presentation.signup.residence.SignUpResidenceScreen
-import org.heet.presentation.signup.welcome.SignUpResidenceWelcomeScreen
 import org.heet.presentation.signup.welcome.SignUpWelcomeScreen
+import org.heet.presentation.signup.welcomeresidence.SignUpResidenceWelcomeScreen
 
 fun NavGraphBuilder.signupNavGraph(navController: NavHostController) {
     navigation(
