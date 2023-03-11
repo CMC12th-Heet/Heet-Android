@@ -23,7 +23,10 @@ import org.heet.ui.theme.White600
 import org.heet.util.pretendardFamily
 
 @Composable
-fun SignUpResidenceWelcomeScreen(navController: NavController, signUpResidenceWelcomeViewModel: SignUpResidenceWelcomeViewModel = hiltViewModel()) {
+fun SignUpResidenceWelcomeScreen(
+    navController: NavController,
+    signUpResidenceWelcomeViewModel: SignUpResidenceWelcomeViewModel = hiltViewModel()
+) {
     Box(modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp)) {
         Column(
             modifier = Modifier.align(Alignment.TopCenter),
@@ -40,7 +43,10 @@ fun SignUpResidenceWelcomeScreen(navController: NavController, signUpResidenceWe
             modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(painter = painterResource(id = R.drawable.ic_location_red_28), contentDescription = null)
+            Image(
+                painter = painterResource(id = R.drawable.ic_location_red_28),
+                contentDescription = null
+            )
             Spacer(modifier = Modifier.height(6.dp))
             Text(
                 text = signUpResidenceWelcomeViewModel.getResidence(),
