@@ -26,10 +26,10 @@ fun SplashScreen(navController: NavController, splashViewModel: SplashViewModel 
         LaunchedEffect(key1 = true, block = {
             delay(1500)
             navController.popBackStack()
-            if (splashViewModel.didLogin.value) {
-                navController.navigate(Graph.HOME)
-            } else {
+            if (splashViewModel.getToken() == "") {
                 navController.navigate(AuthScreen.Login.route)
+            } else {
+                navController.navigate(Graph.HOME)
             }
         })
 
