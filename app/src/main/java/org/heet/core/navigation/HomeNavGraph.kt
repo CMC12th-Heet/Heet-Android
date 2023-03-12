@@ -7,7 +7,7 @@ import androidx.navigation.compose.composable
 import org.heet.core.navigation.navscreen.BottomBarScreen
 import org.heet.presentation.home.following.FollowingScreen
 import org.heet.presentation.home.hometown.HomeTownScreen
-import org.heet.presentation.home.mypage.MyPage
+import org.heet.presentation.home.mypage.main.MyPage
 
 @Composable
 fun HomeNavGraph(navController: NavHostController) {

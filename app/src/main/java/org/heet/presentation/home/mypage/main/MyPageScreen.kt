@@ -1,4 +1,4 @@
-package org.heet.presentation.home.mypage
+package org.heet.presentation.home.mypage.main
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -10,9 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,6 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.heet.R
 import org.heet.core.navigation.navscreen.MyPageScreen
@@ -28,8 +27,24 @@ import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
 
 @Composable
-fun MyPage(navController: NavController) {
+fun MyPage(
+    navController: NavController,
+    myPageViewModel: MyPageViewModel = hiltViewModel()
+) {
     val existPost = remember { mutableStateOf(false) }
+    val username = remember { mutableStateOf("") }
+    val town = remember { mutableStateOf("") }
+    val isVerify = remember { mutableStateOf(false) }
+
+    LaunchedEffect(key1 = true) {
+        myPageViewModel.getMyPage()
+        myPageViewModel.profile.collect {
+            username.value = it.username
+            town.value = it.town
+            isVerify.value = it.is_verify
+        }
+    }
+
     Box(modifier = Modifier.fillMaxSize()) {
         Surface(
             shape = RoundedCornerShape(bottomStart = 10.dp, bottomEnd = 10.dp),
@@ -72,7 +87,7 @@ fun MyPage(navController: NavController) {
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "abcdef112",
+                    text = username.value,
                     color = Grey350,
                     fontSize = 17.sp,
                     fontWeight = FontWeight.ExtraBold
@@ -92,16 +107,20 @@ fun MyPage(navController: NavController) {
                     )
                     Spacer(modifier = Modifier.width(2.dp))
                     Text(
-                        text = "중구 약수동",
+                        text = town.value,
                         color = Red500,
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Bold
                     )
                     Spacer(modifier = Modifier.width(4.dp))
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_local_red_27),
-                        contentDescription = null
-                    )
+                    if (isVerify.value) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_local_red_27),
+                            contentDescription = null
+                        )
+                    } else {
+                        Spacer(modifier = Modifier.width(26.dp))
+                    }
                 }
                 Spacer(modifier = Modifier.height(12.dp))
                 Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
