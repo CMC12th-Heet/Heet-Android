@@ -4,8 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import org.heet.data.service.LoginService
-import org.heet.data.service.SignUpService
+import org.heet.data.service.*
 import retrofit2.Retrofit
 import javax.inject.Singleton
 
@@ -23,5 +22,29 @@ object ServiceModule {
     @Singleton
     fun provideLoginService(retrofit: Retrofit): LoginService {
         return retrofit.create(LoginService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCommentService(retrofit: Retrofit): CommentService {
+        return retrofit.create(CommentService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideStoreService(retrofit: Retrofit): StoreService {
+        return retrofit.create(StoreService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMyPageService(retrofit: Retrofit): MyPageService {
+        return retrofit.create(MyPageService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun providePostService(retrofit: Retrofit): PostService {
+        return retrofit.create(PostService::class.java)
     }
 }
