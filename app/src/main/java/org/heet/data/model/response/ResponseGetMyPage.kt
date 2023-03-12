@@ -4,5 +4,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ResponseGetMyPage(
-    val empty: String
+    val user_id: Int,
+    val email: String,
+    val username: String,
+    val password: String,
+    val is_verify: Boolean,
+    val town: String
 )
