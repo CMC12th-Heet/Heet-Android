@@ -41,4 +41,28 @@ interface RepositoryModule {
     fun bindLoginRepository(
         loginRepositoryImpl: LoginRepositoryImpl
     ): LoginRepository
+
+    @Binds
+    @Singleton
+    fun bindCommentRepository(
+        commentRepositoryImpl: CommentRepositoryImpl
+    ): CommentRepository
+
+    @Binds
+    @Singleton
+    fun bindStoreRepository(
+        storeRepositoryImpl: StoreRepositoryImpl
+    ): StoreRepository
+
+    @Binds
+    @Singleton
+    fun bindMyPageRepository(
+        myPageRepositoryImpl: MyPageRepositoryImpl
+    ): MyPageRepository
+
+    @Binds
+    @Singleton
+    fun bindPostRepository(
+        postRepositoryImpl: PostRepositoryImpl
+    ): PostRepository
 }
