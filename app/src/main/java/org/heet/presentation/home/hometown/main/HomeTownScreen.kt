@@ -10,6 +10,8 @@ import androidx.compose.material.Divider
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,15 +20,26 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import coil.annotation.ExperimentalCoilApi
+import coil.compose.rememberImagePainter
 import org.heet.R
 import org.heet.components.DotDivider
 import org.heet.core.navigation.navscreen.HomeTownScreen
+import org.heet.data.model.response.ResponseGetPost
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
 
 @Composable
-fun HomeTownScreen(navController: NavController) {
+fun HomeTownScreen(
+    navController: NavController,
+    homeTownViewModel: HomeTownViewModel = hiltViewModel()
+) {
+    val isNewPost = homeTownViewModel.isNewPost.collectAsState()
+    val post = if (isNewPost.value) homeTownViewModel.newPost.collectAsState()
+    else homeTownViewModel.hotPost.collectAsState()
+    homeTownViewModel.getNewPost()
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -35,15 +48,16 @@ fun HomeTownScreen(navController: NavController) {
         Column(modifier = Modifier.align(Alignment.TopCenter)) {
             TopBar(navController = navController)
             Divider(modifier = Modifier.padding(top = 9.dp), color = White100)
-            Filter()
+            Filter(homeTownViewModel = homeTownViewModel)
             Divider(color = White100)
-            ContentList(navController = navController)
+            ContentList(navController = navController, post = post)
         }
     }
 }
 
+@OptIn(ExperimentalCoilApi::class)
 @Composable
-private fun ContentList(navController: NavController) {
+private fun ContentList(navController: NavController, post: State<List<ResponseGetPost>>) {
     LazyColumn(
         modifier = Modifier.padding(
             start = 20.dp,
@@ -52,7 +66,7 @@ private fun ContentList(navController: NavController) {
             bottom = 65.dp
         )
     ) {
-        items(listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12)) {
+        items(post.value) {
             DotDivider()
             Spacer(modifier = Modifier.height(10.dp))
             Surface(
@@ -71,7 +85,7 @@ private fun ContentList(navController: NavController) {
                     ) {
                         Column(modifier = Modifier.padding(start = 10.dp)) {
                             Text(
-                                text = "약수 로컬 스콘 맛집 약수 로컬 스콘 맛집",
+                                text = it.title,
                                 modifier = Modifier.padding(top = 11.dp),
                                 fontSize = 16.sp,
                                 color = Black100,
@@ -79,7 +93,7 @@ private fun ContentList(navController: NavController) {
                                 fontFamily = pretendardFamily
                             )
                             Text(
-                                text = "삼삼삼베이커리",
+                                text = it.mini_title,
                                 modifier = Modifier.padding(top = 4.dp),
                                 fontSize = 14.sp,
                                 fontWeight = FontWeight.Medium,
@@ -95,7 +109,7 @@ private fun ContentList(navController: NavController) {
                     Spacer(modifier = Modifier.height(5.dp))
                     Box {
                         Image(
-                            painter = painterResource(id = R.drawable.img_default_hometown),
+                            painter = rememberImagePainter(data = it.file_url),
                             contentDescription = "image",
                             contentScale = ContentScale.FillWidth,
                             modifier = Modifier.fillMaxWidth()
@@ -129,7 +143,7 @@ private fun ContentList(navController: NavController) {
                         painter = painterResource(id = R.drawable.ic_profile_grey_27),
                         contentDescription = "profile"
                     )
-                    Text(text = "heet_member", modifier = Modifier.padding(start = 7.dp))
+                    Text(text = it.user.username, modifier = Modifier.padding(start = 7.dp))
                 }
                 Row {
                     Image(
@@ -213,7 +227,7 @@ private fun TopBar(navController: NavController) {
 }
 
 @Composable
-private fun Filter() {
+private fun Filter(homeTownViewModel: HomeTownViewModel) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -236,7 +250,10 @@ private fun Filter() {
             color = Red500,
             fontSize = 13.sp,
             fontWeight = FontWeight.Bold,
-            fontFamily = pretendardFamily
+            fontFamily = pretendardFamily,
+            modifier = Modifier.clickable {
+                homeTownViewModel.getNewPost()
+            }
         )
         Divider(
             modifier = Modifier
@@ -250,7 +267,10 @@ private fun Filter() {
             color = Red500,
             fontSize = 13.sp,
             fontWeight = FontWeight.Bold,
-            fontFamily = pretendardFamily
+            fontFamily = pretendardFamily,
+            modifier = Modifier.clickable {
+                homeTownViewModel.getHotPost()
+            }
         )
     }
 }
