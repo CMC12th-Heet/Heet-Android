@@ -1,4 +1,4 @@
-package org.heet.presentation.home.hometown
+package org.heet.presentation.home.hometown.post
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -19,19 +19,18 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.heet.R
-import org.heet.components.DotDivider
-import org.heet.components.EmptyText
-import org.heet.components.NormalInputField
-import org.heet.components.Title
+import org.heet.components.*
+import org.heet.core.navigation.navscreen.HomeTownScreen
 import org.heet.ui.theme.Black400
 import org.heet.ui.theme.Grey100
 import org.heet.ui.theme.White700
 import org.heet.util.pretendardFamily
 
 @Composable
-fun PostScreen(navController: NavController) {
+fun PostScreen(navController: NavController, postViewModel: PostViewModel = hiltViewModel()) {
     val scrollState = rememberScrollState()
     val title = remember { mutableStateOf("") }
     val subTitle = remember { mutableStateOf("") }
@@ -52,19 +51,28 @@ fun PostScreen(navController: NavController) {
             Image(
                 painter = painterResource(id = R.drawable.ic_cancel_black_30),
                 contentDescription = "cancel",
-                modifier = Modifier.clickable { navController.popBackStack() }
+                modifier = Modifier.clickable {
+                    navController.popBackStack()
+                    postViewModel.deleteSelectStore()
+                }
             )
             Title(text = "우리동네 기록")
-            EmptyText()
+            Finish {
+                navController.popBackStack()
+                postViewModel.deleteSelectStore()
+            }
         }
         Spacer(modifier = Modifier.height(12.dp))
         Surface(
             shape = RoundedCornerShape(30.dp),
-            color = White700
+            color = White700,
+            modifier = Modifier.clickable {
+                navController.navigate(HomeTownScreen.Address.route)
+            }
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
-                    text = "주소를 등록해주세요",
+                    text = if (postViewModel.getSelectStore() == "") "주소를 등록해주세요" else postViewModel.getSelectStore(),
                     modifier = Modifier.padding(start = 20.dp, top = 7.dp, bottom = 7.dp),
                     color = Color.White,
                     fontSize = 13.sp,
