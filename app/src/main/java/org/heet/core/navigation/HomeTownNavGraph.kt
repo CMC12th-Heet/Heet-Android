@@ -8,6 +8,8 @@ import org.heet.core.navigation.navscreen.HomeTownScreen
 import org.heet.presentation.declaration.DeclarationFinishScreen
 import org.heet.presentation.declaration.DeclarationScreen
 import org.heet.presentation.home.hometown.*
+import org.heet.presentation.home.hometown.address.AddressScreen
+import org.heet.presentation.home.hometown.post.PostScreen
 import org.heet.presentation.home.hometown.verify.VerifyScreen
 import org.heet.presentation.home.mypage.ScrapScreen
 import org.heet.presentation.home.mypage.UserProfileScreen

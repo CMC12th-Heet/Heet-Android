@@ -1,4 +1,4 @@
-package org.heet.presentation.home.hometown
+package org.heet.presentation.home.hometown.address
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -25,25 +25,45 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.DotDivider
 import org.heet.components.EmptyText
 import org.heet.components.Title
+import org.heet.core.navigation.navscreen.HomeTownScreen
 import org.heet.data.datasource.LocalSearchHelpDataSource
+import org.heet.data.model.request.RequestPostStore
+import org.heet.data.model.response.ResponseGetStore
 import org.heet.data.model.response.SearchResult
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun AddressScreen(navController: NavController) {
+fun AddressScreen(
+    navController: NavController,
+    addressViewModel: AddressViewModel = hiltViewModel()
+) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val address = remember {
         mutableStateOf("")
     }
     val didSearch = remember {
         mutableStateOf(false)
+    }
+    val storeList = addressViewModel.store.collectAsState()
+    val storeName = remember {
+        mutableStateOf("")
+    }
+    val storeUrl = remember {
+        mutableStateOf("")
+    }
+    val storeAddress = remember {
+        mutableStateOf("")
+    }
+    if (addressViewModel.updateSuccess.collectAsState().value) {
+        navController.popBackStack(route = HomeTownScreen.Post.route, inclusive = false)
     }
 
     Box(
@@ -70,6 +90,13 @@ fun AddressScreen(navController: NavController) {
                     Text(
                         text = "등록",
                         modifier = Modifier.clickable {
+                            addressViewModel.postStore(
+                                RequestPostStore(
+                                    storeName.value,
+                                    storeUrl.value,
+                                    storeAddress.value
+                                )
+                            )
                         },
                         color = Red500,
                         fontSize = 17.sp,
@@ -82,11 +109,18 @@ fun AddressScreen(navController: NavController) {
             }
             AddressTextField(
                 address = address,
-                keyboardController = keyboardController
+                keyboardController = keyboardController,
+                addressViewModel = addressViewModel
             )
             Spacer(modifier = Modifier.height(11.dp))
             if (address.value.isNotEmpty()) {
-                AddressInputResult(didSearch = didSearch)
+                AddressInputResult(
+                    didSearch = didSearch,
+                    searchResult = storeList,
+                    storeName = storeName,
+                    storeAddress = storeAddress,
+                    storeUrl = storeUrl
+                )
             } else {
                 AddressInputGuide()
             }
@@ -95,27 +129,18 @@ fun AddressScreen(navController: NavController) {
 }
 
 @Composable
-private fun AddressInputResult(didSearch: MutableState<Boolean>) {
+private fun AddressInputResult(
+    didSearch: MutableState<Boolean>,
+    searchResult: State<List<ResponseGetStore>>,
+    storeName: MutableState<String>,
+    storeUrl: MutableState<String>,
+    storeAddress: MutableState<String>
+) {
     var searchResultList by remember {
-        mutableStateOf(
-            listOf(
-                SearchResult(
-                    "카페 704",
-                    "서울특별시 동대문구 고산자로 56길 12",
-                    false
-                ),
-                SearchResult(
-                    "카페 704",
-                    "서울특별시 동대문구 고산자로 56길 12",
-                    false
-                ),
-                SearchResult(
-                    "카페 704",
-                    "서울특별시 동대문구 고산자로 56길 12",
-                    false
-                )
-            )
-        )
+        mutableStateOf(emptyList<SearchResult>())
+    }
+    searchResultList = searchResult.value.map {
+        SearchResult(it.place_name, it.address_name, it.place_url, false)
     }
     Column(
         modifier = Modifier.fillMaxWidth(),
@@ -164,6 +189,9 @@ private fun AddressInputResult(didSearch: MutableState<Boolean>) {
                                         searchResult.copy(isSelected = false)
                                     }
                                 }
+                                storeName.value = searchResultList[index].storeName
+                                storeAddress.value = searchResultList[index].address
+                                storeUrl.value = searchResultList[index].url
                             }
                         )
                         Spacer(modifier = Modifier.height(4.dp))
@@ -228,13 +256,15 @@ private fun AddressInputGuide() {
 @Composable
 private fun AddressTextField(
     address: MutableState<String>,
-    keyboardController: SoftwareKeyboardController?
+    keyboardController: SoftwareKeyboardController?,
+    addressViewModel: AddressViewModel
 ) {
     BasicTextField(
         value = address.value,
         onValueChange = {
             if (it.length <= 20) {
                 address.value = it
+                addressViewModel.searchStore(address.value)
             }
         },
         modifier = Modifier.padding(top = 12.dp),
