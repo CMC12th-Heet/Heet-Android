@@ -18,11 +18,11 @@ class PostRepositoryImpl @Inject constructor(
         return postService.postVerify(x, y)
     }
 
-    override suspend fun getNewPost(isNew: String): ResponseGetPost {
+    override suspend fun getNewPost(isNew: String): List<ResponseGetPost> {
         return postService.getNewPost(isNew)
     }
 
-    override suspend fun getHotPost(isHot: String): ResponseGetPost {
+    override suspend fun getHotPost(isHot: String): List<ResponseGetPost> {
         return postService.getHotPost(isHot)
     }
 
