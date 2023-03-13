@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.annotation.ExperimentalCoilApi
-import coil.compose.rememberImagePainter
+import coil.compose.rememberAsyncImagePainter
 import org.heet.R
 import org.heet.components.DotDivider
 import org.heet.core.navigation.navscreen.HomeTownScreen
@@ -107,12 +107,12 @@ private fun ContentList(navController: NavController, post: State<List<ResponseG
                         )
                     }
                     Spacer(modifier = Modifier.height(5.dp))
-                    Box {
+                    Box(modifier = Modifier.fillMaxWidth()) {
                         Image(
-                            painter = rememberImagePainter(data = it.file_url),
+                            painter = rememberAsyncImagePainter(model = "https://heet-storage.s3.ap-northeast-2.amazonaws.com/1678703690763test12345.jpg"),
                             contentDescription = "image",
                             contentScale = ContentScale.FillWidth,
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth().height(height = 225.dp)
                         )
                         Surface(
                             shape = RoundedCornerShape(20.dp),
