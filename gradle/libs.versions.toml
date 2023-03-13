@@ -91,6 +91,8 @@ kotlin-serialization-converter = "com.jakewharton.retrofit:retrofit2-kotlinx-ser
 image-picker = { module = "io.github.ParkSangGwon:tedimagepicker", version.ref = "ted" }
 gson = "com.google.code.gson:gson:2.8.9"
 junit = "junit:junit:4.13.2"
+gps = "com.google.android.gms:play-services-location:21.0.1"
+permission = "io.github.ParkSangGwon:tedpermission-normal:3.3.0"
 
 [bundles]
 androidx = ["androidx-arch-coreTesting", "androidx-core-ktx", "androidx-appcompat", "androidx-splashScreen", "androidx-test-junit", "androidx-security", "androidx-navigation", "androidx-navigation-material", "androidx-activity-compose", "androidx-room-runtime", "androidx-room-ktx", "androidx-room-testing", "androidx-datastore"]
