@@ -71,4 +71,10 @@ interface RepositoryModule {
     fun bindVerifyRepository(
         verifyRepositoryImpl: VerifyRepositoryImpl
     ): VerifyRepository
+
+    @Binds
+    @Singleton
+    fun bindAddressRepository(
+        addressRepositoryImpl: AddressRepositoryImpl
+    ): AddressRepository
 }
