@@ -206,6 +206,7 @@ fun ModifyProfileScreen(
                 text = "로그아웃",
                 modifier = Modifier.clickable {
                     modifyProfileViewModel.deleteUserPreferences()
+                    modifyProfileViewModel.deleteVerify()
                     navController.navigate(MyPageScreen.Login.route)
                 },
                 fontSize = 13.sp,
