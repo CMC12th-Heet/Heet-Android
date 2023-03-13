@@ -7,10 +7,8 @@ import androidx.navigation.navigation
 import org.heet.core.navigation.navscreen.HomeTownScreen
 import org.heet.presentation.declaration.DeclarationFinishScreen
 import org.heet.presentation.declaration.DeclarationScreen
-import org.heet.presentation.home.hometown.AddressScreen
-import org.heet.presentation.home.hometown.CommentScreen
-import org.heet.presentation.home.hometown.FindUserScreen
-import org.heet.presentation.home.hometown.PostScreen
+import org.heet.presentation.home.hometown.*
+import org.heet.presentation.home.hometown.verify.VerifyScreen
 import org.heet.presentation.home.mypage.ScrapScreen
 import org.heet.presentation.home.mypage.UserProfileScreen
 
@@ -42,6 +40,9 @@ fun NavGraphBuilder.homeTownNavGraph(navController: NavHostController) {
         }
         composable(route = HomeTownScreen.FindUser.route) {
             FindUserScreen(navController = navController)
+        }
+        composable(route = HomeTownScreen.Verify.route) {
+            VerifyScreen(navController = navController)
         }
     }
 }

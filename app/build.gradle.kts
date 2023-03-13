@@ -79,6 +79,8 @@ dependencies {
     implementation(libs.image.picker)
     implementation(libs.gson)
     implementation(libs.junit)
+    implementation(libs.gps)
+    implementation(libs.permission)
 }
 
 ktlint {

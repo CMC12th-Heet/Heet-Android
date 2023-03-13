@@ -15,6 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -31,7 +32,10 @@ import org.heet.util.pretendardFamily
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun HomeScreen(navController: NavHostController = rememberNavController()) {
+fun HomeScreen(
+    navController: NavHostController = rememberNavController(),
+    homeScreenViewModel: HomeScreenViewModel = hiltViewModel()
+) {
     val isWrite = remember { mutableStateOf(false) }
     val isFloatingButton = remember { mutableStateOf(false) }
 
@@ -44,7 +48,11 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
         },
         floatingActionButton = {
             if (isFloatingButton.value) {
-                WriteButton(isWrite = isWrite, navController = navController)
+                WriteButton(
+                    isWrite = isWrite,
+                    navController = navController,
+                    homeScreenViewModel = homeScreenViewModel
+                )
             }
         }
     ) {
@@ -53,7 +61,11 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
 }
 
 @Composable
-private fun WriteButton(isWrite: MutableState<Boolean>, navController: NavHostController) {
+private fun WriteButton(
+    isWrite: MutableState<Boolean>,
+    navController: NavHostController,
+    homeScreenViewModel: HomeScreenViewModel
+) {
     val writeImage = if (isWrite.value) {
         R.drawable.ic_pencil_white_25
     } else {
@@ -67,7 +79,11 @@ private fun WriteButton(isWrite: MutableState<Boolean>, navController: NavHostCo
     FloatingActionButton(
         onClick = {
             isWrite.value = !isWrite.value
-            navController.navigate(HomeTownScreen.Post.route)
+            if (homeScreenViewModel.getIsVerify()) {
+                navController.navigate(HomeTownScreen.Post.route)
+            } else {
+                navController.navigate(HomeTownScreen.Verify.route)
+            }
         },
         modifier = Modifier
             .padding(end = 26.dp, bottom = 21.dp)

@@ -1,4 +1,4 @@
-package org.heet.presentation.home.hometown
+package org.heet.presentation.home.hometown.main
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
