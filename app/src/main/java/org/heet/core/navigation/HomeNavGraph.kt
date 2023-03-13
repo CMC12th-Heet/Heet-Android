@@ -6,7 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import org.heet.core.navigation.navscreen.BottomBarScreen
 import org.heet.presentation.home.following.FollowingScreen
-import org.heet.presentation.home.hometown.HomeTownScreen
+import org.heet.presentation.home.hometown.main.HomeTownScreen
 import org.heet.presentation.home.mypage.main.MyPage
 
 @Composable
