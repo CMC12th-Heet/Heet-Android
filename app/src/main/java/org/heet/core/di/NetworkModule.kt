@@ -16,6 +16,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import org.heet.BuildConfig.HEET_BASE_URL
 import org.heet.data.interceptor.AuthInterceptor
 import retrofit2.Retrofit
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -54,6 +55,9 @@ object NetworkModule {
         interceptor: Interceptor
     ): OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(interceptor)
+        .connectTimeout(50, TimeUnit.SECONDS)
+        .readTimeout(50, TimeUnit.SECONDS)
+        .writeTimeout(50, TimeUnit.SECONDS)
         .addInterceptor(
             HttpLoggingInterceptor().also { it.level = HttpLoggingInterceptor.Level.BODY }
         )
