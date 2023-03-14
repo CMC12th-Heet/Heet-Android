@@ -1,6 +1,5 @@
 package org.heet.data.repository
 
-import org.heet.data.model.request.RequestPost
 import org.heet.data.model.request.RequestUpdatePost
 import org.heet.data.model.response.*
 import org.heet.data.service.PostService
@@ -10,10 +9,6 @@ import javax.inject.Inject
 class PostRepositoryImpl @Inject constructor(
     private val postService: PostService
 ) : PostRepository {
-    override suspend fun post(requestPost: RequestPost): ResponsePost {
-        return postService.post(requestPost)
-    }
-
     override suspend fun postVerify(x: String, y: String): ResponsePostVerify {
         return postService.postVerify(x, y)
     }

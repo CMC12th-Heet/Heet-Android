@@ -1,14 +1,28 @@
 package org.heet.data.service
 
-import org.heet.data.model.request.RequestPost
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import org.heet.data.model.request.RequestUpdatePost
 import org.heet.data.model.response.*
 import retrofit2.http.*
 
 interface PostService {
 
+    @Multipart
     @POST("/post")
-    suspend fun post(requestPost: RequestPost): ResponsePost
+    suspend fun post(
+        @Part files: List<MultipartBody.Part?>,
+        @Part("title") title: RequestBody,
+        @Part("mini_title") mini_title: RequestBody,
+        @Part("content") content: RequestBody,
+        @Part("store_id") store_id: RequestBody,
+        @Part("satisfaction") satisfaction: RequestBody?,
+        @Part("together_with") together_with: RequestBody?,
+        @Part("perfect_day") perfect_day: RequestBody?,
+        @Part("moving_tip") moving_tip: RequestBody?,
+        @Part("ordering_tip") ordering_tip: RequestBody?,
+        @Part("other_tips") other_tips: RequestBody?
+    ): ResponsePost
 
     @POST("/post/verify")
     suspend fun postVerify(
