@@ -17,10 +17,10 @@ interface PostService {
     ): ResponsePostVerify
 
     @GET("/post")
-    suspend fun getNewPost(@Query("isNew") isNew: String): ResponseGetPost
+    suspend fun getNewPost(@Query("isNew") isNew: String): List<ResponseGetPost>
 
     @GET("/post")
-    suspend fun getHotPost(@Query("isHot") isHot: String): ResponseGetPost
+    suspend fun getHotPost(@Query("isHot") isHot: String): List<ResponseGetPost>
 
     @GET("/post/{id}")
     suspend fun getDetailPost(@Path("id") id: String): ResponseGetDetailPost

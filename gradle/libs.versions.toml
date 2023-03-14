@@ -81,7 +81,7 @@ dagger-hilt-navigation = "androidx.hilt:hilt-navigation-compose:1.1.0-alpha01"
 ## retrofit
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 ## etc
-coil-core = { module = "io.coil-kt:coil", version.ref = "coil" }
+coil-core = "io.coil-kt:coil-compose:2.2.2"
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
 lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
