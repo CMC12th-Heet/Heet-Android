@@ -1,5 +1,11 @@
 package org.heet.presentation.home.hometown.post
 
+import android.graphics.Bitmap
+import android.graphics.ImageDecoder
+import android.net.Uri
+import android.os.Build
+import android.provider.MediaStore
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -8,19 +14,21 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import gun0912.tedimagepicker.builder.TedImagePicker
+import gun0912.tedimagepicker.builder.type.MediaType
 import org.heet.R
 import org.heet.components.*
 import org.heet.core.navigation.navscreen.HomeTownScreen
@@ -37,6 +45,24 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
     val content = remember { mutableStateOf("") }
     val expandSatisfaction = remember { mutableStateOf(false) }
     val expandShare = remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    var imageUri by remember { mutableStateOf<List<Uri>?>(null) }
+    val bitmap = remember { mutableStateOf<Bitmap?>(null) }
+
+    LaunchedEffect(key1 = true) {
+        TedImagePicker.with(context)
+            .mediaType(MediaType.IMAGE)
+            .buttonText("완료")
+            .min(1, "1개는 필수입니다.")
+            .max(10, "10개가 최대입니다.")
+            .startMultiImage {
+                imageUri = it
+            }
+
+        if (postViewModel.postSuccess.value) {
+            navController.popBackStack()
+        }
+    }
 
     Column(
         modifier = Modifier.verticalScroll(scrollState),
@@ -54,12 +80,29 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                 modifier = Modifier.clickable {
                     navController.popBackStack()
                     postViewModel.deleteSelectStore()
+                    postViewModel.deleteSelectStoreNum()
                 }
             )
             Title(text = "우리동네 기록")
             Finish {
-                navController.popBackStack()
-                postViewModel.deleteSelectStore()
+                if (title.value.isEmpty() ||
+                    subTitle.value.isEmpty() ||
+                    content.value.isEmpty() ||
+                    postViewModel.getSelectStoreNum() == -1
+                ) {
+                    Toast.makeText(context, "필요한 것을 채워 주세요", Toast.LENGTH_SHORT).show()
+                } else {
+                    imageUri?.let {
+                        postViewModel.post(
+                            context,
+                            it,
+                            title.value,
+                            subTitle.value,
+                            content.value,
+                            postViewModel.getSelectStoreNum()
+                        )
+                    }
+                }
             }
         }
         Spacer(modifier = Modifier.height(12.dp))
@@ -94,12 +137,24 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
         ) {
             Surface(shape = RoundedCornerShape(5.dp)) {
                 Box {
-                    Image(
-                        painter = painterResource(id = R.drawable.img_default_post),
-                        contentDescription = "image",
-                        contentScale = ContentScale.FillWidth,
-                        modifier = Modifier.fillMaxWidth()
-                    )
+                    imageUri?.let {
+                        if (Build.VERSION.SDK_INT < 28) {
+                            bitmap.value = MediaStore.Images
+                                .Media.getBitmap(context.contentResolver, it[0])
+                        } else {
+                            val source =
+                                ImageDecoder.createSource(context.contentResolver, it[0])
+                            bitmap.value = ImageDecoder.decodeBitmap(source)
+                        }
+                    }
+                    bitmap.value?.let {
+                        Image(
+                            bitmap = it.asImageBitmap(),
+                            contentDescription = "image",
+                            contentScale = ContentScale.FillHeight,
+                            modifier = Modifier.height(256.dp)
+                        )
+                    }
                     Surface(
                         shape = RoundedCornerShape(20.dp),
                         color = Color.White,
@@ -108,7 +163,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                             .align(Alignment.BottomEnd)
                     ) {
                         Text(
-                            text = "1/7",
+                            text = "1/${imageUri?.size}",
                             modifier = Modifier.padding(horizontal = 13.dp),
                             color = Black400,
                             fontSize = 10.sp,
