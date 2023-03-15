@@ -76,7 +76,7 @@ fun SignUpEmailScreen(
                 placeholder = "이메일 입력",
                 keyboardController = keyboardController
             )
-            BigRoundButton(
+            RedRoundButton28(
                 onClick = {
                     if (email.value.trim().isNotEmpty()) {
                         signUpEmailViewModel.updateEmail(email.value)
