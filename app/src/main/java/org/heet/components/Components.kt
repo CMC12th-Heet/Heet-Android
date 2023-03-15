@@ -44,12 +44,14 @@ fun RoundInputField(
     keyboardType: KeyboardType = KeyboardType.Text,
     imeAction: ImeAction = ImeAction.Next,
     onAction: KeyboardActions = KeyboardActions.Default,
-    isPwd: Boolean = false
+    isPwd: Boolean = false,
+    onStateChange: () -> Unit = {}
 ) {
     BasicTextField(
         value = valueState.value,
         onValueChange = {
             valueState.value = it
+            onStateChange()
         },
         visualTransformation = if (isPwd) PasswordVisualTransformation() else VisualTransformation.None,
         modifier = modifier,
@@ -135,7 +137,7 @@ fun NormalInputField(
 }
 
 @Composable
-fun BigRoundButton(
+fun RedRoundButton28(
     modifier: Modifier = Modifier,
     onClick: () -> Unit,
     text: String,
