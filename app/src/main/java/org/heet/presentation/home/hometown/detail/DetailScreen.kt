@@ -110,7 +110,7 @@ fun DetailScreen(
                     Image(
                         painter = image,
                         contentDescription = "image",
-                        contentScale = ContentScale.FillWidth,
+                        contentScale = ContentScale.FillHeight,
                         modifier = Modifier.fillMaxWidth().height(height = 225.dp)
                     )
 

@@ -32,9 +32,7 @@ import gun0912.tedimagepicker.builder.type.MediaType
 import org.heet.R
 import org.heet.components.*
 import org.heet.core.navigation.navscreen.HomeTownScreen
-import org.heet.ui.theme.Black400
-import org.heet.ui.theme.Grey100
-import org.heet.ui.theme.White700
+import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
 
 @Composable
@@ -48,6 +46,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
     val context = LocalContext.current
     var imageUri by remember { mutableStateOf<List<Uri>?>(null) }
     val bitmap = remember { mutableStateOf<Bitmap?>(null) }
+    val friend = remember { mutableStateOf("") }
 
     LaunchedEffect(key1 = true) {
         TedImagePicker.with(context)
@@ -236,6 +235,43 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                     Spacer(modifier = Modifier.width(10.dp))
                 }
             }
+            if (expandShare.value) {
+                Column(
+                    modifier = Modifier.align(Alignment.Start).fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Spacer(modifier = Modifier.height(4.dp))
+                    Text(
+                        text = "공유하고 싶은 꿀팁을 눌러 활성화하세요.",
+                        color = Red500,
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        fontFamily = pretendardFamily
+                    )
+                    Spacer(modifier = Modifier.height(17.dp))
+                    Row(modifier = Modifier.align(Alignment.Start)) {
+                        Surface(
+                            shape = RoundedCornerShape(30.dp),
+                            color = White700
+                        ) {
+                            Text(
+                                text = "누구와 함께해요!",
+                                modifier = Modifier.padding(horizontal = 10.dp, vertical = 7.dp),
+                                color = Color.White,
+                                fontSize = 12.sp,
+                                fontWeight = FontWeight.Bold,
+                                fontFamily = pretendardFamily
+                            )
+                        }
+                        FlatInputField(
+                            valueState = friend,
+                            enabled = true,
+                            isSingleLine = true,
+                            placeholder = "ex) 동네 놀러온 찐친"
+                        )
+                    }
+                }
+            }
             Spacer(modifier = Modifier.height(14.dp))
             Surface(
                 shape = RoundedCornerShape(30.dp),
@@ -265,6 +301,80 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                     Spacer(modifier = Modifier.width(10.dp))
                 }
             }
+            if (expandSatisfaction.value) {
+                Row(
+                    modifier = Modifier.padding(top = 24.dp).fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_feel_worst),
+                            contentDescription = null
+                        )
+                        Text(
+                            text = "화나요.",
+                            color = Grey250,
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Normal,
+                            fontFamily = pretendardFamily
+                        )
+                    }
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_feel_bad_46),
+                            contentDescription = null
+                        )
+                        Text(
+                            text = "별로에요.",
+                            color = Grey250,
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Normal,
+                            fontFamily = pretendardFamily
+                        )
+                    }
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_feel_soso_46),
+                            contentDescription = null
+                        )
+                        Text(
+                            text = "그러적럭?",
+                            color = Grey250,
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Normal,
+                            fontFamily = pretendardFamily
+                        )
+                    }
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_feel_good_46),
+                            contentDescription = null
+                        )
+                        Text(
+                            text = "좋았어요!",
+                            color = Grey250,
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Normal,
+                            fontFamily = pretendardFamily
+                        )
+                    }
+                    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_feel_awesome_46),
+                            contentDescription = null
+                        )
+                        Text(
+                            text = "재방문100%",
+                            color = Grey250,
+                            fontSize = 11.sp,
+                            fontWeight = FontWeight.Normal,
+                            fontFamily = pretendardFamily
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(50.dp))
+                }
+            }
+
             Spacer(modifier = Modifier.height(14.dp))
         }
         Spacer(modifier = Modifier.height(12.dp))
