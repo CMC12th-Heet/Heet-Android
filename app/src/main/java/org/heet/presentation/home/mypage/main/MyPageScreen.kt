@@ -45,150 +45,156 @@ fun MyPage(
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        Surface(
-            shape = RoundedCornerShape(bottomStart = 10.dp, bottomEnd = 10.dp),
-            elevation = 20.dp
-        ) {
-            Column(
-                modifier = Modifier.padding(start = 20.dp, top = 18.dp, end = 20.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.SpaceBetween,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Box {
+            Surface(
+                shape = RoundedCornerShape(bottomStart = 10.dp, bottomEnd = 10.dp),
+                elevation = 20.dp
             ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                Column(
+                    modifier = Modifier.padding(start = 20.dp, top = 18.dp, end = 20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_text_logo_67),
-                        contentDescription = null
-                    )
-                    Row {
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
                         Image(
-                            painter = painterResource(id = R.drawable.ic_bookmark_grey_44),
-                            contentDescription = null,
-                            modifier = Modifier.clickable {
-                                navController.navigate(MyPageScreen.Scrap.route)
-                            }
-                        )
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_setting_grey_44),
-                            contentDescription = null,
-                            modifier = Modifier.clickable {
-                                navController.navigate(MyPageScreen.Setting.route)
-                            }
-                        )
-                    }
-                }
-                Spacer(modifier = Modifier.height(31.dp))
-                Image(
-                    painter = painterResource(id = R.drawable.ic_profile_grey_55),
-                    contentDescription = null
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = username.value,
-                    color = Grey350,
-                    fontSize = 17.sp,
-                    fontWeight = FontWeight.ExtraBold
-                )
-                Spacer(modifier = Modifier.height(9.dp))
-                Text(
-                    text = "소개글을 작성해주세요",
-                    color = White650,
-                    fontSize = 11.sp,
-                    fontWeight = FontWeight.Normal
-                )
-                Spacer(modifier = Modifier.height(24.dp))
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_location_red_15),
-                        contentDescription = null
-                    )
-                    Spacer(modifier = Modifier.width(2.dp))
-                    Text(
-                        text = town.value,
-                        color = Red500,
-                        fontSize = 13.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    if (isVerify.value) {
-                        Image(
-                            painter = painterResource(id = R.drawable.ic_local_red_27),
+                            painter = painterResource(id = R.drawable.ic_text_logo_67),
                             contentDescription = null
                         )
-                    } else {
-                        Spacer(modifier = Modifier.width(26.dp))
+                        Row {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_bookmark_grey_44),
+                                contentDescription = null,
+                                modifier = Modifier.clickable {
+                                    navController.navigate(MyPageScreen.Scrap.route)
+                                }
+                            )
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_setting_grey_44),
+                                contentDescription = null,
+                                modifier = Modifier.clickable {
+                                    navController.navigate(MyPageScreen.Setting.route)
+                                }
+                            )
+                        }
                     }
-                }
-                Spacer(modifier = Modifier.height(12.dp))
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Spacer(modifier = Modifier.height(31.dp))
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_profile_grey_55),
+                        contentDescription = null
+                    )
+                    Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = "게시글 0",
-                        color = Grey850,
-                        fontSize = 12.sp,
+                        text = username.value,
+                        color = Grey350,
+                        fontSize = 17.sp,
+                        fontWeight = FontWeight.ExtraBold
+                    )
+                    Spacer(modifier = Modifier.height(9.dp))
+                    Text(
+                        text = "소개글을 작성해주세요",
+                        color = White650,
+                        fontSize = 11.sp,
                         fontWeight = FontWeight.Normal
                     )
-                    Divider(
-                        modifier = Modifier.size(width = 1.dp, height = 12.dp),
-                        color = Grey750
-                    )
-                    Text(
-                        text = "팔로잉 0",
-                        color = Grey850,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Normal
-                    )
-                    Divider(
-                        modifier = Modifier.size(width = 1.dp, height = 12.dp),
-                        color = Grey750
-                    )
-                    Text(
-                        text = "팔로워 0",
-                        color = Grey850,
-                        fontSize = 12.sp,
-                        fontWeight = FontWeight.Normal
-                    )
-                }
-                Spacer(modifier = Modifier.height(18.dp))
-                if (existPost.value) {
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2),
-                        modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 65.dp),
-                        horizontalArrangement = Arrangement.spacedBy(4.dp),
-                        verticalArrangement = Arrangement.spacedBy((-13).dp)
-                    ) {
-                        items(listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)) {
-                            Surface(
-                                shape = RoundedCornerShape(5.dp),
-                                modifier = Modifier.padding(top = 18.dp)
-                            ) {
-                                Box {
-                                    Image(
-                                        painter = painterResource(id = R.drawable.img_default_scrap),
-                                        contentDescription = "image",
-                                        contentScale = ContentScale.FillWidth,
-                                        modifier = Modifier.fillMaxWidth()
-                                    )
-                                    Row(
-                                        modifier = Modifier
-                                            .align(Alignment.TopStart)
-                                            .padding(start = 6.dp, top = 7.dp),
-                                        verticalAlignment = Alignment.CenterVertically
-                                    ) {
+                    Spacer(modifier = Modifier.height(24.dp))
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_location_red_15),
+                            contentDescription = null
+                        )
+                        Spacer(modifier = Modifier.width(2.dp))
+                        Text(
+                            text = town.value,
+                            color = Red500,
+                            fontSize = 13.sp,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Spacer(modifier = Modifier.width(4.dp))
+                        if (isVerify.value) {
+                            Image(
+                                painter = painterResource(id = R.drawable.ic_local_red_27),
+                                contentDescription = null
+                            )
+                        } else {
+                            Spacer(modifier = Modifier.width(26.dp))
+                        }
+                    }
+                    Spacer(modifier = Modifier.height(12.dp))
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        Text(
+                            text = "게시글 0",
+                            color = Grey850,
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Normal
+                        )
+                        Divider(
+                            modifier = Modifier.size(width = 1.dp, height = 12.dp),
+                            color = Grey750
+                        )
+                        Text(
+                            text = "팔로잉 0",
+                            color = Grey850,
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Normal
+                        )
+                        Divider(
+                            modifier = Modifier.size(width = 1.dp, height = 12.dp),
+                            color = Grey750
+                        )
+                        Text(
+                            text = "팔로워 0",
+                            color = Grey850,
+                            fontSize = 12.sp,
+                            fontWeight = FontWeight.Normal
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(18.dp))
+                    if (existPost.value) {
+                        LazyVerticalGrid(
+                            columns = GridCells.Fixed(2),
+                            modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 65.dp),
+                            horizontalArrangement = Arrangement.spacedBy(4.dp),
+                            verticalArrangement = Arrangement.spacedBy((-13).dp)
+                        ) {
+                            items(listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)) {
+                                Surface(
+                                    shape = RoundedCornerShape(5.dp),
+                                    modifier = Modifier.padding(top = 18.dp)
+                                ) {
+                                    Box {
                                         Image(
-                                            painter = painterResource(id = R.drawable.ic_location_white_16),
-                                            contentDescription = null
+                                            painter = painterResource(id = R.drawable.img_default_scrap),
+                                            contentDescription = "image",
+                                            contentScale = ContentScale.FillWidth,
+                                            modifier = Modifier.fillMaxWidth()
                                         )
-                                        Spacer(modifier = Modifier.width(3.dp))
-                                        Text(
-                                            text = "중구 약수동",
-                                            color = Color.White,
-                                            fontSize = 13.sp,
-                                            fontWeight = FontWeight.Bold,
-                                            fontFamily = pretendardFamily
-                                        )
+                                        Row(
+                                            modifier = Modifier
+                                                .align(Alignment.TopStart)
+                                                .padding(start = 6.dp, top = 7.dp),
+                                            verticalAlignment = Alignment.CenterVertically
+                                        ) {
+                                            Image(
+                                                painter = painterResource(id = R.drawable.ic_location_white_16),
+                                                contentDescription = null
+                                            )
+                                            Spacer(modifier = Modifier.width(3.dp))
+                                            Text(
+                                                text = "중구 약수동",
+                                                color = Color.White,
+                                                fontSize = 13.sp,
+                                                fontWeight = FontWeight.Bold,
+                                                fontFamily = pretendardFamily
+                                            )
+                                        }
                                     }
                                 }
                             }
@@ -201,9 +207,8 @@ fun MyPage(
             Image(
                 painter = painterResource(id = R.drawable.img_notify),
                 contentDescription = null,
-                contentScale = ContentScale.FillWidth,
-                modifier = Modifier.align(Alignment.BottomCenter).fillMaxWidth()
-                    .padding(start = 38.dp, end = 38.dp, bottom = 141.dp)
+                modifier = Modifier.align(Alignment.End)
+                    .padding(end = 38.dp, bottom = 141.dp)
             )
         }
     }
