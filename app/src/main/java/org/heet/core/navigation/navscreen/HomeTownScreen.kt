@@ -10,4 +10,14 @@ sealed class HomeTownScreen(val route: String) {
     object Address : HomeTownScreen(route = "address")
     object UserProfile : HomeTownScreen(route = "user_profile")
     object Verify : HomeTownScreen(route = "verify")
+    object Detail : HomeTownScreen(route = "detail")
+
+    fun withArgs(vararg args: String): String {
+        return buildString {
+            append(route)
+            args.forEach { arg ->
+                append("/$arg")
+            }
+        }
+    }
 }

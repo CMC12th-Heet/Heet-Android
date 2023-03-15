@@ -1,14 +1,13 @@
 package org.heet.core.navigation
 
-import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavHostController
+import androidx.navigation.*
 import androidx.navigation.compose.composable
-import androidx.navigation.navigation
 import org.heet.core.navigation.navscreen.HomeTownScreen
 import org.heet.presentation.declaration.DeclarationFinishScreen
 import org.heet.presentation.declaration.DeclarationScreen
 import org.heet.presentation.home.hometown.*
 import org.heet.presentation.home.hometown.address.AddressScreen
+import org.heet.presentation.home.hometown.detail.DetailScreen
 import org.heet.presentation.home.hometown.post.PostScreen
 import org.heet.presentation.home.hometown.verify.VerifyScreen
 import org.heet.presentation.home.mypage.ScrapScreen
@@ -45,6 +44,21 @@ fun NavGraphBuilder.homeTownNavGraph(navController: NavHostController) {
         }
         composable(route = HomeTownScreen.Verify.route) {
             VerifyScreen(navController = navController)
+        }
+        composable(
+            route = HomeTownScreen.Detail.route + "/{post_id}",
+            arguments = listOf(
+                navArgument("post_id") {
+                    type = NavType.StringType
+                    defaultValue = "63"
+                    nullable = true
+                }
+            )
+        ) { entry ->
+            DetailScreen(
+                post_id = entry.arguments?.getString("post_id"),
+                navController = navController
+            )
         }
     }
 }
