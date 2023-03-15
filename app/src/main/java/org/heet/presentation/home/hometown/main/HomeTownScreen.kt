@@ -120,7 +120,7 @@ private fun ContentList(navController: NavController, post: State<List<ResponseG
                         Image(
                             painter = rememberAsyncImagePainter(model = it.urlList[0]),
                             contentDescription = "image",
-                            contentScale = ContentScale.FillWidth,
+                            contentScale = ContentScale.FillHeight,
                             modifier = Modifier.fillMaxWidth().height(height = 225.dp)
                         )
                         Surface(
