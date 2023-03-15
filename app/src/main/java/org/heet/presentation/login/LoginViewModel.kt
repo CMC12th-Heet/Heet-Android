@@ -21,14 +21,22 @@ class LoginViewModel @Inject constructor(
     private val _loginSuccess = MutableStateFlow(false)
     val loginSuccess = _loginSuccess.asStateFlow()
 
+    private val _registered = MutableStateFlow(true)
+    val registered = _registered.asStateFlow()
+
+    fun setRegisterTrue() {
+        _registered.value = true
+    }
+
     fun login(requestLogin: RequestLogin) {
         viewModelScope.launch {
             runCatching {
                 loginRepository.login(requestLogin)
             }.onSuccess {
                 _loginSuccess.value = true
-                autoLoginRepository.updateAccessToken(it.token)
+                autoLoginRepository.updateAccessToken(it.toLoginInfo().token)
             }.onFailure {
+                _registered.value = false
                 Timber.d(it.message)
             }
         }

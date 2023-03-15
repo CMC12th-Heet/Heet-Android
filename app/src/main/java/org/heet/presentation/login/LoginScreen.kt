@@ -10,18 +10,21 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.*
 import org.heet.R
-import org.heet.components.BigRoundButton
+import org.heet.components.RedRoundButton28
 import org.heet.components.RoundInputField
 import org.heet.core.navigation.Graph
 import org.heet.data.model.request.RequestLogin
@@ -33,23 +36,16 @@ import org.heet.util.pretendardFamily
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = hiltViewModel()) {
+    val (focusRequester) = FocusRequester.createRefs()
     val keyboardController = LocalSoftwareKeyboardController.current
-    val idOrEmail = remember {
-        mutableStateOf("")
-    }
-    val pwd = remember {
-        mutableStateOf("")
-    }
-    val isRegistered = remember {
-        mutableStateOf(true)
-    }
+    val idOrEmail = remember { mutableStateOf("") }
+    val pwd = remember { mutableStateOf("") }
+    val isRegistered = loginViewModel.registered.collectAsState().value
 
-    LaunchedEffect(key1 = true) {
-        loginViewModel.loginSuccess.collect {
-            if (it) {
-                navController.popBackStack()
-                navController.navigate(Graph.HOME)
-            }
+    LaunchedEffect(loginViewModel.loginSuccess.collectAsState().value) {
+        if (loginViewModel.loginSuccess.value) {
+            navController.popBackStack()
+            navController.navigate(Graph.HOME)
         }
     }
 
@@ -57,38 +53,49 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = h
         modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        HeetLogo()
-        Column(
-            modifier = Modifier.padding(top = 113.dp)
+        Spacer(modifier = Modifier.height(50.dp))
+        Logo()
+        Spacer(modifier = Modifier.height(113.dp))
+        LoginField(
+            value = idOrEmail,
+            placeholder = "아이디 또는 이메일 입력",
+            onAction = KeyboardActions(
+                onNext = { focusRequester.requestFocus() }
+            )
         ) {
-            LoginField(idOrEmail, "아이디 또는 이메일 입력", keyboardController)
-            if (!isRegistered.value) {
-                RegisterInfo(
-                    "*가입되지 않은 이메일입니다.",
-                    Modifier.padding(top = 6.dp, start = 19.dp, bottom = 14.dp)
-                )
-            } else {
-                EmptyText(Modifier.padding(top = 20.dp))
-            }
-            PwdField(pwd, "비밀번호 입력", keyboardController)
-            if (!isRegistered.value) {
-                RegisterInfo(
-                    text = "*가입되지 않은 비밀번호입니다.",
-                    modifier = Modifier.padding(top = 6.dp, start = 19.dp, bottom = 34.dp)
-                )
-            } else {
-                EmptyText(Modifier.padding(top = 40.dp))
-            }
+            loginViewModel.setRegisterTrue()
         }
-        BigRoundButton(
-            onClick = {
-                loginViewModel.login(RequestLogin(idOrEmail.value, pwd.value))
+        RegisterDescription(
+            modifier = Modifier.align(Alignment.Start),
+            isRegistered = isRegistered,
+            description = "*가입되지 않은 이메일입니다."
+        )
+        LoginField(
+            modifier = Modifier.focusRequester(focusRequester),
+            value = pwd,
+            placeholder = "비밀번호 입력",
+            onAction = KeyboardActions {
+                if (idOrEmail.value.trim().isEmpty()) return@KeyboardActions
+                keyboardController?.hide()
             },
+            isPwd = true,
+            imeAction = ImeAction.Done
+        ) {
+            loginViewModel.setRegisterTrue()
+        }
+        RegisterDescription(
+            modifier = Modifier.align(Alignment.Start),
+            isRegistered = isRegistered,
+            description = "*가입되지 않은 비밀번호입니다.",
+            dp = 20.dp
+        )
+        RedRoundButton28(
+            onClick = { loginViewModel.login(RequestLogin(idOrEmail.value, pwd.value)) },
             text = "로그인"
         )
+        Spacer(modifier = Modifier.height(12.dp))
         Row(
             modifier = Modifier
-                .padding(top = 12.dp)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
@@ -107,51 +114,50 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = h
 }
 
 @Composable
-private fun HeetLogo() {
+private fun RegisterDescription(
+    modifier: Modifier = Modifier,
+    isRegistered: Boolean,
+    description: String,
+    dp: Dp = 0.dp
+) {
+    if (!isRegistered) {
+        RegisterInfo(
+            text = description,
+            modifier = modifier.padding(top = 6.dp, start = 19.dp, bottom = 14.dp + dp)
+        )
+    } else {
+        EmptyText(Modifier.padding(top = 20.dp + dp))
+    }
+}
+
+@Composable
+private fun Logo() {
     Image(
         painter = painterResource(id = R.drawable.ic_text_logo_65),
-        contentDescription = "heet_logo",
-        modifier = Modifier
-            .padding(top = 50.dp)
+        contentDescription = "heet_logo"
     )
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Composable
 private fun LoginField(
     value: MutableState<String>,
     placeholder: String,
-    keyboardController: SoftwareKeyboardController?
+    modifier: Modifier = Modifier,
+    onAction: KeyboardActions = KeyboardActions.Default,
+    isPwd: Boolean = false,
+    imeAction: ImeAction = ImeAction.Next,
+    onStateChange: () -> Unit
 ) {
     RoundInputField(
+        modifier = modifier,
         valueState = value,
         placeholder = placeholder,
         enabled = true,
         isSingleLine = true,
-        onAction = KeyboardActions {
-            if (value.value.trim().isEmpty()) return@KeyboardActions
-            keyboardController?.hide()
-        }
-    )
-}
-
-@OptIn(ExperimentalComposeUiApi::class)
-@Composable
-private fun PwdField(
-    value: MutableState<String>,
-    placeholder: String,
-    keyboardController: SoftwareKeyboardController?
-) {
-    RoundInputField(
-        valueState = value,
-        placeholder = placeholder,
-        enabled = true,
-        isSingleLine = true,
-        onAction = KeyboardActions {
-            if (value.value.trim().isEmpty()) return@KeyboardActions
-            keyboardController?.hide()
-        },
-        isPwd = true
+        onAction = onAction,
+        isPwd = isPwd,
+        imeAction = imeAction,
+        onStateChange = onStateChange
     )
 }
 
@@ -180,9 +186,9 @@ private fun EmptyText(modifier: Modifier) {
 }
 
 @Composable
-private fun Auth(text: String, navigate: () -> Unit) {
+private fun Auth(purpose: String, navigate: () -> Unit) {
     Text(
-        text = text,
+        text = purpose,
         modifier = Modifier.clickable { navigate() },
         color = Grey600,
         fontSize = 13.sp,

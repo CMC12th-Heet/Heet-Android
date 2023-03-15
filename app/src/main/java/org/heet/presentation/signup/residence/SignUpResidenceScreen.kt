@@ -234,7 +234,7 @@ private fun NoticeResidence() {
 
 @Composable
 private fun SettingButton(onClick: () -> Unit) {
-    BigRoundButton(
+    RedRoundButton28(
         onClick = onClick,
         text = "설정 완료"
     )

@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.heet.R
-import org.heet.components.BigRoundButton
+import org.heet.components.RedRoundButton28
 import org.heet.core.navigation.navscreen.SignUpScreen
 import org.heet.ui.theme.Grey650
 import org.heet.ui.theme.Red500
@@ -93,7 +93,7 @@ private fun GreetingUser(signUpWelcomeViewModel: SignUpWelcomeViewModel) {
 
 @Composable
 private fun NeighborhoodButton(onClick: () -> Unit) {
-    BigRoundButton(
+    RedRoundButton28(
         onClick = onClick,
         text = "동네 설정하기"
     )
