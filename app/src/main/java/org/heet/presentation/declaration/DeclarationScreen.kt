@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.*
-import org.heet.core.navigation.navscreen.SignUpScreen
+import org.heet.core.navigation.navscreen.HomeTownScreen
 import org.heet.data.datasource.LocalDeclarationDataSource
 import org.heet.ui.theme.Black50
 import org.heet.ui.theme.Grey400
@@ -47,7 +47,7 @@ fun DeclarationScreen(navController: NavController) {
                 Title("신고하기")
                 if (isCheck.value) {
                     Next(
-                        move = { navController.navigate(SignUpScreen.SignUpResidenceWelcome.route) }
+                        move = { navController.navigate(HomeTownScreen.DeclarationFinish.route) }
                     )
                 } else {
                     EmptyText()
