@@ -9,9 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -22,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberAsyncImagePainter
 import org.heet.R
 import org.heet.components.DotDivider
@@ -40,13 +37,22 @@ fun HomeTownScreen(
     val post = if (isNewPost.value) homeTownViewModel.newPost.collectAsState()
     else homeTownViewModel.hotPost.collectAsState()
     homeTownViewModel.getNewPost()
+    val town = remember { mutableStateOf("") }
+
+    LaunchedEffect(key1 = true) {
+        homeTownViewModel.getMyPage()
+        homeTownViewModel.profile.collect {
+            town.value = it.town
+        }
+    }
+
     Box(
         modifier = Modifier
             .fillMaxSize()
             .padding(top = 10.dp)
     ) {
         Column(modifier = Modifier.align(Alignment.TopCenter)) {
-            TopBar(navController = navController)
+            TopBar(navController = navController, town = town)
             Divider(modifier = Modifier.padding(top = 9.dp), color = White100)
             Filter(homeTownViewModel = homeTownViewModel)
             Divider(color = White100)
@@ -55,7 +61,6 @@ fun HomeTownScreen(
     }
 }
 
-@OptIn(ExperimentalCoilApi::class)
 @Composable
 private fun ContentList(navController: NavController, post: State<List<ResponseGetPost>>) {
     LazyColumn(
@@ -107,9 +112,13 @@ private fun ContentList(navController: NavController, post: State<List<ResponseG
                         )
                     }
                     Spacer(modifier = Modifier.height(5.dp))
-                    Box(modifier = Modifier.fillMaxWidth()) {
+                    Box(
+                        modifier = Modifier.fillMaxWidth().clickable {
+                            navController.navigate(HomeTownScreen.Detail.withArgs("${it.post_id}"))
+                        }
+                    ) {
                         Image(
-                            painter = rememberAsyncImagePainter(model = "https://heet-storage.s3.ap-northeast-2.amazonaws.com/1678703690763test12345.jpg"),
+                            painter = rememberAsyncImagePainter(model = it.urlList[0]),
                             contentDescription = "image",
                             contentScale = ContentScale.FillWidth,
                             modifier = Modifier.fillMaxWidth().height(height = 225.dp)
@@ -122,7 +131,7 @@ private fun ContentList(navController: NavController, post: State<List<ResponseG
                                 .align(Alignment.BottomEnd)
                         ) {
                             Text(
-                                text = "1/7",
+                                text = "1/${it.urlList.size}",
                                 modifier = Modifier.padding(horizontal = 13.dp),
                                 color = Black400,
                                 fontSize = 10.sp,
@@ -161,7 +170,7 @@ private fun ContentList(navController: NavController, post: State<List<ResponseG
                 }
             }
             Text(
-                text = "2분 전",
+                text = it.created_at,
                 modifier = Modifier.padding(start = 10.dp, top = 10.dp),
                 fontSize = 10.sp,
                 color = White300,
@@ -174,7 +183,7 @@ private fun ContentList(navController: NavController, post: State<List<ResponseG
 }
 
 @Composable
-private fun TopBar(navController: NavController) {
+private fun TopBar(navController: NavController, town: MutableState<String>) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -193,7 +202,7 @@ private fun TopBar(navController: NavController) {
                     contentDescription = null
                 )
                 Text(
-                    text = "서울시 용산구",
+                    text = town.value,
                     fontFamily = pretendardFamily,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold,
