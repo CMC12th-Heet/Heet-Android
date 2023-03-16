@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.heet.R
-import org.heet.components.RedRoundButton28
+import org.heet.components.RedBigRoundButton28
 import org.heet.core.navigation.navscreen.AuthScreen
 import org.heet.ui.theme.Grey650
 import org.heet.ui.theme.Red500
@@ -112,7 +112,7 @@ private fun GreetingUser(username: String) {
 
 @Composable
 private fun StartButton(onClick: () -> Unit) {
-    RedRoundButton28(
+    RedBigRoundButton28(
         onClick = onClick,
         text = "시작하기"
     )

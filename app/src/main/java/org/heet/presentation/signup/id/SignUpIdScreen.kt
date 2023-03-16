@@ -197,7 +197,7 @@ fun SignUpIdScreen(
             }
         }
         item {
-            RedRoundButton28(
+            RedBigRoundButton28(
                 onClick = { navController.navigate(SignUpScreen.SignUpWelcome.route) },
                 text = "회원 가입",
                 modifier = Modifier

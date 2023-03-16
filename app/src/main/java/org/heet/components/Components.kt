@@ -137,110 +137,6 @@ fun NormalInputField(
 }
 
 @Composable
-fun RedRoundButton28(
-    modifier: Modifier = Modifier,
-    onClick: () -> Unit,
-    text: String,
-    color: Color = Red500,
-    textColor: Color = Color.White
-) {
-    Button(
-        onClick = onClick,
-        modifier = modifier
-            .fillMaxWidth()
-            .height(52.dp),
-        shape = RoundedCornerShape(28.dp),
-        colors = ButtonDefaults.buttonColors(color)
-    ) {
-        Text(
-            text = text,
-            color = textColor,
-            fontSize = 17.sp,
-            fontWeight = FontWeight.ExtraBold,
-            fontFamily = pretendardFamily
-        )
-    }
-}
-
-@Composable
-fun SmallRoundButton(
-    modifier: Modifier = Modifier,
-    text: String,
-    isCheck: MutableState<Boolean>,
-    onClick: () -> Unit
-) {
-    Button(
-        modifier = modifier
-            .height(38.dp),
-        onClick = onClick,
-        shape = RoundedCornerShape(22.dp),
-        border = BorderStroke(1.dp, Red600),
-        colors = if (isCheck.value) {
-            ButtonDefaults.buttonColors(Red500)
-        } else {
-            ButtonDefaults.buttonColors(Color.White)
-        }
-    ) {
-        Text(
-            text = text,
-            fontFamily = pretendardFamily,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Normal,
-            color = if (isCheck.value) {
-                Color.White
-            } else {
-                Red500
-            }
-        )
-    }
-}
-
-@Composable
-fun FlatInputField(
-    modifier: Modifier = Modifier,
-    valueState: MutableState<String>,
-    placeholder: String = "",
-    enabled: Boolean,
-    isSingleLine: Boolean,
-    keyboardType: KeyboardType = KeyboardType.Text,
-    imeAction: ImeAction = ImeAction.Done,
-    onAction: KeyboardActions = KeyboardActions.Default,
-    isPassword: Boolean = false,
-    onValueChange: (String) -> Unit = { valueState.value = it }
-) {
-    BasicTextField(
-        modifier = modifier,
-        value = valueState.value,
-        onValueChange = onValueChange,
-        visualTransformation = if (isPassword) PasswordVisualTransformation()
-        else VisualTransformation.None,
-        textStyle = TextStyle.Default.copy(
-            color = Grey200,
-            fontSize = 16.sp,
-            fontWeight = FontWeight.SemiBold
-        ),
-        decorationBox = { innerTextField ->
-            Box {
-                if (valueState.value.isEmpty()) {
-                    Text(
-                        text = placeholder,
-                        fontFamily = pretendardFamily,
-                        fontSize = 15.sp,
-                        fontWeight = FontWeight.Normal,
-                        color = White700
-                    )
-                }
-                innerTextField()
-            }
-        },
-        singleLine = isSingleLine,
-        enabled = enabled,
-        keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
-        keyboardActions = onAction
-    )
-}
-
-@Composable
 fun GreyValidateText(text: String, isValidate: Boolean = true) {
     Row(modifier = Modifier.padding(bottom = 6.dp)) {
         val check = if (isValidate) painterResource(id = R.drawable.ic_check_black_20)
@@ -317,55 +213,6 @@ fun Terms(text: String, isChecked: Boolean = false) {
 }
 
 @Composable
-fun Back(modifier: Modifier = Modifier, back: () -> Unit) {
-    Image(
-        painter = painterResource(id = R.drawable.ic_back_black_30),
-        contentDescription = "back",
-        modifier = modifier.clickable { back() }
-    )
-}
-
-@Composable
-fun Title(text: String) {
-    Text(
-        text = text,
-        color = Color.Black,
-        fontSize = 17.sp,
-        fontWeight = FontWeight.Normal,
-        fontFamily = pretendardFamily
-    )
-}
-
-@Composable
-fun EmptyText() {
-    Text(
-        text = "빈곳",
-        color = Color.White,
-        fontSize = 17.sp,
-        fontWeight = FontWeight.Black
-    )
-}
-
-@Composable
-fun Next(
-    delete: () -> Unit = {},
-    timer: () -> Unit = {},
-    move: () -> Unit
-) {
-    Text(
-        text = "다음",
-        modifier = Modifier.clickable {
-            delete()
-            timer()
-            move()
-        },
-        color = Red500,
-        fontSize = 17.sp,
-        fontWeight = FontWeight.Black
-    )
-}
-
-@Composable
 fun Finish(
     modifier: Modifier = Modifier,
     move: () -> Unit
@@ -390,36 +237,6 @@ fun PretendardDescription(text: String, modifier: Modifier = Modifier) {
         fontSize = 17.sp,
         fontWeight = FontWeight.Normal,
         color = White900
-    )
-}
-
-@Composable
-fun Description(text: String, modifier: Modifier = Modifier) {
-    Text(
-        text = text,
-        modifier = modifier,
-        color = White700,
-        fontSize = 12.sp,
-        fontWeight = FontWeight.Normal
-    )
-}
-
-@Composable
-fun ReSendBtn(
-    isCheck: MutableState<Boolean>,
-    onClick: () -> Unit
-) {
-    Text(
-        text = "재전송하기",
-        modifier = Modifier
-            .clickable {
-                if (isCheck.value) {
-                    onClick()
-                }
-            },
-        color = Grey700,
-        fontSize = 12.sp,
-        fontWeight = FontWeight.Medium
     )
 }
 
@@ -470,7 +287,7 @@ fun PwdField(
         isValidatePwd.value = isValidateLength.value && containValidation.count { it } >= 2
         checkPwd.value = isValidatePwd.value
 
-        FlatInputField(
+        FlatTextField(
             modifier = Modifier
                 .padding(end = 45.dp)
                 .align(Alignment.CenterStart),
@@ -507,7 +324,7 @@ fun SecondPwdField(
             isSame.value = pwd.value == secondPwd.value
         }
 
-        FlatInputField(
+        FlatTextField(
             modifier = Modifier
                 .padding(end = 45.dp)
                 .align(Alignment.CenterStart),
