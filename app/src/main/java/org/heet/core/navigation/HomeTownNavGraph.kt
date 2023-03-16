@@ -6,7 +6,6 @@ import org.heet.core.navigation.navscreen.HomeTownScreen
 import org.heet.presentation.declaration.DeclarationFinishScreen
 import org.heet.presentation.declaration.DeclarationScreen
 import org.heet.presentation.home.hometown.*
-import org.heet.presentation.home.hometown.address.AddressScreen
 import org.heet.presentation.home.hometown.detail.DetailScreen
 import org.heet.presentation.home.hometown.post.PostScreen
 import org.heet.presentation.home.hometown.verify.VerifyScreen
@@ -18,9 +17,6 @@ fun NavGraphBuilder.homeTownNavGraph(navController: NavHostController) {
         route = Graph.HOMETOWN,
         startDestination = Graph.HOME
     ) {
-        composable(route = HomeTownScreen.Address.route) {
-            AddressScreen(navController = navController)
-        }
         composable(route = HomeTownScreen.Comment.route) {
             CommentScreen(navController = navController)
         }

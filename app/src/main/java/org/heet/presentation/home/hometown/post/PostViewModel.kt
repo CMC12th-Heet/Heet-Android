@@ -12,8 +12,11 @@ import kotlinx.coroutines.runBlocking
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
+import org.heet.data.model.request.RequestPostStore
+import org.heet.data.model.response.ResponseGetStore
 import org.heet.data.service.PostService
 import org.heet.domain.repository.AddressRepository
+import org.heet.domain.repository.StoreRepository
 import org.heet.util.ContentUriRequestBody
 import timber.log.Timber
 import javax.inject.Inject
@@ -21,11 +24,61 @@ import javax.inject.Inject
 @HiltViewModel
 class PostViewModel @Inject constructor(
     private val addressRepository: AddressRepository,
-    private val postService: PostService
+    private val postService: PostService,
+    private val storeRepository: StoreRepository
 ) : ViewModel() {
 
     private val _postSuccess = MutableStateFlow(false)
     val postSuccess = _postSuccess.asStateFlow()
+
+    private val _store = MutableStateFlow(emptyList<ResponseGetStore>())
+    val store = _store.asStateFlow()
+
+    private val _updateSuccess = MutableStateFlow(false)
+    val updateSuccess = _updateSuccess.asStateFlow()
+
+    private val _storeName = MutableStateFlow("")
+    val storeName = _storeName.asStateFlow()
+
+    fun searchStore(keyword: String) {
+        viewModelScope.launch {
+            runCatching {
+                storeRepository.getStore(keyword)
+            }.onSuccess {
+                _store.value = it
+            }.onFailure {
+                Timber.d(it.message)
+            }
+        }
+    }
+
+    fun postStore(requestPostStore: RequestPostStore) {
+        viewModelScope.launch {
+            runCatching {
+                storeRepository.postStore(requestPostStore)
+            }.onSuccess {
+                updateSelectStoreNum(it)
+                Timber.d(requestPostStore.name)
+                _storeName.value = requestPostStore.name
+                updateSelectStore(requestPostStore.name)
+                _updateSuccess.value = true
+            }.onFailure {
+                Timber.d(it.message)
+            }
+        }
+    }
+
+    private fun updateSelectStore(storeName: String) {
+        viewModelScope.launch {
+            addressRepository.updateSelectStore(storeName)
+        }
+    }
+
+    private fun updateSelectStoreNum(storeNum: Int) {
+        viewModelScope.launch {
+            addressRepository.updateSelectStoreNum(storeNum)
+        }
+    }
 
     fun getSelectStore(): String = runBlocking {
         addressRepository.getSelectStore()
@@ -60,8 +113,6 @@ class PostViewModel @Inject constructor(
         val miniTitleRequestBody = mini_title.toPlainRequestBody()
         val contentRequestBody = content.toPlainRequestBody()
         val storeIdRequestBody = storeId.toString().toPlainRequestBody()
-
-//        imageListMultipartBody.add(image)
 
         for (element in image) {
             val imageMultipartBody: MultipartBody.Part =
