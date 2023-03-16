@@ -7,7 +7,6 @@ sealed class HomeTownScreen(val route: String) {
     object Scrap : HomeTownScreen(route = "scrap")
     object FindUser : HomeTownScreen(route = "find_user")
     object Post : HomeTownScreen(route = "post")
-    object Address : HomeTownScreen(route = "address")
     object UserProfile : HomeTownScreen(route = "user_profile")
     object Verify : HomeTownScreen(route = "verify")
     object Detail : HomeTownScreen(route = "detail")
