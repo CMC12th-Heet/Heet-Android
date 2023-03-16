@@ -263,7 +263,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                                 fontFamily = pretendardFamily
                             )
                         }
-                        FlatInputField(
+                        FlatTextField(
                             valueState = friend,
                             enabled = true,
                             isSingleLine = true,

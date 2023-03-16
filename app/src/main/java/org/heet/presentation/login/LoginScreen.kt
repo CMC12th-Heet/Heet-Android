@@ -24,8 +24,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import kotlinx.coroutines.*
 import org.heet.R
-import org.heet.components.RedRoundButton28
-import org.heet.components.RoundInputField
+import org.heet.components.GreyRoundTextField23
+import org.heet.components.RedBigRoundButton28
 import org.heet.core.navigation.Graph
 import org.heet.data.model.request.RequestLogin
 import org.heet.ui.theme.Grey600
@@ -56,7 +56,7 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = h
         Spacer(modifier = Modifier.height(50.dp))
         Logo()
         Spacer(modifier = Modifier.height(113.dp))
-        LoginField(
+        GreyRoundTextField23(
             value = idOrEmail,
             placeholder = "아이디 또는 이메일 입력",
             onAction = KeyboardActions(
@@ -70,7 +70,7 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = h
             isRegistered = isRegistered,
             description = "*가입되지 않은 이메일입니다."
         )
-        LoginField(
+        GreyRoundTextField23(
             modifier = Modifier.focusRequester(focusRequester),
             value = pwd,
             placeholder = "비밀번호 입력",
@@ -89,7 +89,7 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = h
             description = "*가입되지 않은 비밀번호입니다.",
             dp = 20.dp
         )
-        RedRoundButton28(
+        RedBigRoundButton28(
             onClick = { loginViewModel.login(RequestLogin(idOrEmail.value, pwd.value)) },
             text = "로그인"
         )
@@ -135,29 +135,6 @@ private fun Logo() {
     Image(
         painter = painterResource(id = R.drawable.ic_text_logo_65),
         contentDescription = "heet_logo"
-    )
-}
-
-@Composable
-private fun LoginField(
-    value: MutableState<String>,
-    placeholder: String,
-    modifier: Modifier = Modifier,
-    onAction: KeyboardActions = KeyboardActions.Default,
-    isPwd: Boolean = false,
-    imeAction: ImeAction = ImeAction.Next,
-    onStateChange: () -> Unit
-) {
-    RoundInputField(
-        modifier = modifier,
-        valueState = value,
-        placeholder = placeholder,
-        enabled = true,
-        isSingleLine = true,
-        onAction = onAction,
-        isPwd = isPwd,
-        imeAction = imeAction,
-        onStateChange = onStateChange
     )
 }
 

@@ -60,10 +60,8 @@ fun ForgotEmailScreen(
                 Back { navController.popBackStack() }
                 Title("비밀번호 찾기")
                 if (requestCode.value) {
-                    Next(
-                        timer = { forgotEmailViewModel.timerReset() },
-                        move = { navController.navigate(ForgotScreen.ForgotPwd.route) }
-                    )
+                    Next { navController.navigate(ForgotScreen.ForgotPwd.route) }
+                    forgotEmailViewModel.timerReset()
                 } else {
                     EmptyText()
                 }
@@ -77,7 +75,7 @@ fun ForgotEmailScreen(
                     horizontalArrangement = Arrangement.SpaceBetween,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    FlatInputField(
+                    FlatTextField(
                         modifier = Modifier.width(203.dp),
                         valueState = email,
                         enabled = true,
@@ -105,7 +103,7 @@ fun ForgotEmailScreen(
                             .padding(top = 36.dp)
                     ) {
                         Box(modifier = Modifier.fillMaxWidth()) {
-                            FlatInputField(
+                            FlatTextField(
                                 modifier = Modifier
                                     .padding(end = 182.dp)
                                     .align(Alignment.CenterStart),
@@ -160,7 +158,7 @@ fun ForgotEmailScreen(
                         Column(
                             modifier = Modifier.width(IntrinsicSize.Max).padding(end = 8.5.dp)
                         ) {
-                            ReSendBtn(requestCode) { forgotEmailViewModel.timerStart() }
+                            ReSendBtn(requestCode.value) { forgotEmailViewModel.timerStart() }
                             Divider(
                                 Modifier
                                     .padding(top = 2.dp)

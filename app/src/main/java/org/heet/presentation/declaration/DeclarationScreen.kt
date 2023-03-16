@@ -46,9 +46,7 @@ fun DeclarationScreen(navController: NavController) {
                 Back { navController.popBackStack() }
                 Title("신고하기")
                 if (isCheck.value) {
-                    Next(
-                        move = { navController.navigate(HomeTownScreen.DeclarationFinish.route) }
-                    )
+                    Next { navController.navigate(HomeTownScreen.DeclarationFinish.route) }
                 } else {
                     EmptyText()
                 }

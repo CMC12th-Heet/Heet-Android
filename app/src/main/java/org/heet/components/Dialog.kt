@@ -30,9 +30,9 @@ fun WithdrawDialog(showDialog: MutableState<Boolean>) {
             fontFamily = pretendardFamily
         )
         Spacer(modifier = Modifier.height(34.dp))
-        RedRoundButton28(onClick = { showDialog.value = false }, text = "탈퇴")
+        RedBigRoundButton28(onClick = { showDialog.value = false }, text = "탈퇴")
         Spacer(modifier = Modifier.height(13.dp))
-        RedRoundButton28(
+        RedBigRoundButton28(
             onClick = { showDialog.value = false },
             text = "취소",
             color = Color.White,
