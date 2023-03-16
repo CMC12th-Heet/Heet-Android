@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -22,7 +23,6 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
@@ -57,7 +57,8 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
     val expandShare = remember { mutableStateOf(false) }
     val context = LocalContext.current
     var imageUri by remember { mutableStateOf<List<Uri>?>(null) }
-    val bitmap = remember { mutableStateOf<Bitmap?>(null) }
+    val bitmap = remember { mutableListOf<Bitmap>() }
+
     val friend = remember { mutableStateOf("") }
 
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -220,41 +221,49 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                 modifier = Modifier.padding(horizontal = 20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Surface(shape = RoundedCornerShape(5.dp)) {
-                    Box {
-                        imageUri?.let {
-                            if (Build.VERSION.SDK_INT < 28) {
-                                bitmap.value = MediaStore.Images
-                                    .Media.getBitmap(context.contentResolver, it[0])
-                            } else {
-                                val source =
-                                    ImageDecoder.createSource(context.contentResolver, it[0])
-                                bitmap.value = ImageDecoder.decodeBitmap(source)
+                imageUri?.let {
+                    for (image in imageUri!!) {
+                        if (Build.VERSION.SDK_INT < 28) {
+                            bitmap.add(
+                                MediaStore.Images.Media.getBitmap(
+                                    context.contentResolver,
+                                    image
+                                )
+                            )
+                        } else {
+                            val source =
+                                ImageDecoder.createSource(context.contentResolver, image)
+                            bitmap.add(ImageDecoder.decodeBitmap(source))
+                        }
+                    }
+                }
+                LazyRow {
+                    if (bitmap.size != 0) {
+                        items(bitmap.size) {
+                            Surface(shape = RoundedCornerShape(5.dp)) {
+                                Box {
+                                    Image(
+                                        bitmap = bitmap[it].asImageBitmap(),
+                                        contentDescription = "image"
+                                    )
+                                    Surface(
+                                        shape = RoundedCornerShape(20.dp),
+                                        color = Color.White,
+                                        modifier = Modifier
+                                            .padding(end = 12.dp, bottom = 11.dp)
+                                            .align(Alignment.BottomEnd)
+                                    ) {
+                                        Text(
+                                            text = "${it + 1}/${imageUri?.size}",
+                                            modifier = Modifier.padding(horizontal = 13.dp),
+                                            color = Black400,
+                                            fontSize = 10.sp,
+                                            fontWeight = FontWeight.ExtraBold,
+                                            fontFamily = pretendardFamily
+                                        )
+                                    }
+                                }
                             }
-                        }
-                        bitmap.value?.let {
-                            Image(
-                                bitmap = it.asImageBitmap(),
-                                contentDescription = "image",
-                                contentScale = ContentScale.FillHeight,
-                                modifier = Modifier.height(256.dp)
-                            )
-                        }
-                        Surface(
-                            shape = RoundedCornerShape(20.dp),
-                            color = Color.White,
-                            modifier = Modifier
-                                .padding(end = 12.dp, bottom = 11.dp)
-                                .align(Alignment.BottomEnd)
-                        ) {
-                            Text(
-                                text = "1/${imageUri?.size}",
-                                modifier = Modifier.padding(horizontal = 13.dp),
-                                color = Black400,
-                                fontSize = 10.sp,
-                                fontWeight = FontWeight.ExtraBold,
-                                fontFamily = pretendardFamily
-                            )
                         }
                     }
                 }
