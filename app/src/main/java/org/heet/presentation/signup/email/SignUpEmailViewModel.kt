@@ -22,10 +22,12 @@ class SignUpEmailViewModel @Inject constructor(
     private val signUpRepository: SignUpRepository,
     private val codeRepository: CodeRepository,
     private val storeSignUpRepository: StoreSignUpRepository
-) :
-    ViewModel() {
+) : ViewModel() {
 
     private var timerCount = 300000
+
+    private lateinit var job: Job
+
     private val _timer = MutableStateFlow("05:00")
     val timer = _timer.asStateFlow()
 
@@ -35,6 +37,9 @@ class SignUpEmailViewModel @Inject constructor(
     private val _code = MutableStateFlow(0L)
     val code = _code.asStateFlow()
 
+    private val _isCorrectCode = MutableStateFlow(false)
+    val isCorrectCode = _isCorrectCode.asStateFlow()
+
     init {
         viewModelScope.launch {
             codeRepository.getCode().collect() { code ->
@@ -43,7 +48,12 @@ class SignUpEmailViewModel @Inject constructor(
         }
     }
 
-    private lateinit var job: Job
+    fun postCode(code: String) {
+        if (code == _code.value.toString()) {
+            timerReset()
+            _isCorrectCode.value = true
+        }
+    }
 
     fun postEmail(requestPostEmail: RequestPostEmail) {
         viewModelScope.launch {
@@ -61,7 +71,13 @@ class SignUpEmailViewModel @Inject constructor(
 
     fun deleteCode() {
         viewModelScope.launch {
-            codeRepository.deleteCode()
+            runCatching {
+                codeRepository.deleteCode()
+            }.onSuccess {
+                _sendEmail.value = false
+            }.onFailure {
+                Timber.d(it.message)
+            }
         }
     }
 
@@ -71,7 +87,7 @@ class SignUpEmailViewModel @Inject constructor(
         }
     }
 
-    fun timerStart() {
+    private fun timerStart() {
         if (::job.isInitialized) job.cancel()
         _timer.value = "05:00"
         timerCount = 300000
