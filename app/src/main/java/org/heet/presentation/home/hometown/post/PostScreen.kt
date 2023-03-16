@@ -45,6 +45,7 @@ import org.heet.data.model.response.ResponseGetStore
 import org.heet.data.model.response.SearchResult
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
+import timber.log.Timber
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -60,7 +61,6 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
     val bitmap = remember { mutableListOf<Bitmap>() }
 
     val friend = remember { mutableStateOf("") }
-
     val keyboardController = LocalSoftwareKeyboardController.current
     val openAddress = remember { mutableStateOf(false) }
     val address = remember { mutableStateOf("") }
@@ -69,9 +69,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
     val storeName = remember { mutableStateOf("") }
     val storeUrl = remember { mutableStateOf("") }
     val storeAddress = remember { mutableStateOf("") }
-    if (postViewModel.updateSuccess.collectAsState().value) {
-        openAddress.value = false
-    }
+    val selectStore = postViewModel.storeName.collectAsState()
 
     LaunchedEffect(key1 = true) {
         TedImagePicker.with(context)
@@ -82,10 +80,6 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
             .startMultiImage {
                 imageUri = it
             }
-
-        if (postViewModel.postSuccess.value) {
-            navController.popBackStack()
-        }
     }
 
     if (openAddress.value) {
@@ -119,7 +113,9 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                                         storeUrl.value,
                                         storeAddress.value
                                     )
-                                )
+                                ).run {
+                                    openAddress.value = false
+                                }
                             },
                             color = Red500,
                             fontSize = 17.sp,
@@ -187,6 +183,8 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                                 content.value,
                                 postViewModel.getSelectStoreNum()
                             )
+                        }.run {
+                            navController.popBackStack()
                         }
                     }
                 }
@@ -200,8 +198,9 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                 }
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
+                    Timber.d(postViewModel.getSelectStore())
                     Text(
-                        text = if (postViewModel.getSelectStore() == "") "주소를 등록해주세요" else postViewModel.getSelectStore(),
+                        text = if (selectStore.value == "") "주소를 등록해주세요" else selectStore.value,
                         modifier = Modifier.padding(start = 20.dp, top = 7.dp, bottom = 7.dp),
                         color = Color.White,
                         fontSize = 13.sp,

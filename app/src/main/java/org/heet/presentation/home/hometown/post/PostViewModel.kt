@@ -37,6 +37,9 @@ class PostViewModel @Inject constructor(
     private val _updateSuccess = MutableStateFlow(false)
     val updateSuccess = _updateSuccess.asStateFlow()
 
+    private val _storeName = MutableStateFlow("")
+    val storeName = _storeName.asStateFlow()
+
     fun searchStore(keyword: String) {
         viewModelScope.launch {
             runCatching {
@@ -55,6 +58,8 @@ class PostViewModel @Inject constructor(
                 storeRepository.postStore(requestPostStore)
             }.onSuccess {
                 updateSelectStoreNum(it)
+                Timber.d(requestPostStore.name)
+                _storeName.value = requestPostStore.name
                 updateSelectStore(requestPostStore.name)
                 _updateSuccess.value = true
             }.onFailure {
