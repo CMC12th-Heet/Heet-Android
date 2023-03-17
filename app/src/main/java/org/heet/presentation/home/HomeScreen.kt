@@ -39,8 +39,6 @@ fun HomeScreen(
     val isWrite = remember { mutableStateOf(false) }
     val isFloatingButton = remember { mutableStateOf(false) }
 
-    homeScreenViewModel.getMyPage()
-
     Scaffold(
         bottomBar = {
             BottomBar(
@@ -81,7 +79,7 @@ private fun WriteButton(
     FloatingActionButton(
         onClick = {
             isWrite.value = !isWrite.value
-            if (homeScreenViewModel.profile.value) {
+            if (homeScreenViewModel.getIsVerify()) {
                 navController.navigate(HomeTownScreen.Post.route)
             } else {
                 navController.navigate(HomeTownScreen.Verify.route)

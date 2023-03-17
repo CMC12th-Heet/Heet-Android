@@ -31,8 +31,8 @@ class VerifyViewModel @Inject constructor(
             runCatching {
                 postRepository.postVerify(x, y)
             }.onSuccess {
-                updateVerify(it.message != "fail")
-                _verify.value = it.message != "fail"
+                updateVerify(it.message == "success")
+                _verify.value = it.message == "success"
             }.onFailure {
                 Timber.d(it)
             }
