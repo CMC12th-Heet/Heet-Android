@@ -74,10 +74,10 @@ fun RedSmallRoundButton22(
 @Composable
 fun RedBigRoundButton28(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit,
     text: String,
     color: Color = Red500,
-    textColor: Color = Color.White
+    textColor: Color = Color.White,
+    onClick: () -> Unit
 ) {
     Button(
         onClick = onClick,

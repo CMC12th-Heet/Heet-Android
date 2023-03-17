@@ -108,7 +108,10 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = h
                     .width(2.dp),
                 color = Red500
             )
-            Auth("회원가입 하기") { navController.navigate(Graph.SIGNUP) }
+            Auth("회원가입 하기") {
+                loginViewModel.deleteAll()
+                navController.navigate(Graph.SIGNUP)
+            }
         }
     }
 }

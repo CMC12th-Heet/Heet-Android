@@ -195,7 +195,7 @@ fun SignUpIdScreen(
                 Spacer(modifier = Modifier.height(80.dp))
                 RedBigRoundButton28(
                     onClick = {
-                        navController.navigate(SignUpScreen.SignUpWelcome.route)
+                        navController.navigate(SignUpScreen.Welcome.route)
                     },
                     text = "회원 가입",
                     modifier = Modifier

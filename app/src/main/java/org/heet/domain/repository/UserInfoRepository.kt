@@ -1,6 +1,6 @@
 package org.heet.domain.repository
 
-interface StoreSignUpRepository {
+interface UserInfoRepository {
 
     suspend fun getEmail(): String
     suspend fun getPwd(): String
@@ -11,8 +11,5 @@ interface StoreSignUpRepository {
     suspend fun updatePwd(pwd: String)
     suspend fun updateId(id: String)
     suspend fun updateHometown(hometown: String)
-    suspend fun deleteEmail()
-    suspend fun deletePwd()
-    suspend fun deleteId()
-    suspend fun deleteHometown()
+    suspend fun deleteAll()
 }

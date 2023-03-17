@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import org.heet.data.model.request.RequestPostEmail
 import org.heet.domain.repository.CodeRepository
 import org.heet.domain.repository.SignUpRepository
-import org.heet.domain.repository.StoreSignUpRepository
+import org.heet.domain.repository.UserInfoRepository
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
@@ -21,7 +21,7 @@ import javax.inject.Inject
 class SignUpEmailViewModel @Inject constructor(
     private val signUpRepository: SignUpRepository,
     private val codeRepository: CodeRepository,
-    private val storeSignUpRepository: StoreSignUpRepository
+    private val userInfoRepository: UserInfoRepository
 ) : ViewModel() {
 
     private var timerCount = 300000
@@ -83,7 +83,7 @@ class SignUpEmailViewModel @Inject constructor(
 
     fun updateEmail(email: String) {
         viewModelScope.launch {
-            storeSignUpRepository.updateEmail(email)
+            userInfoRepository.updateEmail(email)
         }
     }
 

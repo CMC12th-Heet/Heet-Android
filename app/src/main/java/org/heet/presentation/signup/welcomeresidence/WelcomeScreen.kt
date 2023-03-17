@@ -16,6 +16,7 @@ import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.RedBigRoundButton28
 import org.heet.core.navigation.navscreen.AuthScreen
+import org.heet.core.navigation.navscreen.SignUpScreen
 import org.heet.ui.theme.Grey650
 import org.heet.ui.theme.Red500
 import org.heet.ui.theme.White250
@@ -23,9 +24,9 @@ import org.heet.ui.theme.White600
 import org.heet.util.pretendardFamily
 
 @Composable
-fun SignUpResidenceWelcomeScreen(
+fun WelcomeScreen(
     navController: NavController,
-    signUpResidenceWelcomeViewModel: SignUpResidenceWelcomeViewModel = hiltViewModel()
+    welcomeViewModel: WelcomeViewModel = hiltViewModel()
 ) {
     Box(modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp)) {
         Column(
@@ -37,30 +38,36 @@ fun SignUpResidenceWelcomeScreen(
             Spacer(modifier = Modifier.height(182.dp))
             Greeting()
             Spacer(modifier = Modifier.height(32.dp))
-            GreetingUser(signUpResidenceWelcomeViewModel.getUsername())
+            GreetingUser(welcomeViewModel)
         }
         Column(
             modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 8.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Image(
-                painter = painterResource(id = R.drawable.ic_location_red_28),
-                contentDescription = null
-            )
-            Spacer(modifier = Modifier.height(6.dp))
-            Text(
-                text = signUpResidenceWelcomeViewModel.getResidence(),
-                fontFamily = pretendardFamily,
-                fontSize = 15.sp,
-                fontWeight = FontWeight.Medium,
-                color = Red500
-            )
-            Spacer(modifier = Modifier.height(18.dp))
-            StartButton() {
-                navController.navigate(AuthScreen.Login.route) {
-                    signUpResidenceWelcomeViewModel.signUp()
-                    if (signUpResidenceWelcomeViewModel.signUp.value) {
-                        popUpTo(0)
+            if (welcomeViewModel.getResidence() == "") {
+                RedBigRoundButton28(text = "동네 설정하기") {
+                    navController.navigate(SignUpScreen.SignUpResidence.route)
+                }
+            } else {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_location_red_28),
+                    contentDescription = null
+                )
+                Spacer(modifier = Modifier.height(6.dp))
+                Text(
+                    text = welcomeViewModel.getResidence(),
+                    fontFamily = pretendardFamily,
+                    fontSize = 15.sp,
+                    fontWeight = FontWeight.Medium,
+                    color = Red500
+                )
+                Spacer(modifier = Modifier.height(18.dp))
+                RedBigRoundButton28(text = "시작하기") {
+                    navController.navigate(AuthScreen.Login.route) {
+                        welcomeViewModel.signUp()
+                        if (welcomeViewModel.signUp.value) {
+                            popUpTo(0)
+                        }
                     }
                 }
             }
@@ -80,18 +87,18 @@ private fun Logo() {
 private fun Greeting() {
     Text(
         text = "안녕하세요",
-        fontFamily = pretendardFamily,
+        color = Red500,
         fontSize = 24.sp,
         fontWeight = FontWeight.ExtraBold,
-        color = Red500
+        fontFamily = pretendardFamily
     )
 }
 
 @Composable
-private fun GreetingUser(username: String) {
+private fun GreetingUser(welcomeViewModel: WelcomeViewModel) {
     Row {
         Text(
-            text = username,
+            text = welcomeViewModel.getUsername(),
             fontFamily = pretendardFamily,
             fontSize = 15.sp,
             fontWeight = FontWeight.Normal,
@@ -108,12 +115,4 @@ private fun GreetingUser(username: String) {
     }
     Spacer(modifier = Modifier.width(2.dp))
     Divider(color = White250, modifier = Modifier.width(159.dp))
-}
-
-@Composable
-private fun StartButton(onClick: () -> Unit) {
-    RedBigRoundButton28(
-        onClick = onClick,
-        text = "시작하기"
-    )
 }
