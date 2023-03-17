@@ -46,7 +46,7 @@ fun WelcomeScreen(
         ) {
             if (welcomeViewModel.getResidence() == "") {
                 RedBigRoundButton28(text = "동네 설정하기") {
-                    navController.navigate(SignUpScreen.SignUpResidence.route)
+                    navController.navigate(SignUpScreen.Residence.route)
                 }
             } else {
                 Image(

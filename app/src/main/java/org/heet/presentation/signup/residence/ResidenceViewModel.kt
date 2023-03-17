@@ -12,7 +12,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class SignUpResidenceViewModel @Inject constructor(
+class ResidenceViewModel @Inject constructor(
     private val signUpRepository: SignUpRepository,
     private val userInfoRepository: UserInfoRepository
 ) : ViewModel() {
