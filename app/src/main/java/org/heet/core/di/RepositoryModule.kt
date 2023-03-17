@@ -32,9 +32,9 @@ interface RepositoryModule {
 
     @Binds
     @Singleton
-    fun bindStoreSignUpRepository(
-        storeSignUpRepositoryImpl: StoreSignUpRepositoryImpl
-    ): StoreSignUpRepository
+    fun bindUserInfoRepository(
+        userInfoRepositoryImpl: UserInfoRepositoryImpl
+    ): UserInfoRepository
 
     @Binds
     @Singleton

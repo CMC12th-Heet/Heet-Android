@@ -139,7 +139,7 @@ fun SignUpResidenceScreen(
             modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 8.dp)
         ) {
             SettingButton() {
-                navController.navigate(SignUpScreen.SignUpResidenceWelcome.route)
+                navController.navigate(SignUpScreen.Welcome.route)
             }
         }
     }

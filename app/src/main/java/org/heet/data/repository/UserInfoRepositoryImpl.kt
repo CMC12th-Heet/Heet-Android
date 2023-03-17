@@ -5,11 +5,11 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import kotlinx.coroutines.flow.first
-import org.heet.domain.repository.StoreSignUpRepository
+import org.heet.domain.repository.UserInfoRepository
 import javax.inject.Inject
 
-class StoreSignUpRepositoryImpl @Inject constructor(private val dataStore: DataStore<Preferences>) :
-    StoreSignUpRepository {
+class UserInfoRepositoryImpl @Inject constructor(private val dataStore: DataStore<Preferences>) :
+    UserInfoRepository {
 
     override suspend fun getEmail(): String = dataStore.data.first()[EMAIL] ?: ""
 
@@ -41,26 +41,11 @@ class StoreSignUpRepositoryImpl @Inject constructor(private val dataStore: DataS
         }
     }
 
-    override suspend fun deleteEmail() {
+    override suspend fun deleteAll() {
         dataStore.edit {
             it[EMAIL] = ""
-        }
-    }
-
-    override suspend fun deletePwd() {
-        dataStore.edit {
             it[PWD] = ""
-        }
-    }
-
-    override suspend fun deleteId() {
-        dataStore.edit {
-            it[PWD] = ""
-        }
-    }
-
-    override suspend fun deleteHometown() {
-        dataStore.edit {
+            it[ID] = ""
             it[HOMETOWN] = ""
         }
     }
