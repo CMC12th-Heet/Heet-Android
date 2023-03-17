@@ -17,4 +17,8 @@ class MyPageRepositoryImpl @Inject constructor(
     override suspend fun modifyMyPAge(requestModifyMyPage: RequestModifyMyPage): ResponseModifyMyPage {
         return myPageService.modifyMyPage(requestModifyMyPage)
     }
+
+    override suspend fun withDraw(): ResponseWithdraw {
+        return myPageService.withdraw()
+    }
 }

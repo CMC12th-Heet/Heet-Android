@@ -7,4 +7,5 @@ interface MyPageRepository {
 
     suspend fun getMyPage(): ResponseGetMyPage
     suspend fun modifyMyPAge(requestModifyMyPage: RequestModifyMyPage): ResponseModifyMyPage
+    suspend fun withDraw(): ResponseWithdraw
 }
