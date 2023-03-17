@@ -26,6 +26,8 @@ import com.gun0912.tedpermission.normal.TedPermission
 import org.heet.ui.theme.Grey400
 import org.heet.ui.theme.Red500
 import org.heet.util.pretendardFamily
+import timber.log.Timber
+import kotlin.math.abs
 
 @Composable
 fun VerifyScreen(
@@ -126,8 +128,9 @@ fun requestPermission(context: Context, x: MutableState<String>, y: MutableState
                         ) == PackageManager.PERMISSION_GRANTED
                 ) {
                     LocationServices.getFusedLocationProviderClient(context).lastLocation.addOnSuccessListener {
-                        x.value = it.longitude.toString()
-                        y.value = it.latitude.toString()
+                        Timber.d("${x.value} ${y.value}")
+                        x.value = abs(it.longitude).toString()
+                        y.value = abs(it.latitude).toString()
                     }
                 }
             }
