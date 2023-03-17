@@ -9,13 +9,15 @@ import kotlinx.coroutines.launch
 import org.heet.data.model.request.RequestLogin
 import org.heet.domain.repository.AutoLoginRepository
 import org.heet.domain.repository.LoginRepository
+import org.heet.domain.repository.UserInfoRepository
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val autoLoginRepository: AutoLoginRepository,
-    private val loginRepository: LoginRepository
+    private val loginRepository: LoginRepository,
+    private val userInfoRepository: UserInfoRepository
 ) : ViewModel() {
 
     private val _loginSuccess = MutableStateFlow(false)
@@ -26,6 +28,12 @@ class LoginViewModel @Inject constructor(
 
     fun setRegisterTrue() {
         _registered.value = true
+    }
+
+    fun deleteAll() {
+        viewModelScope.launch {
+            userInfoRepository.deleteAll()
+        }
     }
 
     fun login(requestLogin: RequestLogin) {
