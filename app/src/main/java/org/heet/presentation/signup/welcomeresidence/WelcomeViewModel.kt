@@ -9,13 +9,13 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.heet.data.model.request.RequestPostSignUp
 import org.heet.domain.repository.SignUpRepository
-import org.heet.domain.repository.StoreSignUpRepository
+import org.heet.domain.repository.UserInfoRepository
 import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class SignUpResidenceWelcomeViewModel @Inject constructor(
-    private val storeSignUpRepository: StoreSignUpRepository,
+class WelcomeViewModel @Inject constructor(
+    private val userInfoRepository: UserInfoRepository,
     private val signUpRepository: SignUpRepository
 ) : ViewModel() {
 
@@ -27,10 +27,10 @@ class SignUpResidenceWelcomeViewModel @Inject constructor(
             kotlin.runCatching {
                 signUpRepository.signUp(
                     RequestPostSignUp(
-                        storeSignUpRepository.getEmail(),
-                        storeSignUpRepository.getId(),
-                        storeSignUpRepository.getPwd(),
-                        storeSignUpRepository.getHometown()
+                        userInfoRepository.getEmail(),
+                        userInfoRepository.getId(),
+                        userInfoRepository.getPwd(),
+                        userInfoRepository.getHometown()
                     )
                 )
             }.onSuccess {
@@ -42,10 +42,10 @@ class SignUpResidenceWelcomeViewModel @Inject constructor(
     }
 
     fun getResidence(): String = runBlocking {
-        storeSignUpRepository.getHometown()
+        userInfoRepository.getHometown()
     }
 
     fun getUsername(): String = runBlocking {
-        storeSignUpRepository.getId()
+        userInfoRepository.getId()
     }
 }
