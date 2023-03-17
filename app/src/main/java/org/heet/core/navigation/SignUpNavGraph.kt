@@ -8,7 +8,7 @@ import org.heet.core.navigation.navscreen.SignUpScreen
 import org.heet.presentation.signup.email.SignUpEmailScreen
 import org.heet.presentation.signup.id.SignUpIdScreen
 import org.heet.presentation.signup.pwd.SignUpPwd
-import org.heet.presentation.signup.residence.SignUpResidenceScreen
+import org.heet.presentation.signup.residence.ResidenceScreen
 import org.heet.presentation.signup.welcomeresidence.WelcomeScreen
 
 fun NavGraphBuilder.signupNavGraph(navController: NavHostController) {
@@ -25,8 +25,8 @@ fun NavGraphBuilder.signupNavGraph(navController: NavHostController) {
         composable(route = SignUpScreen.SignUpId.route) {
             SignUpIdScreen(navController = navController)
         }
-        composable(route = SignUpScreen.SignUpResidence.route) {
-            SignUpResidenceScreen(navController = navController)
+        composable(route = SignUpScreen.Residence.route) {
+            ResidenceScreen(navController = navController)
         }
         composable(route = SignUpScreen.Welcome.route) {
             WelcomeScreen(navController = navController)
