@@ -18,7 +18,7 @@ class SingUpIdViewModel @Inject constructor(
     private val singUpRepository: SignUpRepository
 ) : ViewModel() {
 
-    private val _isDuplicate = MutableStateFlow(false)
+    private val _isDuplicate = MutableStateFlow(true)
     val isDuplicate = _isDuplicate.asStateFlow()
 
     fun getPwd(): String = runBlocking {
@@ -35,8 +35,9 @@ class SingUpIdViewModel @Inject constructor(
                 singUpRepository.findDuplicate(username)
             }.onSuccess {
                 storeSignUpRepository.updateId(username)
-                _isDuplicate.value = it.isDuplicated
+                _isDuplicate.value = true
             }.onFailure {
+                _isDuplicate.value = false
                 Timber.d(it.message)
             }
         }

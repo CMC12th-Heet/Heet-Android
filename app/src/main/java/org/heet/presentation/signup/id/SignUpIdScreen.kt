@@ -130,7 +130,7 @@ fun SignUpIdScreen(
                         modifier = Modifier.align(Alignment.CenterEnd),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
-                        if (!isDuplicate) {
+                        if (isDuplicate) {
                             RequestBtn(
                                 isCheck = requestCheckDuplicate,
                                 text = "중복 확인"
@@ -155,7 +155,7 @@ fun SignUpIdScreen(
                 color = White700
             )
         }
-        if (isDuplicate) {
+        if (!isDuplicate) {
             item {
                 Text(
                     text = "*이미 사용 중인 아이디입니다.",
@@ -188,21 +188,20 @@ fun SignUpIdScreen(
                 Row {
                     Spacer(modifier = Modifier.width(12.dp))
                     Terms(text = it)
+                    Spacer(modifier = Modifier.height(30.dp))
                 }
-                Spacer(modifier = Modifier.height(80.dp))
             }
-        } else {
             item {
-                Spacer(modifier = Modifier.height(325.dp))
+                Spacer(modifier = Modifier.height(80.dp))
+                RedBigRoundButton28(
+                    onClick = {
+                        navController.navigate(SignUpScreen.SignUpWelcome.route)
+                    },
+                    text = "회원 가입",
+                    modifier = Modifier
+                        .padding(bottom = 8.dp)
+                )
             }
-        }
-        item {
-            RedBigRoundButton28(
-                onClick = { navController.navigate(SignUpScreen.SignUpWelcome.route) },
-                text = "회원 가입",
-                modifier = Modifier
-                    .padding(bottom = 8.dp)
-            )
         }
     }
 }
