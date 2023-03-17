@@ -23,6 +23,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
@@ -80,6 +81,12 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
             .startMultiImage {
                 imageUri = it
             }
+    }
+
+    LaunchedEffect(postViewModel.postSuccess.collectAsState().value) {
+        if (postViewModel.postSuccess.value) {
+            navController.popBackStack()
+        }
     }
 
     if (openAddress.value) {
@@ -183,8 +190,6 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                                 content.value,
                                 postViewModel.getSelectStoreNum()
                             )
-                        }.run {
-                            navController.popBackStack()
                         }
                     }
                 }
@@ -243,7 +248,11 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                                 Box {
                                     Image(
                                         bitmap = bitmap[it].asImageBitmap(),
-                                        contentDescription = "image"
+                                        contentDescription = "image",
+                                        contentScale = ContentScale.Crop,
+                                        modifier = Modifier
+                                            .width(380.dp)
+                                            .height(256.dp)
                                     )
                                     Surface(
                                         shape = RoundedCornerShape(20.dp),
@@ -331,7 +340,9 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                 }
                 if (expandShare.value) {
                     Column(
-                        modifier = Modifier.align(Alignment.Start).fillMaxWidth(),
+                        modifier = Modifier
+                            .align(Alignment.Start)
+                            .fillMaxWidth(),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Spacer(modifier = Modifier.height(4.dp))
@@ -400,7 +411,9 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                 }
                 if (expandSatisfaction.value) {
                     Row(
-                        modifier = Modifier.padding(top = 24.dp).fillMaxWidth(),
+                        modifier = Modifier
+                            .padding(top = 24.dp)
+                            .fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Column(horizontalAlignment = Alignment.CenterHorizontally) {
