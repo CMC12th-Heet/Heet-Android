@@ -30,32 +30,24 @@ import org.heet.ui.theme.White50
 import org.heet.util.pretendardFamily
 
 @Composable
-fun SignUpResidenceScreen(
+fun ResidenceScreen(
     navController: NavController,
-    signUpResidenceViewModel: SignUpResidenceViewModel = hiltViewModel()
+    residenceViewModel: ResidenceViewModel = hiltViewModel()
 ) {
-    val cityName = remember {
-        mutableStateOf("")
-    }
-    val wardName = remember {
-        mutableStateOf("")
-    }
-    val checkCity = remember {
-        mutableStateOf(false)
-    }
-    val checkWard = remember {
-        mutableStateOf(false)
-    }
+    val cityName = remember { mutableStateOf("") }
+    val wardName = remember { mutableStateOf("") }
+    val checkCity = remember { mutableStateOf(false) }
+    val checkWard = remember { mutableStateOf(false) }
 
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(horizontal = 20.dp)
-            .padding(top = 18.dp)
+            .padding(top = 18.dp),
+        verticalArrangement = Arrangement.SpaceBetween
     ) {
-        Column(modifier = Modifier.align(Alignment.TopStart)) {
+        Column {
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -63,7 +55,7 @@ fun SignUpResidenceScreen(
                 Title(text = "동네 설정하기")
                 EmptyText()
             }
-            Row(modifier = Modifier.padding(start = 8.dp, top = 36.dp)) {
+            Row(modifier = Modifier.padding(start = 28.dp, top = 40.dp)) {
                 if (checkCity.value) {
                     ResidenceChip(cityName)
                     Spacer(modifier = Modifier.width(9.dp))
@@ -74,19 +66,16 @@ fun SignUpResidenceScreen(
             }
             Spacer(modifier = Modifier.height(10.dp))
             NoticeResidence()
-
             LazyColumn(modifier = Modifier.padding(top = 18.dp)) {
                 items(LocalHometownDataSource().loadHometowns()) { city ->
-                    val expanded = remember {
-                        mutableStateOf(false)
-                    }
+                    val expanded = remember { mutableStateOf(false) }
                     val image = if (expanded.value) {
                         painterResource(id = R.drawable.ic_down_grey_24)
                     } else {
                         painterResource(id = R.drawable.ic_next_grey_24)
                     }
                     Row(
-                        modifier = Modifier.fillMaxSize().padding(start = 10.dp, end = 7.dp),
+                        modifier = Modifier.fillMaxSize(),
                         horizontalArrangement = Arrangement.SpaceBetween,
                         verticalAlignment = Alignment.CenterVertically
                     ) {
@@ -103,41 +92,41 @@ fun SignUpResidenceScreen(
                         var where = listOf<String>()
                         when (city.cityEng) {
                             "seoul" -> {
-                                signUpResidenceViewModel.getSeoulCity(city.cityEng)
-                                where = signUpResidenceViewModel.seoul.collectAsState().value
+                                residenceViewModel.getSeoulCity(city.cityEng)
+                                where = residenceViewModel.seoul.collectAsState().value
                             }
                             "gyeonggi" -> {
-                                signUpResidenceViewModel.getGyeonggiCity(city.cityEng)
-                                where = signUpResidenceViewModel.gyeonggi.collectAsState().value
+                                residenceViewModel.getGyeonggiCity(city.cityEng)
+                                where = residenceViewModel.gyeonggi.collectAsState().value
                             }
                             "incheon" -> {
-                                signUpResidenceViewModel.getIncheonCity(city.cityEng)
-                                where = signUpResidenceViewModel.incheon.collectAsState().value
+                                residenceViewModel.getIncheonCity(city.cityEng)
+                                where = residenceViewModel.incheon.collectAsState().value
                             }
                         }
                         Spacer(modifier = Modifier.height(18.dp))
-                        Divider(modifier = Modifier.height(0.5.dp).shadow(2.dp))
-                        LazyRow(modifier = Modifier.padding(start = 11.dp)) {
+                        LazyRow(modifier = Modifier.padding(start = 30.dp)) {
                             items(
                                 where
                             ) { ward ->
                                 WardItem(
-                                    updateResidence = { signUpResidenceViewModel.updateResidence("${city.cityKr} $ward") },
+                                    updateResidence = { residenceViewModel.updateResidence("${city.cityKr} $ward") },
                                     ward,
+                                    city.cityKr,
                                     checkWard,
-                                    wardName
+                                    wardName,
+                                    cityName
                                 )
                             }
                         }
+                        Spacer(modifier = Modifier.height(8.5.dp))
                         Divider(modifier = Modifier.height(0.5.dp).shadow(2.dp))
                     }
                     Spacer(modifier = Modifier.height(18.dp))
                 }
             }
         }
-        Column(
-            modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 8.dp)
-        ) {
+        if (checkCity.value && checkWard.value) {
             SettingButton() {
                 navController.navigate(SignUpScreen.Welcome.route)
             }
@@ -156,15 +145,16 @@ private fun CityItem(
 ) {
     Text(
         text = city,
-        fontFamily = pretendardFamily,
+        modifier = Modifier.padding(start = 30.dp),
+        color = Grey400,
         fontSize = 16.sp,
         fontWeight = FontWeight.Normal,
-        color = Grey400
+        fontFamily = pretendardFamily
     )
     Image(
         painter = image,
         contentDescription = null,
-        modifier = Modifier.clickable {
+        modifier = Modifier.padding(end = 27.dp).clickable {
             expanded.value = !expanded.value
             checkWard.value = false
             checkCity.value = true
@@ -177,44 +167,45 @@ private fun CityItem(
 private fun WardItem(
     updateResidence: () -> Unit,
     ward: String,
+    city: String,
     checkWard: MutableState<Boolean>,
-    wardName: MutableState<String>
+    wardName: MutableState<String>,
+    cityName: MutableState<String>
 ) {
     Text(
         ward,
-        fontFamily = pretendardFamily,
+        color = Grey400,
+        modifier = Modifier.padding(end = 14.dp).clickable {
+            updateResidence()
+            wardName.value = ward
+            checkWard.value = true
+            cityName.value = city
+        },
         fontSize = 16.sp,
         fontWeight = FontWeight.Normal,
-        color = Grey400,
-        modifier = Modifier.clickable {
-            updateResidence()
-            checkWard.value = true
-            wardName.value = ward
-        }
+        fontFamily = pretendardFamily
     )
-    Spacer(modifier = Modifier.width(24.dp))
 }
 
 @Composable
 private fun ResidenceChip(name: MutableState<String>) {
     Surface(
         shape = RoundedCornerShape(16.5.dp),
-        color = White50,
-        modifier = Modifier.size(width = 84.dp, height = 30.dp)
+        color = White50
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Spacer(modifier = Modifier.width(6.dp))
+            Spacer(modifier = Modifier.width(11.dp))
             Image(
                 painter = painterResource(id = R.drawable.ic_check_red_12),
                 contentDescription = null
             )
             Text(
                 text = name.value,
-                fontFamily = pretendardFamily,
+                modifier = Modifier.padding(start = 10.dp, top = 6.dp, end = 14.dp, bottom = 6.dp),
+                color = Red500,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Normal,
-                color = Red500,
-                modifier = Modifier.padding(start = 9.dp, end = 10.dp)
+                fontFamily = pretendardFamily
             )
         }
     }
@@ -224,18 +215,19 @@ private fun ResidenceChip(name: MutableState<String>) {
 private fun NoticeResidence() {
     Text(
         text = "현재 거주지를 알려주세요",
-        fontFamily = pretendardFamily,
+        modifier = Modifier.padding(start = 30.dp),
+        color = Grey900,
         fontSize = 16.sp,
         fontWeight = FontWeight.SemiBold,
-        color = Grey900,
-        modifier = Modifier.padding(start = 10.dp)
+        fontFamily = pretendardFamily
     )
 }
 
 @Composable
 private fun SettingButton(onClick: () -> Unit) {
     RedBigRoundButton28(
-        onClick = onClick,
-        text = "설정 완료"
+        modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 8.dp),
+        text = "설정 완료",
+        onClick = onClick
     )
 }
