@@ -9,10 +9,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Divider
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,6 +21,7 @@ import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.heet.components.*
+import org.heet.core.navigation.Graph
 import org.heet.core.navigation.navscreen.MyPageScreen
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
@@ -39,7 +37,15 @@ fun ModifyProfileScreen(
     val showDialog = remember { mutableStateOf(false) }
 
     if (showDialog.value) {
-        Withdraw(showDialog)
+        Withdraw(showDialog = showDialog, modifyProfileViewModel = modifyProfileViewModel)
+    }
+
+    LaunchedEffect(modifyProfileViewModel.withdrawSuccess.collectAsState().value) {
+        if (modifyProfileViewModel.withdrawSuccess.value) {
+            navController.navigate(Graph.AUTHENTICATION) {
+                popUpTo(0)
+            }
+        }
     }
 
     Column(
@@ -231,13 +237,15 @@ fun ModifyProfileScreen(
 }
 
 @Composable
-fun Withdraw(showDialog: MutableState<Boolean>) {
+fun Withdraw(showDialog: MutableState<Boolean>, modifyProfileViewModel: ModifyProfileViewModel) {
     Dialog(onDismissRequest = { }) {
         Surface(
             shape = RoundedCornerShape(10.dp),
             color = Color.White
         ) {
-            WithdrawDialog(showDialog = showDialog)
+            WithdrawDialog(showDialog = showDialog) {
+                modifyProfileViewModel.withdraw()
+            }
         }
     }
 }

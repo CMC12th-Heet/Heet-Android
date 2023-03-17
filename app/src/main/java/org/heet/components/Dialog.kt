@@ -15,7 +15,7 @@ import org.heet.ui.theme.Grey650
 import org.heet.util.pretendardFamily
 
 @Composable
-fun WithdrawDialog(showDialog: MutableState<Boolean>) {
+fun WithdrawDialog(showDialog: MutableState<Boolean>, onClick: () -> Unit) {
     Column(
         modifier = Modifier.padding(horizontal = 31.dp).fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -30,10 +30,15 @@ fun WithdrawDialog(showDialog: MutableState<Boolean>) {
             fontFamily = pretendardFamily
         )
         Spacer(modifier = Modifier.height(34.dp))
-        RedBigRoundButton28(onClick = { showDialog.value = false }, text = "탈퇴")
+        RedBigRoundButton28(onClick = {
+            onClick()
+            showDialog.value = false
+        }, text = "탈퇴")
         Spacer(modifier = Modifier.height(13.dp))
         RedBigRoundButton28(
-            onClick = { showDialog.value = false },
+            onClick = {
+                showDialog.value = false
+            },
             text = "취소",
             color = Color.White,
             textColor = Grey650
