@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Divider
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -17,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -40,6 +39,7 @@ fun DetailScreen(
     val expandSatisfaction = remember { mutableStateOf(false) }
     val expandShare = remember { mutableStateOf(false) }
     val detailPost = detailViewModel.detail.collectAsState().value
+    var isDropDownMenuExpanded by remember { mutableStateOf(false) }
 
     LaunchedEffect(true) {
         detailViewModel.getDetailPost(post_id)
@@ -61,13 +61,70 @@ fun DetailScreen(
                         navController.popBackStack()
                     }
                     Title(text = "우리동네 기록")
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_more),
-                        contentDescription = null,
-                        modifier = Modifier.clickable {
-                            navController.navigate(HomeTownScreen.Declaration.route)
+                    Column {
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_more),
+                            contentDescription = null,
+                            modifier = Modifier.clickable {
+                                isDropDownMenuExpanded = true
+                            }
+                        )
+                        MaterialTheme(
+                            shapes = MaterialTheme.shapes.copy(
+                                medium = RoundedCornerShape(
+                                    10.dp
+                                )
+                            )
+                        ) {
+                            DropdownMenu(
+                                expanded = isDropDownMenuExpanded,
+                                onDismissRequest = { isDropDownMenuExpanded = false }
+                            ) {
+                                if (detailPost.isMyPost == 1) {
+                                    DropdownMenuItem(onClick = {
+                                    }) {
+                                        Text(
+                                            text = "수정하기",
+                                            color = Color.Black,
+                                            fontSize = 13.sp,
+                                            fontWeight = FontWeight.Normal,
+                                            fontFamily = pretendardFamily,
+                                            textAlign = TextAlign.Center,
+                                            modifier = Modifier.fillMaxWidth()
+                                        )
+                                    }
+                                    DropdownMenuItem(onClick = {
+                                    }) {
+                                        Text(
+                                            text = "삭제하기",
+                                            color = Color.Black,
+                                            fontSize = 13.sp,
+                                            fontWeight = FontWeight.Normal,
+                                            fontFamily = pretendardFamily,
+                                            textAlign = TextAlign.Center,
+                                            modifier = Modifier.fillMaxWidth()
+                                        )
+                                    }
+                                } else {
+                                    DropdownMenuItem(onClick = {
+                                        navController.navigate(
+                                            HomeTownScreen.Declaration.route
+                                        )
+                                    }) {
+                                        Text(
+                                            text = "신고하기",
+                                            color = Color.Black,
+                                            fontSize = 13.sp,
+                                            fontWeight = FontWeight.Normal,
+                                            fontFamily = pretendardFamily,
+                                            textAlign = TextAlign.Center,
+                                            modifier = Modifier.fillMaxWidth()
+                                        )
+                                    }
+                                }
+                            }
                         }
-                    )
+                    }
                 }
                 Spacer(modifier = Modifier.height(12.dp))
                 Surface(
