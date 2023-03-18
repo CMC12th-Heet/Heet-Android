@@ -6,6 +6,7 @@ import org.heet.core.navigation.navscreen.HomeTownScreen
 import org.heet.presentation.declaration.DeclarationFinishScreen
 import org.heet.presentation.declaration.DeclarationScreen
 import org.heet.presentation.home.hometown.*
+import org.heet.presentation.home.hometown.comment.CommentScreen
 import org.heet.presentation.home.hometown.detail.DetailScreen
 import org.heet.presentation.home.hometown.post.PostScreen
 import org.heet.presentation.home.hometown.verify.VerifyScreen
@@ -17,9 +18,6 @@ fun NavGraphBuilder.homeTownNavGraph(navController: NavHostController) {
         route = Graph.HOMETOWN,
         startDestination = Graph.HOME
     ) {
-        composable(route = HomeTownScreen.Comment.route) {
-            CommentScreen(navController = navController)
-        }
         composable(route = HomeTownScreen.Declaration.route) {
             DeclarationScreen(navController = navController)
         }
@@ -46,15 +44,34 @@ fun NavGraphBuilder.homeTownNavGraph(navController: NavHostController) {
             arguments = listOf(
                 navArgument("post_id") {
                     type = NavType.StringType
-                    defaultValue = "63"
-                    nullable = true
+                    defaultValue = "0"
+                    nullable = false
                 }
             )
         ) { entry ->
-            DetailScreen(
-                post_id = entry.arguments?.getString("post_id"),
-                navController = navController
+            entry.arguments?.getString("post_id")?.let {
+                DetailScreen(
+                    post_id = it,
+                    navController = navController
+                )
+            }
+        }
+        composable(
+            route = HomeTownScreen.Comment.route + "/{post_id}",
+            arguments = listOf(
+                navArgument("post_id") {
+                    type = NavType.StringType
+                    defaultValue = "0"
+                    nullable = false
+                }
             )
+        ) { entry ->
+            entry.arguments?.getString("post_id")?.let {
+                CommentScreen(
+                    post_id = it,
+                    navController = navController
+                )
+            }
         }
     }
 }
