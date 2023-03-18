@@ -15,7 +15,7 @@ class CommentRepositoryImpl @Inject constructor(
         return commentService.postComment(id, content)
     }
 
-    override suspend fun getComment(id: String): ResponseGetComment {
+    override suspend fun getComment(id: String): List<ResponseGetComment> {
         return commentService.getComment(id)
     }
 
