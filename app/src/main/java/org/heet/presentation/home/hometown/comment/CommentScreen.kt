@@ -1,4 +1,4 @@
-package org.heet.presentation.home.hometown
+package org.heet.presentation.home.hometown.comment
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -11,10 +11,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -28,6 +25,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.*
@@ -36,10 +34,19 @@ import org.heet.util.pretendardFamily
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun CommentScreen(navController: NavController) {
+fun CommentScreen(
+    post_id: String,
+    navController: NavController,
+    commentViewModel: CommentViewModel = hiltViewModel()
+) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val comment = remember {
         mutableStateOf("")
+    }
+    val commentList = commentViewModel.commentList.collectAsState().value
+
+    LaunchedEffect(commentList) {
+        commentViewModel.getComment(post_id)
     }
 
     Box(
@@ -64,8 +71,8 @@ fun CommentScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(13.dp))
             DotDivider()
             LazyColumn(modifier = Modifier.padding(top = 23.dp, bottom = 47.dp)) {
-                items(listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)) {
-                    CommentList()
+                items(commentList) {
+                    CommentList(it.user.username, it.content)
                     Spacer(modifier = Modifier.height(12.dp))
                 }
             }
@@ -152,7 +159,7 @@ private fun CommentTextField(
 }
 
 @Composable
-private fun CommentList() {
+private fun CommentList(username: String, content: String) {
     Row {
         Image(
             painter = painterResource(id = R.drawable.ic_profile_grey_30),
@@ -160,14 +167,14 @@ private fun CommentList() {
         )
         Column(modifier = Modifier.padding(start = 7.dp)) {
             Text(
-                text = "viewer112",
+                text = username,
                 fontSize = 10.sp,
                 color = White900,
                 fontWeight = FontWeight.Normal,
                 fontFamily = pretendardFamily
             )
             Text(
-                text = "댓글달기댓글달기댓글달기댓글달기댓글달기댓글달기댓글달기댓글달기",
+                text = content,
                 fontSize = 13.sp,
                 color = Grey450,
                 fontWeight = FontWeight.Normal,
