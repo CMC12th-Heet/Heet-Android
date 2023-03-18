@@ -1,8 +1,8 @@
 package org.heet.data.repository
 
+import org.heet.data.model.request.RequestPostComment
 import org.heet.data.model.response.ResponseDeleteComment
 import org.heet.data.model.response.ResponseGetComment
-import org.heet.data.model.response.ResponsePostComment
 import org.heet.data.service.CommentService
 import org.heet.domain.repository.CommentRepository
 import javax.inject.Inject
@@ -11,8 +11,8 @@ class CommentRepositoryImpl @Inject constructor(
     private val commentService: CommentService
 ) : CommentRepository {
 
-    override suspend fun postComment(id: String, content: String): ResponsePostComment {
-        return commentService.postComment(id, content)
+    override suspend fun postComment(id: String, requestPostComment: RequestPostComment) {
+        commentService.postComment(id, requestPostComment)
     }
 
     override suspend fun getComment(id: String): List<ResponseGetComment> {
