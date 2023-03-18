@@ -29,6 +29,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.*
+import org.heet.data.model.request.RequestPostComment
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
 
@@ -43,7 +44,7 @@ fun CommentScreen(
     val comment = remember {
         mutableStateOf("")
     }
-    val commentList = commentViewModel.commentList.collectAsState().value
+    val commentList by commentViewModel.commentList.collectAsState()
 
     LaunchedEffect(commentList) {
         commentViewModel.getComment(post_id)
@@ -83,7 +84,7 @@ fun CommentScreen(
                 .fillMaxWidth()
                 .align(Alignment.BottomCenter)
         ) {
-            CommentField(comment, keyboardController)
+            CommentField(comment, commentViewModel, post_id, keyboardController)
         }
     }
 }
@@ -92,6 +93,8 @@ fun CommentScreen(
 @Composable
 private fun CommentField(
     comment: MutableState<String>,
+    commentViewModel: CommentViewModel,
+    post_id: String,
     keyboardController: SoftwareKeyboardController?
 ) {
     Row(
@@ -104,7 +107,12 @@ private fun CommentField(
             modifier = Modifier.padding(vertical = 7.dp)
         )
         Spacer(modifier = Modifier.width(11.dp))
-        CommentTextField(comment, keyboardController)
+        CommentTextField(
+            comment = comment,
+            commentViewModel = commentViewModel,
+            post_id = post_id,
+            keyboardController = keyboardController
+        )
     }
 }
 
@@ -112,6 +120,8 @@ private fun CommentField(
 @Composable
 private fun CommentTextField(
     comment: MutableState<String>,
+    commentViewModel: CommentViewModel,
+    post_id: String,
     keyboardController: SoftwareKeyboardController?
 ) {
     BasicTextField(
@@ -133,6 +143,11 @@ private fun CommentTextField(
         ),
         keyboardActions = KeyboardActions {
             if (comment.value.trim().isEmpty()) return@KeyboardActions
+            commentViewModel.postComment(
+                postId = post_id,
+                requestPostComment = RequestPostComment(comment.value)
+            )
+            comment.value = ""
             keyboardController?.hide()
         },
         singleLine = true,
