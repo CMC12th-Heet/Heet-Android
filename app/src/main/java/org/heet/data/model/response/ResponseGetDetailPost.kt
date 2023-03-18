@@ -16,6 +16,7 @@ data class ResponseGetDetailPost(
     val post_id: Int,
     val satisfaction: Int?,
     val store: Store,
+    val isMyPost: Int,
     val title: String,
     val together_with: String?,
     val urlList: List<String>,
