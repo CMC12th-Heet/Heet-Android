@@ -15,13 +15,16 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.Divider
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -32,14 +35,17 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import gun0912.tedimagepicker.builder.TedImagePicker
 import gun0912.tedimagepicker.builder.type.MediaType
 import org.heet.R
 import org.heet.components.*
+import org.heet.data.datasource.LoadSatisfactionDataSource
 import org.heet.data.datasource.LocalSearchHelpDataSource
 import org.heet.data.model.request.RequestPostStore
 import org.heet.data.model.response.ResponseGetStore
@@ -52,17 +58,31 @@ import timber.log.Timber
 @Composable
 fun PostScreen(navController: NavController, postViewModel: PostViewModel = hiltViewModel()) {
     val scrollState = rememberScrollState()
+    val keyboardController = LocalSoftwareKeyboardController.current
+    val showDialog = remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val bitmap = remember { mutableListOf<Bitmap>() }
+
+    // post
     val title = remember { mutableStateOf("") }
     val subTitle = remember { mutableStateOf("") }
     val content = remember { mutableStateOf("") }
-    val expandSatisfaction = remember { mutableStateOf(false) }
-    val expandShare = remember { mutableStateOf(false) }
-    val context = LocalContext.current
     var imageUri by remember { mutableStateOf<List<Uri>?>(null) }
-    val bitmap = remember { mutableListOf<Bitmap>() }
 
-    val friend = remember { mutableStateOf("") }
-    val keyboardController = LocalSoftwareKeyboardController.current
+    // satisfaction
+    val expandSatisfaction = remember { mutableStateOf(false) }
+    val satisfaction = remember { mutableStateOf(0) }
+    var satisfactionList by remember { mutableStateOf(LoadSatisfactionDataSource().loadSatisfactionItems()) }
+
+    // shareTip
+    val expandShare = remember { mutableStateOf(false) }
+    val togetherWith = remember { mutableStateOf("") }
+    val dayTip = remember { mutableStateOf("") }
+    val movingTip = remember { mutableStateOf("") }
+    val orderingTip = remember { mutableStateOf("") }
+    val otherTip = remember { mutableStateOf("") }
+
+    // store
     val openAddress = remember { mutableStateOf(false) }
     val address = remember { mutableStateOf("") }
     val didSearch = remember { mutableStateOf(false) }
@@ -71,6 +91,14 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
     val storeUrl = remember { mutableStateOf("") }
     val storeAddress = remember { mutableStateOf("") }
     val selectStore = postViewModel.storeName.collectAsState()
+
+    if (showDialog.value) {
+        WriteCancel(
+            showDialog = showDialog,
+            navController = navController,
+            postViewModel = postViewModel
+        )
+    }
 
     LaunchedEffect(key1 = true) {
         TedImagePicker.with(context)
@@ -93,10 +121,9 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(horizontal = 20.dp)
                 .padding(top = 14.dp)
         ) {
-            Column {
+            Column(modifier = Modifier.padding(horizontal = 20.dp)) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -167,9 +194,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                     painter = painterResource(id = R.drawable.ic_cancel_black_30),
                     contentDescription = "cancel",
                     modifier = Modifier.clickable {
-                        navController.popBackStack()
-                        postViewModel.deleteSelectStore()
-                        postViewModel.deleteSelectStoreNum()
+                        showDialog.value = true
                     }
                 )
                 Title(text = "우리동네 기록")
@@ -188,7 +213,13 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                                 title.value,
                                 subTitle.value,
                                 content.value,
-                                postViewModel.getSelectStoreNum()
+                                postViewModel.getSelectStoreNum(),
+                                satisfaction.value,
+                                togetherWith.value,
+                                dayTip.value,
+                                movingTip.value,
+                                orderingTip.value,
+                                otherTip.value
                             )
                         }
                     }
@@ -222,97 +253,101 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
             }
             Spacer(modifier = Modifier.height(11.dp))
             Column(
-                modifier = Modifier.padding(horizontal = 20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                imageUri?.let {
-                    for (image in imageUri!!) {
-                        if (Build.VERSION.SDK_INT < 28) {
-                            bitmap.add(
-                                MediaStore.Images.Media.getBitmap(
-                                    context.contentResolver,
-                                    image
+                Column(
+                    modifier = Modifier.padding(horizontal = 20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    imageUri?.let {
+                        for (image in imageUri!!) {
+                            if (Build.VERSION.SDK_INT < 28) {
+                                bitmap.add(
+                                    MediaStore.Images.Media.getBitmap(
+                                        context.contentResolver,
+                                        image
+                                    )
                                 )
-                            )
-                        } else {
-                            val source =
-                                ImageDecoder.createSource(context.contentResolver, image)
-                            bitmap.add(ImageDecoder.decodeBitmap(source))
+                            } else {
+                                val source =
+                                    ImageDecoder.createSource(context.contentResolver, image)
+                                bitmap.add(ImageDecoder.decodeBitmap(source))
+                            }
                         }
                     }
-                }
-                LazyRow {
-                    if (bitmap.size != 0) {
-                        items(bitmap.size) {
-                            Surface(shape = RoundedCornerShape(5.dp)) {
-                                Box {
-                                    Image(
-                                        bitmap = bitmap[it].asImageBitmap(),
-                                        contentDescription = "image",
-                                        contentScale = ContentScale.Crop,
-                                        modifier = Modifier
-                                            .width(380.dp)
-                                            .height(256.dp)
-                                    )
-                                    Surface(
-                                        shape = RoundedCornerShape(20.dp),
-                                        color = Color.White,
-                                        modifier = Modifier
-                                            .padding(end = 12.dp, bottom = 11.dp)
-                                            .align(Alignment.BottomEnd)
-                                    ) {
-                                        Text(
-                                            text = "${it + 1}/${imageUri?.size}",
-                                            modifier = Modifier.padding(horizontal = 13.dp),
-                                            color = Black400,
-                                            fontSize = 10.sp,
-                                            fontWeight = FontWeight.ExtraBold,
-                                            fontFamily = pretendardFamily
+                    LazyRow {
+                        if (bitmap.size != 0) {
+                            items(bitmap.size) {
+                                Surface(shape = RoundedCornerShape(5.dp)) {
+                                    Box {
+                                        Image(
+                                            bitmap = bitmap[it].asImageBitmap(),
+                                            contentDescription = "image",
+                                            contentScale = ContentScale.Crop,
+                                            modifier = Modifier
+                                                .width(380.dp)
+                                                .height(256.dp)
                                         )
+                                        Surface(
+                                            shape = RoundedCornerShape(20.dp),
+                                            color = Color.White,
+                                            modifier = Modifier
+                                                .padding(end = 12.dp, bottom = 11.dp)
+                                                .align(Alignment.BottomEnd)
+                                        ) {
+                                            Text(
+                                                text = "${it + 1}/${imageUri?.size}",
+                                                modifier = Modifier.padding(horizontal = 13.dp),
+                                                color = Black400,
+                                                fontSize = 10.sp,
+                                                fontWeight = FontWeight.ExtraBold,
+                                                fontFamily = pretendardFamily
+                                            )
+                                        }
                                     }
                                 }
                             }
                         }
                     }
+                    Spacer(modifier = Modifier.height(6.dp))
+                    DotDivider()
+                    Spacer(modifier = Modifier.height(6.dp))
+                    NormalInputField(
+                        valueState = title,
+                        placeholder = "제목",
+                        enabled = true,
+                        isSingleLine = true
+                    )
+                    Spacer(modifier = Modifier.height(6.dp))
+                    DotDivider()
+                    Spacer(modifier = Modifier.height(6.dp))
+                    NormalInputField(
+                        valueState = subTitle,
+                        placeholder = "소제목",
+                        enabled = true,
+                        isSingleLine = true,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Medium
+                    )
+                    Spacer(modifier = Modifier.height(6.dp))
+                    DotDivider()
+                    Spacer(modifier = Modifier.height(6.dp))
+                    NormalInputField(
+                        modifier = Modifier.height(73.dp),
+                        valueState = content,
+                        placeholder = "내용을 입력하세요.",
+                        enabled = true,
+                        isSingleLine = false,
+                        fontSize = 12.sp,
+                        fontWeight = FontWeight.Medium
+                    )
+                    Spacer(modifier = Modifier.height(17.dp))
+                    DotDivider()
+                    Spacer(modifier = Modifier.height(13.dp))
                 }
-                Spacer(modifier = Modifier.height(6.dp))
-                DotDivider()
-                Spacer(modifier = Modifier.height(6.dp))
-                NormalInputField(
-                    valueState = title,
-                    placeholder = "제목",
-                    enabled = true,
-                    isSingleLine = true
-                )
-                Spacer(modifier = Modifier.height(6.dp))
-                DotDivider()
-                Spacer(modifier = Modifier.height(6.dp))
-                NormalInputField(
-                    valueState = subTitle,
-                    placeholder = "소제목",
-                    enabled = true,
-                    isSingleLine = true,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Medium
-                )
-                Spacer(modifier = Modifier.height(6.dp))
-                DotDivider()
-                Spacer(modifier = Modifier.height(6.dp))
-                NormalInputField(
-                    modifier = Modifier.height(73.dp),
-                    valueState = content,
-                    placeholder = "내용을 입력하세요.",
-                    enabled = true,
-                    isSingleLine = false,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.Medium
-                )
-                Spacer(modifier = Modifier.height(17.dp))
-                DotDivider()
-                Spacer(modifier = Modifier.height(13.dp))
                 Surface(
                     shape = RoundedCornerShape(30.dp),
-                    color = White700
+                    color = if (expandShare.value) Black400 else White700
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
@@ -341,49 +376,60 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                 if (expandShare.value) {
                     Column(
                         modifier = Modifier
+                            .padding(horizontal = 20.dp)
                             .align(Alignment.Start)
                             .fillMaxWidth(),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
-                            text = "공유하고 싶은 꿀팁을 눌러 활성화하세요.",
+                            text = "*공유하고 싶은 꿀팁을 눌러 활성화하세요.",
                             color = Red500,
                             fontSize = 10.sp,
                             fontWeight = FontWeight.SemiBold,
                             fontFamily = pretendardFamily
                         )
                         Spacer(modifier = Modifier.height(17.dp))
-                        Row(modifier = Modifier.align(Alignment.Start)) {
-                            Surface(
-                                shape = RoundedCornerShape(30.dp),
-                                color = White700
-                            ) {
-                                Text(
-                                    text = "누구와 함께해요!",
-                                    modifier = Modifier.padding(
-                                        horizontal = 10.dp,
-                                        vertical = 7.dp
-                                    ),
-                                    color = Color.White,
-                                    fontSize = 12.sp,
-                                    fontWeight = FontWeight.Bold,
-                                    fontFamily = pretendardFamily
-                                )
-                            }
-                            FlatTextField(
-                                valueState = friend,
-                                enabled = true,
-                                isSingleLine = true,
-                                placeholder = "ex) 동네 놀러온 찐친"
-                            )
-                        }
+                        ShareTip(
+                            togetherWith,
+                            "누구와 함께해요!",
+                            "ex) 같이 간 사람/가고 싶은 사람",
+                            Modifier.align(Alignment.Start),
+                            16.5.dp
+                        )
+                        ShareTip(
+                            dayTip,
+                            "이런 날 방문해요!",
+                            "ex) 생일/기념일/기분 꿀꿀한 날.",
+                            Modifier.align(Alignment.Start),
+                            15.5.dp
+                        )
+                        ShareTip(
+                            movingTip,
+                            "이동 꿀팁",
+                            "ex) 3번 출구 바로 앞 골목이 지름길!",
+                            Modifier.align(Alignment.Start)
+                        )
+                        ShareTip(
+                            orderingTip,
+                            "주문 꿀팁",
+                            "ex) 시그니처 라떼는 필수입니다.",
+                            Modifier.align(Alignment.Start)
+                        )
+                        ShareTip(
+                            otherTip,
+                            "기타 꿀팁",
+                            "ex) 화장실 문고리 잘 흔들려요!",
+                            Modifier.align(Alignment.Start)
+                        )
                     }
                 }
-                Spacer(modifier = Modifier.height(14.dp))
+                Spacer(modifier = Modifier.height(7.dp))
+                Divider(modifier = Modifier.height(0.5.dp).shadow(2.dp), color = Color.White)
+                Spacer(modifier = Modifier.height(13.dp))
                 Surface(
                     shape = RoundedCornerShape(30.dp),
-                    color = White700
+                    color = if (expandSatisfaction.value) Black400 else White700
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
@@ -412,94 +458,90 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                 if (expandSatisfaction.value) {
                     Row(
                         modifier = Modifier
-                            .padding(top = 24.dp)
+                            .padding(start = 20.dp, top = 24.dp, end = 20.dp)
                             .fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            Image(
-                                painter = painterResource(id = R.drawable.ic_feel_worst),
-                                contentDescription = null
-                            )
-                            Text(
-                                text = "화나요.",
-                                color = Grey250,
-                                fontSize = 11.sp,
-                                fontWeight = FontWeight.Normal,
-                                fontFamily = pretendardFamily
-                            )
+                        for (index in satisfactionList.indices) {
+                            val color = if (satisfactionList[index].isSelected) {
+                                Red500
+                            } else {
+                                Grey400
+                            }
+
+                            Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                Image(
+                                    painter = painterResource(id = satisfactionList[index].image),
+                                    contentDescription = null,
+                                    colorFilter = ColorFilter.tint(color),
+                                    modifier = Modifier.clickable {
+                                        satisfactionList = satisfactionList.mapIndexed { j, satisfactionItem ->
+                                            if (index == j) {
+                                                satisfaction.value = j + 1
+                                                satisfactionItem.copy(isSelected = !satisfactionItem.isSelected)
+                                            } else satisfactionItem.copy(isSelected = false)
+                                        }
+                                    }
+                                )
+                                Text(
+                                    text = satisfactionList[index].text,
+                                    color = if (satisfactionList[index].isSelected) {
+                                        Red500
+                                    } else {
+                                        Grey400
+                                    },
+                                    fontSize = 11.sp,
+                                    fontWeight = FontWeight.Normal,
+                                    fontFamily = pretendardFamily
+                                )
+                            }
                         }
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            Image(
-                                painter = painterResource(id = R.drawable.ic_feel_bad_46),
-                                contentDescription = null
-                            )
-                            Text(
-                                text = "별로에요.",
-                                color = Grey250,
-                                fontSize = 11.sp,
-                                fontWeight = FontWeight.Normal,
-                                fontFamily = pretendardFamily
-                            )
-                        }
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            Image(
-                                painter = painterResource(id = R.drawable.ic_feel_soso_46),
-                                contentDescription = null
-                            )
-                            Text(
-                                text = "그러적럭?",
-                                color = Grey250,
-                                fontSize = 11.sp,
-                                fontWeight = FontWeight.Normal,
-                                fontFamily = pretendardFamily
-                            )
-                        }
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            Image(
-                                painter = painterResource(id = R.drawable.ic_feel_good_46),
-                                contentDescription = null
-                            )
-                            Text(
-                                text = "좋았어요!",
-                                color = Grey250,
-                                fontSize = 11.sp,
-                                fontWeight = FontWeight.Normal,
-                                fontFamily = pretendardFamily
-                            )
-                        }
-                        Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                            Image(
-                                painter = painterResource(id = R.drawable.ic_feel_awesome_46),
-                                contentDescription = null
-                            )
-                            Text(
-                                text = "재방문100%",
-                                color = Grey250,
-                                fontSize = 11.sp,
-                                fontWeight = FontWeight.Normal,
-                                fontFamily = pretendardFamily
-                            )
-                        }
-                        Spacer(modifier = Modifier.height(50.dp))
                     }
                 }
-
-                Spacer(modifier = Modifier.height(14.dp))
             }
-            Spacer(modifier = Modifier.height(12.dp))
+            Spacer(modifier = Modifier.height(46.dp))
+        }
+    }
+}
+
+@Composable
+private fun ShareTip(
+    shareTip: MutableState<String>,
+    text: String,
+    placeHolder: String,
+    modifier: Modifier = Modifier,
+    dp: Dp = 34.dp
+) {
+    Row(
+        modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Surface(
+            shape = RoundedCornerShape(30.dp),
+            color = White700
+        ) {
             Text(
-                text = "# 태그하기",
-                modifier = Modifier
-                    .align(Alignment.Start)
-                    .padding(start = 20.dp, bottom = 69.dp),
-                color = Grey100,
+                text = text,
+                modifier = Modifier.padding(
+                    horizontal = dp,
+                    vertical = 7.dp
+                ),
+                color = Color.White,
                 fontSize = 12.sp,
-                fontWeight = FontWeight.SemiBold,
+                fontWeight = FontWeight.Bold,
                 fontFamily = pretendardFamily
             )
         }
+        Spacer(modifier = Modifier.width(7.dp))
+        PostFlatTextField(
+            valueState = shareTip,
+            modifier = Modifier.padding(end = 20.dp),
+            enabled = true,
+            isSingleLine = true,
+            placeholder = placeHolder
+        )
     }
+    Spacer(modifier = Modifier.height(7.dp))
 }
 
 @Composable
@@ -699,4 +741,24 @@ private fun AddressTextField(
             }
         }
     )
+}
+
+@Composable
+fun WriteCancel(
+    showDialog: MutableState<Boolean>,
+    navController: NavController,
+    postViewModel: PostViewModel
+) {
+    Dialog(onDismissRequest = { }) {
+        Surface(
+            shape = RoundedCornerShape(10.dp),
+            color = Color.White
+        ) {
+            CancelWriteDialog(showDialog = showDialog) {
+                navController.popBackStack()
+                postViewModel.deleteSelectStore()
+                postViewModel.deleteSelectStoreNum()
+            }
+        }
+    }
 }
