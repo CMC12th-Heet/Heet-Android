@@ -1,5 +1,7 @@
 package org.heet.presentation.declaration
 
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -22,6 +24,7 @@ import org.heet.ui.theme.Black50
 import org.heet.ui.theme.Grey400
 import org.heet.ui.theme.Red500
 import org.heet.ui.theme.White550
+import org.heet.util.EmailManager
 import org.heet.util.pretendardFamily
 
 @Composable
@@ -29,6 +32,12 @@ fun DeclarationScreen(navController: NavController) {
     var declarationList by remember { mutableStateOf(LocalDeclarationDataSource().loadDeclarations()) }
     val isCheck = remember {
         mutableStateOf(true)
+    }
+    var report by remember { mutableStateOf("") }
+    val repostLauncher = rememberLauncherForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        navController.navigate(HomeTownScreen.DeclarationFinish.route)
     }
 
     Box(
@@ -46,7 +55,9 @@ fun DeclarationScreen(navController: NavController) {
                 Back { navController.popBackStack() }
                 Title("신고하기")
                 if (isCheck.value) {
-                    Next { navController.navigate(HomeTownScreen.DeclarationFinish.route) }
+                    Next {
+                        EmailManager.sendEmailToAdmin(repostLauncher, report)
+                    }
                 } else {
                     EmptyText()
                 }
@@ -80,6 +91,7 @@ fun DeclarationScreen(navController: NavController) {
                             modifier = Modifier.clickable {
                                 declarationList = declarationList.mapIndexed { j, declaration ->
                                     if (index == j) {
+                                        report = declaration.content
                                         declaration.copy(isSelected = !declaration.isSelected)
                                     } else declaration.copy(isSelected = false)
                                 }
