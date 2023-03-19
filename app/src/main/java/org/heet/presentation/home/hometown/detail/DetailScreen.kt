@@ -294,16 +294,6 @@ fun DetailScreen(
                     Spacer(modifier = Modifier.height(14.dp))
                 }
                 Spacer(modifier = Modifier.height(12.dp))
-                Text(
-                    text = "#",
-                    modifier = Modifier
-                        .align(Alignment.Start)
-                        .padding(start = 20.dp, bottom = 69.dp),
-                    color = Grey100,
-                    fontSize = 12.sp,
-                    fontWeight = FontWeight.SemiBold,
-                    fontFamily = pretendardFamily
-                )
             }
             Box(contentAlignment = Alignment.BottomCenter) {
                 Column {
