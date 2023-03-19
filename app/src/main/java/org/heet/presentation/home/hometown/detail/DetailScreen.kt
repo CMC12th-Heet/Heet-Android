@@ -39,10 +39,14 @@ fun DetailScreen(
     val expandSatisfaction = remember { mutableStateOf(false) }
     val expandShare = remember { mutableStateOf(false) }
     val detailPost = detailViewModel.detail.collectAsState().value
+    val deleteSuccess by detailViewModel.deleteSuccess.collectAsState()
     var isDropDownMenuExpanded by remember { mutableStateOf(false) }
 
-    LaunchedEffect(true) {
+    LaunchedEffect(key1 = true, key2 = deleteSuccess) {
         detailViewModel.getDetailPost(post_id)
+        if (deleteSuccess) {
+            navController.popBackStack()
+        }
     }
 
     if (detailPost != null) {
@@ -102,7 +106,11 @@ fun DetailScreen(
                                             fontWeight = FontWeight.Normal,
                                             fontFamily = pretendardFamily,
                                             textAlign = TextAlign.Center,
-                                            modifier = Modifier.fillMaxWidth()
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .clickable {
+                                                    detailViewModel.deletePost(post_id)
+                                                }
                                         )
                                     }
                                 } else {
@@ -130,7 +138,9 @@ fun DetailScreen(
                 Surface(
                     shape = RoundedCornerShape(30.dp),
                     color = Red500,
-                    modifier = Modifier.align(Alignment.Start).padding(start = 20.dp)
+                    modifier = Modifier
+                        .align(Alignment.Start)
+                        .padding(start = 20.dp)
                 ) {
                     Row(modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)) {
                         Image(
@@ -158,7 +168,9 @@ fun DetailScreen(
                                 painter = rememberAsyncImagePainter(model = detailPost.urlList[0]),
                                 contentDescription = "image",
                                 contentScale = ContentScale.FillHeight,
-                                modifier = Modifier.fillMaxWidth().height(height = 225.dp)
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(height = 225.dp)
                             )
 
                             Surface(
@@ -295,9 +307,15 @@ fun DetailScreen(
             }
             Box(contentAlignment = Alignment.BottomCenter) {
                 Column {
-                    Divider(modifier = Modifier.height(0.5.dp).shadow(2.dp))
+                    Divider(
+                        modifier = Modifier
+                            .height(0.5.dp)
+                            .shadow(2.dp)
+                    )
                     Row(
-                        modifier = Modifier.padding(horizontal = 20.dp).fillMaxWidth(),
+                        modifier = Modifier
+                            .padding(horizontal = 20.dp)
+                            .fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         Row {
