@@ -34,6 +34,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import gun0912.tedimagepicker.builder.TedImagePicker
@@ -60,6 +61,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
     val context = LocalContext.current
     var imageUri by remember { mutableStateOf<List<Uri>?>(null) }
     val bitmap = remember { mutableListOf<Bitmap>() }
+    val showDialog = remember { mutableStateOf(false) }
 
     val friend = remember { mutableStateOf("") }
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -71,6 +73,10 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
     val storeUrl = remember { mutableStateOf("") }
     val storeAddress = remember { mutableStateOf("") }
     val selectStore = postViewModel.storeName.collectAsState()
+
+    if (showDialog.value) {
+        WriteCancel(showDialog = showDialog, navController = navController, postViewModel = postViewModel)
+    }
 
     LaunchedEffect(key1 = true) {
         TedImagePicker.with(context)
@@ -167,9 +173,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                     painter = painterResource(id = R.drawable.ic_cancel_black_30),
                     contentDescription = "cancel",
                     modifier = Modifier.clickable {
-                        navController.popBackStack()
-                        postViewModel.deleteSelectStore()
-                        postViewModel.deleteSelectStoreNum()
+                        showDialog.value = true
                     }
                 )
                 Title(text = "우리동네 기록")
@@ -699,4 +703,20 @@ private fun AddressTextField(
             }
         }
     )
+}
+
+@Composable
+fun WriteCancel(showDialog: MutableState<Boolean>, navController: NavController, postViewModel: PostViewModel) {
+    Dialog(onDismissRequest = { }) {
+        Surface(
+            shape = RoundedCornerShape(10.dp),
+            color = Color.White
+        ) {
+            CancelWriteDialog(showDialog = showDialog) {
+                navController.popBackStack()
+                postViewModel.deleteSelectStore()
+                postViewModel.deleteSelectStoreNum()
+            }
+        }
+    }
 }
