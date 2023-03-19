@@ -17,8 +17,8 @@ data class ResponsePost(
     val moving_tip: String?,
     val ordering_tip: String?,
     val other_tips: String?,
-    val post_id: Int,
-    val created_at: String
+    val post_id: Int?,
+    val created_at: String?
 ) {
     @Serializable
     data class Store(

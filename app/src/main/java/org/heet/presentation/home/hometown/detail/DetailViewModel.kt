@@ -19,12 +19,27 @@ class DetailViewModel @Inject constructor(
     private val _detail = MutableStateFlow<ResponseGetDetailPost?>(null)
     val detail = _detail.asStateFlow()
 
+    private val _deleteSuccess = MutableStateFlow(false)
+    val deleteSuccess = _deleteSuccess.asStateFlow()
+
     fun getDetailPost(id: String) {
         viewModelScope.launch {
             runCatching {
                 postRepository.getDetailPost(id)
             }.onSuccess {
                 _detail.value = it
+            }.onFailure {
+                Timber.d(it.message)
+            }
+        }
+    }
+
+    fun deletePost(postId: String) {
+        viewModelScope.launch {
+            runCatching {
+                postRepository.deletePost(postId)
+            }.onSuccess {
+                _deleteSuccess.value = true
             }.onFailure {
                 Timber.d(it.message)
             }
