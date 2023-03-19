@@ -26,6 +26,8 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.heet.R
+import org.heet.ui.theme.Grey1100
+import org.heet.ui.theme.Grey1200
 import org.heet.ui.theme.Grey200
 import org.heet.ui.theme.White700
 import org.heet.util.pretendardFamily
@@ -89,6 +91,51 @@ fun FlatTextField(
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Normal,
                         color = White700
+                    )
+                }
+                innerTextField()
+            }
+        }
+    )
+}
+
+@Composable
+fun PostFlatTextField(
+    modifier: Modifier = Modifier,
+    valueState: MutableState<String>,
+    placeholder: String = "",
+    enabled: Boolean,
+    isSingleLine: Boolean,
+    keyboardType: KeyboardType = KeyboardType.Text,
+    imeAction: ImeAction = ImeAction.Done,
+    onAction: KeyboardActions = KeyboardActions.Default,
+    isPassword: Boolean = false,
+    onValueChange: (String) -> Unit = { valueState.value = it }
+) {
+    BasicTextField(
+        value = valueState.value,
+        onValueChange = onValueChange,
+        modifier = modifier,
+        enabled = enabled,
+        textStyle = TextStyle.Default.copy(
+            color = Grey1200,
+            fontSize = 11.sp,
+            fontWeight = FontWeight.SemiBold,
+            fontFamily = pretendardFamily
+        ),
+        keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
+        keyboardActions = onAction,
+        singleLine = isSingleLine,
+        visualTransformation = if (isPassword) PasswordVisualTransformation() else VisualTransformation.None,
+        decorationBox = { innerTextField ->
+            Box {
+                if (valueState.value.isEmpty()) {
+                    Text(
+                        text = placeholder,
+                        fontFamily = pretendardFamily,
+                        fontSize = 11.sp,
+                        fontWeight = FontWeight.Normal,
+                        color = Grey1100
                     )
                 }
                 innerTextField()
