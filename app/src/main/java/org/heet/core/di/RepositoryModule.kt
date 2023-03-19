@@ -77,4 +77,10 @@ interface RepositoryModule {
     fun bindAddressRepository(
         addressRepositoryImpl: AddressRepositoryImpl
     ): AddressRepository
+
+    @Binds
+    @Singleton
+    fun bindFollowRepository(
+        followRepositoryImpl: FollowRepositoryImpl
+    ): FollowRepository
 }
