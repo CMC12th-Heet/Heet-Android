@@ -34,9 +34,6 @@ class PostViewModel @Inject constructor(
     private val _store = MutableStateFlow(emptyList<ResponseGetStore>())
     val store = _store.asStateFlow()
 
-    private val _updateSuccess = MutableStateFlow(false)
-    val updateSuccess = _updateSuccess.asStateFlow()
-
     private val _storeName = MutableStateFlow("")
     val storeName = _storeName.asStateFlow()
 
@@ -61,7 +58,6 @@ class PostViewModel @Inject constructor(
                 Timber.d(requestPostStore.name)
                 _storeName.value = requestPostStore.name
                 updateSelectStore(requestPostStore.name)
-                _updateSuccess.value = true
             }.onFailure {
                 Timber.d(it.message)
             }
@@ -106,13 +102,25 @@ class PostViewModel @Inject constructor(
         title: String,
         mini_title: String,
         content: String,
-        storeId: Int
+        storeId: Int,
+        satisfaction: Int?,
+        togetherWith: String?,
+        dayTip: String?,
+        movingTip: String?,
+        orderingTip: String?,
+        otherTip: String?
     ) {
         val imageListMultipartBody = mutableListOf<MultipartBody.Part>()
         val titleRequestBody = title.toPlainRequestBody()
         val miniTitleRequestBody = mini_title.toPlainRequestBody()
         val contentRequestBody = content.toPlainRequestBody()
         val storeIdRequestBody = storeId.toString().toPlainRequestBody()
+        val satisfactionRequestBody = satisfaction.toString().toPlainRequestBody()
+        val togetherWithRequestBody = togetherWith.toString().toPlainRequestBody()
+        val dayTipRequestBody = dayTip.toString().toPlainRequestBody()
+        val movingTipRequestBody = movingTip.toString().toPlainRequestBody()
+        val orderingTipRequestBody = orderingTip.toString().toPlainRequestBody()
+        val otherTipRequestBody = otherTip.toString().toPlainRequestBody()
 
         for (element in image) {
             val imageMultipartBody: MultipartBody.Part =
@@ -128,12 +136,12 @@ class PostViewModel @Inject constructor(
                     miniTitleRequestBody,
                     contentRequestBody,
                     storeIdRequestBody,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
+                    satisfactionRequestBody,
+                    togetherWithRequestBody,
+                    dayTipRequestBody,
+                    movingTipRequestBody,
+                    orderingTipRequestBody,
+                    otherTipRequestBody
                 )
             }.onSuccess {
                 deleteSelectStore()
