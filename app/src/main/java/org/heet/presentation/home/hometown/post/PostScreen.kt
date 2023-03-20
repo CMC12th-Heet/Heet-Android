@@ -102,6 +102,8 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
 
     LaunchedEffect(key1 = true) {
         TedImagePicker.with(context)
+            .title("사진을 골라주세요.")
+            .cancelListener { navController.popBackStack() }
             .mediaType(MediaType.IMAGE)
             .buttonText("완료")
             .min(1, "1개는 필수입니다.")
@@ -475,12 +477,13 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                                     contentDescription = null,
                                     colorFilter = ColorFilter.tint(color),
                                     modifier = Modifier.clickable {
-                                        satisfactionList = satisfactionList.mapIndexed { j, satisfactionItem ->
-                                            if (index == j) {
-                                                satisfaction.value = j + 1
-                                                satisfactionItem.copy(isSelected = !satisfactionItem.isSelected)
-                                            } else satisfactionItem.copy(isSelected = false)
-                                        }
+                                        satisfactionList =
+                                            satisfactionList.mapIndexed { j, satisfactionItem ->
+                                                if (index == j) {
+                                                    satisfaction.value = j + 1
+                                                    satisfactionItem.copy(isSelected = !satisfactionItem.isSelected)
+                                                } else satisfactionItem.copy(isSelected = false)
+                                            }
                                     }
                                 )
                                 Text(
