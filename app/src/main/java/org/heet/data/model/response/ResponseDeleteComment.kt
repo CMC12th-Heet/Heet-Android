@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ResponseDeleteComment(
-    val empty: String
+    val message: String
 )
