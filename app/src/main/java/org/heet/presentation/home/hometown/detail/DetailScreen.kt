@@ -1,17 +1,16 @@
 package org.heet.presentation.home.hometown.detail
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -24,8 +23,10 @@ import coil.compose.rememberAsyncImagePainter
 import org.heet.R
 import org.heet.components.Back
 import org.heet.components.DotDivider
+import org.heet.components.ShareTip
 import org.heet.components.Title
 import org.heet.core.navigation.navscreen.HomeTownScreen
+import org.heet.data.datasource.LoadSatisfactionDataSource
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
 
@@ -41,6 +42,7 @@ fun DetailScreen(
     val detailPost = detailViewModel.detail.collectAsState().value
     val deleteSuccess by detailViewModel.deleteSuccess.collectAsState()
     var isDropDownMenuExpanded by remember { mutableStateOf(false) }
+    val satisfactionList = LoadSatisfactionDataSource().loadSatisfactionItems()
 
     LaunchedEffect(key1 = true, key2 = deleteSuccess) {
         detailViewModel.getDetailPost(post_id)
@@ -158,36 +160,39 @@ fun DetailScreen(
                     }
                 }
                 Spacer(modifier = Modifier.height(17.5.dp))
-
                 Column(
                     modifier = Modifier.padding(horizontal = 20.dp)
                 ) {
-                    Surface(shape = RoundedCornerShape(5.dp)) {
-                        Box {
-                            Image(
-                                painter = rememberAsyncImagePainter(model = detailPost.urlList[0]),
-                                contentDescription = "image",
-                                contentScale = ContentScale.FillHeight,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .height(height = 225.dp)
-                            )
+                    LazyRow {
+                        items(detailPost.urlList.size) {
+                            Surface(shape = RoundedCornerShape(5.dp)) {
+                                Box {
+                                    Image(
+                                        painter = rememberAsyncImagePainter(model = detailPost.urlList[it]),
+                                        contentDescription = "image",
+                                        contentScale = ContentScale.Crop,
+                                        modifier = Modifier
+                                            .width(380.dp)
+                                            .height(256.dp)
+                                    )
 
-                            Surface(
-                                shape = RoundedCornerShape(20.dp),
-                                color = Color.White,
-                                modifier = Modifier
-                                    .padding(end = 12.dp, bottom = 11.dp)
-                                    .align(Alignment.BottomEnd)
-                            ) {
-                                Text(
-                                    text = "1/${detailPost.urlList.size}",
-                                    modifier = Modifier.padding(horizontal = 13.dp),
-                                    color = Black400,
-                                    fontSize = 10.sp,
-                                    fontWeight = FontWeight.ExtraBold,
-                                    fontFamily = pretendardFamily
-                                )
+                                    Surface(
+                                        shape = RoundedCornerShape(20.dp),
+                                        color = Color.White,
+                                        modifier = Modifier
+                                            .padding(end = 12.dp, bottom = 11.dp)
+                                            .align(Alignment.BottomEnd)
+                                    ) {
+                                        Text(
+                                            text = "${it + 1}/${detailPost.urlList.size}",
+                                            modifier = Modifier.padding(horizontal = 13.dp),
+                                            color = Black400,
+                                            fontSize = 10.sp,
+                                            fontWeight = FontWeight.ExtraBold,
+                                            fontFamily = pretendardFamily
+                                        )
+                                    }
+                                }
                             }
                         }
                     }
@@ -234,7 +239,7 @@ fun DetailScreen(
                             Text(
                                 text = "꿀팁 정보들",
                                 modifier = Modifier.padding(
-                                    start = 20.dp,
+                                    start = 37.5.dp,
                                     top = 7.dp,
                                     bottom = 7.dp
                                 ),
@@ -243,7 +248,7 @@ fun DetailScreen(
                                 fontWeight = FontWeight.Bold,
                                 fontFamily = pretendardFamily
                             )
-                            Spacer(modifier = Modifier.width(1.dp))
+                            Spacer(modifier = Modifier.width(25.dp))
                             Image(
                                 painter = if (expandShare.value) {
                                     painterResource(id = R.drawable.ic_white_down_16)
@@ -255,9 +260,52 @@ fun DetailScreen(
                                     expandShare.value = !expandShare.value
                                 }
                             )
-                            Spacer(modifier = Modifier.width(10.dp))
+                            Spacer(modifier = Modifier.width(13.5.dp))
                         }
                     }
+                    if (expandShare.value) {
+                        Column(
+                            modifier = Modifier
+                                .align(Alignment.Start)
+                                .fillMaxWidth(),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Spacer(modifier = Modifier.height(9.dp))
+                            ShareTip(
+                                "누구와 함께해요!",
+                                detailPost.together_with ?: "",
+                                Modifier.align(Alignment.Start),
+                                16.5.dp,
+                                false
+                            )
+                            ShareTip(
+                                "이런 날 방문해요!",
+                                detailPost.together_with ?: "",
+                                Modifier.align(Alignment.Start),
+                                15.5.dp,
+                                false
+                            )
+                            ShareTip(
+                                "이동 꿀팁",
+                                detailPost.together_with ?: "",
+                                Modifier.align(Alignment.Start),
+                                enabled = false
+                            )
+                            ShareTip(
+                                "주문 꿀팁",
+                                detailPost.together_with ?: "",
+                                Modifier.align(Alignment.Start),
+                                enabled = false
+                            )
+                            ShareTip(
+                                "기타 꿀팁",
+                                detailPost.together_with ?: "",
+                                Modifier.align(Alignment.Start),
+                                enabled = false
+                            )
+                        }
+                    }
+
                     Spacer(modifier = Modifier.height(14.dp))
                     Surface(
                         shape = RoundedCornerShape(30.dp),
@@ -267,7 +315,7 @@ fun DetailScreen(
                             Text(
                                 text = "만족도 체크",
                                 modifier = Modifier.padding(
-                                    start = 35.dp,
+                                    start = 37.5.dp,
                                     top = 7.dp,
                                     bottom = 7.dp
                                 ),
@@ -276,7 +324,7 @@ fun DetailScreen(
                                 fontWeight = FontWeight.Bold,
                                 fontFamily = pretendardFamily
                             )
-                            Spacer(modifier = Modifier.width(10.dp))
+                            Spacer(modifier = Modifier.width(25.dp))
                             Image(
                                 painter = if (expandSatisfaction.value) {
                                     painterResource(id = R.drawable.ic_white_down_16)
@@ -288,15 +336,47 @@ fun DetailScreen(
                                     expandSatisfaction.value = !expandSatisfaction.value
                                 }
                             )
-                            Spacer(modifier = Modifier.width(10.dp))
+                            Spacer(modifier = Modifier.width(13.5.dp))
                         }
                     }
+                    if (expandSatisfaction.value) {
+                        Row(
+                            modifier = Modifier
+                                .padding(top = 24.dp)
+                                .fillMaxWidth(),
+                            horizontalArrangement = Arrangement.SpaceBetween
+                        ) {
+                            for (index in satisfactionList.indices) {
+                                val satisfaction = detailPost.satisfaction
+
+                                val color = if (index + 1 == satisfaction) Red500 else Grey400
+
+                                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+                                    Image(
+                                        painter = painterResource(id = satisfactionList[index].image),
+                                        contentDescription = null,
+                                        colorFilter = ColorFilter.tint(color)
+                                    )
+                                    Text(
+                                        text = satisfactionList[index].text,
+                                        color = color,
+                                        fontSize = 11.sp,
+                                        fontWeight = FontWeight.Normal,
+                                        fontFamily = pretendardFamily
+                                    )
+                                }
+                            }
+                        }
+                    }
+
                     Spacer(modifier = Modifier.height(14.dp))
                 }
-                Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(48.dp))
             }
             Box(contentAlignment = Alignment.BottomCenter) {
-                Column {
+                Column(
+                    modifier = Modifier.background(Color.White)
+                ) {
                     Divider(
                         modifier = Modifier
                             .height(0.5.dp)
