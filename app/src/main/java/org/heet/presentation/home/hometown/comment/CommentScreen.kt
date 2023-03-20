@@ -1,7 +1,6 @@
 package org.heet.presentation.home.hometown.comment
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -16,8 +15,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.platform.SoftwareKeyboardController
+import androidx.compose.ui.platform.*
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -31,6 +29,7 @@ import org.heet.R
 import org.heet.components.*
 import org.heet.data.model.request.RequestPostComment
 import org.heet.ui.theme.*
+import org.heet.util.ResolutionMetrics
 import org.heet.util.pretendardFamily
 
 @OptIn(ExperimentalComposeUiApi::class)
@@ -45,6 +44,9 @@ fun CommentScreen(
         mutableStateOf("")
     }
     val commentList by commentViewModel.commentList.collectAsState()
+    val myId by commentViewModel.myId.collectAsState()
+
+    commentViewModel.getMyPage()
 
     LaunchedEffect(commentList) {
         commentViewModel.getComment(post_id)
@@ -53,11 +55,9 @@ fun CommentScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 18.dp)
     ) {
         Column(
             modifier = Modifier
-                .padding(horizontal = 20.dp)
         ) {
             Row(
                 modifier = Modifier
@@ -73,8 +73,16 @@ fun CommentScreen(
             DotDivider()
             LazyColumn(modifier = Modifier.padding(top = 23.dp, bottom = 47.dp)) {
                 items(commentList) {
-                    CommentList(it.user.username, it.content)
-                    Spacer(modifier = Modifier.height(12.dp))
+                    CommentList(
+                        it.user.username,
+                        it.content,
+                        commentViewModel.resolutionMetrics,
+                        commentViewModel,
+                        it.user.user_id,
+                        myId,
+                        it.comment_id,
+                        post_id
+                    )
                 }
             }
         }
@@ -98,8 +106,9 @@ private fun CommentField(
     keyboardController: SoftwareKeyboardController?
 ) {
     Row(
-        modifier = Modifier.padding(start = 19.dp, end = 11.dp),
-        verticalAlignment = Alignment.CenterVertically
+        modifier = Modifier.padding(start = 19.dp, end = 20.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Image(
             painter = painterResource(id = R.drawable.ic_profile_grey_30),
@@ -109,9 +118,23 @@ private fun CommentField(
         Spacer(modifier = Modifier.width(11.dp))
         CommentTextField(
             comment = comment,
+            keyboardController = keyboardController,
+            modifier = Modifier.weight(1f),
             commentViewModel = commentViewModel,
-            post_id = post_id,
-            keyboardController = keyboardController
+            post_id = post_id
+        )
+        Spacer(modifier = Modifier.width(3.dp))
+        Image(
+            painter = painterResource(id = R.drawable.ic_red_up_arrow),
+            contentDescription = null,
+            modifier = Modifier.clickable {
+                commentViewModel.postComment(
+                    postId = post_id,
+                    requestPostComment = RequestPostComment(comment.value)
+                )
+                comment.value = ""
+                keyboardController?.hide()
+            }
         )
     }
 }
@@ -120,16 +143,17 @@ private fun CommentField(
 @Composable
 private fun CommentTextField(
     comment: MutableState<String>,
+    keyboardController: SoftwareKeyboardController?,
+    modifier: Modifier,
     commentViewModel: CommentViewModel,
-    post_id: String,
-    keyboardController: SoftwareKeyboardController?
+    post_id: String
 ) {
     BasicTextField(
         value = comment.value,
         onValueChange = {
             comment.value = it
         },
-        modifier = Modifier.padding(vertical = 7.dp),
+        modifier = modifier.padding(vertical = 7.dp),
         enabled = true,
         textStyle = TextStyle.Default.copy(
             color = Grey500,
@@ -174,27 +198,57 @@ private fun CommentTextField(
 }
 
 @Composable
-private fun CommentList(username: String, content: String) {
-    Row {
-        Image(
-            painter = painterResource(id = R.drawable.ic_profile_grey_30),
-            contentDescription = "profile"
-        )
-        Column(modifier = Modifier.padding(start = 7.dp)) {
-            Text(
-                text = username,
-                fontSize = 10.sp,
-                color = White900,
-                fontWeight = FontWeight.Normal,
-                fontFamily = pretendardFamily
-            )
-            Text(
-                text = content,
-                fontSize = 13.sp,
-                color = Grey450,
-                fontWeight = FontWeight.Normal,
-                fontFamily = pretendardFamily
-            )
+private fun CommentList(
+    username: String,
+    content: String,
+    resolutionMetrics: ResolutionMetrics,
+    commentViewModel: CommentViewModel,
+    userId: Int,
+    myId: Int,
+    commentId: Int,
+    postId: String
+) {
+    Box(
+        modifier = Modifier
+            .padding(bottom = 12.dp)
+            .horizontalScroll(rememberScrollState(), reverseScrolling = true)
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            if (userId == myId) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_trash_can),
+                    contentDescription = "delete_comment",
+                    modifier = Modifier.clickable {
+                        commentViewModel.deleteComment(commentId.toString(), postId)
+                    }
+                )
+            }
+            Row(
+                modifier = Modifier.width(resolutionMetrics.toDP(resolutionMetrics.screenWidth).dp)
+                    .padding(horizontal = 20.dp)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.ic_profile_grey_30),
+                    contentDescription = "profile"
+                )
+                Spacer(modifier = Modifier.width(7.dp))
+                Column {
+                    Text(
+                        text = username,
+                        fontSize = 10.sp,
+                        color = White900,
+                        fontWeight = FontWeight.Normal,
+                        fontFamily = pretendardFamily
+                    )
+                    Text(
+                        text = content,
+                        fontSize = 13.sp,
+                        color = Grey450,
+                        fontWeight = FontWeight.Normal,
+                        fontFamily = pretendardFamily
+                    )
+                }
+            }
         }
     }
 }
