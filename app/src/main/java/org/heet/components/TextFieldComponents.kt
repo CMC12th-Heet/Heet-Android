@@ -1,11 +1,13 @@
 package org.heet.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -15,6 +17,7 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
@@ -23,13 +26,11 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import org.heet.R
-import org.heet.ui.theme.Grey1100
-import org.heet.ui.theme.Grey1200
-import org.heet.ui.theme.Grey200
-import org.heet.ui.theme.White700
+import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
 
 @Composable
@@ -249,4 +250,154 @@ fun SecondPwdField(
                 .clickable { isHide.value = !isHide.value }
         )
     }
+}
+
+@Composable
+fun RegularFlatInputField(
+    modifier: Modifier = Modifier,
+    valueState: MutableState<String>,
+    placeholder: String = "",
+    enabled: Boolean,
+    isSingleLine: Boolean,
+    keyboardType: KeyboardType = KeyboardType.Text,
+    imeAction: ImeAction = ImeAction.Done,
+    onAction: KeyboardActions = KeyboardActions.Default,
+    isPassword: Boolean = false,
+    onValueChange: (String) -> Unit = {
+        valueState.value = it
+    }
+) {
+    BasicTextField(
+        modifier = modifier,
+        value = valueState.value,
+        onValueChange = onValueChange,
+        visualTransformation = if (isPassword) PasswordVisualTransformation()
+        else VisualTransformation.None,
+        textStyle = TextStyle.Default.copy(
+            color = White250,
+            fontSize = 15.sp,
+            fontWeight = FontWeight.Normal
+        ),
+        decorationBox = { innerTextField ->
+            Box {
+                if (valueState.value.isEmpty()) {
+                    Text(
+                        text = placeholder,
+                        fontFamily = pretendardFamily,
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Normal,
+                        color = White700
+                    )
+                }
+                innerTextField()
+            }
+        },
+        singleLine = isSingleLine,
+        enabled = enabled,
+        keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
+        keyboardActions = onAction
+    )
+}
+
+@Composable
+fun NormalInputField(
+    modifier: Modifier = Modifier,
+    valueState: MutableState<String>,
+    placeholder: String,
+    enabled: Boolean,
+    isSingleLine: Boolean,
+    fontSize: TextUnit = 17.sp,
+    fontWeight: FontWeight = FontWeight.SemiBold,
+    keyboardType: KeyboardType = KeyboardType.Text,
+    imeAction: ImeAction = ImeAction.Next,
+    onAction: KeyboardActions = KeyboardActions.Default
+) {
+    BasicTextField(
+        value = valueState.value,
+        onValueChange = {
+            valueState.value = it
+        },
+        modifier = modifier,
+        enabled = enabled,
+        textStyle = TextStyle.Default.copy(
+            color = Grey550,
+            fontSize = fontSize,
+            fontFamily = pretendardFamily,
+            fontWeight = fontWeight
+        ),
+        keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
+        keyboardActions = onAction,
+        singleLine = isSingleLine,
+        decorationBox = { innerTextField ->
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                if (valueState.value.isEmpty()) {
+                    Text(
+                        text = placeholder,
+                        fontFamily = pretendardFamily,
+                        fontSize = fontSize,
+                        fontWeight = fontWeight,
+                        color = White450
+                    )
+                }
+                innerTextField()
+            }
+        }
+    )
+}
+
+@Composable
+fun RoundInputField(
+    modifier: Modifier = Modifier,
+    valueState: MutableState<String>,
+    placeholder: String,
+    enabled: Boolean,
+    isSingleLine: Boolean,
+    color: Color = White700,
+    keyboardType: KeyboardType = KeyboardType.Text,
+    imeAction: ImeAction = ImeAction.Next,
+    onAction: KeyboardActions = KeyboardActions.Default,
+    isPwd: Boolean = false,
+    onStateChange: () -> Unit = {}
+) {
+    BasicTextField(
+        value = valueState.value,
+        onValueChange = {
+            valueState.value = it
+            onStateChange()
+        },
+        visualTransformation = if (isPwd) PasswordVisualTransformation() else VisualTransformation.None,
+        modifier = modifier,
+        enabled = enabled,
+        textStyle = TextStyle.Default.copy(
+            color = color,
+            fontSize = 15.sp,
+            fontFamily = pretendardFamily,
+            fontWeight = FontWeight.Normal
+        ),
+        keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
+        keyboardActions = onAction,
+        singleLine = isSingleLine,
+        decorationBox = { innerTextField ->
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(shape = RoundedCornerShape(23.dp), color = White50)
+                    .padding(horizontal = 20.dp, vertical = 14.dp)
+            ) {
+                if (valueState.value.isEmpty()) {
+                    Text(
+                        text = placeholder,
+                        fontFamily = pretendardFamily,
+                        fontSize = 15.sp,
+                        fontWeight = FontWeight.Normal,
+                        color = White700
+                    )
+                }
+                innerTextField()
+            }
+        }
+    )
 }

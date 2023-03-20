@@ -57,3 +57,19 @@ fun EmptyText() {
         fontWeight = FontWeight.Black
     )
 }
+
+@Composable
+fun Finish(
+    modifier: Modifier = Modifier,
+    move: () -> Unit
+) {
+    Text(
+        text = "완료",
+        modifier = modifier.clickable {
+            move()
+        },
+        color = Red500,
+        fontSize = 17.sp,
+        fontWeight = FontWeight.Black
+    )
+}

@@ -9,6 +9,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -92,6 +93,34 @@ fun RedBigRoundButton28(
             color = textColor,
             fontSize = 17.sp,
             fontWeight = FontWeight.ExtraBold,
+            fontFamily = pretendardFamily
+        )
+    }
+}
+
+@Composable
+fun RequestBtn(isCheck: MutableState<Boolean>, text: String, onClick: () -> Unit) {
+    Button(
+        onClick = { onClick() },
+        modifier = Modifier
+            .height(38.dp),
+        shape = RoundedCornerShape(22.dp),
+        border = BorderStroke(1.dp, Red600),
+        colors = if (isCheck.value) {
+            ButtonDefaults.buttonColors(Red500)
+        } else {
+            ButtonDefaults.buttonColors(Color.White)
+        }
+    ) {
+        Text(
+            text = text,
+            color = if (isCheck.value) {
+                Color.White
+            } else {
+                Red500
+            },
+            fontSize = 17.sp,
+            fontWeight = FontWeight.Normal,
             fontFamily = pretendardFamily
         )
     }
