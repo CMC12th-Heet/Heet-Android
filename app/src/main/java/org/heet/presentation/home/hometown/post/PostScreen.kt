@@ -35,7 +35,6 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -393,36 +392,36 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                         )
                         Spacer(modifier = Modifier.height(17.dp))
                         ShareTip(
-                            togetherWith,
                             "누구와 함께해요!",
                             "ex) 같이 간 사람/가고 싶은 사람",
                             Modifier.align(Alignment.Start),
-                            16.5.dp
+                            16.5.dp,
+                            shareTip = togetherWith
                         )
                         ShareTip(
-                            dayTip,
                             "이런 날 방문해요!",
                             "ex) 생일/기념일/기분 꿀꿀한 날.",
                             Modifier.align(Alignment.Start),
-                            15.5.dp
+                            15.5.dp,
+                            shareTip = dayTip
                         )
                         ShareTip(
-                            movingTip,
                             "이동 꿀팁",
                             "ex) 3번 출구 바로 앞 골목이 지름길!",
-                            Modifier.align(Alignment.Start)
+                            Modifier.align(Alignment.Start),
+                            shareTip = movingTip
                         )
                         ShareTip(
-                            orderingTip,
                             "주문 꿀팁",
                             "ex) 시그니처 라떼는 필수입니다.",
-                            Modifier.align(Alignment.Start)
+                            Modifier.align(Alignment.Start),
+                            shareTip = orderingTip
                         )
                         ShareTip(
-                            otherTip,
                             "기타 꿀팁",
                             "ex) 화장실 문고리 잘 흔들려요!",
-                            Modifier.align(Alignment.Start)
+                            Modifier.align(Alignment.Start),
+                            shareTip = otherTip
                         )
                     }
                 }
@@ -505,46 +504,6 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
             Spacer(modifier = Modifier.height(46.dp))
         }
     }
-}
-
-@Composable
-private fun ShareTip(
-    shareTip: MutableState<String>,
-    text: String,
-    placeHolder: String,
-    modifier: Modifier = Modifier,
-    dp: Dp = 34.dp
-) {
-    Row(
-        modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
-    ) {
-        Surface(
-            shape = RoundedCornerShape(30.dp),
-            color = White700
-        ) {
-            Text(
-                text = text,
-                modifier = Modifier.padding(
-                    horizontal = dp,
-                    vertical = 7.dp
-                ),
-                color = Color.White,
-                fontSize = 12.sp,
-                fontWeight = FontWeight.Bold,
-                fontFamily = pretendardFamily
-            )
-        }
-        Spacer(modifier = Modifier.width(7.dp))
-        PostFlatTextField(
-            valueState = shareTip,
-            modifier = Modifier.padding(end = 20.dp),
-            enabled = true,
-            isSingleLine = true,
-            placeholder = placeHolder
-        )
-    }
-    Spacer(modifier = Modifier.height(7.dp))
 }
 
 @Composable
