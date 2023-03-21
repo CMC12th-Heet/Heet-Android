@@ -38,7 +38,7 @@ fun SettingScreen(navController: NavController) {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Back { navController.popBackStack() }
-                Title(text = "설정")
+                Title(title = "설정")
                 EmptyText()
             }
             LazyColumn(

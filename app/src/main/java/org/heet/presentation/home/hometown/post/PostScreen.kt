@@ -137,7 +137,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                             openAddress.value = false
                         }
                     )
-                    Title(text = "우리동네 기록")
+                    Title(title = "우리동네 기록")
                     if (didSearch.value) {
                         Text(
                             text = "등록",
@@ -198,7 +198,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                         showDialog.value = true
                     }
                 )
-                Title(text = "우리동네 기록")
+                Title(title = "우리동네 기록")
                 Finish {
                     if (title.value.isEmpty() ||
                         subTitle.value.isEmpty() ||

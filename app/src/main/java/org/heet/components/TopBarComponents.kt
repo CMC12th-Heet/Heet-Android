@@ -10,6 +10,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import org.heet.R
+import org.heet.ui.theme.Black1000
 import org.heet.ui.theme.Red500
 import org.heet.util.pretendardFamily
 
@@ -23,10 +24,10 @@ fun Back(modifier: Modifier = Modifier, back: () -> Unit) {
 }
 
 @Composable
-fun Title(text: String) {
+fun Title(title: String) {
     Text(
-        text = text,
-        color = Color.Black,
+        text = title,
+        color = Black1000,
         fontSize = 17.sp,
         fontWeight = FontWeight.Normal,
         fontFamily = pretendardFamily

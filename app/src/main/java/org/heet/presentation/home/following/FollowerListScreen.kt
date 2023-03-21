@@ -35,7 +35,7 @@ fun FollowerListScreen(navController: NavController) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Back { navController.popBackStack() }
-                Title(text = "팔로워")
+                Title(title = "팔로워")
                 EmptyText()
             }
             Spacer(modifier = Modifier.height(21.dp))

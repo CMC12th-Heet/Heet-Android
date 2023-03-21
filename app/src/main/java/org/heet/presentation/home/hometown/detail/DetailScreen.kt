@@ -66,7 +66,7 @@ fun DetailScreen(
                     Back {
                         navController.popBackStack()
                     }
-                    Title(text = "우리동네 기록")
+                    Title(title = "우리동네 기록")
                     Column {
                         Image(
                             painter = painterResource(id = R.drawable.ic_more),

@@ -52,7 +52,7 @@ fun ResidenceScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Back { navController.popBackStack() }
-                Title(text = "동네 설정하기")
+                Title(title = "동네 설정하기")
                 EmptyText()
             }
             Row(modifier = Modifier.padding(start = 28.dp, top = 40.dp)) {

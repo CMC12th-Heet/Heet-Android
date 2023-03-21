@@ -37,7 +37,7 @@ fun ScrapScreen(navController: NavController) {
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Back { navController.popBackStack() }
-            Title(text = "스크랩")
+            Title(title = "스크랩")
             EmptyText()
         }
         Spacer(modifier = Modifier.height(21.dp))
