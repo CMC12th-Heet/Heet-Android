@@ -3,6 +3,7 @@ package org.heet.ui.theme
 import androidx.compose.ui.graphics.Color
 
 // White
+val White00 = Color(0xFFFFFFFF)
 val White50 = Color(0xFFF6F6F6)
 val White100 = Color(0xFFF0F0F0)
 val White150 = Color(0xFFE3E3E3)
@@ -44,6 +45,7 @@ val Grey900 = Color(0xFF4F4F4F)
 val Grey1000 = Color(0xFFB3B3B3)
 val Grey1100 = Color(0xFF7F7F7F)
 val Grey1200 = Color(0xFF626262)
+val Grey1300 = Color(0xFF616161)
 
 // Black
 val Black50 = Color(0xFF474747)
@@ -52,6 +54,7 @@ val Black350 = Color(0xFF3D3D3D)
 val Black400 = Color(0xFF373737)
 val Black700 = Color(0xFF202020)
 val Black900 = Color(0xFF090909)
+val Black1000 = Color(0xFF000000)
 
 // Red
 val Red100 = Color(0xFFFFC9C9)

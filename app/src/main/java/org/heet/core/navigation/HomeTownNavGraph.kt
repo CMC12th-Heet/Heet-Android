@@ -8,6 +8,7 @@ import org.heet.presentation.declaration.DeclarationScreen
 import org.heet.presentation.home.hometown.*
 import org.heet.presentation.home.hometown.comment.CommentScreen
 import org.heet.presentation.home.hometown.detail.DetailScreen
+import org.heet.presentation.home.hometown.modifypost.ModifyPostScreen
 import org.heet.presentation.home.hometown.post.PostScreen
 import org.heet.presentation.home.hometown.verify.VerifyScreen
 import org.heet.presentation.home.mypage.ScrapScreen
@@ -38,6 +39,23 @@ fun NavGraphBuilder.homeTownNavGraph(navController: NavHostController) {
         }
         composable(route = HomeTownScreen.Verify.route) {
             VerifyScreen(navController = navController)
+        }
+        composable(
+            route = HomeTownScreen.PostModify.route + "/{post_id}",
+            arguments = listOf(
+                navArgument("post_id") {
+                    type = NavType.StringType
+                    defaultValue = "0"
+                    nullable = false
+                }
+            )
+        ) { entry ->
+            entry.arguments?.getString("post_id")?.let {
+                ModifyPostScreen(
+                    navController = navController,
+                    postId = it
+                )
+            }
         }
         composable(
             route = HomeTownScreen.Detail.route + "/{post_id}",

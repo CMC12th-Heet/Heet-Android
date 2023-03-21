@@ -1,6 +1,7 @@
 package org.heet.presentation.forgot.pwd
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
@@ -73,7 +74,7 @@ fun ForgotPwdScreen(
                 Title("비밀번호 재설정")
                 if (isSame.value) {
                     Finish(
-                        move = {
+                        modifier = Modifier.clickable {
                             navController.navigate(AuthScreen.Login.route) {
                                 popUpTo(0)
                             }

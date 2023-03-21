@@ -57,7 +57,7 @@ fun FindUserScreen(navController: NavController) {
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Back { navController.popBackStack() }
-                Title(text = "찾기")
+                Title(title = "찾기")
                 EmptyText()
             }
             Spacer(modifier = Modifier.height(12.dp))

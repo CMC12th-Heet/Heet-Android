@@ -10,6 +10,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import org.heet.R
+import org.heet.ui.theme.Black1000
 import org.heet.ui.theme.Red500
 import org.heet.util.pretendardFamily
 
@@ -23,10 +24,10 @@ fun Back(modifier: Modifier = Modifier, back: () -> Unit) {
 }
 
 @Composable
-fun Title(text: String) {
+fun Title(title: String) {
     Text(
-        text = text,
-        color = Color.Black,
+        text = title,
+        color = Black1000,
         fontSize = 17.sp,
         fontWeight = FontWeight.Normal,
         fontFamily = pretendardFamily
@@ -60,16 +61,22 @@ fun EmptyText() {
 
 @Composable
 fun Finish(
-    modifier: Modifier = Modifier,
-    move: () -> Unit
+    modifier: Modifier = Modifier
 ) {
     Text(
         text = "완료",
-        modifier = modifier.clickable {
-            move()
-        },
+        modifier = modifier,
         color = Red500,
         fontSize = 17.sp,
         fontWeight = FontWeight.Black
+    )
+}
+
+@Composable
+fun Cancel(modifier: Modifier = Modifier) {
+    Image(
+        painter = painterResource(id = R.drawable.ic_cancel_black_30),
+        contentDescription = "cancel",
+        modifier = modifier
     )
 }

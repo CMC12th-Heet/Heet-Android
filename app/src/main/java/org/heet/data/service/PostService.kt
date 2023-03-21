@@ -42,7 +42,7 @@ interface PostService {
     @PATCH("/post/{id}")
     suspend fun updatePost(
         @Path("id") id: String,
-        requestUpdatePost: RequestUpdatePost
+        @Body requestUpdatePost: RequestUpdatePost
     ): ResponseUpdatePost
 
     @DELETE("/post/{id}")

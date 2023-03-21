@@ -1,6 +1,7 @@
 package org.heet.presentation.declaration
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
@@ -28,9 +29,10 @@ fun DeclarationFinishScreen(navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(19.dp))
-        Finish(modifier = Modifier.align(Alignment.End).padding(end = 19.dp)) {
-            navController.navigate(Graph.HOME)
-        }
+        Finish(
+            modifier = Modifier.align(Alignment.End).padding(end = 19.dp)
+                .clickable { navController.navigate(Graph.HOME) }
+        )
         Image(
             painter = painterResource(id = R.drawable.ic_check_black_33),
             contentDescription = null,

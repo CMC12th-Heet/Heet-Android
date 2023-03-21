@@ -62,7 +62,7 @@ fun ModifyProfileScreen(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Back { navController.popBackStack() }
-                Title(text = "프로필 수정")
+                Title(title = "프로필 수정")
                 EmptyText()
             }
             Spacer(modifier = Modifier.height(40.dp))

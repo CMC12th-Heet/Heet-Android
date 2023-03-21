@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ResponseUpdatePost(
-    val empty: String
+    val message: String
 )
