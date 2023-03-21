@@ -3,6 +3,9 @@ package org.heet.components
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -11,7 +14,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -204,4 +210,38 @@ fun ShareTip(
         }
     }
     Spacer(modifier = Modifier.height(7.dp))
+}
+
+@Composable
+fun FlatModifyTextField(
+    valueState: MutableState<String>,
+    placeholder: String,
+    textStyle: TextStyle,
+    modifier: Modifier = Modifier,
+    isSingleLine: Boolean = true,
+    keyboardType: KeyboardType = KeyboardType.Text,
+    imeAction: ImeAction = ImeAction.Done,
+    onAction: KeyboardActions = KeyboardActions.Default,
+    onValueChange: (String) -> Unit = { valueState.value = it }
+) {
+    BasicTextField(
+        value = valueState.value,
+        onValueChange = onValueChange,
+        modifier = modifier,
+        textStyle = textStyle,
+        keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
+        keyboardActions = onAction,
+        singleLine = isSingleLine,
+        decorationBox = { innerTextField ->
+            Box {
+                if (valueState.value.isEmpty()) {
+                    Text(
+                        text = placeholder,
+                        style = textStyle
+                    )
+                }
+                innerTextField()
+            }
+        }
+    )
 }
