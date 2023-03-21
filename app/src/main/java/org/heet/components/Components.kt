@@ -41,14 +41,16 @@ fun GreyValidateText(text: String, isValidate: Boolean = true) {
 }
 
 @Composable
-fun BlackValidateText(text: String, isValidate: Boolean = true) {
+fun BlackValidateText(text: String, isValidate: Boolean = false, onClick: () -> Unit) {
     Row(modifier = Modifier.padding(bottom = 6.dp)) {
         val check = if (isValidate) painterResource(id = R.drawable.ic_check_black_20)
         else painterResource(id = R.drawable.ic_check_grey_20)
         Image(
             painter = check,
             contentDescription = null,
-            modifier = Modifier.padding(end = 7.dp)
+            modifier = Modifier.padding(end = 7.dp).clickable {
+                onClick()
+            }
         )
         Text(
             text = text,
@@ -61,7 +63,7 @@ fun BlackValidateText(text: String, isValidate: Boolean = true) {
 }
 
 @Composable
-fun Terms(text: String, isChecked: Boolean = false) {
+fun Terms(text: String, isChecked: Boolean = false, goToDetail: () -> Unit, onCheck: () -> Unit) {
     val check = if (isChecked) painterResource(id = R.drawable.ic_check_black_20)
     else painterResource(id = R.drawable.ic_check_grey_20)
     Box(modifier = Modifier.fillMaxWidth()) {
@@ -70,6 +72,7 @@ fun Terms(text: String, isChecked: Boolean = false) {
                 painter = check,
                 contentDescription = null,
                 modifier = Modifier.clickable {
+                    onCheck()
                 }
             )
             Spacer(modifier = Modifier.width(5.dp))
@@ -81,18 +84,22 @@ fun Terms(text: String, isChecked: Boolean = false) {
                 color = White600
             )
         }
-        Text(
-            text = "자세히",
-            modifier = Modifier
-                .align(Alignment.CenterEnd)
-                .padding(end = 4.dp)
-                .clickable { },
-            fontFamily = pretendardFamily,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Normal,
-            color = White600,
-            textDecoration = TextDecoration.Underline
-        )
+        if (text != "[필수] 만 14세 이상입니다.") {
+            Text(
+                text = "자세히",
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+                    .padding(end = 4.dp)
+                    .clickable {
+                        goToDetail()
+                    },
+                fontFamily = pretendardFamily,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Normal,
+                color = White600,
+                textDecoration = TextDecoration.Underline
+            )
+        }
     }
 }
 
