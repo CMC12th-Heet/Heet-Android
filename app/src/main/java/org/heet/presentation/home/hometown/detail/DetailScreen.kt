@@ -96,7 +96,13 @@ fun DetailScreen(
                                             fontWeight = FontWeight.Normal,
                                             fontFamily = pretendardFamily,
                                             textAlign = TextAlign.Center,
-                                            modifier = Modifier.fillMaxWidth()
+                                            modifier = Modifier.fillMaxWidth().clickable {
+                                                navController.navigate(
+                                                    HomeTownScreen.PostModify.withArgs(
+                                                        post_id
+                                                    )
+                                                )
+                                            }
                                         )
                                     }
                                     DropdownMenuItem(onClick = {
