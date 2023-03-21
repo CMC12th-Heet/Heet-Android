@@ -99,9 +99,70 @@ fun RedBigRoundButton28(
 }
 
 @Composable
+fun RedTermBigRoundButton28(
+    modifier: Modifier = Modifier,
+    text: String,
+    color: Color = Red500,
+    textColor: Color = Color.White,
+    enable: Boolean,
+    onClick: () -> Unit
+) {
+    Button(
+        onClick = onClick,
+        modifier = modifier
+            .fillMaxWidth()
+            .height(52.dp),
+        shape = RoundedCornerShape(28.dp),
+        colors = ButtonDefaults.buttonColors(color),
+        enabled = enable
+    ) {
+        Text(
+            text = text,
+            color = textColor,
+            fontSize = 17.sp,
+            fontWeight = FontWeight.ExtraBold,
+            fontFamily = pretendardFamily
+        )
+    }
+}
+
+@Composable
 fun RequestBtn(isCheck: MutableState<Boolean>, text: String, onClick: () -> Unit) {
     Button(
         onClick = { onClick() },
+        modifier = Modifier
+            .height(38.dp),
+        shape = RoundedCornerShape(22.dp),
+        border = BorderStroke(1.dp, Red600),
+        colors = if (isCheck.value) {
+            ButtonDefaults.buttonColors(Red500)
+        } else {
+            ButtonDefaults.buttonColors(Color.White)
+        }
+    ) {
+        Text(
+            text = text,
+            color = if (isCheck.value) {
+                Color.White
+            } else {
+                Red500
+            },
+            fontSize = 17.sp,
+            fontWeight = FontWeight.Normal,
+            fontFamily = pretendardFamily
+        )
+    }
+}
+
+@Composable
+fun CheckDuplicateBtn(
+    isCheck: MutableState<Boolean>,
+    text: String,
+    enable: Boolean,
+    onClick: () -> Unit
+) {
+    Button(
+        onClick = { if (enable) onClick() },
         modifier = Modifier
             .height(38.dp),
         shape = RoundedCornerShape(22.dp),
