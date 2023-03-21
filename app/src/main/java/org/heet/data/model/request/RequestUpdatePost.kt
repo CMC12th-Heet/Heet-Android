@@ -1,24 +1,16 @@
 package org.heet.data.model.request
 
-import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class RequestUpdatePost(
-    @SerializedName("content")
-    val content: String,
-    @SerializedName("mini_title")
-    val miniTitle: String,
-    @SerializedName("moving_tip")
-    val movingTip: String,
-    @SerializedName("ordering_tip")
-    val orderingTip: String,
-    @SerializedName("other_tips")
-    val otherTips: String,
-    @SerializedName("perfect_day")
-    val perfectDay: String,
-    @SerializedName("satisfaction")
-    val satisfaction: Int,
-    @SerializedName("title")
     val title: String,
-    @SerializedName("together_with")
-    val togetherWith: String
+    val mini_title: String,
+    val content: String,
+    val satisfaction: Int?,
+    val together_with: String?,
+    val perfect_day: String?,
+    val moving_tip: String?,
+    val ordering_tip: String?,
+    val other_tips: String?
 )
