@@ -32,16 +32,15 @@ fun SignUpIdScreen(
     signUpIdViewModel: SingUpIdViewModel = hiltViewModel()
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
-    val id = remember {
-        mutableStateOf("")
-    }
+    val id = remember { mutableStateOf("") }
+    val requestCheckDuplicate = remember { mutableStateOf(false) }
     val isDuplicate = signUpIdViewModel.isDuplicate.collectAsState().value
-    val requestCheckDuplicate = remember {
-        mutableStateOf(false)
-    }
     var terms by remember { mutableStateOf(LoadTermsDataSource().loadTerms()) }
     val context = LocalContext.current
     var checkAll by remember { mutableStateOf(false) }
+    var enable by remember { mutableStateOf(false) }
+    enable = terms[0].isSelected && terms[1].isSelected && terms[2].isSelected
+    checkAll = terms.count { it.isSelected } == 4
 
     LazyColumn(
         modifier = Modifier
@@ -134,9 +133,10 @@ fun SignUpIdScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         if (isDuplicate) {
-                            RequestBtn(
+                            CheckDuplicateBtn(
                                 isCheck = requestCheckDuplicate,
-                                text = "중복 확인"
+                                text = "중복 확인",
+                                enable = id.value.isNotEmpty()
                             ) {
                                 signUpIdViewModel.postFindDuplicate(id.value)
                                 requestCheckDuplicate.value = true
@@ -178,6 +178,9 @@ fun SignUpIdScreen(
                 Row {
                     Spacer(modifier = Modifier.width(12.dp))
                     BlackValidateText(text = "약관 전체 동의하기", isValidate = checkAll) {
+                        terms = terms.map { term ->
+                            term.copy(isSelected = !checkAll)
+                        }
                         checkAll = !checkAll
                     }
                 }
@@ -208,13 +211,14 @@ fun SignUpIdScreen(
             }
             item {
                 Spacer(modifier = Modifier.height(80.dp))
-                RedBigRoundButton28(
+                RedTermBigRoundButton28(
                     onClick = {
                         navController.navigate(SignUpScreen.Welcome.route)
                     },
                     text = "회원 가입",
                     modifier = Modifier
-                        .padding(bottom = 8.dp)
+                        .padding(bottom = 8.dp),
+                    enable = enable
                 )
             }
         }
