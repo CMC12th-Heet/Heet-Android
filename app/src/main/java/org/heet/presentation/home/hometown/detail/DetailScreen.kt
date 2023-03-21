@@ -286,26 +286,26 @@ fun DetailScreen(
                             )
                             ShareTip(
                                 "이런 날 방문해요!",
-                                detailPost.together_with ?: "",
+                                detailPost.perfect_day ?: "",
                                 Modifier.align(Alignment.Start),
                                 15.5.dp,
                                 false
                             )
                             ShareTip(
                                 "이동 꿀팁",
-                                detailPost.together_with ?: "",
+                                detailPost.moving_tip ?: "",
                                 Modifier.align(Alignment.Start),
                                 enabled = false
                             )
                             ShareTip(
                                 "주문 꿀팁",
-                                detailPost.together_with ?: "",
+                                detailPost.ordering_tip ?: "",
                                 Modifier.align(Alignment.Start),
                                 enabled = false
                             )
                             ShareTip(
                                 "기타 꿀팁",
-                                detailPost.together_with ?: "",
+                                detailPost.other_tips ?: "",
                                 Modifier.align(Alignment.Start),
                                 enabled = false
                             )
