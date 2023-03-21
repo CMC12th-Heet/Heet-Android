@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
@@ -42,6 +41,7 @@ fun SignUpIdScreen(
     }
     var terms by remember { mutableStateOf(LoadTermsDataSource().loadTerms()) }
     val context = LocalContext.current
+    var checkAll by remember { mutableStateOf(false) }
 
     LazyColumn(
         modifier = Modifier
@@ -177,17 +177,32 @@ fun SignUpIdScreen(
                 Spacer(modifier = Modifier.height(30.dp))
                 Row {
                     Spacer(modifier = Modifier.width(12.dp))
-                    BlackValidateText(text = "약관 전체 동의하기")
+                    BlackValidateText(text = "약관 전체 동의하기", isValidate = checkAll) {
+                        checkAll = !checkAll
+                    }
                 }
                 Spacer(modifier = Modifier.height(32.dp))
             }
-            items(terms) { term ->
+            items(terms.size) { i ->
                 Row {
                     Spacer(modifier = Modifier.width(12.dp))
-                    Terms(text = term.term, goToDetail = {
-                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(term.url))
-                        context.startActivity(intent)
-                    })
+                    Terms(
+                        text = terms[i].term,
+                        isChecked = terms[i].isSelected,
+                        goToDetail = {
+                            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(terms[i].url))
+                            context.startActivity(intent)
+                        },
+                        onCheck = {
+                            terms = terms.mapIndexed { j, term ->
+                                if (i == j) {
+                                    term.copy(isSelected = !term.isSelected)
+                                } else {
+                                    term
+                                }
+                            }
+                        }
+                    )
                     Spacer(modifier = Modifier.height(30.dp))
                 }
             }
