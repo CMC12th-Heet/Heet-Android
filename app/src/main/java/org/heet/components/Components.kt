@@ -61,7 +61,7 @@ fun BlackValidateText(text: String, isValidate: Boolean = true) {
 }
 
 @Composable
-fun Terms(text: String, isChecked: Boolean = false) {
+fun Terms(text: String, isChecked: Boolean = false, goToDetail: () -> Unit) {
     val check = if (isChecked) painterResource(id = R.drawable.ic_check_black_20)
     else painterResource(id = R.drawable.ic_check_grey_20)
     Box(modifier = Modifier.fillMaxWidth()) {
@@ -81,18 +81,22 @@ fun Terms(text: String, isChecked: Boolean = false) {
                 color = White600
             )
         }
-        Text(
-            text = "자세히",
-            modifier = Modifier
-                .align(Alignment.CenterEnd)
-                .padding(end = 4.dp)
-                .clickable { },
-            fontFamily = pretendardFamily,
-            fontSize = 12.sp,
-            fontWeight = FontWeight.Normal,
-            color = White600,
-            textDecoration = TextDecoration.Underline
-        )
+        if (text != "[필수] 만 14세 이상입니다.") {
+            Text(
+                text = "자세히",
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+                    .padding(end = 4.dp)
+                    .clickable {
+                        goToDetail()
+                    },
+                fontFamily = pretendardFamily,
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Normal,
+                color = White600,
+                textDecoration = TextDecoration.Underline
+            )
+        }
     }
 }
 
