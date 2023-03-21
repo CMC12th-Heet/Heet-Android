@@ -199,32 +199,34 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                     }
                 )
                 Title(title = "우리동네 기록")
-                Finish {
-                    if (title.value.isEmpty() ||
-                        subTitle.value.isEmpty() ||
-                        content.value.isEmpty() ||
-                        postViewModel.getSelectStoreNum() == -1
-                    ) {
-                        Toast.makeText(context, "필요한 것을 채워 주세요", Toast.LENGTH_SHORT).show()
-                    } else {
-                        imageUri?.let {
-                            postViewModel.post(
-                                context,
-                                it,
-                                title.value,
-                                subTitle.value,
-                                content.value,
-                                postViewModel.getSelectStoreNum(),
-                                satisfaction.value,
-                                togetherWith.value,
-                                dayTip.value,
-                                movingTip.value,
-                                orderingTip.value,
-                                otherTip.value
-                            )
+                Finish(
+                    modifier = Modifier.clickable {
+                        if (title.value.isEmpty() ||
+                            subTitle.value.isEmpty() ||
+                            content.value.isEmpty() ||
+                            postViewModel.getSelectStoreNum() == -1
+                        ) {
+                            Toast.makeText(context, "필요한 것을 채워 주세요", Toast.LENGTH_SHORT).show()
+                        } else {
+                            imageUri?.let {
+                                postViewModel.post(
+                                    context,
+                                    it,
+                                    title.value,
+                                    subTitle.value,
+                                    content.value,
+                                    postViewModel.getSelectStoreNum(),
+                                    satisfaction.value,
+                                    togetherWith.value,
+                                    dayTip.value,
+                                    movingTip.value,
+                                    orderingTip.value,
+                                    otherTip.value
+                                )
+                            }
                         }
                     }
-                }
+                )
             }
             Spacer(modifier = Modifier.height(12.dp))
             Surface(

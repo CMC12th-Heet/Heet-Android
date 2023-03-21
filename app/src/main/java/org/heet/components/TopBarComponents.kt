@@ -61,14 +61,11 @@ fun EmptyText() {
 
 @Composable
 fun Finish(
-    modifier: Modifier = Modifier,
-    move: () -> Unit
+    modifier: Modifier = Modifier
 ) {
     Text(
         text = "완료",
-        modifier = modifier.clickable {
-            move()
-        },
+        modifier = modifier,
         color = Red500,
         fontSize = 17.sp,
         fontWeight = FontWeight.Black
