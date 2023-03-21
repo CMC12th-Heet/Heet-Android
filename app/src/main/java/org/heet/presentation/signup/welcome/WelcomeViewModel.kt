@@ -1,4 +1,4 @@
-package org.heet.presentation.signup.welcomeresidence
+package org.heet.presentation.signup.welcome
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

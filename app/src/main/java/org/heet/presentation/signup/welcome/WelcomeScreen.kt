@@ -1,4 +1,4 @@
-package org.heet.presentation.signup.welcomeresidence
+package org.heet.presentation.signup.welcome
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
