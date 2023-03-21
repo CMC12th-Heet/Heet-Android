@@ -39,6 +39,10 @@ fun HomeScreen(
     val isWrite = remember { mutableStateOf(false) }
     val isFloatingButton = remember { mutableStateOf(false) }
 
+    LaunchedEffect(true) {
+        homeScreenViewModel.getMyPage()
+    }
+
     Scaffold(
         bottomBar = {
             BottomBar(
