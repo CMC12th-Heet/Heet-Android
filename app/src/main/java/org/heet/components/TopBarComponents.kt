@@ -73,3 +73,12 @@ fun Finish(
         fontWeight = FontWeight.Black
     )
 }
+
+@Composable
+fun Cancel(modifier: Modifier = Modifier) {
+    Image(
+        painter = painterResource(id = R.drawable.ic_cancel_black_30),
+        contentDescription = "cancel",
+        modifier = modifier
+    )
+}
