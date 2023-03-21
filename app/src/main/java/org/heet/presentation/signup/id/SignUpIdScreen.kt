@@ -1,18 +1,18 @@
 package org.heet.presentation.signup.id
 
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.Divider
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -22,6 +22,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.heet.components.*
 import org.heet.core.navigation.navscreen.SignUpScreen
+import org.heet.data.datasource.LoadTermsDataSource
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
 
@@ -39,6 +40,8 @@ fun SignUpIdScreen(
     val requestCheckDuplicate = remember {
         mutableStateOf(false)
     }
+    var terms by remember { mutableStateOf(LoadTermsDataSource().loadTerms()) }
+    val context = LocalContext.current
 
     LazyColumn(
         modifier = Modifier
@@ -166,12 +169,6 @@ fun SignUpIdScreen(
                 )
             }
         } else if (requestCheckDuplicate.value) {
-            val terms = listOf(
-                "[필수] 개인정보 수징 및 이용 동의",
-                "[필수] HEET 이용 약관 동의",
-                "[필수]만 14세 이상입니다.",
-                "[필수]마케팅 활용 및 광고성 정보 수신 동의"
-            )
             item {
                 Row {
                     Spacer(modifier = Modifier.width(12.dp))
@@ -184,10 +181,13 @@ fun SignUpIdScreen(
                 }
                 Spacer(modifier = Modifier.height(32.dp))
             }
-            items(terms) {
+            items(terms) { term ->
                 Row {
                     Spacer(modifier = Modifier.width(12.dp))
-                    Terms(text = it)
+                    Terms(text = term.term, goToDetail = {
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(term.url))
+                        context.startActivity(intent)
+                    })
                     Spacer(modifier = Modifier.height(30.dp))
                 }
             }
