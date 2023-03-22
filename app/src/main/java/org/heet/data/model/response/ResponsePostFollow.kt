@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ResponsePostFollow(
-    val empty: String
+    val message: String
 )

@@ -53,7 +53,9 @@ fun FollowingScreen(navController: NavController) {
                                 start = 40.dp,
                                 top = 6.5.dp,
                                 bottom = 6.5.dp
-                            ),
+                            ).clickable {
+                                navController.navigate(FollowingScreen.FollowingList.route)
+                            },
                             color = Color.White,
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Bold,

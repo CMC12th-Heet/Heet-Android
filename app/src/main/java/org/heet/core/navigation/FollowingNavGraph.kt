@@ -6,7 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import org.heet.core.navigation.navscreen.FollowingScreen
 import org.heet.presentation.home.following.FollowerListScreen
-import org.heet.presentation.home.following.FollowingListScreen
+import org.heet.presentation.home.following.followinglist.FollowingListScreen
 
 fun NavGraphBuilder.followingNavGraph(navController: NavHostController) {
     navigation(
