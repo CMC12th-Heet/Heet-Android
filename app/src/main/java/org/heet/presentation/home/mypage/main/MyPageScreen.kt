@@ -31,19 +31,15 @@ fun MyPage(
     navController: NavController,
     myPageViewModel: MyPageViewModel = hiltViewModel()
 ) {
+    myPageViewModel.getMyPage()
     val existPost = remember { mutableStateOf(false) }
-    val username = remember { mutableStateOf("") }
-    val town = remember { mutableStateOf("") }
-    val isVerify = remember { mutableStateOf(false) }
-
-    LaunchedEffect(key1 = true) {
-        myPageViewModel.getMyPage()
-        myPageViewModel.profile.collect {
-            username.value = it.username
-            town.value = it.town
-            isVerify.value = it.is_verify
-        }
-    }
+    val username = myPageViewModel.profile.collectAsState().value?.username
+    val introduce = myPageViewModel.profile.collectAsState().value?.status
+    val town = myPageViewModel.profile.collectAsState().value?.town
+    val isVerify = myPageViewModel.profile.collectAsState().value?.is_verify
+    val postCount = myPageViewModel.profile.collectAsState().value?.post_count
+    val followingCount = myPageViewModel.profile.collectAsState().value?.following_count
+    val followerCount = myPageViewModel.profile.collectAsState().value?.follower_count
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -92,14 +88,14 @@ fun MyPage(
                     )
                     Spacer(modifier = Modifier.height(4.dp))
                     Text(
-                        text = username.value,
+                        text = username ?: "",
                         color = Grey350,
                         fontSize = 17.sp,
                         fontWeight = FontWeight.ExtraBold
                     )
                     Spacer(modifier = Modifier.height(9.dp))
                     Text(
-                        text = "소개글을 작성해주세요",
+                        text = introduce ?: "소개글을 작성해주세요",
                         color = White650,
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Normal
@@ -112,13 +108,13 @@ fun MyPage(
                         )
                         Spacer(modifier = Modifier.width(2.dp))
                         Text(
-                            text = town.value,
+                            text = town ?: "",
                             color = Red500,
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Bold
                         )
                         Spacer(modifier = Modifier.width(4.dp))
-                        if (isVerify.value) {
+                        if (isVerify == true) {
                             Image(
                                 painter = painterResource(id = R.drawable.ic_local_red_27),
                                 contentDescription = null
@@ -130,7 +126,7 @@ fun MyPage(
                     Spacer(modifier = Modifier.height(12.dp))
                     Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         Text(
-                            text = "게시글 0",
+                            text = "게시글 ${postCount ?: ""}",
                             color = Grey850,
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Normal
@@ -140,7 +136,7 @@ fun MyPage(
                             color = Grey750
                         )
                         Text(
-                            text = "팔로잉 0",
+                            text = "팔로잉 ${followingCount ?: ""}",
                             color = Grey850,
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Normal
@@ -150,7 +146,7 @@ fun MyPage(
                             color = Grey750
                         )
                         Text(
-                            text = "팔로워 0",
+                            text = "팔로워 ${followerCount ?: ""}",
                             color = Grey850,
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Normal

@@ -16,7 +16,7 @@ class MyPageViewModel @Inject constructor(
     private val myPageRepository: MyPageRepository
 ) : ViewModel() {
 
-    private val _profile = MutableStateFlow(ResponseGetMyPage(0, "", "", "", false, ""))
+    private val _profile = MutableStateFlow<ResponseGetMyPage?>(null)
     val profile = _profile.asStateFlow()
 
     fun getMyPage() {
@@ -24,14 +24,7 @@ class MyPageViewModel @Inject constructor(
             runCatching {
                 myPageRepository.getMyPage()
             }.onSuccess {
-                _profile.value = _profile.value.copy(
-                    email = it.email,
-                    is_verify = it.is_verify,
-                    password = it.password,
-                    town = it.town,
-                    user_id = it.user_id,
-                    username = it.username
-                )
+                _profile.value = it
             }.onFailure {
                 Timber.d(it.message)
             }
