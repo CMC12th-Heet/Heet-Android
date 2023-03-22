@@ -33,18 +33,12 @@ fun HomeTownScreen(
     navController: NavController,
     homeTownViewModel: HomeTownViewModel = hiltViewModel()
 ) {
+    homeTownViewModel.getNewPost()
+    homeTownViewModel.getMyPage()
+    val town = homeTownViewModel.profile.collectAsState().value?.town
     val isNewPost = homeTownViewModel.isNewPost.collectAsState()
     val post = if (isNewPost.value) homeTownViewModel.newPost.collectAsState()
     else homeTownViewModel.hotPost.collectAsState()
-    homeTownViewModel.getNewPost()
-    val town = remember { mutableStateOf("") }
-
-    LaunchedEffect(key1 = true) {
-        homeTownViewModel.getMyPage()
-        homeTownViewModel.profile.collect {
-            town.value = it.town
-        }
-    }
 
     Box(
         modifier = Modifier
@@ -183,7 +177,7 @@ private fun ContentList(navController: NavController, post: State<List<ResponseG
 }
 
 @Composable
-private fun TopBar(navController: NavController, town: MutableState<String>) {
+private fun TopBar(navController: NavController, town: String?) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -202,7 +196,7 @@ private fun TopBar(navController: NavController, town: MutableState<String>) {
                     contentDescription = null
                 )
                 Text(
-                    text = town.value,
+                    text = town ?: "",
                     fontFamily = pretendardFamily,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Bold,
