@@ -10,7 +10,7 @@ class StoreRepositoryImpl @Inject constructor(
     private val storeService: StoreService
 ) : StoreRepository {
 
-    override suspend fun postStore(requestPostStore: RequestPostStore): Int {
+    override suspend fun postStore(requestPostStore: RequestPostStore): ResponsePostStore {
         return storeService.postStore(requestPostStore)
     }
 
