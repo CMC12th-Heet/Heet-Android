@@ -1,4 +1,4 @@
-package org.heet.presentation.home.hometown
+package org.heet.presentation.home.hometown.finduser
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -12,10 +12,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
@@ -30,6 +27,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.heet.R
 import org.heet.components.Back
@@ -41,9 +39,13 @@ import org.heet.util.pretendardFamily
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun FindUserScreen(navController: NavController) {
+fun FindUserScreen(
+    navController: NavController,
+    findUserViewModel: FindUserViewModel = hiltViewModel()
+) {
+    val searchUserList = findUserViewModel.searchUserList.collectAsState().value
     val keyboardController = LocalSoftwareKeyboardController.current
-    val didSearch = remember { mutableStateOf(true) }
+    val didSearch = remember { mutableStateOf(false) }
     val id = remember { mutableStateOf("") }
     val horizontalAlignment = if (didSearch.value) Alignment.Start else Alignment.CenterHorizontally
 
@@ -61,7 +63,12 @@ fun FindUserScreen(navController: NavController) {
                 EmptyText()
             }
             Spacer(modifier = Modifier.height(12.dp))
-            FindUserTextField(id = id, keyboardController = keyboardController)
+            FindUserTextField(
+                id = id,
+                findUserViewModel = findUserViewModel,
+                didSearch = didSearch,
+                keyboardController = keyboardController
+            )
             Spacer(modifier = Modifier.height(12.dp))
             if (didSearch.value) {
                 Text(
@@ -86,7 +93,7 @@ fun FindUserScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(22.dp))
         }
         if (didSearch.value) {
-            items(listOf(1, 2, 3, 4, 5, 6)) {
+            items(searchUserList) {
                 Surface(
                     shape = RoundedCornerShape(7.dp),
                     elevation = 7.dp
@@ -103,7 +110,7 @@ fun FindUserScreen(navController: NavController) {
                             modifier = Modifier.size(30.dp)
                         )
                         Text(
-                            text = "heet_member",
+                            text = it.username,
                             color = Red500,
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Normal,
@@ -133,14 +140,16 @@ fun FindUserScreen(navController: NavController) {
 @Composable
 private fun FindUserTextField(
     id: MutableState<String>,
+    didSearch: MutableState<Boolean>,
+    findUserViewModel: FindUserViewModel,
     keyboardController: SoftwareKeyboardController?
 ) {
     BasicTextField(
         value = id.value,
         onValueChange = {
-            if (it.length <= 20) {
-                id.value = it
-            }
+            findUserViewModel.searchUser(it)
+            didSearch.value = it.isNotEmpty()
+            id.value = it
         },
         modifier = Modifier.padding(top = 12.dp),
         enabled = true,

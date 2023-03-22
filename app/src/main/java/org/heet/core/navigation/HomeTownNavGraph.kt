@@ -5,9 +5,9 @@ import androidx.navigation.compose.composable
 import org.heet.core.navigation.navscreen.HomeTownScreen
 import org.heet.presentation.declaration.DeclarationFinishScreen
 import org.heet.presentation.declaration.DeclarationScreen
-import org.heet.presentation.home.hometown.*
 import org.heet.presentation.home.hometown.comment.CommentScreen
 import org.heet.presentation.home.hometown.detail.DetailScreen
+import org.heet.presentation.home.hometown.finduser.FindUserScreen
 import org.heet.presentation.home.hometown.modifypost.ModifyPostScreen
 import org.heet.presentation.home.hometown.post.PostScreen
 import org.heet.presentation.home.hometown.verify.VerifyScreen
