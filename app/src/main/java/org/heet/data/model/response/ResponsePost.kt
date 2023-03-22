@@ -35,6 +35,7 @@ data class ResponsePost(
         val username: String,
         val password: String,
         val is_verify: Boolean,
-        val town: String
+        val town: String,
+        val status: String?
     )
 }

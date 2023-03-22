@@ -46,9 +46,9 @@ import org.heet.R
 import org.heet.components.*
 import org.heet.data.datasource.LoadSatisfactionDataSource
 import org.heet.data.datasource.LocalSearchHelpDataSource
+import org.heet.data.local.SearchResult
 import org.heet.data.model.request.RequestPostStore
 import org.heet.data.model.response.ResponseGetStore
-import org.heet.data.model.response.SearchResult
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
 import timber.log.Timber

@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 data class ResponseGetComment(
     val comment_id: Int,
     val content: String,
-    val created_at: String,
+    val created_at: String?,
     val user: User
 ) {
     @Serializable
@@ -16,6 +16,7 @@ data class ResponseGetComment(
         val username: String,
         val password: String,
         val is_verify: Boolean,
-        val town: String
+        val town: String,
+        val status: String?
     )
 }
