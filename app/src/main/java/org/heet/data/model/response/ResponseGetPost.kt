@@ -36,6 +36,7 @@ data class ResponseGetPost(
         val password: String,
         val town: String,
         val user_id: Int,
-        val username: String
+        val username: String,
+        val status: String?
     )
 }

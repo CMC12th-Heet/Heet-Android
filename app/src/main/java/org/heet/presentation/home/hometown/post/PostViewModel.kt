@@ -54,8 +54,7 @@ class PostViewModel @Inject constructor(
             runCatching {
                 storeRepository.postStore(requestPostStore)
             }.onSuccess {
-                updateSelectStoreNum(it)
-                Timber.d(requestPostStore.name)
+                updateSelectStoreNum(it.store_id)
                 _storeName.value = requestPostStore.name
                 updateSelectStore(requestPostStore.name)
             }.onFailure {
