@@ -1,4 +1,4 @@
-package org.heet.data.model.response
+package org.heet.data.local
 
 data class SearchResult(
     val storeName: String,
