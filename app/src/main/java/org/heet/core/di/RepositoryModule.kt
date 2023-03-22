@@ -83,4 +83,10 @@ interface RepositoryModule {
     fun bindFollowRepository(
         followRepositoryImpl: FollowRepositoryImpl
     ): FollowRepository
+
+    @Binds
+    @Singleton
+    fun bindUserSearchRepository(
+        searchRepositoryImpl: SearchRepositoryImpl
+    ): SearchRepository
 }

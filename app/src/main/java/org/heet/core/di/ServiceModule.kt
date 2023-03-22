@@ -53,4 +53,10 @@ object ServiceModule {
     fun provideFollowService(retrofit: Retrofit): FollowService {
         return retrofit.create(FollowService::class.java)
     }
+
+    @Provides
+    @Singleton
+    fun provideSearchService(retrofit: Retrofit): SearchService {
+        return retrofit.create(SearchService::class.java)
+    }
 }
