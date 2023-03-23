@@ -1,4 +1,4 @@
-package org.heet.presentation.forgot
+package org.heet.presentation.forgot.email
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
@@ -17,7 +17,6 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import org.heet.components.*
 import org.heet.core.navigation.navscreen.ForgotScreen
-import org.heet.presentation.forgot.email.ForgotEmailViewModel
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
 import java.util.*

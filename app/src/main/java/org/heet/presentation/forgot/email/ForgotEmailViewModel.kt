@@ -2,21 +2,82 @@ package org.heet.presentation.forgot.email
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.heet.data.model.request.RequestPostEmail
+import org.heet.domain.repository.CodeRepository
+import org.heet.domain.repository.ResetRepository
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
+import javax.inject.Inject
 
-class ForgotEmailViewModel : ViewModel() {
+@HiltViewModel
+class ForgotEmailViewModel @Inject constructor(
+    private val resetRepository: ResetRepository,
+    private val codeRepository: CodeRepository
+) : ViewModel() {
 
     private var timerCount = 300000
+
+    private lateinit var job: Job
+
     private val _timer = MutableStateFlow("05:00")
     val timer = _timer.asStateFlow()
 
-    private lateinit var job: Job
+    private val _sendEmail = MutableStateFlow(false)
+    val sendEmail = _sendEmail.asStateFlow()
+
+    private val _code = MutableStateFlow(0L)
+    val code = _code.asStateFlow()
+
+    private val _isCorrectCode = MutableStateFlow(false)
+    val isCorrectCode = _isCorrectCode.asStateFlow()
+
+    init {
+        viewModelScope.launch {
+            codeRepository.getCode().collect() { code ->
+                _code.value = code
+            }
+        }
+    }
+
+    fun postCode(code: String) {
+        if (code == _code.value.toString()) {
+            timerReset()
+            _isCorrectCode.value = true
+        }
+    }
+
+    fun postEmail(requestPostEmail: RequestPostEmail) {
+        viewModelScope.launch {
+            runCatching {
+                resetRepository.postEmail(requestPostEmail)
+            }.onSuccess {
+                timerStart()
+                codeRepository.updateCode(it.code.toLong())
+                _sendEmail.value = true
+            }.onFailure {
+                Timber.d(it.message)
+            }
+        }
+    }
+
+    fun deleteCode() {
+        viewModelScope.launch {
+            runCatching {
+                codeRepository.deleteCode()
+            }.onSuccess {
+                _sendEmail.value = false
+            }.onFailure {
+                Timber.d(it.message)
+            }
+        }
+    }
 
     fun timerStart() {
         if (::job.isInitialized) job.cancel()
