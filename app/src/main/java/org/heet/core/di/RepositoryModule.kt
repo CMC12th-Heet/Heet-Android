@@ -86,7 +86,13 @@ interface RepositoryModule {
 
     @Binds
     @Singleton
-    fun bindUserSearchRepository(
+    fun bindSearchRepository(
         searchRepositoryImpl: SearchRepositoryImpl
     ): SearchRepository
+
+    @Binds
+    @Singleton
+    fun bindResetRepository(
+        resetRepositoryImpl: ResetRepositoryImpl
+    ): ResetRepository
 }

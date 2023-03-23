@@ -109,7 +109,6 @@ fun SignUpPwd(
                     isHide.value = !isHide.value
                 }
             }
-            Spacer(modifier = Modifier.height(12.dp))
             Divider(
                 Modifier
                     .fillMaxWidth()
@@ -144,7 +143,6 @@ fun SignUpPwd(
                 isSame = isSame,
                 keyboardController = keyboardController
             )
-            Spacer(modifier = Modifier.height(12.dp))
             Divider(
                 Modifier
                     .fillMaxWidth()
