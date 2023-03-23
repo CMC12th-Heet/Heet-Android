@@ -135,7 +135,7 @@ fun ResidenceScreen(
 }
 
 @Composable
-private fun CityItem(
+fun CityItem(
     city: String,
     image: Painter,
     expanded: MutableState<Boolean>,
@@ -164,7 +164,7 @@ private fun CityItem(
 }
 
 @Composable
-private fun WardItem(
+fun WardItem(
     updateResidence: () -> Unit,
     ward: String,
     city: String,
@@ -188,7 +188,7 @@ private fun WardItem(
 }
 
 @Composable
-private fun ResidenceChip(name: MutableState<String>) {
+fun ResidenceChip(name: MutableState<String>) {
     Surface(
         shape = RoundedCornerShape(16.5.dp),
         color = White50
@@ -212,7 +212,7 @@ private fun ResidenceChip(name: MutableState<String>) {
 }
 
 @Composable
-private fun NoticeResidence() {
+fun NoticeResidence() {
     Text(
         text = "현재 거주지를 알려주세요",
         modifier = Modifier.padding(start = 30.dp),
@@ -224,7 +224,7 @@ private fun NoticeResidence() {
 }
 
 @Composable
-private fun SettingButton(onClick: () -> Unit) {
+fun SettingButton(onClick: () -> Unit) {
     RedBigRoundButton28(
         modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 8.dp),
         text = "설정 완료",
