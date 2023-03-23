@@ -1,5 +1,6 @@
 package org.heet.data.repository
 
+import org.heet.data.model.request.RequestPostEmail
 import org.heet.data.model.request.RequestResetPwd
 import org.heet.data.model.response.ResponseResetPostEmail
 import org.heet.data.model.response.ResponseResetPwd
@@ -11,8 +12,8 @@ class ResetRepositoryImpl @Inject constructor(
     private val resetService: ResetService
 ) : ResetRepository {
 
-    override suspend fun postEmail(): ResponseResetPostEmail {
-        return resetService.postEmail()
+    override suspend fun postEmail(requestPostEmail: RequestPostEmail): ResponseResetPostEmail {
+        return resetService.postEmail(requestPostEmail)
     }
 
     override suspend fun resetPwd(requestResetPwd: RequestResetPwd): ResponseResetPwd {
