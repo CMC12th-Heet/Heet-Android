@@ -21,6 +21,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import org.heet.R
+import org.heet.core.navigation.navscreen.FollowingScreen
 import org.heet.core.navigation.navscreen.MyPageScreen
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
@@ -131,6 +132,9 @@ fun MyPage(
                             )
                             Text(
                                 text = "팔로잉 ${myPageInfo.following_count}",
+                                modifier = Modifier.clickable {
+                                    navController.navigate(FollowingScreen.FollowingList.route)
+                                },
                                 color = Grey850,
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.Normal
@@ -141,6 +145,9 @@ fun MyPage(
                             )
                             Text(
                                 text = "팔로워 ${myPageInfo.follower_count}",
+                                modifier = Modifier.clickable {
+                                    navController.navigate(FollowingScreen.FollowerList.route)
+                                },
                                 color = Grey850,
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.Normal

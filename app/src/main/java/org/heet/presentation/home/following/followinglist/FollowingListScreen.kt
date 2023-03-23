@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import org.heet.R
 import org.heet.components.Back
 import org.heet.components.DotDivider
 import org.heet.components.EmptyText
@@ -76,8 +77,8 @@ fun FollowingListScreen(
                             ).size(30.dp)
                         ) {
                             Image(
-                                painter = painterResource(id = org.heet.R.drawable.img_profile_following),
-                                contentDescription = null
+                                painter = painterResource(id = R.drawable.img_profile_following),
+                                contentDescription = "profileImage"
                             )
                         }
                         Text(
