@@ -6,6 +6,6 @@ import org.heet.data.model.response.*
 interface MyPageRepository {
 
     suspend fun getMyPage(): ResponseGetMyPage
-    suspend fun modifyMyPAge(requestModifyMyPage: RequestModifyMyPage): ResponseModifyMyPage
+    suspend fun modifyMyPage(requestModifyMyPage: RequestModifyMyPage)
     suspend fun withDraw(): ResponseWithdraw
 }
