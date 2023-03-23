@@ -19,13 +19,13 @@ class HomeTownViewModel @Inject constructor(
     private val myPageRepository: MyPageRepository
 ) : ViewModel() {
 
-    private val _newPost = MutableStateFlow(emptyList<ResponseGetPost>())
+    private val _newPost = MutableStateFlow<ResponseGetPost?>(null)
     val newPost = _newPost.asStateFlow()
 
     private val _isNewPost = MutableStateFlow(false)
     val isNewPost = _isNewPost.asStateFlow()
 
-    private val _hotPost = MutableStateFlow(emptyList<ResponseGetPost>())
+    private val _hotPost = MutableStateFlow<ResponseGetPost?>(null)
     val hotPost = _hotPost.asStateFlow()
 
     private val _profile = MutableStateFlow<ResponseGetMyPage?>(null)
