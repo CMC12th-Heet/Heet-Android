@@ -59,4 +59,10 @@ object ServiceModule {
     fun provideSearchService(retrofit: Retrofit): SearchService {
         return retrofit.create(SearchService::class.java)
     }
+
+    @Provides
+    @Singleton
+    fun provideResetService(retrofit: Retrofit): ResetService {
+        return retrofit.create(ResetService::class.java)
+    }
 }
