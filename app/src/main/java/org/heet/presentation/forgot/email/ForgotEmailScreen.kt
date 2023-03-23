@@ -53,7 +53,7 @@ fun ForgotEmailScreen(
             if (isCorrectCode) {
                 Next {
                     forgotEmailViewModel.deleteCode()
-                    navController.navigate(ForgotScreen.ForgotPwd.route)
+                    navController.navigate(ForgotScreen.ForgotPwd.withArgs(email.value))
                 }
             } else {
                 EmptyText()
