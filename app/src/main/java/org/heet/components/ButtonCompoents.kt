@@ -127,14 +127,14 @@ fun RedTermBigRoundButton28(
 }
 
 @Composable
-fun RequestBtn(isCheck: MutableState<Boolean>, text: String, onClick: () -> Unit) {
+fun RequestBtn(isCheck: Boolean, text: String, onClick: () -> Unit) {
     Button(
         onClick = { onClick() },
         modifier = Modifier
             .height(38.dp),
         shape = RoundedCornerShape(22.dp),
         border = BorderStroke(1.dp, Red600),
-        colors = if (isCheck.value) {
+        colors = if (isCheck) {
             ButtonDefaults.buttonColors(Red500)
         } else {
             ButtonDefaults.buttonColors(Color.White)
@@ -142,7 +142,7 @@ fun RequestBtn(isCheck: MutableState<Boolean>, text: String, onClick: () -> Unit
     ) {
         Text(
             text = text,
-            color = if (isCheck.value) {
+            color = if (isCheck) {
                 Color.White
             } else {
                 Red500
