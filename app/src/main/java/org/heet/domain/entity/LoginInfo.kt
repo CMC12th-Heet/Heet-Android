@@ -5,5 +5,6 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class LoginInfo(
-    val token: String
+    val token: String,
+    val town: String,
 ) : Parcelable
