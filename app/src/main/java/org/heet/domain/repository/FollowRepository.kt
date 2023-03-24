@@ -1,5 +1,6 @@
 package org.heet.domain.repository
 
+import org.heet.data.model.response.ResponseFollowingPost
 import org.heet.data.model.response.ResponseGetFollower
 import org.heet.data.model.response.ResponseGetFollowing
 import org.heet.data.model.response.ResponsePostFollow
@@ -11,4 +12,6 @@ interface FollowRepository {
     suspend fun getFollower(): List<ResponseGetFollower>
 
     suspend fun getFollowing(): List<ResponseGetFollowing>
+
+    suspend fun getFollowingPost(): ResponseFollowingPost
 }
