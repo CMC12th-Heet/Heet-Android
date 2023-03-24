@@ -1,5 +1,6 @@
 package org.heet.data.service
 
+import org.heet.data.model.response.ResponseFollowingPost
 import org.heet.data.model.response.ResponseGetFollower
 import org.heet.data.model.response.ResponseGetFollowing
 import org.heet.data.model.response.ResponsePostFollow
@@ -16,4 +17,7 @@ interface FollowService {
 
     @GET("/user/following")
     suspend fun getFollowing(): List<ResponseGetFollowing>
+
+    @GET("/post/following")
+    suspend fun getFollowingPost(): ResponseFollowingPost
 }
