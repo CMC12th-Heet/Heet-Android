@@ -1,10 +1,6 @@
 package org.heet.presentation.home.hometown.post
 
-import android.graphics.Bitmap
-import android.graphics.ImageDecoder
 import android.net.Uri
-import android.os.Build
-import android.provider.MediaStore
 import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -25,7 +21,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
@@ -40,6 +35,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import coil.compose.rememberAsyncImagePainter
 import gun0912.tedimagepicker.builder.TedImagePicker
 import gun0912.tedimagepicker.builder.type.MediaType
 import org.heet.R
@@ -60,7 +56,6 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
     val keyboardController = LocalSoftwareKeyboardController.current
     val showDialog = remember { mutableStateOf(false) }
     val context = LocalContext.current
-    val bitmap = remember { mutableListOf<Bitmap>() }
 
     // post
     val title = remember { mutableStateOf("") }
@@ -95,7 +90,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
         WriteCancel(
             showDialog = showDialog,
             navController = navController,
-            postViewModel = postViewModel
+            postViewModel = postViewModel,
         )
     }
 
@@ -106,7 +101,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
             .mediaType(MediaType.IMAGE)
             .buttonText("완료")
             .min(1, "1개는 필수입니다.")
-            .max(10, "10개가 최대입니다.")
+            .max(2, "2개가 최대입니다.")
             .startMultiImage {
                 imageUri = it
             }
@@ -122,20 +117,20 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(top = 14.dp)
+                .padding(top = 14.dp),
         ) {
             Column(modifier = Modifier.padding(horizontal = 20.dp)) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.ic_cancel_black_30),
                         contentDescription = "cancel",
                         modifier = Modifier.clickable {
                             openAddress.value = false
-                        }
+                        },
                     )
                     Title(title = "우리동네 기록")
                     if (didSearch.value) {
@@ -146,8 +141,8 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                                     RequestPostStore(
                                         storeName.value,
                                         storeUrl.value,
-                                        storeAddress.value
-                                    )
+                                        storeAddress.value,
+                                    ),
                                 ).run {
                                     openAddress.value = false
                                 }
@@ -155,7 +150,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                             color = Red500,
                             fontSize = 17.sp,
                             fontWeight = FontWeight.Black,
-                            fontFamily = pretendardFamily
+                            fontFamily = pretendardFamily,
                         )
                     } else {
                         EmptyText()
@@ -164,7 +159,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                 AddressTextField(
                     address = address,
                     keyboardController = keyboardController,
-                    postViewModel = postViewModel
+                    postViewModel = postViewModel,
                 )
                 Spacer(modifier = Modifier.height(11.dp))
                 if (address.value.isNotEmpty()) {
@@ -173,7 +168,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                         searchResult = storeList,
                         storeName = storeName,
                         storeAddress = storeAddress,
-                        storeUrl = storeUrl
+                        storeUrl = storeUrl,
                     )
                 } else {
                     AddressInputGuide()
@@ -183,20 +178,20 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
     } else {
         Column(
             modifier = Modifier.verticalScroll(scrollState),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Row(
                 modifier = Modifier
                     .padding(start = 20.dp, top = 14.dp, end = 20.dp)
                     .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.ic_cancel_black_30),
                     contentDescription = "cancel",
                     modifier = Modifier.clickable {
                         showDialog.value = true
-                    }
+                    },
                 )
                 Title(title = "우리동네 기록")
                 Finish(
@@ -221,11 +216,11 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                                     dayTip.value,
                                     movingTip.value,
                                     orderingTip.value,
-                                    otherTip.value
+                                    otherTip.value,
                                 )
                             }
                         }
-                    }
+                    },
                 )
             }
             Spacer(modifier = Modifier.height(12.dp))
@@ -234,7 +229,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                 color = White700,
                 modifier = Modifier.clickable {
                     openAddress.value = true
-                }
+                },
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Timber.d(postViewModel.getSelectStore())
@@ -244,59 +239,43 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                         color = Color.White,
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Bold,
-                        fontFamily = pretendardFamily
+                        fontFamily = pretendardFamily,
                     )
                     Spacer(modifier = Modifier.width(10.dp))
                     Image(
                         painter = painterResource(id = R.drawable.ic_white_search_14),
-                        contentDescription = null
+                        contentDescription = null,
                     )
                     Spacer(modifier = Modifier.width(17.dp))
                 }
             }
             Spacer(modifier = Modifier.height(11.dp))
             Column(
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Column(
                     modifier = Modifier.padding(horizontal = 20.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
+                    horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    imageUri?.let {
-                        for (image in imageUri!!) {
-                            if (Build.VERSION.SDK_INT < 28) {
-                                bitmap.add(
-                                    MediaStore.Images.Media.getBitmap(
-                                        context.contentResolver,
-                                        image
-                                    )
-                                )
-                            } else {
-                                val source =
-                                    ImageDecoder.createSource(context.contentResolver, image)
-                                bitmap.add(ImageDecoder.decodeBitmap(source))
-                            }
-                        }
-                    }
                     LazyRow {
-                        if (bitmap.size != 0) {
-                            items(bitmap.size) {
+                        if (imageUri != null) {
+                            items(imageUri!!.size) {
                                 Surface(shape = RoundedCornerShape(5.dp)) {
                                     Box {
                                         Image(
-                                            bitmap = bitmap[it].asImageBitmap(),
+                                            painter = rememberAsyncImagePainter(model = imageUri!![it]),
                                             contentDescription = "image",
                                             contentScale = ContentScale.Crop,
                                             modifier = Modifier
                                                 .width(380.dp)
-                                                .height(256.dp)
+                                                .height(256.dp),
                                         )
                                         Surface(
                                             shape = RoundedCornerShape(20.dp),
                                             color = Color.White,
                                             modifier = Modifier
                                                 .padding(end = 12.dp, bottom = 11.dp)
-                                                .align(Alignment.BottomEnd)
+                                                .align(Alignment.BottomEnd),
                                         ) {
                                             Text(
                                                 text = "${it + 1}/${imageUri?.size}",
@@ -304,7 +283,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                                                 color = Black400,
                                                 fontSize = 10.sp,
                                                 fontWeight = FontWeight.ExtraBold,
-                                                fontFamily = pretendardFamily
+                                                fontFamily = pretendardFamily,
                                             )
                                         }
                                     }
@@ -319,7 +298,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                         valueState = title,
                         placeholder = "제목",
                         enabled = true,
-                        isSingleLine = true
+                        isSingleLine = true,
                     )
                     Spacer(modifier = Modifier.height(6.dp))
                     DotDivider()
@@ -330,7 +309,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                         enabled = true,
                         isSingleLine = true,
                         fontSize = 12.sp,
-                        fontWeight = FontWeight.Medium
+                        fontWeight = FontWeight.Medium,
                     )
                     Spacer(modifier = Modifier.height(6.dp))
                     DotDivider()
@@ -342,7 +321,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                         enabled = true,
                         isSingleLine = false,
                         fontSize = 12.sp,
-                        fontWeight = FontWeight.Medium
+                        fontWeight = FontWeight.Medium,
                     )
                     Spacer(modifier = Modifier.height(17.dp))
                     DotDivider()
@@ -350,7 +329,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                 }
                 Surface(
                     shape = RoundedCornerShape(30.dp),
-                    color = if (expandShare.value) Black400 else White700
+                    color = if (expandShare.value) Black400 else White700,
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
@@ -359,7 +338,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                             color = Color.White,
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Bold,
-                            fontFamily = pretendardFamily
+                            fontFamily = pretendardFamily,
                         )
                         Spacer(modifier = Modifier.width(1.dp))
                         Image(
@@ -371,7 +350,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                             contentDescription = null,
                             modifier = Modifier.clickable {
                                 expandShare.value = !expandShare.value
-                            }
+                            },
                         )
                         Spacer(modifier = Modifier.width(10.dp))
                     }
@@ -382,7 +361,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                             .padding(horizontal = 20.dp)
                             .align(Alignment.Start)
                             .fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
@@ -390,7 +369,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                             color = Red500,
                             fontSize = 10.sp,
                             fontWeight = FontWeight.SemiBold,
-                            fontFamily = pretendardFamily
+                            fontFamily = pretendardFamily,
                         )
                         Spacer(modifier = Modifier.height(17.dp))
                         ShareTip(
@@ -398,32 +377,32 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                             "ex) 같이 간 사람/가고 싶은 사람",
                             Modifier.align(Alignment.Start),
                             16.5.dp,
-                            shareTip = togetherWith
+                            shareTip = togetherWith,
                         )
                         ShareTip(
                             "이런 날 방문해요!",
                             "ex) 생일/기념일/기분 꿀꿀한 날.",
                             Modifier.align(Alignment.Start),
                             15.5.dp,
-                            shareTip = dayTip
+                            shareTip = dayTip,
                         )
                         ShareTip(
                             "이동 꿀팁",
                             "ex) 3번 출구 바로 앞 골목이 지름길!",
                             Modifier.align(Alignment.Start),
-                            shareTip = movingTip
+                            shareTip = movingTip,
                         )
                         ShareTip(
                             "주문 꿀팁",
                             "ex) 시그니처 라떼는 필수입니다.",
                             Modifier.align(Alignment.Start),
-                            shareTip = orderingTip
+                            shareTip = orderingTip,
                         )
                         ShareTip(
                             "기타 꿀팁",
                             "ex) 화장실 문고리 잘 흔들려요!",
                             Modifier.align(Alignment.Start),
-                            shareTip = otherTip
+                            shareTip = otherTip,
                         )
                     }
                 }
@@ -432,7 +411,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                 Spacer(modifier = Modifier.height(13.dp))
                 Surface(
                     shape = RoundedCornerShape(30.dp),
-                    color = if (expandSatisfaction.value) Black400 else White700
+                    color = if (expandSatisfaction.value) Black400 else White700,
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Text(
@@ -441,7 +420,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                             color = Color.White,
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Bold,
-                            fontFamily = pretendardFamily
+                            fontFamily = pretendardFamily,
                         )
                         Spacer(modifier = Modifier.width(10.dp))
                         Image(
@@ -453,7 +432,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                             contentDescription = null,
                             modifier = Modifier.clickable {
                                 expandSatisfaction.value = !expandSatisfaction.value
-                            }
+                            },
                         )
                         Spacer(modifier = Modifier.width(10.dp))
                     }
@@ -463,7 +442,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                         modifier = Modifier
                             .padding(start = 20.dp, top = 24.dp, end = 20.dp)
                             .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
                         for (index in satisfactionList.indices) {
                             val color = if (satisfactionList[index].isSelected) {
@@ -483,9 +462,11 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                                                 if (index == j) {
                                                     satisfaction.value = j + 1
                                                     satisfactionItem.copy(isSelected = !satisfactionItem.isSelected)
-                                                } else satisfactionItem.copy(isSelected = false)
+                                                } else {
+                                                    satisfactionItem.copy(isSelected = false)
+                                                }
                                             }
-                                    }
+                                    },
                                 )
                                 Text(
                                     text = satisfactionList[index].text,
@@ -496,7 +477,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                                     },
                                     fontSize = 11.sp,
                                     fontWeight = FontWeight.Normal,
-                                    fontFamily = pretendardFamily
+                                    fontFamily = pretendardFamily,
                                 )
                             }
                         }
@@ -514,7 +495,7 @@ private fun AddressInputResult(
     searchResult: State<List<ResponseGetStore>>,
     storeName: MutableState<String>,
     storeUrl: MutableState<String>,
-    storeAddress: MutableState<String>
+    storeAddress: MutableState<String>,
 ) {
     var searchResultList by remember {
         mutableStateOf(emptyList<SearchResult>())
@@ -524,7 +505,7 @@ private fun AddressInputResult(
     }
     Column(
         modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.Start
+        horizontalAlignment = Alignment.Start,
     ) {
         Text(
             text = "검색결과",
@@ -532,7 +513,7 @@ private fun AddressInputResult(
             color = Black700,
             fontSize = 13.sp,
             fontWeight = FontWeight.Medium,
-            fontFamily = pretendardFamily
+            fontFamily = pretendardFamily,
         )
         Spacer(modifier = Modifier.height(11.dp))
         DotDivider()
@@ -547,7 +528,7 @@ private fun AddressInputResult(
                     }
                     Image(
                         painter = painterResource(id = image),
-                        contentDescription = "address_location"
+                        contentDescription = "address_location",
                     )
                     Column(modifier = Modifier.padding(start = 4.dp)) {
                         Text(
@@ -572,7 +553,7 @@ private fun AddressInputResult(
                                 storeName.value = searchResultList[index].storeName
                                 storeAddress.value = searchResultList[index].address
                                 storeUrl.value = searchResultList[index].url
-                            }
+                            },
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
@@ -580,7 +561,7 @@ private fun AddressInputResult(
                             color = White800,
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Normal,
-                            fontFamily = pretendardFamily
+                            fontFamily = pretendardFamily,
                         )
                     }
                 }
@@ -595,21 +576,21 @@ private fun AddressInputResult(
 private fun AddressInputGuide() {
     Column(
         modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
             text = "게시글을 작성하려는 장소를 검색해보세요.",
             color = Black700,
             fontSize = 13.sp,
             fontWeight = FontWeight.Medium,
-            fontFamily = pretendardFamily
+            fontFamily = pretendardFamily,
         )
         Spacer(modifier = Modifier.height(11.dp))
         DotDivider()
         Spacer(modifier = Modifier.height(25.dp))
         LazyColumn(
             modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             items(LocalSearchHelpDataSource().loadSearchHelps()) {
                 Text(
@@ -617,14 +598,14 @@ private fun AddressInputGuide() {
                     color = Grey350,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Normal,
-                    fontFamily = pretendardFamily
+                    fontFamily = pretendardFamily,
                 )
                 Text(
                     text = it.example,
                     color = Grey350,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Normal,
-                    fontFamily = pretendardFamily
+                    fontFamily = pretendardFamily,
                 )
                 Spacer(modifier = Modifier.height(13.dp))
             }
@@ -637,7 +618,7 @@ private fun AddressInputGuide() {
 private fun AddressTextField(
     address: MutableState<String>,
     keyboardController: SoftwareKeyboardController?,
-    postViewModel: PostViewModel
+    postViewModel: PostViewModel,
 ) {
     BasicTextField(
         value = address.value,
@@ -653,11 +634,11 @@ private fun AddressTextField(
             color = Black350,
             fontSize = 13.sp,
             fontFamily = pretendardFamily,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
         ),
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Text,
-            imeAction = ImeAction.Done
+            imeAction = ImeAction.Done,
         ),
         keyboardActions = KeyboardActions {
             if (address.value.trim().isEmpty()) return@KeyboardActions
@@ -669,41 +650,41 @@ private fun AddressTextField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(shape = RoundedCornerShape(30.dp), color = White700)
-                    .padding(horizontal = 14.dp, vertical = 8.dp)
+                    .padding(horizontal = 14.dp, vertical = 8.dp),
             ) {
                 if (address.value.isEmpty()) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Text(
                             text = "위치 검색",
                             fontFamily = pretendardFamily,
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Color.White
+                            color = Color.White,
                         )
                         Image(
                             painter = painterResource(id = R.drawable.ic_search_white_14),
-                            contentDescription = "search"
+                            contentDescription = "search",
                         )
                     }
                 } else {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
                         innerTextField()
                         Image(
                             painter = painterResource(id = R.drawable.ic_circle_cancel_white_16),
                             contentDescription = "cancel",
-                            modifier = Modifier.clickable { address.value = "" }
+                            modifier = Modifier.clickable { address.value = "" },
                         )
                     }
                 }
             }
-        }
+        },
     )
 }
 
@@ -711,12 +692,12 @@ private fun AddressTextField(
 fun WriteCancel(
     showDialog: MutableState<Boolean>,
     navController: NavController,
-    postViewModel: PostViewModel
+    postViewModel: PostViewModel,
 ) {
     Dialog(onDismissRequest = { }) {
         Surface(
             shape = RoundedCornerShape(10.dp),
-            color = Color.White
+            color = Color.White,
         ) {
             CancelWriteDialog(showDialog = showDialog) {
                 navController.popBackStack()

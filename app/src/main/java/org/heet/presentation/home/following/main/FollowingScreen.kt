@@ -122,8 +122,9 @@ fun FollowingScreen(
                                         )
                                     }
                                     Row(verticalAlignment = Alignment.CenterVertically) {
+                                        val address = allPosts.posts[index].store.address.split(" ")
                                         Text(
-                                            text = allPosts.posts[index].store.name,
+                                            text = "${address[1]} ${address[2]}",
                                             color = Red500,
                                             fontSize = 13.sp,
                                             fontWeight = FontWeight.Black,
@@ -220,8 +221,9 @@ fun FollowingScreen(
                                     )
                                 }
                                 Row(verticalAlignment = Alignment.CenterVertically) {
+                                    val address = allPosts.posts[index].store.address.split(" ")
                                     Text(
-                                        text = allPosts.posts[index].store.name,
+                                        text = "${address[1]} ${address[2]}",
                                         color = Red500,
                                         fontSize = 13.sp,
                                         fontWeight = FontWeight.Black,

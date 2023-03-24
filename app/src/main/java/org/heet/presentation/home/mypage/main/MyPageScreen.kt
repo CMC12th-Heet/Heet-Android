@@ -29,7 +29,7 @@ import org.heet.util.pretendardFamily
 @Composable
 fun MyPage(
     navController: NavController,
-    myPageViewModel: MyPageViewModel = hiltViewModel()
+    myPageViewModel: MyPageViewModel = hiltViewModel(),
 ) {
     myPageViewModel.getMyPage()
     val existPost = myPageViewModel.profile.collectAsState().value != null
@@ -39,25 +39,25 @@ fun MyPage(
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.SpaceBetween,
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Box {
                 Surface(
                     shape = RoundedCornerShape(bottomStart = 10.dp, bottomEnd = 10.dp),
-                    elevation = 20.dp
+                    elevation = 20.dp,
                 ) {
                     Column(
                         modifier = Modifier.padding(start = 20.dp, top = 18.dp, end = 20.dp),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                        horizontalAlignment = Alignment.CenterHorizontally,
                     ) {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
+                            verticalAlignment = Alignment.CenterVertically,
                         ) {
                             Image(
                                 painter = painterResource(id = R.drawable.ic_text_logo_67),
-                                contentDescription = null
+                                contentDescription = null,
                             )
                             Row {
                                 Image(
@@ -65,54 +65,54 @@ fun MyPage(
                                     contentDescription = null,
                                     modifier = Modifier.clickable {
                                         navController.navigate(MyPageScreen.Scrap.route)
-                                    }
+                                    },
                                 )
                                 Image(
                                     painter = painterResource(id = R.drawable.ic_setting_grey_44),
                                     contentDescription = null,
                                     modifier = Modifier.clickable {
                                         navController.navigate(MyPageScreen.Setting.route)
-                                    }
+                                    },
                                 )
                             }
                         }
                         Spacer(modifier = Modifier.height(31.dp))
                         Image(
                             painter = painterResource(id = R.drawable.ic_profile_grey_55),
-                            contentDescription = null
+                            contentDescription = null,
                         )
                         Spacer(modifier = Modifier.height(4.dp))
                         Text(
                             text = myPageInfo.username,
                             color = Grey350,
                             fontSize = 17.sp,
-                            fontWeight = FontWeight.ExtraBold
+                            fontWeight = FontWeight.ExtraBold,
                         )
                         Spacer(modifier = Modifier.height(9.dp))
                         Text(
                             text = myPageInfo.status ?: "소개글을 작성해주세요",
                             color = White650,
                             fontSize = 11.sp,
-                            fontWeight = FontWeight.Normal
+                            fontWeight = FontWeight.Normal,
                         )
                         Spacer(modifier = Modifier.height(24.dp))
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Image(
                                 painter = painterResource(id = R.drawable.ic_location_red_15),
-                                contentDescription = null
+                                contentDescription = null,
                             )
                             Spacer(modifier = Modifier.width(2.dp))
                             Text(
                                 text = myPageInfo.town,
                                 color = Red500,
                                 fontSize = 13.sp,
-                                fontWeight = FontWeight.Bold
+                                fontWeight = FontWeight.Bold,
                             )
                             Spacer(modifier = Modifier.width(4.dp))
                             if (myPageInfo.is_verify) {
                                 Image(
                                     painter = painterResource(id = R.drawable.ic_local_red_27),
-                                    contentDescription = null
+                                    contentDescription = null,
                                 )
                             } else {
                                 Spacer(modifier = Modifier.width(26.dp))
@@ -124,11 +124,11 @@ fun MyPage(
                                 text = "게시글 ${myPageInfo.post_count}",
                                 color = Grey850,
                                 fontSize = 12.sp,
-                                fontWeight = FontWeight.Normal
+                                fontWeight = FontWeight.Normal,
                             )
                             Divider(
                                 modifier = Modifier.size(width = 1.dp, height = 12.dp),
-                                color = Grey750
+                                color = Grey750,
                             )
                             Text(
                                 text = "팔로잉 ${myPageInfo.following_count}",
@@ -137,11 +137,11 @@ fun MyPage(
                                 },
                                 color = Grey850,
                                 fontSize = 12.sp,
-                                fontWeight = FontWeight.Normal
+                                fontWeight = FontWeight.Normal,
                             )
                             Divider(
                                 modifier = Modifier.size(width = 1.dp, height = 12.dp),
-                                color = Grey750
+                                color = Grey750,
                             )
                             Text(
                                 text = "팔로워 ${myPageInfo.follower_count}",
@@ -150,7 +150,7 @@ fun MyPage(
                                 },
                                 color = Grey850,
                                 fontSize = 12.sp,
-                                fontWeight = FontWeight.Normal
+                                fontWeight = FontWeight.Normal,
                             )
                         }
                         Spacer(modifier = Modifier.height(18.dp))
@@ -162,45 +162,46 @@ fun MyPage(
                     painter = painterResource(id = R.drawable.img_notify),
                     contentDescription = null,
                     modifier = Modifier.align(Alignment.End)
-                        .padding(end = 38.dp, bottom = 141.dp)
+                        .padding(end = 38.dp, bottom = 141.dp),
                 )
             } else {
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2),
                     modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 65.dp),
-                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                    horizontalArrangement = Arrangement.spacedBy(4.dp),
                 ) {
                     items(myPageInfo.post.size) {
                         Surface(
                             shape = RoundedCornerShape(5.dp),
-                            modifier = Modifier.padding(top = 5.dp)
+                            modifier = Modifier.padding(top = 5.dp),
                         ) {
                             Box {
                                 Image(
                                     painter = rememberAsyncImagePainter(
-                                        model = myPageInfo.post[it].file_url.replaceFirst(";", "")
+                                        model = myPageInfo.post[it].file_url.replaceFirst(";", ""),
                                     ),
                                     contentDescription = "image",
                                     contentScale = ContentScale.FillWidth,
-                                    modifier = Modifier.fillMaxWidth().height(179.dp)
+                                    modifier = Modifier.fillMaxWidth().height(179.dp),
                                 )
                                 Row(
                                     modifier = Modifier
                                         .align(Alignment.TopStart)
                                         .padding(start = 6.dp, top = 7.dp),
-                                    verticalAlignment = Alignment.CenterVertically
+                                    verticalAlignment = Alignment.CenterVertically,
                                 ) {
                                     Image(
                                         painter = painterResource(id = R.drawable.ic_location_white_16),
-                                        contentDescription = null
+                                        contentDescription = null,
                                     )
                                     Spacer(modifier = Modifier.width(3.dp))
+                                    val address = myPageInfo.post[it].store.address.split(" ")
                                     Text(
-                                        text = myPageInfo.post[it].store.name,
+                                        text = "${address[1]} ${address[2]}",
                                         color = White00,
                                         fontSize = 13.sp,
                                         fontWeight = FontWeight.Bold,
-                                        fontFamily = pretendardFamily
+                                        fontFamily = pretendardFamily,
                                     )
                                 }
                             }

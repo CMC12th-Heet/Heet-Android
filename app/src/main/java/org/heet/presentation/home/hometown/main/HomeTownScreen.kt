@@ -30,19 +30,22 @@ import org.heet.util.pretendardFamily
 @Composable
 fun HomeTownScreen(
     navController: NavController,
-    homeTownViewModel: HomeTownViewModel = hiltViewModel()
+    homeTownViewModel: HomeTownViewModel = hiltViewModel(),
 ) {
     homeTownViewModel.getNewPost()
     homeTownViewModel.getMyPage()
     val town = homeTownViewModel.profile.collectAsState().value?.town
     val isNewPost = homeTownViewModel.isNewPost.collectAsState()
-    val post = if (isNewPost.value) homeTownViewModel.newPost.collectAsState()
-    else homeTownViewModel.hotPost.collectAsState()
+    val post = if (isNewPost.value) {
+        homeTownViewModel.newPost.collectAsState()
+    } else {
+        homeTownViewModel.hotPost.collectAsState()
+    }
 
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(top = 10.dp)
+            .padding(top = 10.dp),
     ) {
         Column(modifier = Modifier.align(Alignment.TopCenter)) {
             TopBar(navController = navController, town = town)
@@ -62,8 +65,8 @@ private fun ContentList(navController: NavController, post: ResponseGetPost?) {
                 start = 20.dp,
                 top = 10.dp,
                 end = 20.dp,
-                bottom = 65.dp
-            )
+                bottom = 65.dp,
+            ),
         ) {
             items(post.posts.size) { index ->
                 DotDivider()
@@ -74,13 +77,13 @@ private fun ContentList(navController: NavController, post: ResponseGetPost?) {
                         .wrapContentHeight(),
                     shape = RoundedCornerShape(10.dp),
                     color = Color.White,
-                    elevation = 2.dp
+                    elevation = 2.dp,
                 ) {
                     Column(modifier = Modifier.fillMaxWidth()) {
                         Row(
                             modifier = Modifier.fillMaxWidth(),
                             horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
+                            verticalAlignment = Alignment.CenterVertically,
                         ) {
                             Column(modifier = Modifier.padding(start = 10.dp)) {
                                 Text(
@@ -89,40 +92,40 @@ private fun ContentList(navController: NavController, post: ResponseGetPost?) {
                                     fontSize = 16.sp,
                                     color = Black100,
                                     fontWeight = FontWeight.Bold,
-                                    fontFamily = pretendardFamily
+                                    fontFamily = pretendardFamily,
                                 )
                                 Text(
-                                    text = post.posts[index].mini_title,
+                                    text = post.posts[index].store.name,
                                     modifier = Modifier.padding(top = 4.dp),
                                     fontSize = 14.sp,
                                     fontWeight = FontWeight.Medium,
-                                    fontFamily = pretendardFamily
+                                    fontFamily = pretendardFamily,
                                 )
                             }
                             Image(
                                 painter = painterResource(id = R.drawable.ic_local_red_28),
                                 contentDescription = "local",
-                                modifier = Modifier.padding(end = 10.dp)
+                                modifier = Modifier.padding(end = 10.dp),
                             )
                         }
                         Spacer(modifier = Modifier.height(5.dp))
                         Box(
                             modifier = Modifier.fillMaxWidth().clickable {
                                 navController.navigate(HomeTownScreen.Detail.withArgs("${post.posts[index].post_id}"))
-                            }
+                            },
                         ) {
                             Image(
                                 painter = rememberAsyncImagePainter(model = post.posts[index].urlList[0]),
                                 contentDescription = "image",
                                 contentScale = ContentScale.FillWidth,
-                                modifier = Modifier.fillMaxWidth().height(height = 225.dp)
+                                modifier = Modifier.fillMaxWidth().height(height = 225.dp),
                             )
                             Surface(
                                 shape = RoundedCornerShape(20.dp),
                                 color = Color.White,
                                 modifier = Modifier
                                     .padding(end = 12.dp, bottom = 11.dp)
-                                    .align(Alignment.BottomEnd)
+                                    .align(Alignment.BottomEnd),
                             ) {
                                 Text(
                                     text = "1/${post.posts[index].urlList.size}",
@@ -130,7 +133,7 @@ private fun ContentList(navController: NavController, post: ResponseGetPost?) {
                                     color = Black400,
                                     fontSize = 10.sp,
                                     fontWeight = FontWeight.ExtraBold,
-                                    fontFamily = pretendardFamily
+                                    fontFamily = pretendardFamily,
                                 )
                             }
                         }
@@ -139,16 +142,16 @@ private fun ContentList(navController: NavController, post: ResponseGetPost?) {
                 Spacer(modifier = Modifier.height(13.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Row {
                         Image(
                             painter = painterResource(id = R.drawable.ic_profile_grey_27),
-                            contentDescription = "profile"
+                            contentDescription = "profile",
                         )
                         Text(
                             text = post.posts[index].user.username,
-                            modifier = Modifier.padding(start = 7.dp)
+                            modifier = Modifier.padding(start = 7.dp),
                         )
                     }
                     Row {
@@ -157,12 +160,12 @@ private fun ContentList(navController: NavController, post: ResponseGetPost?) {
                             contentDescription = "comment",
                             modifier = Modifier.padding(end = 22.dp).clickable {
                                 navController.navigate(HomeTownScreen.Comment.route)
-                            }
+                            },
                         )
                         Image(
                             painter = painterResource(id = R.drawable.ic_bookmark_grey_17),
                             contentDescription = "bookmark",
-                            modifier = Modifier.padding(end = 3.dp)
+                            modifier = Modifier.padding(end = 3.dp),
                         )
                     }
                 }
@@ -172,7 +175,7 @@ private fun ContentList(navController: NavController, post: ResponseGetPost?) {
                     fontSize = 10.sp,
                     color = White300,
                     fontWeight = FontWeight.Normal,
-                    fontFamily = pretendardFamily
+                    fontFamily = pretendardFamily,
                 )
                 Spacer(modifier = Modifier.height(10.dp))
             }
@@ -187,17 +190,17 @@ private fun TopBar(navController: NavController, town: String?) {
             .fillMaxWidth()
             .padding(horizontal = 20.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Surface(
             shape = RoundedCornerShape(13.dp),
-            color = Red500
+            color = Red500,
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Spacer(modifier = Modifier.width(6.dp))
                 Image(
                     painter = painterResource(id = R.drawable.ic_location_white_17),
-                    contentDescription = null
+                    contentDescription = null,
                 )
                 Text(
                     text = town ?: "",
@@ -209,8 +212,8 @@ private fun TopBar(navController: NavController, town: String?) {
                         start = 4.dp,
                         end = 10.dp,
                         top = 5.5.dp,
-                        bottom = 5.5.dp
-                    )
+                        bottom = 5.5.dp,
+                    ),
                 )
             }
         }
@@ -220,14 +223,14 @@ private fun TopBar(navController: NavController, town: String?) {
                 contentDescription = "search",
                 modifier = Modifier.clickable {
                     navController.navigate(HomeTownScreen.FindUser.route)
-                }
+                },
             )
             Image(
                 painter = painterResource(id = R.drawable.ic_grey_bookmark_44),
                 contentDescription = "bookmark",
                 modifier = Modifier.clickable {
                     navController.navigate(HomeTownScreen.Scrap.route)
-                }
+                },
             )
         }
     }
@@ -239,18 +242,18 @@ private fun Filter(homeTownViewModel: HomeTownViewModel) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 20.dp),
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Image(
             painter = painterResource(id = R.drawable.ic_grey_filter_25),
-            contentDescription = null
+            contentDescription = null,
         )
         Divider(
             modifier = Modifier
                 .padding(start = 5.dp, end = 9.dp)
                 .width(1.dp)
                 .height(11.dp),
-            color = Grey750
+            color = Grey750,
         )
         Text(
             text = "최신순",
@@ -260,14 +263,14 @@ private fun Filter(homeTownViewModel: HomeTownViewModel) {
             fontFamily = pretendardFamily,
             modifier = Modifier.clickable {
                 homeTownViewModel.getNewPost()
-            }
+            },
         )
         Divider(
             modifier = Modifier
                 .padding(start = 16.dp, end = 15.dp)
                 .width(1.dp)
                 .height(11.dp),
-            color = Grey750
+            color = Grey750,
         )
         Text(
             text = "베스트순",
@@ -277,7 +280,7 @@ private fun Filter(homeTownViewModel: HomeTownViewModel) {
             fontFamily = pretendardFamily,
             modifier = Modifier.clickable {
                 homeTownViewModel.getHotPost()
-            }
+            },
         )
     }
 }
