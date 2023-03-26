@@ -3,7 +3,6 @@ package org.heet.presentation.home.hometown.modifypost
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -24,6 +23,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.SubcomposeAsyncImage
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
 import org.heet.R
 import org.heet.components.*
 import org.heet.core.navigation.Graph
@@ -36,7 +37,7 @@ import org.heet.util.pretendardFamily
 fun ModifyPostScreen(
     navController: NavController,
     postId: String,
-    modifyPostViewModel: ModifyPostViewModel = hiltViewModel()
+    modifyPostViewModel: ModifyPostViewModel = hiltViewModel(),
 ) {
     modifyPostViewModel.getDetailPost(postId)
 
@@ -70,7 +71,7 @@ fun ModifyPostScreen(
     if (postContent != null) {
         Column(
             modifier = Modifier.verticalScroll(rememberScrollState()),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Spacer(modifier = Modifier.height(14.dp))
             TopBar(
@@ -85,7 +86,7 @@ fun ModifyPostScreen(
                 dayTip,
                 movingTip,
                 orderingTip,
-                otherTip
+                otherTip,
             )
             Spacer(modifier = Modifier.height(12.dp))
             Location(postContent)
@@ -97,13 +98,15 @@ fun ModifyPostScreen(
             FlatModifyTextField(
                 valueState = title,
                 placeholder = postContent.title,
-                modifier = Modifier.padding(horizontal = 20.dp).align(Alignment.Start),
+                modifier = Modifier
+                    .padding(horizontal = 20.dp)
+                    .align(Alignment.Start),
                 textStyle = TextStyle.Default.copy(
                     color = Grey1300,
                     fontSize = 17.sp,
                     fontWeight = FontWeight.SemiBold,
-                    fontFamily = pretendardFamily
-                )
+                    fontFamily = pretendardFamily,
+                ),
             )
             Spacer(modifier = Modifier.height(6.dp))
             DotDivider()
@@ -111,13 +114,15 @@ fun ModifyPostScreen(
             FlatModifyTextField(
                 valueState = subTitle,
                 placeholder = postContent.mini_title,
-                modifier = Modifier.padding(horizontal = 20.dp).align(Alignment.Start),
+                modifier = Modifier
+                    .padding(horizontal = 20.dp)
+                    .align(Alignment.Start),
                 textStyle = TextStyle.Default.copy(
                     color = White550,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Medium,
-                    fontFamily = pretendardFamily
-                )
+                    fontFamily = pretendardFamily,
+                ),
             )
             Spacer(modifier = Modifier.height(6.dp))
             DotDivider()
@@ -125,13 +130,15 @@ fun ModifyPostScreen(
             FlatModifyTextField(
                 valueState = content,
                 placeholder = postContent.content,
-                modifier = Modifier.padding(horizontal = 20.dp).align(Alignment.Start),
+                modifier = Modifier
+                    .padding(horizontal = 20.dp)
+                    .align(Alignment.Start),
                 textStyle = TextStyle.Default.copy(
                     color = Grey1000,
                     fontSize = 12.sp,
                     fontWeight = FontWeight.Medium,
-                    fontFamily = pretendardFamily
-                )
+                    fontFamily = pretendardFamily,
+                ),
             )
             Spacer(modifier = Modifier.height(36.dp))
             DotDivider()
@@ -144,10 +151,15 @@ fun ModifyPostScreen(
                 dayTip,
                 movingTip,
                 orderingTip,
-                otherTip
+                otherTip,
             )
             Spacer(modifier = Modifier.height(14.dp))
-            Divider(modifier = Modifier.height(0.5.dp).shadow(2.dp), color = White00)
+            Divider(
+                modifier = Modifier
+                    .height(0.5.dp)
+                    .shadow(2.dp),
+                color = White00,
+            )
             Spacer(modifier = Modifier.height(13.dp))
             Satisfaction(expandSatisfaction)
             Spacer(modifier = Modifier.height(24.dp))
@@ -160,7 +172,7 @@ fun ModifyPostScreen(
 @Composable
 private fun SatisfactionList(
     expandSatisfaction: MutableState<Boolean>,
-    satisfaction: MutableState<Int>
+    satisfaction: MutableState<Int>,
 ) {
     if (expandSatisfaction.value) {
         var satisfactionList by remember { mutableStateOf(LoadSatisfactionDataSource().loadSatisfactionItems()) }
@@ -168,7 +180,7 @@ private fun SatisfactionList(
             modifier = Modifier
                 .padding(horizontal = 20.dp)
                 .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             for (index in satisfactionList.indices) {
                 val color = if (satisfactionList[index].isSelected) {
@@ -187,9 +199,11 @@ private fun SatisfactionList(
                                     if (index == j) {
                                         satisfaction.value = j + 1
                                         satisfactionItem.copy(isSelected = !satisfactionItem.isSelected)
-                                    } else satisfactionItem.copy(isSelected = false)
+                                    } else {
+                                        satisfactionItem.copy(isSelected = false)
+                                    }
                                 }
-                        }
+                        },
                     )
                     Text(
                         text = satisfactionList[index].text,
@@ -200,7 +214,7 @@ private fun SatisfactionList(
                         },
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Normal,
-                        fontFamily = pretendardFamily
+                        fontFamily = pretendardFamily,
                     )
                 }
             }
@@ -216,14 +230,14 @@ private fun TipList(
     dayTip: MutableState<String>,
     movingTip: MutableState<String>,
     orderingTip: MutableState<String>,
-    otherTip: MutableState<String>
+    otherTip: MutableState<String>,
 ) {
     if (expandShare.value) {
         Column(
             modifier = modifier
                 .padding(horizontal = 20.dp)
                 .fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Spacer(modifier = Modifier.height(4.dp))
             Text(
@@ -231,7 +245,7 @@ private fun TipList(
                 color = Red500,
                 fontSize = 10.sp,
                 fontWeight = FontWeight.SemiBold,
-                fontFamily = pretendardFamily
+                fontFamily = pretendardFamily,
             )
             Spacer(modifier = Modifier.height(17.dp))
             ShareTip(
@@ -239,32 +253,32 @@ private fun TipList(
                 "ex) 같이 간 사람/가고 싶은 사람",
                 Modifier.align(Alignment.Start),
                 16.5.dp,
-                shareTip = togetherWith
+                shareTip = togetherWith,
             )
             ShareTip(
                 "이런 날 방문해요!",
                 "ex) 생일/기념일/기분 꿀꿀한 날.",
                 Modifier.align(Alignment.Start),
                 15.5.dp,
-                shareTip = dayTip
+                shareTip = dayTip,
             )
             ShareTip(
                 "이동 꿀팁",
                 "ex) 3번 출구 바로 앞 골목이 지름길!",
                 Modifier.align(Alignment.Start),
-                shareTip = movingTip
+                shareTip = movingTip,
             )
             ShareTip(
                 "주문 꿀팁",
                 "ex) 시그니처 라떼는 필수입니다.",
                 Modifier.align(Alignment.Start),
-                shareTip = orderingTip
+                shareTip = orderingTip,
             )
             ShareTip(
                 "기타 꿀팁",
                 "ex) 화장실 문고리 잘 흔들려요!",
                 Modifier.align(Alignment.Start),
-                shareTip = otherTip
+                shareTip = otherTip,
             )
         }
     }
@@ -283,13 +297,13 @@ private fun TopBar(
     dayTip: MutableState<String>,
     movingTip: MutableState<String>,
     orderingTip: MutableState<String>,
-    otherTip: MutableState<String>
+    otherTip: MutableState<String>,
 ) {
     Row(
         modifier = Modifier
             .padding(horizontal = 20.dp)
             .fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Cancel(modifier = Modifier.clickable { navController.popBackStack() })
         Title(title = "우리동네 기록")
@@ -305,9 +319,9 @@ private fun TopBar(
                     dayTip.value,
                     movingTip.value,
                     orderingTip.value,
-                    otherTip.value
+                    otherTip.value,
                 )
-            }
+            },
         )
     }
 }
@@ -316,19 +330,19 @@ private fun TopBar(
 private fun Location(postContent: ResponseGetDetailPost) {
     Surface(
         shape = RoundedCornerShape(30.dp),
-        color = Black400
+        color = Black400,
     ) {
         Row(
             modifier = Modifier.padding(
                 start = 13.dp,
                 top = 5.dp,
                 end = 52.dp,
-                bottom = 5.dp
-            )
+                bottom = 5.dp,
+            ),
         ) {
             Image(
                 painter = painterResource(id = R.drawable.ic_white_location_20),
-                contentDescription = "location"
+                contentDescription = "location",
             )
             Spacer(modifier = Modifier.width(39.dp))
             Text(
@@ -336,55 +350,57 @@ private fun Location(postContent: ResponseGetDetailPost) {
                 color = White00,
                 fontSize = 13.sp,
                 fontWeight = FontWeight.Black,
-                fontFamily = pretendardFamily
+                fontFamily = pretendardFamily,
             )
         }
     }
 }
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 private fun ImageList(
     postContent: ResponseGetDetailPost,
-    modifyPostViewModel: ModifyPostViewModel
+    modifyPostViewModel: ModifyPostViewModel,
 ) {
-    LazyRow(modifier = Modifier.padding(horizontal = 20.dp)) {
-        items(postContent.urlList.size) { index ->
-            Surface(shape = RoundedCornerShape(5.dp)) {
-                Box(modifier = Modifier.fillMaxWidth()) {
-                    SubcomposeAsyncImage(
-                        model = postContent.urlList[index],
-                        contentDescription = "image",
-                        modifier = Modifier
-                            .width(
-                                modifyPostViewModel.resolutionMetrics.toDP(modifyPostViewModel.resolutionMetrics.screenWidth).dp -
-                                    40.dp
-                            )
-                            .height(256.dp),
-                        loading = {
-                            CircularProgressIndicator()
-                        }
-                    )
-                    Surface(
-                        shape = RoundedCornerShape(20.dp),
-                        color = White00,
-                        modifier = Modifier
-                            .padding(end = 11.dp, bottom = 10.dp)
-                            .align(Alignment.BottomEnd)
-                    ) {
-                        Text(
-                            text = "${index + 1}/${postContent.urlList.size}",
-                            modifier = Modifier.padding(
-                                start = 17.dp,
-                                top = 2.dp,
-                                end = 15.dp,
-                                bottom = 3.dp
-                            ),
-                            color = Black400,
-                            fontSize = 10.sp,
-                            fontWeight = FontWeight.ExtraBold,
-                            fontFamily = pretendardFamily
+    HorizontalPager(
+        postContent.urlList.size,
+        modifier = Modifier.padding(horizontal = 20.dp),
+    ) { index ->
+        Surface(shape = RoundedCornerShape(5.dp)) {
+            Box(modifier = Modifier.fillMaxWidth()) {
+                SubcomposeAsyncImage(
+                    model = postContent.urlList[index],
+                    contentDescription = "image",
+                    modifier = Modifier
+                        .width(
+                            modifyPostViewModel.resolutionMetrics.toDP(modifyPostViewModel.resolutionMetrics.screenWidth).dp -
+                                40.dp,
                         )
-                    }
+                        .height(256.dp),
+                    loading = {
+                        CircularProgressIndicator()
+                    },
+                )
+                Surface(
+                    shape = RoundedCornerShape(20.dp),
+                    color = White00,
+                    modifier = Modifier
+                        .padding(end = 11.dp, bottom = 10.dp)
+                        .align(Alignment.BottomEnd),
+                ) {
+                    Text(
+                        text = "${index + 1}/${postContent.urlList.size}",
+                        modifier = Modifier.padding(
+                            start = 17.dp,
+                            top = 2.dp,
+                            end = 15.dp,
+                            bottom = 3.dp,
+                        ),
+                        color = Black400,
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.ExtraBold,
+                        fontFamily = pretendardFamily,
+                    )
                 }
             }
         }
@@ -395,23 +411,23 @@ private fun ImageList(
 private fun ShareTip(expandShare: MutableState<Boolean>) {
     Surface(
         shape = RoundedCornerShape(30.dp),
-        color = Black400
+        color = Black400,
     ) {
         Row(
             modifier = Modifier.padding(
                 start = 15.5.dp,
                 top = 7.dp,
                 end = 15.5.dp,
-                bottom = 7.dp
+                bottom = 7.dp,
             ),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
                 text = "꿀팁 정보들 공유하기",
                 color = White00,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold,
-                fontFamily = pretendardFamily
+                fontFamily = pretendardFamily,
             )
             Spacer(modifier = Modifier.width(1.dp))
             Image(
@@ -423,7 +439,7 @@ private fun ShareTip(expandShare: MutableState<Boolean>) {
                 contentDescription = null,
                 modifier = Modifier.clickable {
                     expandShare.value = !expandShare.value
-                }
+                },
             )
         }
     }
@@ -433,23 +449,23 @@ private fun ShareTip(expandShare: MutableState<Boolean>) {
 private fun Satisfaction(expandSatisfaction: MutableState<Boolean>) {
     Surface(
         shape = RoundedCornerShape(30.dp),
-        color = Black400
+        color = Black400,
     ) {
         Row(
             modifier = Modifier.padding(
                 start = 27.dp,
                 top = 7.dp,
                 end = 13.5.dp,
-                bottom = 7.dp
+                bottom = 7.dp,
             ),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
                 text = "만족도 체크하기",
                 color = White00,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold,
-                fontFamily = pretendardFamily
+                fontFamily = pretendardFamily,
             )
             Spacer(modifier = Modifier.width(15.5.dp))
             Image(
@@ -461,7 +477,7 @@ private fun Satisfaction(expandSatisfaction: MutableState<Boolean>) {
                 contentDescription = "satisfaction",
                 modifier = Modifier.clickable {
                     expandSatisfaction.value = !expandSatisfaction.value
-                }
+                },
             )
         }
     }

@@ -2,7 +2,6 @@ package org.heet.presentation.home.hometown.detail
 
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -20,6 +19,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
 import org.heet.R
 import org.heet.components.Back
 import org.heet.components.DotDivider
@@ -30,11 +31,12 @@ import org.heet.data.datasource.LoadSatisfactionDataSource
 import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
 
+@OptIn(ExperimentalPagerApi::class)
 @Composable
 fun DetailScreen(
     post_id: String,
     navController: NavController,
-    detailViewModel: DetailViewModel = hiltViewModel()
+    detailViewModel: DetailViewModel = hiltViewModel(),
 ) {
     val scrollState = rememberScrollState()
     val expandSatisfaction = remember { mutableStateOf(false) }
@@ -55,13 +57,13 @@ fun DetailScreen(
         Surface(modifier = Modifier.fillMaxSize()) {
             Column(
                 modifier = Modifier.verticalScroll(scrollState),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Row(
                     modifier = Modifier
                         .padding(start = 20.dp, top = 14.dp, end = 20.dp)
                         .fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Back {
                         navController.popBackStack()
@@ -73,18 +75,18 @@ fun DetailScreen(
                             contentDescription = null,
                             modifier = Modifier.clickable {
                                 isDropDownMenuExpanded = true
-                            }
+                            },
                         )
                         MaterialTheme(
                             shapes = MaterialTheme.shapes.copy(
                                 medium = RoundedCornerShape(
-                                    10.dp
-                                )
-                            )
+                                    10.dp,
+                                ),
+                            ),
                         ) {
                             DropdownMenu(
                                 expanded = isDropDownMenuExpanded,
-                                onDismissRequest = { isDropDownMenuExpanded = false }
+                                onDismissRequest = { isDropDownMenuExpanded = false },
                             ) {
                                 if (detailPost.isMyPost == 1) {
                                     DropdownMenuItem(onClick = {
@@ -99,10 +101,10 @@ fun DetailScreen(
                                             modifier = Modifier.fillMaxWidth().clickable {
                                                 navController.navigate(
                                                     HomeTownScreen.PostModify.withArgs(
-                                                        post_id
-                                                    )
+                                                        post_id,
+                                                    ),
                                                 )
-                                            }
+                                            },
                                         )
                                     }
                                     DropdownMenuItem(onClick = {
@@ -118,13 +120,13 @@ fun DetailScreen(
                                                 .fillMaxWidth()
                                                 .clickable {
                                                     detailViewModel.deletePost(post_id)
-                                                }
+                                                },
                                         )
                                     }
                                 } else {
                                     DropdownMenuItem(onClick = {
                                         navController.navigate(
-                                            HomeTownScreen.Declaration.route
+                                            HomeTownScreen.Declaration.route,
                                         )
                                     }) {
                                         Text(
@@ -134,7 +136,7 @@ fun DetailScreen(
                                             fontWeight = FontWeight.Normal,
                                             fontFamily = pretendardFamily,
                                             textAlign = TextAlign.Center,
-                                            modifier = Modifier.fillMaxWidth()
+                                            modifier = Modifier.fillMaxWidth(),
                                         )
                                     }
                                 }
@@ -148,12 +150,12 @@ fun DetailScreen(
                     color = Red500,
                     modifier = Modifier
                         .align(Alignment.Start)
-                        .padding(start = 20.dp)
+                        .padding(start = 20.dp),
                 ) {
                     Row(modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)) {
                         Image(
                             painter = painterResource(id = R.drawable.ic_detail_local),
-                            contentDescription = null
+                            contentDescription = null,
                         )
                         Spacer(modifier = Modifier.width(8.dp))
                         Text(
@@ -161,43 +163,41 @@ fun DetailScreen(
                             color = Color.White,
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Black,
-                            fontFamily = pretendardFamily
+                            fontFamily = pretendardFamily,
                         )
                     }
                 }
                 Spacer(modifier = Modifier.height(17.5.dp))
                 Column(
-                    modifier = Modifier.padding(horizontal = 20.dp)
+                    modifier = Modifier.padding(horizontal = 20.dp),
                 ) {
-                    LazyRow {
-                        items(detailPost.urlList.size) {
-                            Surface(shape = RoundedCornerShape(5.dp)) {
-                                Box {
-                                    Image(
-                                        painter = rememberAsyncImagePainter(model = detailPost.urlList[it]),
-                                        contentDescription = "image",
-                                        contentScale = ContentScale.Crop,
-                                        modifier = Modifier
-                                            .width(380.dp)
-                                            .height(256.dp)
-                                    )
+                    HorizontalPager(count = detailPost.urlList.size) {
+                        Surface(shape = RoundedCornerShape(5.dp)) {
+                            Box {
+                                Image(
+                                    painter = rememberAsyncImagePainter(model = detailPost.urlList[it]),
+                                    contentDescription = "image",
+                                    contentScale = ContentScale.Crop,
+                                    modifier = Modifier
+                                        .width(380.dp)
+                                        .height(256.dp),
+                                )
 
-                                    Surface(
-                                        shape = RoundedCornerShape(20.dp),
-                                        color = Color.White,
-                                        modifier = Modifier
-                                            .padding(end = 12.dp, bottom = 11.dp)
-                                            .align(Alignment.BottomEnd)
-                                    ) {
-                                        Text(
-                                            text = "${it + 1}/${detailPost.urlList.size}",
-                                            modifier = Modifier.padding(horizontal = 13.dp),
-                                            color = Black400,
-                                            fontSize = 10.sp,
-                                            fontWeight = FontWeight.ExtraBold,
-                                            fontFamily = pretendardFamily
-                                        )
-                                    }
+                                Surface(
+                                    shape = RoundedCornerShape(20.dp),
+                                    color = Color.White,
+                                    modifier = Modifier
+                                        .padding(end = 12.dp, bottom = 11.dp)
+                                        .align(Alignment.BottomEnd),
+                                ) {
+                                    Text(
+                                        text = "${it + 1}/${detailPost.urlList.size}",
+                                        modifier = Modifier.padding(horizontal = 13.dp),
+                                        color = Black400,
+                                        fontSize = 10.sp,
+                                        fontWeight = FontWeight.ExtraBold,
+                                        fontFamily = pretendardFamily,
+                                    )
                                 }
                             }
                         }
@@ -211,7 +211,7 @@ fun DetailScreen(
                         color = Grey550,
                         fontSize = 17.sp,
                         fontFamily = pretendardFamily,
-                        fontWeight = FontWeight.SemiBold
+                        fontWeight = FontWeight.SemiBold,
                     )
                     Spacer(modifier = Modifier.height(6.dp))
                     DotDivider()
@@ -221,7 +221,7 @@ fun DetailScreen(
                         fontSize = 12.sp,
                         color = Grey550,
                         fontFamily = pretendardFamily,
-                        fontWeight = FontWeight.Medium
+                        fontWeight = FontWeight.Medium,
                     )
                     Spacer(modifier = Modifier.height(6.dp))
                     DotDivider()
@@ -232,14 +232,14 @@ fun DetailScreen(
                         fontSize = 12.sp,
                         color = Grey1000,
                         fontFamily = pretendardFamily,
-                        fontWeight = FontWeight.Medium
+                        fontWeight = FontWeight.Medium,
                     )
                     Spacer(modifier = Modifier.height(17.dp))
                     DotDivider()
                     Spacer(modifier = Modifier.height(13.dp))
                     Surface(
                         shape = RoundedCornerShape(30.dp),
-                        color = Black400
+                        color = Black400,
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
@@ -247,12 +247,12 @@ fun DetailScreen(
                                 modifier = Modifier.padding(
                                     start = 37.5.dp,
                                     top = 7.dp,
-                                    bottom = 7.dp
+                                    bottom = 7.dp,
                                 ),
                                 color = Color.White,
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.Bold,
-                                fontFamily = pretendardFamily
+                                fontFamily = pretendardFamily,
                             )
                             Spacer(modifier = Modifier.width(25.dp))
                             Image(
@@ -264,7 +264,7 @@ fun DetailScreen(
                                 contentDescription = null,
                                 modifier = Modifier.clickable {
                                     expandShare.value = !expandShare.value
-                                }
+                                },
                             )
                             Spacer(modifier = Modifier.width(13.5.dp))
                         }
@@ -274,7 +274,7 @@ fun DetailScreen(
                             modifier = Modifier
                                 .align(Alignment.Start)
                                 .fillMaxWidth(),
-                            horizontalAlignment = Alignment.CenterHorizontally
+                            horizontalAlignment = Alignment.CenterHorizontally,
                         ) {
                             Spacer(modifier = Modifier.height(9.dp))
                             ShareTip(
@@ -282,32 +282,32 @@ fun DetailScreen(
                                 detailPost.together_with ?: "",
                                 Modifier.align(Alignment.Start),
                                 16.5.dp,
-                                false
+                                false,
                             )
                             ShareTip(
                                 "이런 날 방문해요!",
                                 detailPost.perfect_day ?: "",
                                 Modifier.align(Alignment.Start),
                                 15.5.dp,
-                                false
+                                false,
                             )
                             ShareTip(
                                 "이동 꿀팁",
                                 detailPost.moving_tip ?: "",
                                 Modifier.align(Alignment.Start),
-                                enabled = false
+                                enabled = false,
                             )
                             ShareTip(
                                 "주문 꿀팁",
                                 detailPost.ordering_tip ?: "",
                                 Modifier.align(Alignment.Start),
-                                enabled = false
+                                enabled = false,
                             )
                             ShareTip(
                                 "기타 꿀팁",
                                 detailPost.other_tips ?: "",
                                 Modifier.align(Alignment.Start),
-                                enabled = false
+                                enabled = false,
                             )
                         }
                     }
@@ -315,7 +315,7 @@ fun DetailScreen(
                     Spacer(modifier = Modifier.height(14.dp))
                     Surface(
                         shape = RoundedCornerShape(30.dp),
-                        color = Black400
+                        color = Black400,
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
@@ -323,12 +323,12 @@ fun DetailScreen(
                                 modifier = Modifier.padding(
                                     start = 37.5.dp,
                                     top = 7.dp,
-                                    bottom = 7.dp
+                                    bottom = 7.dp,
                                 ),
                                 color = Color.White,
                                 fontSize = 12.sp,
                                 fontWeight = FontWeight.Bold,
-                                fontFamily = pretendardFamily
+                                fontFamily = pretendardFamily,
                             )
                             Spacer(modifier = Modifier.width(25.dp))
                             Image(
@@ -340,7 +340,7 @@ fun DetailScreen(
                                 contentDescription = null,
                                 modifier = Modifier.clickable {
                                     expandSatisfaction.value = !expandSatisfaction.value
-                                }
+                                },
                             )
                             Spacer(modifier = Modifier.width(13.5.dp))
                         }
@@ -350,7 +350,7 @@ fun DetailScreen(
                             modifier = Modifier
                                 .padding(top = 24.dp)
                                 .fillMaxWidth(),
-                            horizontalArrangement = Arrangement.SpaceBetween
+                            horizontalArrangement = Arrangement.SpaceBetween,
                         ) {
                             for (index in satisfactionList.indices) {
                                 val satisfaction = detailPost.satisfaction
@@ -361,14 +361,14 @@ fun DetailScreen(
                                     Image(
                                         painter = painterResource(id = satisfactionList[index].image),
                                         contentDescription = null,
-                                        colorFilter = ColorFilter.tint(color)
+                                        colorFilter = ColorFilter.tint(color),
                                     )
                                     Text(
                                         text = satisfactionList[index].text,
                                         color = color,
                                         fontSize = 11.sp,
                                         fontWeight = FontWeight.Normal,
-                                        fontFamily = pretendardFamily
+                                        fontFamily = pretendardFamily,
                                     )
                                 }
                             }
@@ -381,18 +381,18 @@ fun DetailScreen(
             }
             Box(contentAlignment = Alignment.BottomCenter) {
                 Column(
-                    modifier = Modifier.background(Color.White)
+                    modifier = Modifier.background(Color.White),
                 ) {
                     Divider(
                         modifier = Modifier
                             .height(0.5.dp)
-                            .shadow(2.dp)
+                            .shadow(2.dp),
                     )
                     Row(
                         modifier = Modifier
                             .padding(horizontal = 20.dp)
                             .fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
                         Row {
                             Image(
@@ -400,16 +400,16 @@ fun DetailScreen(
                                 contentDescription = "comment",
                                 modifier = Modifier.clickable {
                                     navController.navigate(HomeTownScreen.Comment.withArgs(post_id))
-                                }
+                                },
                             )
                             Image(
                                 painter = painterResource(id = R.drawable.ic_detail_bookmark),
-                                contentDescription = "bookmark"
+                                contentDescription = "bookmark",
                             )
                         }
                         Image(
                             painter = painterResource(id = R.drawable.ic_detail_share),
-                            contentDescription = "share"
+                            contentDescription = "share",
                         )
                     }
                 }
