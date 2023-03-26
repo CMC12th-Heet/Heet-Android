@@ -7,7 +7,7 @@ import org.heet.domain.repository.PostRepository
 import javax.inject.Inject
 
 class PostRepositoryImpl @Inject constructor(
-    private val postService: PostService
+    private val postService: PostService,
 ) : PostRepository {
     override suspend fun postVerify(x: String, y: String): ResponsePostVerify {
         return postService.postVerify(x, y)
@@ -15,6 +15,10 @@ class PostRepositoryImpl @Inject constructor(
 
     override suspend fun getNewPost(isNew: String): ResponseGetPost {
         return postService.getNewPost(isNew)
+    }
+
+    override suspend fun getCityPost(city: String): ResponseGetPost {
+        return postService.getCityPost(city)
     }
 
     override suspend fun getHotPost(isHot: String): ResponseGetPost {
@@ -27,7 +31,7 @@ class PostRepositoryImpl @Inject constructor(
 
     override suspend fun updatePost(
         id: String,
-        requestUpdatePost: RequestUpdatePost
+        requestUpdatePost: RequestUpdatePost,
     ): ResponseUpdatePost {
         return postService.updatePost(id, requestUpdatePost)
     }
