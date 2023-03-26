@@ -95,6 +95,13 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
         )
     }
 
+    LaunchedEffect(postViewModel.storeSuccess.collectAsState().value) {
+        if (postViewModel.storeSuccess.value) {
+            openAddress.value = false
+            postViewModel.setStoreSuccess()
+        }
+    }
+
     LaunchedEffect(key1 = true) {
         TedImagePicker.with(context)
             .title("사진을 골라주세요.")
