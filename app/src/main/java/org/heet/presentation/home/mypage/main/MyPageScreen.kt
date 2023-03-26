@@ -38,7 +38,7 @@ fun MyPage(
     if (myPageInfo != null) {
         Column(
             modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.SpaceBetween,
+            verticalArrangement = if (!existPost) Arrangement.SpaceBetween else Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Box {
@@ -167,21 +167,20 @@ fun MyPage(
             } else {
                 LazyVerticalGrid(
                     columns = GridCells.Fixed(2),
-                    modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 65.dp),
+                    modifier = Modifier.padding(start = 20.dp, end = 20.dp, top = 18.dp),
                     horizontalArrangement = Arrangement.spacedBy(4.dp),
                 ) {
                     items(myPageInfo.post.size) {
                         Surface(
                             shape = RoundedCornerShape(5.dp),
-                            modifier = Modifier.padding(top = 5.dp),
                         ) {
                             Box {
                                 Image(
                                     painter = rememberAsyncImagePainter(
-                                        model = myPageInfo.post[it].file_url.replaceFirst(";", ""),
+                                        model = myPageInfo.post[it].file_url.split(";")[0],
                                     ),
                                     contentDescription = "image",
-                                    contentScale = ContentScale.FillWidth,
+                                    contentScale = ContentScale.Crop,
                                     modifier = Modifier.fillMaxWidth().height(179.dp),
                                 )
                                 Row(
