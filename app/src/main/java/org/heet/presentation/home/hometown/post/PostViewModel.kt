@@ -25,11 +25,14 @@ import javax.inject.Inject
 class PostViewModel @Inject constructor(
     private val addressRepository: AddressRepository,
     private val postService: PostService,
-    private val storeRepository: StoreRepository
+    private val storeRepository: StoreRepository,
 ) : ViewModel() {
 
     private val _postSuccess = MutableStateFlow(false)
     val postSuccess = _postSuccess.asStateFlow()
+
+    private val _storeSuccess = MutableStateFlow(false)
+    val storeSuccess = _storeSuccess.asStateFlow()
 
     private val _store = MutableStateFlow(emptyList<ResponseGetStore>())
     val store = _store.asStateFlow()
@@ -49,12 +52,17 @@ class PostViewModel @Inject constructor(
         }
     }
 
+    fun setStoreSuccess() {
+        _storeSuccess.value = false
+    }
+
     fun postStore(requestPostStore: RequestPostStore) {
         viewModelScope.launch {
             runCatching {
                 storeRepository.postStore(requestPostStore)
             }.onSuccess {
                 updateSelectStoreNum(it)
+                _storeSuccess.value = true
                 _storeName.value = requestPostStore.name
                 updateSelectStore(requestPostStore.name)
             }.onFailure {
@@ -107,7 +115,7 @@ class PostViewModel @Inject constructor(
         dayTip: String?,
         movingTip: String?,
         orderingTip: String?,
-        otherTip: String?
+        otherTip: String?,
     ) {
         val imageListMultipartBody = mutableListOf<MultipartBody.Part>()
         val titleRequestBody = title.toPlainRequestBody()
@@ -140,7 +148,7 @@ class PostViewModel @Inject constructor(
                     dayTipRequestBody,
                     movingTipRequestBody,
                     orderingTipRequestBody,
-                    otherTipRequestBody
+                    otherTipRequestBody,
                 )
             }.onSuccess {
                 deleteSelectStore()
