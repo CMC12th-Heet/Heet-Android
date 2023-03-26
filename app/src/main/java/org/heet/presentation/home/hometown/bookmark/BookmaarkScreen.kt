@@ -26,7 +26,7 @@ import org.heet.components.Title
 import org.heet.util.pretendardFamily
 
 @Composable
-fun ScrapScreen(navController: NavController) {
+fun BookmarkScreen(navController: NavController) {
     Column(
         modifier = Modifier.padding(start = 20.dp, top = 14.dp, end = 20.dp)
             .fillMaxSize(),
