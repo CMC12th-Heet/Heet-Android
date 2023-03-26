@@ -5,7 +5,6 @@ import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -36,6 +35,8 @@ import androidx.compose.ui.window.Dialog
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
+import com.google.accompanist.pager.ExperimentalPagerApi
+import com.google.accompanist.pager.HorizontalPager
 import gun0912.tedimagepicker.builder.TedImagePicker
 import gun0912.tedimagepicker.builder.type.MediaType
 import org.heet.R
@@ -49,7 +50,7 @@ import org.heet.ui.theme.*
 import org.heet.util.pretendardFamily
 import timber.log.Timber
 
-@OptIn(ExperimentalComposeUiApi::class)
+@OptIn(ExperimentalComposeUiApi::class, ExperimentalPagerApi::class)
 @Composable
 fun PostScreen(navController: NavController, postViewModel: PostViewModel = hiltViewModel()) {
     val scrollState = rememberScrollState()
@@ -92,6 +93,13 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
             navController = navController,
             postViewModel = postViewModel,
         )
+    }
+
+    LaunchedEffect(postViewModel.storeSuccess.collectAsState().value) {
+        if (postViewModel.storeSuccess.value) {
+            openAddress.value = false
+            postViewModel.setStoreSuccess()
+        }
     }
 
     LaunchedEffect(key1 = true) {
@@ -143,9 +151,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                                         storeUrl.value,
                                         storeAddress.value,
                                     ),
-                                ).run {
-                                    openAddress.value = false
-                                }
+                                )
                             },
                             color = Red500,
                             fontSize = 17.sp,
@@ -257,35 +263,33 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                     modifier = Modifier.padding(horizontal = 20.dp),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    LazyRow {
-                        if (imageUri != null) {
-                            items(imageUri!!.size) {
-                                Surface(shape = RoundedCornerShape(5.dp)) {
-                                    Box {
-                                        Image(
-                                            painter = rememberAsyncImagePainter(model = imageUri!![it]),
-                                            contentDescription = "image",
-                                            contentScale = ContentScale.Crop,
-                                            modifier = Modifier
-                                                .width(380.dp)
-                                                .height(256.dp),
+                    if (imageUri != null) {
+                        HorizontalPager(count = imageUri!!.size) {
+                            Surface(shape = RoundedCornerShape(5.dp)) {
+                                Box {
+                                    Image(
+                                        painter = rememberAsyncImagePainter(model = imageUri!![it]),
+                                        contentDescription = "image",
+                                        contentScale = ContentScale.Crop,
+                                        modifier = Modifier
+                                            .width(380.dp)
+                                            .height(256.dp),
+                                    )
+                                    Surface(
+                                        shape = RoundedCornerShape(20.dp),
+                                        color = Color.White,
+                                        modifier = Modifier
+                                            .padding(end = 12.dp, bottom = 11.dp)
+                                            .align(Alignment.BottomEnd),
+                                    ) {
+                                        Text(
+                                            text = "${it + 1}/${imageUri?.size}",
+                                            modifier = Modifier.padding(horizontal = 13.dp),
+                                            color = Black400,
+                                            fontSize = 10.sp,
+                                            fontWeight = FontWeight.ExtraBold,
+                                            fontFamily = pretendardFamily,
                                         )
-                                        Surface(
-                                            shape = RoundedCornerShape(20.dp),
-                                            color = Color.White,
-                                            modifier = Modifier
-                                                .padding(end = 12.dp, bottom = 11.dp)
-                                                .align(Alignment.BottomEnd),
-                                        ) {
-                                            Text(
-                                                text = "${it + 1}/${imageUri?.size}",
-                                                modifier = Modifier.padding(horizontal = 13.dp),
-                                                color = Black400,
-                                                fontSize = 10.sp,
-                                                fontWeight = FontWeight.ExtraBold,
-                                                fontFamily = pretendardFamily,
-                                            )
-                                        }
                                     }
                                 }
                             }
