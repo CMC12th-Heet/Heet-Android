@@ -32,15 +32,9 @@ fun HomeTownScreen(
     navController: NavController,
     homeTownViewModel: HomeTownViewModel = hiltViewModel(),
 ) {
-    homeTownViewModel.getNewPost()
     homeTownViewModel.getMyPage()
     val town = homeTownViewModel.profile.collectAsState().value?.town
-    val isNewPost = homeTownViewModel.isNewPost.collectAsState()
-    val post = if (isNewPost.value) {
-        homeTownViewModel.newPost.collectAsState()
-    } else {
-        homeTownViewModel.hotPost.collectAsState()
-    }
+    val post = homeTownViewModel.cityPost.collectAsState()
 
     Box(
         modifier = Modifier
