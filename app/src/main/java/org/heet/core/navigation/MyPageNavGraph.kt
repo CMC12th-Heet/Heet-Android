@@ -5,13 +5,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import org.heet.core.navigation.navscreen.MyPageScreen
+import org.heet.presentation.home.hometown.bookmark.BookmarkScreen
 import org.heet.presentation.home.mypage.*
 import org.heet.presentation.home.mypage.modify.ModifyProfileScreen
 
 fun NavGraphBuilder.myPageNavGraph(navController: NavHostController) {
     navigation(
         route = Graph.MY_PAGE,
-        startDestination = Graph.HOME
+        startDestination = Graph.HOME,
     ) {
         composable(route = MyPageScreen.Setting.route) {
             SettingScreen(navController = navController)
@@ -26,7 +27,7 @@ fun NavGraphBuilder.myPageNavGraph(navController: NavHostController) {
             TermsScreen(navController = navController)
         }
         composable(route = MyPageScreen.Scrap.route) {
-            ScrapScreen(navController = navController)
+            BookmarkScreen(navController = navController)
         }
         authNavGraph(navController = navController)
     }

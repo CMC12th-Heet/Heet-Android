@@ -15,84 +15,90 @@ interface RepositoryModule {
     @Binds
     @Singleton
     fun bindAutoLoginRepository(
-        autoLoginRepositoryImpl: AutoLoginRepositoryImpl
+        autoLoginRepositoryImpl: AutoLoginRepositoryImpl,
     ): AutoLoginRepository
 
     @Binds
     @Singleton
     fun bindSignUpRepository(
-        singUpRepositoryImpl: SignUpRepositoryImpl
+        singUpRepositoryImpl: SignUpRepositoryImpl,
     ): SignUpRepository
 
     @Binds
     @Singleton
     fun bindCodeRepository(
-        codeRepositoryImpl: CodeRepositoryImpl
+        codeRepositoryImpl: CodeRepositoryImpl,
     ): CodeRepository
 
     @Binds
     @Singleton
     fun bindUserInfoRepository(
-        userInfoRepositoryImpl: UserInfoRepositoryImpl
+        userInfoRepositoryImpl: UserInfoRepositoryImpl,
     ): UserInfoRepository
 
     @Binds
     @Singleton
     fun bindLoginRepository(
-        loginRepositoryImpl: LoginRepositoryImpl
+        loginRepositoryImpl: LoginRepositoryImpl,
     ): LoginRepository
 
     @Binds
     @Singleton
     fun bindCommentRepository(
-        commentRepositoryImpl: CommentRepositoryImpl
+        commentRepositoryImpl: CommentRepositoryImpl,
     ): CommentRepository
 
     @Binds
     @Singleton
     fun bindStoreRepository(
-        storeRepositoryImpl: StoreRepositoryImpl
+        storeRepositoryImpl: StoreRepositoryImpl,
     ): StoreRepository
 
     @Binds
     @Singleton
     fun bindMyPageRepository(
-        myPageRepositoryImpl: MyPageRepositoryImpl
+        myPageRepositoryImpl: MyPageRepositoryImpl,
     ): MyPageRepository
 
     @Binds
     @Singleton
     fun bindPostRepository(
-        postRepositoryImpl: PostRepositoryImpl
+        postRepositoryImpl: PostRepositoryImpl,
     ): PostRepository
 
     @Binds
     @Singleton
     fun bindVerifyRepository(
-        verifyRepositoryImpl: VerifyRepositoryImpl
+        verifyRepositoryImpl: VerifyRepositoryImpl,
     ): VerifyRepository
 
     @Binds
     @Singleton
     fun bindAddressRepository(
-        addressRepositoryImpl: AddressRepositoryImpl
+        addressRepositoryImpl: AddressRepositoryImpl,
     ): AddressRepository
 
     @Binds
     @Singleton
     fun bindFollowRepository(
-        followRepositoryImpl: FollowRepositoryImpl
+        followRepositoryImpl: FollowRepositoryImpl,
     ): FollowRepository
 
     @Binds
     @Singleton
     fun bindSearchRepository(
-        searchRepositoryImpl: SearchRepositoryImpl
+        searchRepositoryImpl: SearchRepositoryImpl,
     ): SearchRepository
 
     @Binds
     @Singleton
     fun bindResetRepository(
-        resetRepositoryImpl: ResetRepositoryImpl
+        resetRepositoryImpl: ResetRepositoryImpl,
     ): ResetRepository
+
+    @Binds
+    @Singleton
+    fun bindBookmarkRepository(
+        bookmarkRepositoryImpl: BookmarkRepositoryImpl,
+    ): BookmarkRepository
 }

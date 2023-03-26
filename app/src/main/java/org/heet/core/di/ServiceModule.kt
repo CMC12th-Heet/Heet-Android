@@ -6,6 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import org.heet.data.service.*
 import retrofit2.Retrofit
+import retrofit2.create
 import javax.inject.Singleton
 
 @InstallIn(SingletonComponent::class)
@@ -64,5 +65,11 @@ object ServiceModule {
     @Singleton
     fun provideResetService(retrofit: Retrofit): ResetService {
         return retrofit.create(ResetService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideBookmarkService(retrofit: Retrofit): BookmarkService {
+        return retrofit.create(BookmarkService::class.java)
     }
 }

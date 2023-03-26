@@ -1,4 +1,4 @@
-package org.heet.presentation.home.mypage
+package org.heet.presentation.home.hometown.bookmark
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -26,15 +26,15 @@ import org.heet.components.Title
 import org.heet.util.pretendardFamily
 
 @Composable
-fun ScrapScreen(navController: NavController) {
+fun BookmarkScreen(navController: NavController) {
     Column(
         modifier = Modifier.padding(start = 20.dp, top = 14.dp, end = 20.dp)
             .fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Back { navController.popBackStack() }
             Title(title = "스크랩")
@@ -47,7 +47,7 @@ fun ScrapScreen(navController: NavController) {
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
             verticalArrangement = Arrangement.spacedBy(4.dp),
-            horizontalArrangement = Arrangement.spacedBy(4.dp)
+            horizontalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             items(listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)) {
                 Surface(shape = RoundedCornerShape(5.dp)) {
@@ -56,16 +56,16 @@ fun ScrapScreen(navController: NavController) {
                             painter = painterResource(id = R.drawable.img_default_scrap),
                             contentDescription = "image",
                             contentScale = ContentScale.FillWidth,
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth(),
                         )
                         Row(
                             modifier = Modifier.align(Alignment.TopStart)
                                 .padding(start = 6.dp, top = 7.dp),
-                            verticalAlignment = Alignment.CenterVertically
+                            verticalAlignment = Alignment.CenterVertically,
                         ) {
                             Image(
                                 painter = painterResource(id = R.drawable.ic_location_white_11),
-                                contentDescription = null
+                                contentDescription = null,
                             )
                             Spacer(modifier = Modifier.width(3.dp))
                             Text(
@@ -73,7 +73,7 @@ fun ScrapScreen(navController: NavController) {
                                 color = Color.White,
                                 fontSize = 13.sp,
                                 fontWeight = FontWeight.Bold,
-                                fontFamily = pretendardFamily
+                                fontFamily = pretendardFamily,
                             )
                         }
                     }
