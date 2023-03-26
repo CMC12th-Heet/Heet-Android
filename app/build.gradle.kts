@@ -26,7 +26,11 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-        buildConfigField("String", "USER_PREFERENCES_NAME", properties.getProperty("USER_PREFERENCES_NAME"))
+        buildConfigField(
+            "String",
+            "USER_PREFERENCES_NAME",
+            properties.getProperty("USER_PREFERENCES_NAME"),
+        )
         buildConfigField("String", "HEET_BASE_URL", properties.getProperty("HEET_BASE_URL"))
     }
     buildTypes {
@@ -34,7 +38,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
@@ -81,6 +85,7 @@ dependencies {
     implementation(libs.junit)
     implementation(libs.gps)
     implementation(libs.permission)
+    implementation(libs.viewpager)
 }
 
 ktlint {
@@ -92,8 +97,8 @@ ktlint {
         setOf(
             "max-line-length",
             "no-wildcard-imports",
-            "import-ordering"
-        )
+            "import-ordering",
+        ),
     )
     reporters {
         reporter(org.jlleitschuh.gradle.ktlint.reporter.ReporterType.PLAIN)
