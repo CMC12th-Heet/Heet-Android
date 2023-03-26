@@ -1,5 +1,6 @@
 package org.heet.presentation.home.following.main
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -31,6 +32,7 @@ import org.heet.util.pretendardFamily
 import java.text.SimpleDateFormat
 import java.util.*
 
+@SuppressLint("SimpleDateFormat")
 @Composable
 fun FollowingScreen(
     navController: NavController,
@@ -141,7 +143,7 @@ fun FollowingScreen(
                                 Box {
                                     Image(
                                         painter = rememberAsyncImagePainter(
-                                            model = allPosts.posts[index].file_url
+                                            model = allPosts.posts[index].urlList[0]
                                                 .replaceFirst(";", ""),
                                         ),
                                         contentDescription = "image",
@@ -240,7 +242,7 @@ fun FollowingScreen(
                             Box {
                                 Image(
                                     painter = rememberAsyncImagePainter(
-                                        model = allPosts.posts[index].file_url
+                                        model = allPosts.posts[index].urlList[0]
                                             .replaceFirst(";", ""),
                                     ),
                                     contentDescription = "image",
