@@ -21,17 +21,20 @@ interface PostService {
         @Part("perfect_day") perfect_day: RequestBody?,
         @Part("moving_tip") moving_tip: RequestBody?,
         @Part("ordering_tip") ordering_tip: RequestBody?,
-        @Part("other_tips") other_tips: RequestBody?
+        @Part("other_tips") other_tips: RequestBody?,
     ): ResponsePost
 
     @POST("/post/verify")
     suspend fun postVerify(
         @Query("x") x: String,
-        @Query("y") y: String
+        @Query("y") y: String,
     ): ResponsePostVerify
 
     @GET("/post")
     suspend fun getNewPost(@Query("isNew") isNew: String): ResponseGetPost
+
+    @GET("/post")
+    suspend fun getCityPost(@Query("city") city: String): ResponseGetPost
 
     @GET("/post")
     suspend fun getHotPost(@Query("isHot") isHot: String): ResponseGetPost
@@ -42,7 +45,7 @@ interface PostService {
     @PATCH("/post/{id}")
     suspend fun updatePost(
         @Path("id") id: String,
-        @Body requestUpdatePost: RequestUpdatePost
+        @Body requestUpdatePost: RequestUpdatePost,
     ): ResponseUpdatePost
 
     @DELETE("/post/{id}")

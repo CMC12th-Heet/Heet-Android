@@ -16,11 +16,14 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeTownViewModel @Inject constructor(
     private val postRepository: PostRepository,
-    private val myPageRepository: MyPageRepository
+    private val myPageRepository: MyPageRepository,
 ) : ViewModel() {
 
     private val _newPost = MutableStateFlow<ResponseGetPost?>(null)
     val newPost = _newPost.asStateFlow()
+
+    private val _cityPost = MutableStateFlow<ResponseGetPost?>(null)
+    val cityPost = _cityPost.asStateFlow()
 
     private val _isNewPost = MutableStateFlow(false)
     val isNewPost = _isNewPost.asStateFlow()
@@ -31,12 +34,17 @@ class HomeTownViewModel @Inject constructor(
     private val _profile = MutableStateFlow<ResponseGetMyPage?>(null)
     val profile = _profile.asStateFlow()
 
+    private val _town = MutableStateFlow("")
+    val town = _town.asStateFlow()
+
     fun getMyPage() {
         viewModelScope.launch {
             runCatching {
                 myPageRepository.getMyPage()
             }.onSuccess {
                 _profile.value = it
+                _town.value = it.town
+                getCityPost()
             }.onFailure {
                 Timber.d(it.message)
             }
@@ -49,7 +57,18 @@ class HomeTownViewModel @Inject constructor(
                 postRepository.getNewPost("0")
             }.onSuccess {
                 _newPost.value = it
-                _isNewPost.value = true
+            }.onFailure {
+                Timber.d(it.message)
+            }
+        }
+    }
+
+    fun getCityPost() {
+        viewModelScope.launch {
+            runCatching {
+                postRepository.getCityPost(town.value)
+            }.onSuccess {
+                _cityPost.value = it
             }.onFailure {
                 Timber.d(it.message)
             }
