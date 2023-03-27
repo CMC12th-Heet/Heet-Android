@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class VerifyViewModel @Inject constructor(
     private val postRepository: PostRepository,
-    private val verifyRepository: VerifyRepository
+    private val verifyRepository: VerifyRepository,
 ) : ViewModel() {
 
     private val _verify = MutableStateFlow(false)

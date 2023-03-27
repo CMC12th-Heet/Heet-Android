@@ -7,7 +7,7 @@ data class ResponseGetComment(
     val comment_id: Int,
     val content: String,
     val created_at: String?,
-    val user: User
+    val user: User,
 ) {
     @Serializable
     data class User(
@@ -17,6 +17,6 @@ data class ResponseGetComment(
         val password: String,
         val is_verify: Boolean,
         val town: String,
-        val status: String?
+        val status: String?,
     )
 }

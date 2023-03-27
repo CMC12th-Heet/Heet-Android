@@ -21,7 +21,7 @@ import javax.inject.Inject
 class SignUpEmailViewModel @Inject constructor(
     private val signUpRepository: SignUpRepository,
     private val codeRepository: CodeRepository,
-    private val userInfoRepository: UserInfoRepository
+    private val userInfoRepository: UserInfoRepository,
 ) : ViewModel() {
 
     private var timerCount = 300000

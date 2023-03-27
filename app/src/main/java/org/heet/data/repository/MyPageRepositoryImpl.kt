@@ -7,7 +7,7 @@ import org.heet.domain.repository.MyPageRepository
 import javax.inject.Inject
 
 class MyPageRepositoryImpl @Inject constructor(
-    private val myPageService: MyPageService
+    private val myPageService: MyPageService,
 ) : MyPageRepository {
 
     override suspend fun getMyPage(): ResponseGetMyPage {

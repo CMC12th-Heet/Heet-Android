@@ -21,7 +21,7 @@ fun SplashScreen(navController: NavController, splashViewModel: SplashViewModel 
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         LaunchedEffect(key1 = true, block = {
             delay(1500)
@@ -35,7 +35,7 @@ fun SplashScreen(navController: NavController, splashViewModel: SplashViewModel 
 
         Image(
             painter = painterResource(id = R.drawable.ic_logo),
-            contentDescription = "heet_logo"
+            contentDescription = "heet_logo",
         )
     }
 }

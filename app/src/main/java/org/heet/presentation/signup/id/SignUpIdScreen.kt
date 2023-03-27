@@ -29,7 +29,7 @@ import org.heet.util.pretendardFamily
 @Composable
 fun SignUpIdScreen(
     navController: NavController,
-    signUpIdViewModel: SingUpIdViewModel = hiltViewModel()
+    signUpIdViewModel: SingUpIdViewModel = hiltViewModel(),
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val id = remember { mutableStateOf("") }
@@ -46,13 +46,13 @@ fun SignUpIdScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 20.dp)
-            .padding(top = 18.dp)
+            .padding(top = 18.dp),
     ) {
         item {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Back { navController.popBackStack() }
                 Title("회원 가입")
@@ -62,42 +62,42 @@ fun SignUpIdScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 61.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Text(
                     text = "이메일",
                     color = Grey300,
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Normal,
-                    fontFamily = pretendardFamily
+                    fontFamily = pretendardFamily,
                 )
                 Text(
                     text = signUpIdViewModel.getEmail(),
                     color = White250,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Normal,
-                    fontFamily = pretendardFamily
+                    fontFamily = pretendardFamily,
                 )
             }
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 10.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Text(
                     text = "비밀번호",
                     color = Grey300,
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Normal,
-                    fontFamily = pretendardFamily
+                    fontFamily = pretendardFamily,
                 )
                 Text(
                     text = signUpIdViewModel.getPwd().replace(Regex("."), "*"),
                     color = White250,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Normal,
-                    fontFamily = pretendardFamily
+                    fontFamily = pretendardFamily,
                 )
             }
             Column(modifier = Modifier.padding(top = 111.dp)) {
@@ -106,14 +106,14 @@ fun SignUpIdScreen(
                     fontFamily = pretendardFamily,
                     fontSize = 17.sp,
                     fontWeight = FontWeight.Normal,
-                    color = Grey900
+                    color = Grey900,
                 )
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(
-                            top = 13.dp
-                        )
+                            top = 13.dp,
+                        ),
                 ) {
                     RegularFlatInputField(
                         modifier = Modifier
@@ -126,17 +126,17 @@ fun SignUpIdScreen(
                         onAction = KeyboardActions {
                             if (id.value.trim().isEmpty()) return@KeyboardActions
                             keyboardController?.hide()
-                        }
+                        },
                     )
                     Row(
                         modifier = Modifier.align(Alignment.CenterEnd),
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
                         if (isDuplicate) {
                             CheckDuplicateBtn(
                                 isCheck = requestCheckDuplicate,
                                 text = "중복 확인",
-                                enable = id.value.isNotEmpty()
+                                enable = id.value.isNotEmpty(),
                             ) {
                                 signUpIdViewModel.postFindDuplicate(id.value)
                                 requestCheckDuplicate.value = true
@@ -152,10 +152,10 @@ fun SignUpIdScreen(
                     .fillMaxWidth()
                     .padding(
                         top = 10.dp,
-                        bottom = 15.dp
+                        bottom = 15.dp,
                     )
                     .height(3.dp),
-                color = White700
+                color = White700,
             )
         }
         if (!isDuplicate) {
@@ -165,7 +165,7 @@ fun SignUpIdScreen(
                     fontFamily = pretendardFamily,
                     fontSize = 10.sp,
                     fontWeight = FontWeight.ExtraBold,
-                    color = Red500
+                    color = Red500,
                 )
             }
         } else if (requestCheckDuplicate.value) {
@@ -204,7 +204,7 @@ fun SignUpIdScreen(
                                     term
                                 }
                             }
-                        }
+                        },
                     )
                     Spacer(modifier = Modifier.height(30.dp))
                 }
@@ -218,7 +218,7 @@ fun SignUpIdScreen(
                     text = "회원 가입",
                     modifier = Modifier
                         .padding(bottom = 8.dp),
-                    enable = enable
+                    enable = enable,
                 )
             }
         }

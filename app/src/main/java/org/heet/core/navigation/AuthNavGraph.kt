@@ -10,7 +10,7 @@ import org.heet.presentation.login.LoginScreen
 fun NavGraphBuilder.authNavGraph(navController: NavHostController) {
     navigation(
         route = Graph.AUTHENTICATION,
-        startDestination = AuthScreen.Login.route
+        startDestination = AuthScreen.Login.route,
     ) {
         composable(route = AuthScreen.Login.route) {
             LoginScreen(navController = navController)

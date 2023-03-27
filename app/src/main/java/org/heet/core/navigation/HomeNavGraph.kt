@@ -14,7 +14,7 @@ fun HomeNavGraph(navController: NavHostController) {
     NavHost(
         navController = navController,
         route = Graph.HOME,
-        startDestination = BottomBarScreen.Hometown.route
+        startDestination = BottomBarScreen.Hometown.route,
     ) {
         composable(route = BottomBarScreen.Hometown.route) {
             HomeTownScreen(navController = navController)

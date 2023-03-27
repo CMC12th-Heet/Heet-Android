@@ -20,7 +20,7 @@ data class ResponseGetDetailPost(
     val title: String,
     val together_with: String?,
     val urlList: List<String>,
-    val user: User
+    val user: User,
 ) {
 
     @Serializable
@@ -28,7 +28,7 @@ data class ResponseGetDetailPost(
         val address: String,
         val name: String,
         val store_id: Int,
-        val url: String
+        val url: String,
     )
 
     @Serializable
@@ -39,6 +39,6 @@ data class ResponseGetDetailPost(
         val town: String,
         val user_id: Int,
         val username: String,
-        val status: String?
+        val status: String?,
     )
 }

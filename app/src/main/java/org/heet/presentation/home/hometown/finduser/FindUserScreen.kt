@@ -41,7 +41,7 @@ import org.heet.util.pretendardFamily
 @Composable
 fun FindUserScreen(
     navController: NavController,
-    findUserViewModel: FindUserViewModel = hiltViewModel()
+    findUserViewModel: FindUserViewModel = hiltViewModel(),
 ) {
     val searchUserList = findUserViewModel.searchUserList.collectAsState().value
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -51,12 +51,12 @@ fun FindUserScreen(
 
     LazyColumn(
         modifier = Modifier.padding(start = 20.dp, top = 14.dp, end = 20.dp),
-        horizontalAlignment = horizontalAlignment
+        horizontalAlignment = horizontalAlignment,
     ) {
         item {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Back { navController.popBackStack() }
                 Title(title = "찾기")
@@ -67,7 +67,7 @@ fun FindUserScreen(
                 id = id,
                 findUserViewModel = findUserViewModel,
                 didSearch = didSearch,
-                keyboardController = keyboardController
+                keyboardController = keyboardController,
             )
             Spacer(modifier = Modifier.height(12.dp))
             if (didSearch.value) {
@@ -77,7 +77,7 @@ fun FindUserScreen(
                     color = Black700,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Medium,
-                    fontFamily = pretendardFamily
+                    fontFamily = pretendardFamily,
                 )
             } else {
                 Text(
@@ -85,7 +85,7 @@ fun FindUserScreen(
                     color = Black700,
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Medium,
-                    fontFamily = pretendardFamily
+                    fontFamily = pretendardFamily,
                 )
             }
             Spacer(modifier = Modifier.height(12.dp))
@@ -96,25 +96,25 @@ fun FindUserScreen(
             items(searchUserList) {
                 Surface(
                     shape = RoundedCornerShape(7.dp),
-                    elevation = 7.dp
+                    elevation = 7.dp,
                 ) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth().padding(start = 6.dp, top = 7.dp, bottom = 7.dp),
                         horizontalArrangement = Arrangement.spacedBy(8.dp),
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Image(
                             painter = painterResource(id = R.drawable.img_profile_find_user),
                             contentDescription = null,
-                            modifier = Modifier.size(30.dp)
+                            modifier = Modifier.size(30.dp),
                         )
                         Text(
                             text = it.username,
                             color = Red500,
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Normal,
-                            fontFamily = pretendardFamily
+                            fontFamily = pretendardFamily,
                         )
                     }
                 }
@@ -129,7 +129,7 @@ fun FindUserScreen(
                     fontSize = 13.sp,
                     fontWeight = FontWeight.Normal,
                     fontFamily = pretendardFamily,
-                    textAlign = TextAlign.Center
+                    textAlign = TextAlign.Center,
                 )
             }
         }
@@ -142,7 +142,7 @@ private fun FindUserTextField(
     id: MutableState<String>,
     didSearch: MutableState<Boolean>,
     findUserViewModel: FindUserViewModel,
-    keyboardController: SoftwareKeyboardController?
+    keyboardController: SoftwareKeyboardController?,
 ) {
     BasicTextField(
         value = id.value,
@@ -157,11 +157,11 @@ private fun FindUserTextField(
             color = Black350,
             fontSize = 13.sp,
             fontFamily = pretendardFamily,
-            fontWeight = FontWeight.Bold
+            fontWeight = FontWeight.Bold,
         ),
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Text,
-            imeAction = ImeAction.Done
+            imeAction = ImeAction.Done,
         ),
         keyboardActions = KeyboardActions {
             if (id.value.trim().isEmpty()) return@KeyboardActions
@@ -173,40 +173,40 @@ private fun FindUserTextField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(shape = RoundedCornerShape(30.dp), color = White700)
-                    .padding(horizontal = 14.dp, vertical = 8.dp)
+                    .padding(horizontal = 14.dp, vertical = 8.dp),
             ) {
                 if (id.value.isEmpty()) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
                         horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Text(
                             text = "유저 검색",
                             fontFamily = pretendardFamily,
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Bold,
-                            color = Color.White
+                            color = Color.White,
                         )
                         Image(
                             painter = painterResource(id = R.drawable.ic_search_white_14),
-                            contentDescription = "search"
+                            contentDescription = "search",
                         )
                     }
                 } else {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
                         innerTextField()
                         Image(
                             painter = painterResource(id = R.drawable.ic_circle_cancel_white_16),
                             contentDescription = "cancel",
-                            modifier = Modifier.clickable { id.value = "" }
+                            modifier = Modifier.clickable { id.value = "" },
                         )
                     }
                 }
             }
-        }
+        },
     )
 }

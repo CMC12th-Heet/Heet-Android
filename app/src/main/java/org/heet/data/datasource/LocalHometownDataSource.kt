@@ -8,7 +8,7 @@ class LocalHometownDataSource {
         return listOf(
             Hometown("서울", "seoul"),
             Hometown("경기", "gyeonggi"),
-            Hometown("인천", "incheon")
+            Hometown("인천", "incheon"),
         )
     }
 }

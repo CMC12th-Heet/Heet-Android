@@ -31,11 +31,11 @@ fun HeetApp() {
     HeetTheme {
         Surface(
             color = MaterialTheme.colors.background,
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize(),
         ) {
             Column(
                 verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 RootNavigationGraph(navController = rememberNavController())
             }

@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
-    private val myPageRepository: MyPageRepository
+    private val myPageRepository: MyPageRepository,
 ) : ViewModel() {
 
     private val _profile = MutableStateFlow<ResponseGetMyPage?>(null)

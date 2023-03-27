@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 data class RequestPostStore(
     val name: String,
     val url: String,
-    val address: String
+    val address: String,
 )

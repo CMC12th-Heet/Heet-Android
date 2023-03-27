@@ -11,7 +11,7 @@ class LoadSatisfactionDataSource {
             SatisfactionItem(R.drawable.ic_feel_bad_46, "별로에요.", false),
             SatisfactionItem(R.drawable.ic_feel_soso_46, "그럭저럭?", false),
             SatisfactionItem(R.drawable.ic_feel_good_46, "좋았어요!", false),
-            SatisfactionItem(R.drawable.ic_feel_awesome_46, "재방문100%", false)
+            SatisfactionItem(R.drawable.ic_feel_awesome_46, "재방문100%", false),
         )
     }
 }

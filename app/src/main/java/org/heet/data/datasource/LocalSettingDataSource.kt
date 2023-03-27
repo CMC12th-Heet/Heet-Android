@@ -9,7 +9,7 @@ class LocalSettingDataSource {
         return listOf(
             SettingItem("프로필 수정", MyPageScreen.ModifyProfile),
             SettingItem("회사 소개", MyPageScreen.AboutUs),
-            SettingItem("약관", MyPageScreen.Terms)
+            SettingItem("약관", MyPageScreen.Terms),
         )
     }
 }

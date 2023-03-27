@@ -51,7 +51,7 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = h
 
     Column(
         modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Spacer(modifier = Modifier.height(50.dp))
         Logo()
@@ -60,15 +60,15 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = h
             value = idOrEmail,
             placeholder = "아이디 또는 이메일 입력",
             onAction = KeyboardActions(
-                onNext = { focusRequester.requestFocus() }
-            )
+                onNext = { focusRequester.requestFocus() },
+            ),
         ) {
             loginViewModel.setRegisterTrue()
         }
         RegisterDescription(
             modifier = Modifier.align(Alignment.Start),
             isRegistered = isRegistered,
-            description = "*가입되지 않은 이메일입니다."
+            description = "*가입되지 않은 이메일입니다.",
         )
         GreyRoundTextField23(
             modifier = Modifier.focusRequester(focusRequester),
@@ -79,7 +79,7 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = h
                 keyboardController?.hide()
             },
             isPwd = true,
-            imeAction = ImeAction.Done
+            imeAction = ImeAction.Done,
         ) {
             loginViewModel.setRegisterTrue()
         }
@@ -87,18 +87,18 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = h
             modifier = Modifier.align(Alignment.Start),
             isRegistered = isRegistered,
             description = "*가입되지 않은 비밀번호입니다.",
-            dp = 20.dp
+            dp = 20.dp,
         )
         RedBigRoundButton28(
             onClick = { loginViewModel.login(RequestLogin(idOrEmail.value, pwd.value)) },
-            text = "로그인"
+            text = "로그인",
         )
         Spacer(modifier = Modifier.height(12.dp))
         Row(
             modifier = Modifier
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Auth("비밀번호 찾기") { navController.navigate(Graph.FORGOT) }
             Divider(
@@ -106,7 +106,7 @@ fun LoginScreen(navController: NavController, loginViewModel: LoginViewModel = h
                     .padding(horizontal = 29.dp)
                     .height(16.5.dp)
                     .width(2.dp),
-                color = Red500
+                color = Red500,
             )
             Auth("회원가입 하기") {
                 loginViewModel.deleteAll()
@@ -121,12 +121,12 @@ private fun RegisterDescription(
     modifier: Modifier = Modifier,
     isRegistered: Boolean,
     description: String,
-    dp: Dp = 0.dp
+    dp: Dp = 0.dp,
 ) {
     if (!isRegistered) {
         RegisterInfo(
             text = description,
-            modifier = modifier.padding(top = 6.dp, start = 19.dp, bottom = 14.dp + dp)
+            modifier = modifier.padding(top = 6.dp, start = 19.dp, bottom = 14.dp + dp),
         )
     } else {
         EmptyText(Modifier.padding(top = 20.dp + dp))
@@ -137,7 +137,7 @@ private fun RegisterDescription(
 private fun Logo() {
     Image(
         painter = painterResource(id = R.drawable.ic_text_logo_65),
-        contentDescription = "heet_logo"
+        contentDescription = "heet_logo",
     )
 }
 
@@ -149,7 +149,7 @@ private fun RegisterInfo(text: String, modifier: Modifier) {
         color = Red600,
         fontSize = 12.sp,
         fontWeight = FontWeight.ExtraBold,
-        fontFamily = pretendardFamily
+        fontFamily = pretendardFamily,
     )
 }
 
@@ -161,7 +161,7 @@ private fun EmptyText(modifier: Modifier) {
         color = Color.White,
         fontSize = 12.sp,
         fontWeight = FontWeight.ExtraBold,
-        fontFamily = pretendardFamily
+        fontFamily = pretendardFamily,
     )
 }
 
@@ -172,6 +172,6 @@ private fun Auth(purpose: String, navigate: () -> Unit) {
         modifier = Modifier.clickable { navigate() },
         color = Grey600,
         fontSize = 13.sp,
-        fontWeight = FontWeight.Normal
+        fontWeight = FontWeight.Normal,
     )
 }

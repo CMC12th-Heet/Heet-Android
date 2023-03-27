@@ -33,18 +33,18 @@ import org.heet.util.pretendardFamily
 @Composable
 fun FollowerListScreen(
     navController: NavController,
-    followerListViewModel: FollowerListViewModel = hiltViewModel()
+    followerListViewModel: FollowerListViewModel = hiltViewModel(),
 ) {
     followerListViewModel.getFollowerList()
     val followerList = followerListViewModel.followerList.collectAsState().value
 
     LazyColumn(
-        modifier = Modifier.padding(start = 20.dp, top = 14.dp, end = 20.dp)
+        modifier = Modifier.padding(start = 20.dp, top = 14.dp, end = 20.dp),
     ) {
         item {
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Back { navController.popBackStack() }
                 Title(title = "팔로워")
@@ -59,12 +59,12 @@ fun FollowerListScreen(
 
             Surface(
                 shape = RoundedCornerShape(7.dp),
-                elevation = 10.dp
+                elevation = 10.dp,
             ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.SpaceBetween
+                    horizontalArrangement = Arrangement.SpaceBetween,
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Surface(
@@ -73,12 +73,12 @@ fun FollowerListScreen(
                                 start = 6.dp,
                                 top = 7.dp,
                                 end = 8.dp,
-                                bottom = 7.dp
-                            ).size(30.dp)
+                                bottom = 7.dp,
+                            ).size(30.dp),
                         ) {
                             Image(
                                 painter = painterResource(id = R.drawable.img_profile_following),
-                                contentDescription = "profileImage"
+                                contentDescription = "profileImage",
                             )
                         }
                         Text(
@@ -86,7 +86,7 @@ fun FollowerListScreen(
                             color = Color.Black,
                             fontSize = 15.sp,
                             fontWeight = FontWeight.Normal,
-                            fontFamily = pretendardFamily
+                            fontFamily = pretendardFamily,
                         )
                     }
                     Text(
@@ -98,7 +98,7 @@ fun FollowerListScreen(
                         color = if (follow.value) Red500 else White600,
                         fontSize = 15.sp,
                         fontWeight = FontWeight.SemiBold,
-                        fontFamily = pretendardFamily
+                        fontFamily = pretendardFamily,
                     )
                 }
             }

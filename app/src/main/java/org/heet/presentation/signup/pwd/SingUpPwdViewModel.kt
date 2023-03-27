@@ -10,7 +10,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SingUpPwdViewModel @Inject constructor(
-    private val userInfoRepository: UserInfoRepository
+    private val userInfoRepository: UserInfoRepository,
 ) : ViewModel() {
 
     fun getEmail(): String = runBlocking {

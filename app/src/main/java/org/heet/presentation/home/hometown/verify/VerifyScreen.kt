@@ -32,7 +32,7 @@ import kotlin.math.abs
 @Composable
 fun VerifyScreen(
     navController: NavController,
-    verifyViewModel: VerifyViewModel = hiltViewModel()
+    verifyViewModel: VerifyViewModel = hiltViewModel(),
 ) {
     val isVerify = remember { mutableStateOf(true) }
     val x = remember { mutableStateOf("") }
@@ -53,7 +53,7 @@ fun VerifyScreen(
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
         Text(
             text = "첫 게시글을 작성하기 전\n위치 인증을 진행해주세요!",
@@ -61,7 +61,7 @@ fun VerifyScreen(
             fontSize = 15.sp,
             fontWeight = FontWeight.SemiBold,
             fontFamily = pretendardFamily,
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
         Spacer(modifier = Modifier.height(29.dp))
         if (!isVerify.value) {
@@ -70,7 +70,7 @@ fun VerifyScreen(
                 color = Red500,
                 fontSize = 11.sp,
                 fontWeight = FontWeight.Medium,
-                fontFamily = pretendardFamily
+                fontFamily = pretendardFamily,
             )
         } else {
             Text(
@@ -78,7 +78,7 @@ fun VerifyScreen(
                 color = Red500,
                 fontSize = 11.sp,
                 fontWeight = FontWeight.Medium,
-                fontFamily = pretendardFamily
+                fontFamily = pretendardFamily,
             )
         }
         Spacer(modifier = Modifier.height(23.dp))
@@ -86,11 +86,11 @@ fun VerifyScreen(
             modifier = Modifier.clickable {
                 verifyViewModel.postVerify(
                     x.value,
-                    y.value
+                    y.value,
                 )
             },
             shape = RoundedCornerShape(21.dp),
-            border = BorderStroke(width = 1.dp, color = Red500)
+            border = BorderStroke(width = 1.dp, color = Red500),
         ) {
             Text(
                 text = "인증하기",
@@ -98,7 +98,7 @@ fun VerifyScreen(
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = pretendardFamily,
-                modifier = Modifier.padding(horizontal = 33.dp, vertical = 8.dp)
+                modifier = Modifier.padding(horizontal = 33.dp, vertical = 8.dp),
             )
         }
         Spacer(modifier = Modifier.height(98.dp))
@@ -110,7 +110,7 @@ fun VerifyScreen(
             color = Grey400,
             fontSize = 15.sp,
             fontWeight = FontWeight.Medium,
-            fontFamily = pretendardFamily
+            fontFamily = pretendardFamily,
         )
     }
 }
@@ -121,11 +121,11 @@ fun requestPermission(context: Context, x: MutableState<String>, y: MutableState
             override fun onPermissionGranted() {
                 if (ActivityCompat.checkSelfPermission(
                         context,
-                        Manifest.permission.ACCESS_FINE_LOCATION
+                        Manifest.permission.ACCESS_FINE_LOCATION,
                     ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                            context,
-                            Manifest.permission.ACCESS_COARSE_LOCATION
-                        ) == PackageManager.PERMISSION_GRANTED
+                        context,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                    ) == PackageManager.PERMISSION_GRANTED
                 ) {
                     LocationServices.getFusedLocationProviderClient(context).lastLocation.addOnSuccessListener {
                         Timber.d("${x.value} ${y.value}")
@@ -140,7 +140,7 @@ fun requestPermission(context: Context, x: MutableState<String>, y: MutableState
         })
         .setPermissions(
             Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION
+            Manifest.permission.ACCESS_FINE_LOCATION,
         )
         .check()
 }

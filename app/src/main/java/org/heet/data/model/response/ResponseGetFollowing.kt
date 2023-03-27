@@ -10,5 +10,5 @@ data class ResponseGetFollowing(
     val status: String?,
     val town: String,
     val user_id: Int,
-    val username: String
+    val username: String,
 )

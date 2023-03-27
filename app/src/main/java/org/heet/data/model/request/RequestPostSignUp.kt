@@ -7,5 +7,5 @@ data class RequestPostSignUp(
     val email: String,
     val username: String,
     val password: String,
-    val town: String
+    val town: String,
 )

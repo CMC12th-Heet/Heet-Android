@@ -4,5 +4,5 @@ data class SearchResult(
     val storeName: String,
     val address: String,
     val url: String,
-    val isSelected: Boolean
+    val isSelected: Boolean,
 )

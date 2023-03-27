@@ -6,7 +6,7 @@ import org.heet.domain.repository.SearchRepository
 import javax.inject.Inject
 
 class SearchRepositoryImpl @Inject constructor(
-    private val searchService: SearchService
+    private val searchService: SearchService,
 ) : SearchRepository {
 
     override suspend fun userSearch(keyword: String): List<ResponseUserSearch> {

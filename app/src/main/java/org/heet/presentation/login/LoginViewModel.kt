@@ -17,7 +17,7 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val autoLoginRepository: AutoLoginRepository,
     private val loginRepository: LoginRepository,
-    private val userInfoRepository: UserInfoRepository
+    private val userInfoRepository: UserInfoRepository,
 ) : ViewModel() {
 
     private val _loginSuccess = MutableStateFlow(false)

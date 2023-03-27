@@ -12,5 +12,5 @@ data class RequestUpdatePost(
     val perfect_day: String?,
     val moving_tip: String?,
     val ordering_tip: String?,
-    val other_tips: String?
+    val other_tips: String?,
 )
