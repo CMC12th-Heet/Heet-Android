@@ -17,8 +17,11 @@ class VerifyViewModel @Inject constructor(
     private val verifyRepository: VerifyRepository,
 ) : ViewModel() {
 
-    private val _verify = MutableStateFlow(false)
-    val verify = _verify.asStateFlow()
+    private val _isProperLocation = MutableStateFlow(true)
+    val isProperLocation = _isProperLocation.asStateFlow()
+
+    private val _isVerifySuccess = MutableStateFlow(false)
+    val isVerifySuccess = _isVerifySuccess.asStateFlow()
 
     private fun updateVerify(verify: Boolean) {
         viewModelScope.launch {
@@ -26,13 +29,16 @@ class VerifyViewModel @Inject constructor(
         }
     }
 
-    fun postVerify(x: String, y: String) {
+    fun postVerify(latitude: String, longitude: String) {
         viewModelScope.launch {
             runCatching {
-                postRepository.postVerify(x, y)
+                postRepository.postVerify(latitude, longitude)
             }.onSuccess {
                 updateVerify(it.message == "success")
-                _verify.value = it.message == "success"
+                if (it.message == "fail") {
+                    _isProperLocation.value = false
+                }
+                _isVerifySuccess.value = it.message == "success"
             }.onFailure {
                 Timber.d(it)
             }
