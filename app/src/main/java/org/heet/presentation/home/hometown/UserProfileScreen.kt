@@ -122,7 +122,7 @@ fun UserProfileScreen(navController: NavController) {
                             ) {
                                 Box {
                                     Image(
-                                        painter = painterResource(id = R.drawable.img_default_scrap),
+                                        painter = painterResource(id = R.drawable.img_profile_modify),
                                         contentDescription = "image",
                                         contentScale = ContentScale.FillWidth,
                                         modifier = Modifier.fillMaxWidth(),
@@ -155,7 +155,7 @@ fun UserProfileScreen(navController: NavController) {
         }
         if (!existPost.value) {
             Image(
-                painter = painterResource(id = R.drawable.img_notify),
+                painter = painterResource(id = R.drawable.img_profile_modify),
                 contentDescription = null,
                 contentScale = ContentScale.FillWidth,
                 modifier = Modifier.align(Alignment.BottomCenter).fillMaxWidth()

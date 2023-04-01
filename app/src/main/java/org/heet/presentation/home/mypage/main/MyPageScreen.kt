@@ -159,7 +159,7 @@ fun MyPage(
             }
             if (!existPost) {
                 Image(
-                    painter = painterResource(id = R.drawable.img_notify),
+                    painter = painterResource(id = R.drawable.img_profile_modify),
                     contentDescription = null,
                     modifier = Modifier.align(Alignment.End)
                         .padding(end = 38.dp, bottom = 141.dp),

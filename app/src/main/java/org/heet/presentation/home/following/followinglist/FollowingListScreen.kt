@@ -77,7 +77,7 @@ fun FollowingListScreen(
                             ).size(30.dp),
                         ) {
                             Image(
-                                painter = painterResource(id = R.drawable.img_profile_following),
+                                painter = painterResource(id = R.drawable.img_profile_modify),
                                 contentDescription = "profileImage",
                             )
                         }

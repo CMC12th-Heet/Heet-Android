@@ -105,7 +105,7 @@ fun FindUserScreen(
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Image(
-                            painter = painterResource(id = R.drawable.img_profile_find_user),
+                            painter = painterResource(id = R.drawable.img_profile_modify),
                             contentDescription = null,
                             modifier = Modifier.size(30.dp),
                         )
