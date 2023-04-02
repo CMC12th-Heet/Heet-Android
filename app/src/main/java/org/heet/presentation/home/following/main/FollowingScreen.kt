@@ -97,8 +97,9 @@ fun FollowingScreen(
 
             if (allPosts != null) {
                 items(allPosts.posts.size) { index ->
-                    if (todayDate - allPosts.posts[index].created_at.substring(0..9)
-                            .replace("-", "").toInt() == 0
+                    if (todayDate -
+                        allPosts.posts[index].created_at.substring(0..9).replace("-", "")
+                            .toInt() == 0
                     ) {
                         Surface(
                             shape = RoundedCornerShape(10.dp),
