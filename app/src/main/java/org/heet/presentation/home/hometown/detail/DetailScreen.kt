@@ -257,9 +257,9 @@ fun DetailScreen(
                             Spacer(modifier = Modifier.width(25.dp))
                             Image(
                                 painter = if (expandShare.value) {
-                                    painterResource(id = R.drawable.ic_white_down_16)
+                                    painterResource(id = R.drawable.ic_arrow_down)
                                 } else {
-                                    painterResource(id = R.drawable.ic_next_white_16)
+                                    painterResource(id = R.drawable.ic_arrow_right)
                                 },
                                 contentDescription = null,
                                 modifier = Modifier.clickable {
@@ -333,9 +333,9 @@ fun DetailScreen(
                             Spacer(modifier = Modifier.width(25.dp))
                             Image(
                                 painter = if (expandSatisfaction.value) {
-                                    painterResource(id = R.drawable.ic_white_down_16)
+                                    painterResource(id = R.drawable.ic_arrow_down)
                                 } else {
-                                    painterResource(id = R.drawable.ic_next_white_16)
+                                    painterResource(id = R.drawable.ic_arrow_right)
                                 },
                                 contentDescription = null,
                                 modifier = Modifier.clickable {

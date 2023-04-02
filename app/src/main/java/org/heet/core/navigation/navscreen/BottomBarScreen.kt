@@ -11,21 +11,21 @@ sealed class BottomBarScreen(
     object Hometown : BottomBarScreen(
         route = "HOMETOWN",
         title = "우리동네",
-        icon = R.drawable.ic_nav_location_grey_24,
-        icon_focused = R.drawable.ic_nav_location_red_27,
+        icon = R.drawable.ic_nav_location,
+        icon_focused = R.drawable.ic_nav_location_red,
     )
 
     object Following : BottomBarScreen(
         route = "FOLLOWING",
         title = "팔로잉",
-        icon = R.drawable.ic_nav_following_grey_27,
-        icon_focused = R.drawable.ic_nav_following_red_27,
+        icon = R.drawable.ic_nav_following,
+        icon_focused = R.drawable.ic_nav_following_red,
     )
 
     object MyPage : BottomBarScreen(
         route = "MY_PAGE",
         title = "마이페이지",
-        icon = R.drawable.ic_nav_profile_grey_18,
-        icon_focused = R.drawable.ic_nav_profile_red_17,
+        icon = R.drawable.ic_nav_profile,
+        icon_focused = R.drawable.ic_nav_profile_red,
     )
 }

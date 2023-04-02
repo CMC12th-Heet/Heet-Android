@@ -341,7 +341,7 @@ private fun Location(postContent: ResponseGetDetailPost) {
             ),
         ) {
             Image(
-                painter = painterResource(id = R.drawable.ic_white_location_20),
+                painter = painterResource(id = R.drawable.ic_location_white),
                 contentDescription = "location",
             )
             Spacer(modifier = Modifier.width(39.dp))
@@ -432,9 +432,9 @@ private fun ShareTip(expandShare: MutableState<Boolean>) {
             Spacer(modifier = Modifier.width(1.dp))
             Image(
                 painter = if (expandShare.value) {
-                    painterResource(id = R.drawable.ic_white_down_16)
+                    painterResource(id = R.drawable.ic_arrow_down)
                 } else {
-                    painterResource(id = R.drawable.ic_next_white_16)
+                    painterResource(id = R.drawable.ic_arrow_right)
                 },
                 contentDescription = null,
                 modifier = Modifier.clickable {
@@ -470,9 +470,9 @@ private fun Satisfaction(expandSatisfaction: MutableState<Boolean>) {
             Spacer(modifier = Modifier.width(15.5.dp))
             Image(
                 painter = if (expandSatisfaction.value) {
-                    painterResource(id = R.drawable.ic_white_down_16)
+                    painterResource(id = R.drawable.ic_arrow_down)
                 } else {
-                    painterResource(id = R.drawable.ic_next_white_16)
+                    painterResource(id = R.drawable.ic_arrow_right)
                 },
                 contentDescription = "satisfaction",
                 modifier = Modifier.clickable {

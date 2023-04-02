@@ -78,7 +78,7 @@ fun WelcomeScreen(
 @Composable
 private fun Logo() {
     Image(
-        painter = painterResource(id = R.drawable.ic_text_logo_65),
+        painter = painterResource(id = R.drawable.ic_text_logo_red),
         contentDescription = null,
     )
 }

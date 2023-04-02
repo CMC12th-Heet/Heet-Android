@@ -103,9 +103,9 @@ fun ModifyProfileScreen(
                     items(LocalHometownDataSource().loadHometowns()) { city ->
                         val expanded = remember { mutableStateOf(false) }
                         val image = if (expanded.value) {
-                            painterResource(id = R.drawable.ic_down_grey_24)
+                            painterResource(id = R.drawable.ic_arrow_down_grey)
                         } else {
-                            painterResource(id = R.drawable.ic_next)
+                            painterResource(id = R.drawable.ic_arrow_next_22)
                         }
                         Row(
                             modifier = Modifier.fillMaxSize(),
@@ -303,7 +303,7 @@ private fun ProfileImage() {
             )
         }
         Image(
-            painter = painterResource(id = R.drawable.ic_gallery_grey_26),
+            painter = painterResource(id = R.drawable.ic_camera),
             contentDescription = null,
             modifier = Modifier.align(Alignment.BottomEnd),
         )

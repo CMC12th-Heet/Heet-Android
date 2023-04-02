@@ -136,7 +136,7 @@ fun SignUpEmailScreen(
 private fun NoticeSendEmailSuccess() {
     Row(modifier = Modifier.padding(start = 6.dp)) {
         Image(
-            painter = painterResource(id = R.drawable.ic_check_black_20),
+            painter = painterResource(id = R.drawable.ic_check_20),
             contentDescription = "black_check",
         )
         Spacer(modifier = Modifier.width(9.dp))

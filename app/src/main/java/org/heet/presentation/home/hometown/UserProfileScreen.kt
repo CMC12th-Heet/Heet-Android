@@ -74,7 +74,7 @@ fun UserProfileScreen(navController: NavController) {
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Image(
-                        painter = painterResource(id = R.drawable.ic_local_red_27),
+                        painter = painterResource(id = R.drawable.ic_local_red),
                         contentDescription = null,
                     )
                 }

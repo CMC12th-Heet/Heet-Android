@@ -70,11 +70,6 @@ private fun WriteButton(
     navController: NavHostController,
     homeScreenViewModel: HomeScreenViewModel,
 ) {
-    val writeImage = if (isWrite.value) {
-        R.drawable.ic_pencil_white_25
-    } else {
-        R.drawable.ic_pencil_red_25
-    }
     val backgroundColor = if (isWrite.value) {
         Red500
     } else {
@@ -97,7 +92,7 @@ private fun WriteButton(
         elevation = FloatingActionButtonDefaults.elevation(2.dp),
     ) {
         Image(
-            painter = painterResource(writeImage),
+            painter = painterResource(R.drawable.ic_pencil),
             contentDescription = "write",
         )
     }

@@ -140,7 +140,7 @@ private fun DeclarationReasons(
                     color = color,
                 )
                 Image(
-                    painter = painterResource(id = R.drawable.ic_next),
+                    painter = painterResource(id = R.drawable.ic_arrow_next_22),
                     contentDescription = stringResource(id = R.string.next),
                     colorFilter = ColorFilter.tint(color),
                 )

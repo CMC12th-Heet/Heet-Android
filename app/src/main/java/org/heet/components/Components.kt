@@ -29,19 +29,22 @@ import org.heet.util.pretendardFamily
 @Composable
 fun GreyValidateText(text: String, isValidate: Boolean = true) {
     Row(modifier = Modifier.padding(bottom = 6.dp)) {
-        val check = if (isValidate) painterResource(id = R.drawable.ic_check_black_20)
-        else painterResource(id = R.drawable.ic_check_grey_20)
+        val check = if (isValidate) {
+            painterResource(id = R.drawable.ic_check_20)
+        } else {
+            painterResource(id = R.drawable.ic_check_grey)
+        }
         Image(
             painter = check,
             contentDescription = null,
-            modifier = Modifier.padding(end = 7.dp)
+            modifier = Modifier.padding(end = 7.dp),
         )
         Text(
             text = text,
             fontFamily = pretendardFamily,
             fontSize = 13.sp,
             fontWeight = FontWeight.Normal,
-            color = White750
+            color = White750,
         )
     }
 }
@@ -49,29 +52,35 @@ fun GreyValidateText(text: String, isValidate: Boolean = true) {
 @Composable
 fun BlackValidateText(text: String, isValidate: Boolean = false, onClick: () -> Unit) {
     Row(modifier = Modifier.padding(bottom = 6.dp)) {
-        val check = if (isValidate) painterResource(id = R.drawable.ic_check_black_20)
-        else painterResource(id = R.drawable.ic_check_grey_20)
+        val check = if (isValidate) {
+            painterResource(id = R.drawable.ic_check_20)
+        } else {
+            painterResource(id = R.drawable.ic_check_grey)
+        }
         Image(
             painter = check,
             contentDescription = null,
             modifier = Modifier.padding(end = 7.dp).clickable {
                 onClick()
-            }
+            },
         )
         Text(
             text = text,
             fontFamily = pretendardFamily,
             fontSize = 15.sp,
             fontWeight = FontWeight.Normal,
-            color = Color.Black
+            color = Color.Black,
         )
     }
 }
 
 @Composable
 fun Terms(text: String, isChecked: Boolean = false, goToDetail: () -> Unit, onCheck: () -> Unit) {
-    val check = if (isChecked) painterResource(id = R.drawable.ic_check_black_20)
-    else painterResource(id = R.drawable.ic_check_grey_20)
+    val check = if (isChecked) {
+        painterResource(id = R.drawable.ic_check_20)
+    } else {
+        painterResource(id = R.drawable.ic_check_grey)
+    }
     Box(modifier = Modifier.fillMaxWidth()) {
         Row(modifier = Modifier.align(Alignment.CenterStart)) {
             Image(
@@ -79,7 +88,7 @@ fun Terms(text: String, isChecked: Boolean = false, goToDetail: () -> Unit, onCh
                 contentDescription = null,
                 modifier = Modifier.clickable {
                     onCheck()
-                }
+                },
             )
             Spacer(modifier = Modifier.width(5.dp))
             Text(
@@ -87,7 +96,7 @@ fun Terms(text: String, isChecked: Boolean = false, goToDetail: () -> Unit, onCh
                 fontFamily = pretendardFamily,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Normal,
-                color = White600
+                color = White600,
             )
         }
         if (text != "[필수] 만 14세 이상입니다.") {
@@ -103,7 +112,7 @@ fun Terms(text: String, isChecked: Boolean = false, goToDetail: () -> Unit, onCh
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Normal,
                 color = White600,
-                textDecoration = TextDecoration.Underline
+                textDecoration = TextDecoration.Underline,
             )
         }
     }
@@ -117,7 +126,7 @@ fun PretendardDescription(text: String, modifier: Modifier = Modifier) {
         fontFamily = pretendardFamily,
         fontSize = 17.sp,
         fontWeight = FontWeight.Normal,
-        color = White900
+        color = White900,
     )
 }
 
@@ -125,38 +134,41 @@ fun PretendardDescription(text: String, modifier: Modifier = Modifier) {
 fun Hide(
     isHide: Boolean,
     modifier: Modifier = Modifier,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     val passwordImage = if (isHide) {
-        painterResource(id = R.drawable.ic_eye_close_grey_44)
+        painterResource(id = R.drawable.ic_eye_close)
     } else {
-        painterResource(id = R.drawable.ic_eye_open_grey_44)
+        painterResource(id = R.drawable.ic_eye_open)
     }
     Image(
         painter = passwordImage,
         contentDescription = null,
         modifier = modifier
             .size(44.dp)
-            .clickable { onClick() }
+            .clickable { onClick() },
     )
 }
 
 @Composable
 fun ValidateText(text: String, isValidate: Boolean) {
     Row(modifier = Modifier.padding(bottom = 6.dp)) {
-        val check = if (isValidate) painterResource(id = R.drawable.ic_check_black_20)
-        else painterResource(id = R.drawable.ic_check_grey_20)
+        val check = if (isValidate) {
+            painterResource(id = R.drawable.ic_check_20)
+        } else {
+            painterResource(id = R.drawable.ic_check_grey)
+        }
         Image(
             painter = check,
             contentDescription = null,
-            modifier = Modifier.padding(end = 7.dp)
+            modifier = Modifier.padding(end = 7.dp),
         )
         Text(
             text = text,
             color = White750,
             fontSize = 13.sp,
             fontWeight = FontWeight.Normal,
-            fontFamily = pretendardFamily
+            fontFamily = pretendardFamily,
         )
     }
 }
@@ -168,26 +180,26 @@ fun ShareTip(
     modifier: Modifier = Modifier,
     dp: Dp = 34.dp,
     enabled: Boolean = true,
-    shareTip: MutableState<String>? = null
+    shareTip: MutableState<String>? = null,
 ) {
     Row(
         modifier = modifier,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Surface(
             shape = RoundedCornerShape(30.dp),
-            color = White700
+            color = White700,
         ) {
             Text(
                 text = text,
                 modifier = Modifier.padding(
                     horizontal = dp,
-                    vertical = 7.dp
+                    vertical = 7.dp,
                 ),
                 color = Color.White,
                 fontSize = 12.sp,
                 fontWeight = FontWeight.Bold,
-                fontFamily = pretendardFamily
+                fontFamily = pretendardFamily,
             )
         }
         Spacer(modifier = Modifier.width(7.dp))
@@ -197,7 +209,7 @@ fun ShareTip(
                 color = Grey1200,
                 fontSize = 11.sp,
                 fontWeight = FontWeight.SemiBold,
-                fontFamily = pretendardFamily
+                fontFamily = pretendardFamily,
             )
         } else {
             PostFlatTextField(
@@ -205,7 +217,7 @@ fun ShareTip(
                 modifier = Modifier.padding(end = 20.dp),
                 enabled = enabled,
                 isSingleLine = true,
-                placeholder = placeHolder
+                placeholder = placeHolder,
             )
         }
     }
@@ -222,7 +234,7 @@ fun FlatModifyTextField(
     keyboardType: KeyboardType = KeyboardType.Text,
     imeAction: ImeAction = ImeAction.Done,
     onAction: KeyboardActions = KeyboardActions.Default,
-    onValueChange: (String) -> Unit = { valueState.value = it }
+    onValueChange: (String) -> Unit = { valueState.value = it },
 ) {
     BasicTextField(
         value = valueState.value,
@@ -237,11 +249,11 @@ fun FlatModifyTextField(
                 if (valueState.value.isEmpty()) {
                     Text(
                         text = placeholder,
-                        style = textStyle
+                        style = textStyle,
                     )
                 }
                 innerTextField()
             }
-        }
+        },
     )
 }

@@ -153,7 +153,7 @@ fun SignUpPwd(
                 signupPwdViewModel.updatePwd(pwd.value)
                 Row(modifier = Modifier.padding(top = 15.dp, start = 12.dp)) {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_check_black_20),
+                        painter = painterResource(id = R.drawable.ic_check_20),
                         contentDescription = null,
                         modifier = Modifier.padding(end = 7.dp),
                     )

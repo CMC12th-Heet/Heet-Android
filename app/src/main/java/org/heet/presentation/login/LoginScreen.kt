@@ -136,7 +136,7 @@ private fun RegisterDescription(
 @Composable
 private fun Logo() {
     Image(
-        painter = painterResource(id = R.drawable.ic_text_logo_65),
+        painter = painterResource(id = R.drawable.ic_text_logo_red),
         contentDescription = "heet_logo",
     )
 }

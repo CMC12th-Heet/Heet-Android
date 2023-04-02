@@ -125,7 +125,7 @@ private fun CommentField(
         )
         Spacer(modifier = Modifier.width(3.dp))
         Image(
-            painter = painterResource(id = R.drawable.ic_red_up_arrow),
+            painter = painterResource(id = R.drawable.ic_arrow_up_red),
             contentDescription = null,
             modifier = Modifier.clickable {
                 commentViewModel.postComment(
@@ -216,7 +216,7 @@ private fun CommentList(
         Row(verticalAlignment = Alignment.CenterVertically) {
             if (userId == myId) {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_trash_can),
+                    painter = painterResource(id = R.drawable.ic_trashcan),
                     contentDescription = "delete_comment",
                     modifier = Modifier.clickable {
                         commentViewModel.deleteComment(commentId.toString(), postId)

@@ -70,9 +70,9 @@ fun ResidenceScreen(
                 items(LocalHometownDataSource().loadHometowns()) { city ->
                     val expanded = remember { mutableStateOf(false) }
                     val image = if (expanded.value) {
-                        painterResource(id = R.drawable.ic_down_grey_24)
+                        painterResource(id = R.drawable.ic_arrow_down_grey)
                     } else {
-                        painterResource(id = R.drawable.ic_next)
+                        painterResource(id = R.drawable.ic_arrow_next_22)
                     }
                     Row(
                         modifier = Modifier.fillMaxSize(),
@@ -196,7 +196,7 @@ fun ResidenceChip(name: MutableState<String>) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Spacer(modifier = Modifier.width(11.dp))
             Image(
-                painter = painterResource(id = R.drawable.ic_check_red_12),
+                painter = painterResource(id = R.drawable.ic_check_red),
                 contentDescription = null,
             )
             Text(

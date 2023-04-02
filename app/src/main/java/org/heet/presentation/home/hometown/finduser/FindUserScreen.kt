@@ -189,7 +189,7 @@ private fun FindUserTextField(
                             color = Color.White,
                         )
                         Image(
-                            painter = painterResource(id = R.drawable.ic_search_white_14),
+                            painter = painterResource(id = R.drawable.ic_search_white),
                             contentDescription = "search",
                         )
                     }
@@ -200,7 +200,7 @@ private fun FindUserTextField(
                     ) {
                         innerTextField()
                         Image(
-                            painter = painterResource(id = R.drawable.ic_circle_cancel_white_16),
+                            painter = painterResource(id = R.drawable.ic_cancel_white),
                             contentDescription = "cancel",
                             modifier = Modifier.clickable { id.value = "" },
                         )
