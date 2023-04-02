@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.heet.data.model.response.ResponseGetMyPage
-import org.heet.data.provider.DispatcherProvider
+import org.heet.domain.interfaces.DispatcherInterface
 import org.heet.domain.repository.MyPageRepository
 import timber.log.Timber
 import javax.inject.Inject
@@ -15,14 +15,14 @@ import javax.inject.Inject
 @HiltViewModel
 class MyPageViewModel @Inject constructor(
     private val myPageRepository: MyPageRepository,
-    private val dispatchers: DispatcherProvider,
+    private val dispatcherInterface: DispatcherInterface,
 ) : ViewModel() {
 
     private val _profile = MutableStateFlow<ResponseGetMyPage?>(null)
     val profile = _profile.asStateFlow()
 
     fun getMyPage() {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             runCatching {
                 myPageRepository.getMyPage()
             }.onSuccess {

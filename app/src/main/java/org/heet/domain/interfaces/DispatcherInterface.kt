@@ -1,8 +1,8 @@
-package org.heet.data.provider
+package org.heet.domain.interfaces
 
 import kotlinx.coroutines.CoroutineDispatcher
 
-interface DispatcherProvider {
+interface DispatcherInterface {
     val main: CoroutineDispatcher
     val io: CoroutineDispatcher
     val default: CoroutineDispatcher

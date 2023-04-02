@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.heet.data.model.request.RequestPostEmail
-import org.heet.data.provider.DispatcherProvider
+import org.heet.domain.interfaces.DispatcherInterface
 import org.heet.domain.repository.CodeRepository
 import org.heet.domain.repository.SignUpRepository
 import org.heet.domain.repository.UserInfoRepository
@@ -23,7 +23,7 @@ class SignUpEmailViewModel @Inject constructor(
     private val signUpRepository: SignUpRepository,
     private val codeRepository: CodeRepository,
     private val userInfoRepository: UserInfoRepository,
-    private val dispatchers: DispatcherProvider,
+    private val dispatcherInterface: DispatcherInterface,
 ) : ViewModel() {
 
     private var timerCount = 300000
@@ -43,7 +43,7 @@ class SignUpEmailViewModel @Inject constructor(
     val isCorrectCode = _isCorrectCode.asStateFlow()
 
     init {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             codeRepository.getCode().collect() { code ->
                 _code.value = code
             }
@@ -58,7 +58,7 @@ class SignUpEmailViewModel @Inject constructor(
     }
 
     fun postEmail(requestPostEmail: RequestPostEmail) {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             runCatching {
                 signUpRepository.postEmail(requestPostEmail)
             }.onSuccess {
@@ -72,7 +72,7 @@ class SignUpEmailViewModel @Inject constructor(
     }
 
     fun deleteCode() {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             runCatching {
                 codeRepository.deleteCode()
             }.onSuccess {
@@ -84,7 +84,7 @@ class SignUpEmailViewModel @Inject constructor(
     }
 
     fun updateEmail(email: String) {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             userInfoRepository.updateEmail(email)
         }
     }

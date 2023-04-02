@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.heet.data.model.request.RequestLogin
-import org.heet.data.provider.DispatcherProvider
+import org.heet.domain.interfaces.DispatcherInterface
 import org.heet.domain.repository.AutoLoginRepository
 import org.heet.domain.repository.LoginRepository
 import org.heet.domain.repository.UserInfoRepository
@@ -19,7 +19,7 @@ class LoginViewModel @Inject constructor(
     private val autoLoginRepository: AutoLoginRepository,
     private val loginRepository: LoginRepository,
     private val userInfoRepository: UserInfoRepository,
-    private val dispatchers: DispatcherProvider,
+    private val dispatcherInterface: DispatcherInterface,
 ) : ViewModel() {
 
     private val _loginSuccess = MutableStateFlow(false)
@@ -33,13 +33,13 @@ class LoginViewModel @Inject constructor(
     }
 
     fun deleteAll() {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             userInfoRepository.deleteAll()
         }
     }
 
     fun login(requestLogin: RequestLogin) {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             runCatching {
                 loginRepository.login(requestLogin)
             }.onSuccess {

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.heet.data.model.response.ResponseGetMyPage
 import org.heet.data.model.response.ResponseGetPost
-import org.heet.data.provider.DispatcherProvider
+import org.heet.domain.interfaces.DispatcherInterface
 import org.heet.domain.repository.MyPageRepository
 import org.heet.domain.repository.PostRepository
 import timber.log.Timber
@@ -18,7 +18,7 @@ import javax.inject.Inject
 class HomeTownViewModel @Inject constructor(
     private val postRepository: PostRepository,
     private val myPageRepository: MyPageRepository,
-    private val dispatchers: DispatcherProvider,
+    private val dispatcherInterface: DispatcherInterface,
 ) : ViewModel() {
 
     private val _newPost = MutableStateFlow<ResponseGetPost?>(null)
@@ -40,7 +40,7 @@ class HomeTownViewModel @Inject constructor(
     val town = _town.asStateFlow()
 
     fun getMyPage() {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             runCatching {
                 myPageRepository.getMyPage()
             }.onSuccess {
@@ -54,7 +54,7 @@ class HomeTownViewModel @Inject constructor(
     }
 
     fun getNewPost() {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             runCatching {
                 postRepository.getNewPost("0")
             }.onSuccess {
@@ -66,7 +66,7 @@ class HomeTownViewModel @Inject constructor(
     }
 
     fun getCityPost() {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             runCatching {
                 postRepository.getCityPost(town.value)
             }.onSuccess {
@@ -78,7 +78,7 @@ class HomeTownViewModel @Inject constructor(
     }
 
     fun getHotPost() {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             runCatching {
                 postRepository.getHotPost("0")
             }.onSuccess {
