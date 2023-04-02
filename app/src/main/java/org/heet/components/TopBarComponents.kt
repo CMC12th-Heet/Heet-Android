@@ -17,9 +17,9 @@ import org.heet.util.pretendardFamily
 @Composable
 fun Back(modifier: Modifier = Modifier, back: () -> Unit) {
     Image(
-        painter = painterResource(id = R.drawable.ic_back_black_30),
+        painter = painterResource(id = R.drawable.ic_arrow_back_black),
         contentDescription = "back",
-        modifier = modifier.clickable { back() }
+        modifier = modifier.clickable { back() },
     )
 }
 
@@ -30,13 +30,13 @@ fun Title(title: String) {
         color = Black1000,
         fontSize = 17.sp,
         fontWeight = FontWeight.Normal,
-        fontFamily = pretendardFamily
+        fontFamily = pretendardFamily,
     )
 }
 
 @Composable
 fun Next(
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Text(
         text = "다음",
@@ -45,7 +45,7 @@ fun Next(
         },
         color = Red500,
         fontSize = 17.sp,
-        fontWeight = FontWeight.Black
+        fontWeight = FontWeight.Black,
     )
 }
 
@@ -55,28 +55,28 @@ fun EmptyText() {
         text = "빈곳",
         color = Color.White,
         fontSize = 17.sp,
-        fontWeight = FontWeight.Black
+        fontWeight = FontWeight.Black,
     )
 }
 
 @Composable
 fun Finish(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Text(
         text = "완료",
         modifier = modifier,
         color = Red500,
         fontSize = 17.sp,
-        fontWeight = FontWeight.Black
+        fontWeight = FontWeight.Black,
     )
 }
 
 @Composable
 fun Cancel(modifier: Modifier = Modifier) {
     Image(
-        painter = painterResource(id = R.drawable.ic_cancel_black_30),
+        painter = painterResource(id = R.drawable.ic_cancel),
         contentDescription = "cancel",
-        modifier = modifier
+        modifier = modifier,
     )
 }

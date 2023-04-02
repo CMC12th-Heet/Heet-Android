@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PwdViewModel @Inject constructor(
-    private val resetRepository: ResetRepository
+    private val resetRepository: ResetRepository,
 ) : ViewModel() {
 
     private val _resetSuccess = MutableStateFlow(false)

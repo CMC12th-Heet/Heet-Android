@@ -26,12 +26,12 @@ import org.heet.util.pretendardFamily
 @Composable
 fun WelcomeScreen(
     navController: NavController,
-    welcomeViewModel: WelcomeViewModel = hiltViewModel()
+    welcomeViewModel: WelcomeViewModel = hiltViewModel(),
 ) {
     Box(modifier = Modifier.fillMaxSize().padding(horizontal = 20.dp)) {
         Column(
             modifier = Modifier.align(Alignment.TopCenter),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Spacer(modifier = Modifier.height(50.dp))
             Logo()
@@ -42,7 +42,7 @@ fun WelcomeScreen(
         }
         Column(
             modifier = Modifier.align(Alignment.BottomCenter).padding(bottom = 8.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             if (welcomeViewModel.getResidence() == "") {
                 RedBigRoundButton28(text = "동네 설정하기") {
@@ -51,7 +51,7 @@ fun WelcomeScreen(
             } else {
                 Image(
                     painter = painterResource(id = R.drawable.ic_location_red_28),
-                    contentDescription = null
+                    contentDescription = null,
                 )
                 Spacer(modifier = Modifier.height(6.dp))
                 Text(
@@ -59,7 +59,7 @@ fun WelcomeScreen(
                     fontFamily = pretendardFamily,
                     fontSize = 15.sp,
                     fontWeight = FontWeight.Medium,
-                    color = Red500
+                    color = Red500,
                 )
                 Spacer(modifier = Modifier.height(18.dp))
                 RedBigRoundButton28(text = "시작하기") {
@@ -78,8 +78,8 @@ fun WelcomeScreen(
 @Composable
 private fun Logo() {
     Image(
-        painter = painterResource(id = R.drawable.ic_text_logo_65),
-        contentDescription = null
+        painter = painterResource(id = R.drawable.ic_text_logo_red),
+        contentDescription = null,
     )
 }
 
@@ -90,7 +90,7 @@ private fun Greeting() {
         color = Red500,
         fontSize = 24.sp,
         fontWeight = FontWeight.ExtraBold,
-        fontFamily = pretendardFamily
+        fontFamily = pretendardFamily,
     )
 }
 
@@ -102,7 +102,7 @@ private fun GreetingUser(welcomeViewModel: WelcomeViewModel) {
             fontFamily = pretendardFamily,
             fontSize = 15.sp,
             fontWeight = FontWeight.Normal,
-            color = White600
+            color = White600,
         )
         Spacer(modifier = Modifier.width(14.dp))
         Text(
@@ -110,7 +110,7 @@ private fun GreetingUser(welcomeViewModel: WelcomeViewModel) {
             fontFamily = pretendardFamily,
             fontSize = 15.sp,
             fontWeight = FontWeight.Medium,
-            color = Grey650
+            color = Grey650,
         )
     }
     Spacer(modifier = Modifier.width(2.dp))

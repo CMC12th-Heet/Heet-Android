@@ -11,16 +11,16 @@ interface CommentService {
     @POST("/comment/{id}")
     suspend fun postComment(
         @Path("id") id: String,
-        @Body requestPostComment: RequestPostComment
+        @Body requestPostComment: RequestPostComment,
     ): ResponsePostComment
 
     @GET("/comment/{id}")
     suspend fun getComment(
-        @Path("id") id: String
+        @Path("id") id: String,
     ): List<ResponseGetComment>
 
     @DELETE("/comment/{id}")
     suspend fun deleteComment(
-        @Path("id") id: String
+        @Path("id") id: String,
     ): ResponseDeleteComment
 }

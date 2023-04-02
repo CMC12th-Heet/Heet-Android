@@ -28,11 +28,11 @@ object DataStoreModule {
     fun providePreferencesDataStore(@ApplicationContext appContext: Context): DataStore<Preferences> {
         return PreferenceDataStoreFactory.create(
             corruptionHandler = ReplaceFileCorruptionHandler(
-                produceNewData = { emptyPreferences() }
+                produceNewData = { emptyPreferences() },
             ),
             migrations = listOf(SharedPreferencesMigration(appContext, USER_PREFERENCES_NAME)),
             scope = CoroutineScope(Dispatchers.IO + SupervisorJob()),
-            produceFile = { appContext.preferencesDataStoreFile(USER_PREFERENCES_NAME) }
+            produceFile = { appContext.preferencesDataStoreFile(USER_PREFERENCES_NAME) },
         )
     }
 }

@@ -1,3 +1,41 @@
 <resources>
     <string name="app_name">Heet</string>
+
+    <!-- Global -->
+    <string name="check">check</string>
+    <string name="next">next</string>
+    <string name="cancel">취소</string>
+
+    <!-- Content Description -->
+    <string name="dc"></string>
+    <string name="dc2"></string>
+
+    <!-- Declaration Finish-->
+    <string name="declaration_finish_thank_you">신고해주셔서 감사합니다</string>
+    <string name="declaration_finish_notice">HEET 서비스 팀에서 정책에 위반되는지 검토 후 결과를\n알려드리겠습니다. 안전한 HEET 서비스가 될 수 있도록\n도와주셔서 감사합니다.</string>
+
+    <!-- Declaration -->
+    <string name="declaration_title">신고하기</string>
+    <string name="declaration_notice_reason">신고하기</string>
+
+    <!-- Verify -->
+    <string name="verify_notice">첫 게시글을 작성하기 전 위치 인증을 진행해주세요!</string>
+    <string name="verify_different_location">*초기 설정과 다른 위치입니다.</string>
+    <string name="verify_try_verify">인증하기</string>
+
+    <!-- Local Declaration Reason-->
+    <string name="local_declaration_reason_selling_illegal">불법 또는 규제 상품 판매</string>
+    <string name="local_declaration_reason_intellectual_property_infringement">지적재산권 침해</string>
+    <string name="local_declaration_reason_nudity_images_or_sexual_behavior">나체 이미지 또는 성적 행위</string>
+    <string name="local_declaration_reason_fraud_or_false_information">사기 또는 거짓 정보</string>
+    <string name="local_declaration_reason_violent_or_offensive_content">폭력적인 또는 공격적 내용</string>
+    <string name="local_declaration_reason_self_harm_or_cruelty">자해 또는 잔인한 내용</string>
+    <string name="local_declaration_reason_etc">기타 사용</string>
+
+    <!-- Gallery -->
+    <!-- Format -->
+    <!-- Withdraw Dialog -->
+    <!-- Empty -->
+    <!-- Mail -->
+
 </resources>

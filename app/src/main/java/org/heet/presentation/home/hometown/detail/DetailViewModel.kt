@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailViewModel @Inject constructor(
-    private val postRepository: PostRepository
+    private val postRepository: PostRepository,
 ) : ViewModel() {
 
     private val _detail = MutableStateFlow<ResponseGetDetailPost?>(null)

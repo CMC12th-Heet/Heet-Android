@@ -14,7 +14,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ResidenceViewModel @Inject constructor(
     private val signUpRepository: SignUpRepository,
-    private val userInfoRepository: UserInfoRepository
+    private val userInfoRepository: UserInfoRepository,
 ) : ViewModel() {
 
     private val _seoul = MutableStateFlow(listOf<String>())

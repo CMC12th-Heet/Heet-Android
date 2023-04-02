@@ -9,7 +9,7 @@ import org.heet.domain.repository.VerifyRepository
 import javax.inject.Inject
 
 class VerifyRepositoryImpl @Inject constructor(
-    private val dataStore: DataStore<Preferences>
+    private val dataStore: DataStore<Preferences>,
 ) : VerifyRepository {
     override suspend fun getIsVerify(): Boolean = dataStore.data.first()[IS_VERIFY] ?: false
 

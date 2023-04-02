@@ -32,7 +32,7 @@ import org.heet.util.pretendardFamily
 @Composable
 fun ResidenceScreen(
     navController: NavController,
-    residenceViewModel: ResidenceViewModel = hiltViewModel()
+    residenceViewModel: ResidenceViewModel = hiltViewModel(),
 ) {
     val cityName = remember { mutableStateOf("") }
     val wardName = remember { mutableStateOf("") }
@@ -43,13 +43,13 @@ fun ResidenceScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(top = 18.dp),
-        verticalArrangement = Arrangement.SpaceBetween
+        verticalArrangement = Arrangement.SpaceBetween,
     ) {
         Column {
             Row(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Back { navController.popBackStack() }
                 Title(title = "동네 설정하기")
@@ -70,14 +70,14 @@ fun ResidenceScreen(
                 items(LocalHometownDataSource().loadHometowns()) { city ->
                     val expanded = remember { mutableStateOf(false) }
                     val image = if (expanded.value) {
-                        painterResource(id = R.drawable.ic_down_grey_24)
+                        painterResource(id = R.drawable.ic_arrow_down_grey)
                     } else {
-                        painterResource(id = R.drawable.ic_next_grey_24)
+                        painterResource(id = R.drawable.ic_arrow_next_22)
                     }
                     Row(
                         modifier = Modifier.fillMaxSize(),
                         horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
                         CityItem(
                             city.cityKr,
@@ -85,7 +85,7 @@ fun ResidenceScreen(
                             expanded,
                             checkWard,
                             checkCity,
-                            cityName
+                            cityName,
                         )
                     }
                     if (expanded.value) {
@@ -107,7 +107,7 @@ fun ResidenceScreen(
                         Spacer(modifier = Modifier.height(18.dp))
                         LazyRow(modifier = Modifier.padding(start = 30.dp)) {
                             items(
-                                where
+                                where,
                             ) { ward ->
                                 WardItem(
                                     updateResidence = { residenceViewModel.updateResidence("${city.cityKr} $ward") },
@@ -115,7 +115,7 @@ fun ResidenceScreen(
                                     city.cityKr,
                                     checkWard,
                                     wardName,
-                                    cityName
+                                    cityName,
                                 )
                             }
                         }
@@ -141,7 +141,7 @@ fun CityItem(
     expanded: MutableState<Boolean>,
     checkWard: MutableState<Boolean>,
     checkCity: MutableState<Boolean>,
-    cityName: MutableState<String>
+    cityName: MutableState<String>,
 ) {
     Text(
         text = city,
@@ -149,7 +149,7 @@ fun CityItem(
         color = Grey400,
         fontSize = 16.sp,
         fontWeight = FontWeight.Normal,
-        fontFamily = pretendardFamily
+        fontFamily = pretendardFamily,
     )
     Image(
         painter = image,
@@ -159,7 +159,7 @@ fun CityItem(
             checkWard.value = false
             checkCity.value = true
             cityName.value = city
-        }
+        },
     )
 }
 
@@ -170,7 +170,7 @@ fun WardItem(
     city: String,
     checkWard: MutableState<Boolean>,
     wardName: MutableState<String>,
-    cityName: MutableState<String>
+    cityName: MutableState<String>,
 ) {
     Text(
         ward,
@@ -183,7 +183,7 @@ fun WardItem(
         },
         fontSize = 16.sp,
         fontWeight = FontWeight.Normal,
-        fontFamily = pretendardFamily
+        fontFamily = pretendardFamily,
     )
 }
 
@@ -191,13 +191,13 @@ fun WardItem(
 fun ResidenceChip(name: MutableState<String>) {
     Surface(
         shape = RoundedCornerShape(16.5.dp),
-        color = White50
+        color = White50,
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Spacer(modifier = Modifier.width(11.dp))
             Image(
-                painter = painterResource(id = R.drawable.ic_check_red_12),
-                contentDescription = null
+                painter = painterResource(id = R.drawable.ic_check_red),
+                contentDescription = null,
             )
             Text(
                 text = name.value,
@@ -205,7 +205,7 @@ fun ResidenceChip(name: MutableState<String>) {
                 color = Red500,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Normal,
-                fontFamily = pretendardFamily
+                fontFamily = pretendardFamily,
             )
         }
     }
@@ -219,7 +219,7 @@ fun NoticeResidence() {
         color = Grey900,
         fontSize = 16.sp,
         fontWeight = FontWeight.SemiBold,
-        fontFamily = pretendardFamily
+        fontFamily = pretendardFamily,
     )
 }
 
@@ -228,6 +228,6 @@ fun SettingButton(onClick: () -> Unit) {
     RedBigRoundButton28(
         modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 8.dp),
         text = "설정 완료",
-        onClick = onClick
+        onClick = onClick,
     )
 }

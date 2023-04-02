@@ -25,7 +25,7 @@ import org.heet.util.pretendardFamily
 @Composable
 fun SignUpPwd(
     navController: NavController,
-    signupPwdViewModel: SingUpPwdViewModel = hiltViewModel()
+    signupPwdViewModel: SingUpPwdViewModel = hiltViewModel(),
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val pwd = remember { mutableStateOf("") }
@@ -43,12 +43,12 @@ fun SignUpPwd(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 20.dp)
-            .padding(top = 14.dp)
+            .padding(top = 14.dp),
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Back { navController.popBackStack() }
             Title("회원 가입")
@@ -62,21 +62,21 @@ fun SignUpPwd(
         Row(
             modifier = Modifier
                 .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             Text(
                 text = "이메일",
                 color = Grey300,
                 fontSize = 17.sp,
                 fontWeight = FontWeight.Normal,
-                fontFamily = pretendardFamily
+                fontFamily = pretendardFamily,
             )
             Text(
                 text = signupPwdViewModel.getEmail(),
                 color = White250,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Normal,
-                fontFamily = pretendardFamily
+                fontFamily = pretendardFamily,
             )
         }
         Column(modifier = Modifier.padding(top = 36.dp)) {
@@ -85,13 +85,13 @@ fun SignUpPwd(
                 color = Grey900,
                 fontSize = 17.sp,
                 fontWeight = FontWeight.Normal,
-                fontFamily = pretendardFamily
+                fontFamily = pretendardFamily,
             )
             Spacer(modifier = Modifier.height(18.dp))
             Row(
                 modifier = Modifier
                     .fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 PwdField(
                     pwd = pwd,
@@ -103,7 +103,7 @@ fun SignUpPwd(
                     isSpecialChar = isSpecialChar,
                     isValidateLength = isValidateLength,
                     isValidatePwd = isValidatePwd,
-                    checkPwd = checkPwd
+                    checkPwd = checkPwd,
                 )
                 Hide(isHide = isHide.value) {
                     isHide.value = !isHide.value
@@ -113,7 +113,7 @@ fun SignUpPwd(
                 Modifier
                     .fillMaxWidth()
                     .height(3.dp),
-                color = White350
+                color = White350,
             )
         }
         Spacer(modifier = Modifier.height(12.dp))
@@ -132,7 +132,7 @@ fun SignUpPwd(
                 color = Grey900,
                 fontSize = 17.sp,
                 fontWeight = FontWeight.Normal,
-                fontFamily = pretendardFamily
+                fontFamily = pretendardFamily,
             )
             SecondPwdField(
                 pwd = pwd,
@@ -141,28 +141,28 @@ fun SignUpPwd(
                     .isNotEmpty(),
                 isHide = isHide,
                 isSame = isSame,
-                keyboardController = keyboardController
+                keyboardController = keyboardController,
             )
             Divider(
                 Modifier
                     .fillMaxWidth()
                     .height(3.dp),
-                color = White350
+                color = White350,
             )
             if (isSame.value) {
                 signupPwdViewModel.updatePwd(pwd.value)
                 Row(modifier = Modifier.padding(top = 15.dp, start = 12.dp)) {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_check_black_20),
+                        painter = painterResource(id = R.drawable.ic_check_20),
                         contentDescription = null,
-                        modifier = Modifier.padding(end = 7.dp)
+                        modifier = Modifier.padding(end = 7.dp),
                     )
                     Text(
                         text = "일치합니다.",
                         color = White750,
                         fontSize = 13.sp,
                         fontWeight = FontWeight.Normal,
-                        fontFamily = pretendardFamily
+                        fontFamily = pretendardFamily,
                     )
                 }
             }

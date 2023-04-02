@@ -29,7 +29,7 @@ import org.heet.util.pretendardFamily
 @Composable
 fun SignUpEmailScreen(
     navController: NavController,
-    signUpEmailViewModel: SignUpEmailViewModel = hiltViewModel()
+    signUpEmailViewModel: SignUpEmailViewModel = hiltViewModel(),
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val email = remember { mutableStateOf("") }
@@ -43,12 +43,12 @@ fun SignUpEmailScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 20.dp)
-            .padding(top = 14.dp)
+            .padding(top = 14.dp),
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Back { navController.popBackStack() }
             Title("회원가입")
@@ -68,7 +68,7 @@ fun SignUpEmailScreen(
             onAction = KeyboardActions {
                 if (email.value.trim().isEmpty()) return@KeyboardActions
                 keyboardController?.hide()
-            }
+            },
         )
         Spacer(modifier = Modifier.height(15.dp))
         RedBigRoundButton28(
@@ -78,7 +78,7 @@ fun SignUpEmailScreen(
                     signUpEmailViewModel.postEmail(RequestPostEmail(email = email.value))
                 }
             },
-            text = "이메일 인증하기"
+            text = "이메일 인증하기",
         )
         Spacer(modifier = Modifier.height(15.dp))
         if (sendEmail) {
@@ -92,38 +92,38 @@ fun SignUpEmailScreen(
                     signUpEmailViewModel = signUpEmailViewModel,
                     requestCode = requestCode,
                     isCorrectCode = isCorrectCode,
-                    keyboardController = keyboardController
+                    keyboardController = keyboardController,
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 Divider(
                     Modifier
                         .fillMaxWidth()
                         .height(2.dp),
-                    color = White350
+                    color = White350,
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 Row(
                     modifier = Modifier
                         .fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Description("인증번호를 받지 못하셨나요?", modifier = Modifier.padding(start = 8.5.dp))
                     Column(
-                        modifier = Modifier.width(IntrinsicSize.Max).padding(end = 8.5.dp)
+                        modifier = Modifier.width(IntrinsicSize.Max).padding(end = 8.5.dp),
                     ) {
                         ReSendBtn(isCorrectCode) {
                             signUpEmailViewModel.postEmail(
                                 RequestPostEmail(
-                                    email.value
-                                )
+                                    email.value,
+                                ),
                             )
                         }
                         Divider(
                             Modifier
                                 .padding(top = 2.dp)
                                 .height(1.dp),
-                            color = Grey700
+                            color = Grey700,
                         )
                     }
                 }
@@ -136,8 +136,8 @@ fun SignUpEmailScreen(
 private fun NoticeSendEmailSuccess() {
     Row(modifier = Modifier.padding(start = 6.dp)) {
         Image(
-            painter = painterResource(id = R.drawable.ic_check_black_20),
-            contentDescription = "black_check"
+            painter = painterResource(id = R.drawable.ic_check_20),
+            contentDescription = "black_check",
         )
         Spacer(modifier = Modifier.width(9.dp))
         Text(
@@ -145,7 +145,7 @@ private fun NoticeSendEmailSuccess() {
             color = White500,
             fontSize = 14.sp,
             fontWeight = FontWeight.Normal,
-            fontFamily = pretendardFamily
+            fontFamily = pretendardFamily,
         )
     }
 }
@@ -159,11 +159,11 @@ private fun SendCode(
     requestCode: MutableState<Boolean>,
     isCorrectCode: Boolean,
     signUpEmailViewModel: SignUpEmailViewModel,
-    keyboardController: SoftwareKeyboardController?
+    keyboardController: SoftwareKeyboardController?,
 ) {
     Box(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxWidth(),
     ) {
         FlatTextField(
             modifier = Modifier
@@ -177,11 +177,11 @@ private fun SendCode(
             onAction = KeyboardActions {
                 if (!verificationCodeValidState) return@KeyboardActions
                 keyboardController?.hide()
-            }
+            },
         )
         Row(
             modifier = Modifier.align(Alignment.CenterEnd),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             val text = if (isCorrectCode) "인증 완료" else "인증 요청"
             Text(
@@ -190,7 +190,7 @@ private fun SendCode(
                 color = Red900,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Normal,
-                fontFamily = pretendardFamily
+                fontFamily = pretendardFamily,
             )
             RedSmallRoundButton22(
                 onClick = {
@@ -199,7 +199,7 @@ private fun SendCode(
                     }
                 },
                 text = text,
-                isCheck = isCorrectCode
+                isCheck = isCorrectCode,
             )
         }
     }

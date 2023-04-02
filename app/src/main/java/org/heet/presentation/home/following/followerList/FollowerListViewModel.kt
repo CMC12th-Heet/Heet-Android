@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FollowerListViewModel @Inject constructor(
-    private val followRepository: FollowRepository
+    private val followRepository: FollowRepository,
 ) : ViewModel() {
 
     private val _followerList = MutableStateFlow(emptyList<ResponseGetFollower>())

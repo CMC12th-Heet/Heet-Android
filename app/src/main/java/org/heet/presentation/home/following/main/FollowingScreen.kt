@@ -74,7 +74,7 @@ fun FollowingScreen(
                             fontFamily = pretendardFamily,
                         )
                         Image(
-                            painter = painterResource(id = R.drawable.ic_next_white_16),
+                            painter = painterResource(id = R.drawable.ic_arrow_right),
                             contentDescription = "following_list",
                             modifier = Modifier.padding(start = 30.dp, end = 18.5.dp),
                         )
@@ -97,7 +97,10 @@ fun FollowingScreen(
 
             if (allPosts != null) {
                 items(allPosts.posts.size) { index ->
-                    if (todayDate - allPosts.posts[index].created_at.substring(0..9).replace("-", "").toInt() == 0) {
+                    if (todayDate -
+                        allPosts.posts[index].created_at.substring(0..9).replace("-", "")
+                            .toInt() == 0
+                    ) {
                         Surface(
                             shape = RoundedCornerShape(10.dp),
                             elevation = 10.dp,
@@ -169,7 +172,7 @@ fun FollowingScreen(
                                         )
                                     }
                                     Image(
-                                        painter = painterResource(id = R.drawable.ic_white_bookmark_50),
+                                        painter = painterResource(id = R.drawable.ic_bookmark),
                                         contentDescription = "bookmark",
                                         modifier = Modifier.align(Alignment.BottomEnd),
                                     )
@@ -268,7 +271,7 @@ fun FollowingScreen(
                                     )
                                 }
                                 Image(
-                                    painter = painterResource(id = R.drawable.ic_white_bookmark_50),
+                                    painter = painterResource(id = R.drawable.ic_bookmark),
                                     contentDescription = "bookmark",
                                     modifier = Modifier.align(Alignment.BottomEnd),
                                 )

@@ -134,7 +134,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                     verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Image(
-                        painter = painterResource(id = R.drawable.ic_cancel_black_30),
+                        painter = painterResource(id = R.drawable.ic_cancel),
                         contentDescription = "cancel",
                         modifier = Modifier.clickable {
                             openAddress.value = false
@@ -193,7 +193,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                 horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.ic_cancel_black_30),
+                    painter = painterResource(id = R.drawable.ic_cancel),
                     contentDescription = "cancel",
                     modifier = Modifier.clickable {
                         showDialog.value = true
@@ -249,7 +249,7 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                     )
                     Spacer(modifier = Modifier.width(10.dp))
                     Image(
-                        painter = painterResource(id = R.drawable.ic_white_search_14),
+                        painter = painterResource(id = R.drawable.ic_search),
                         contentDescription = null,
                     )
                     Spacer(modifier = Modifier.width(17.dp))
@@ -347,9 +347,9 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                         Spacer(modifier = Modifier.width(1.dp))
                         Image(
                             painter = if (expandShare.value) {
-                                painterResource(id = R.drawable.ic_white_down_16)
+                                painterResource(id = R.drawable.ic_arrow_down)
                             } else {
-                                painterResource(id = R.drawable.ic_next_white_16)
+                                painterResource(id = R.drawable.ic_arrow_right)
                             },
                             contentDescription = null,
                             modifier = Modifier.clickable {
@@ -429,9 +429,9 @@ fun PostScreen(navController: NavController, postViewModel: PostViewModel = hilt
                         Spacer(modifier = Modifier.width(10.dp))
                         Image(
                             painter = if (expandSatisfaction.value) {
-                                painterResource(id = R.drawable.ic_white_down_16)
+                                painterResource(id = R.drawable.ic_arrow_down)
                             } else {
-                                painterResource(id = R.drawable.ic_next_white_16)
+                                painterResource(id = R.drawable.ic_arrow_right)
                             },
                             contentDescription = null,
                             modifier = Modifier.clickable {
@@ -670,7 +670,7 @@ private fun AddressTextField(
                             color = Color.White,
                         )
                         Image(
-                            painter = painterResource(id = R.drawable.ic_search_white_14),
+                            painter = painterResource(id = R.drawable.ic_search_white),
                             contentDescription = "search",
                         )
                     }
@@ -681,7 +681,7 @@ private fun AddressTextField(
                     ) {
                         innerTextField()
                         Image(
-                            painter = painterResource(id = R.drawable.ic_circle_cancel_white_16),
+                            painter = painterResource(id = R.drawable.ic_cancel_white),
                             contentDescription = "cancel",
                             modifier = Modifier.clickable { address.value = "" },
                         )

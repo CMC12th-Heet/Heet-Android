@@ -53,7 +53,7 @@ fun BookmarkScreen(navController: NavController) {
                 Surface(shape = RoundedCornerShape(5.dp)) {
                     Box {
                         Image(
-                            painter = painterResource(id = R.drawable.img_default_scrap),
+                            painter = painterResource(id = R.drawable.img_profile_modify),
                             contentDescription = "image",
                             contentScale = ContentScale.FillWidth,
                             modifier = Modifier.fillMaxWidth(),

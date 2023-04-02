@@ -13,7 +13,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeScreenViewModel @Inject constructor(
     private val verifyRepository: VerifyRepository,
-    private val myPageRepository: MyPageRepository
+    private val myPageRepository: MyPageRepository,
 ) : ViewModel() {
 
     private fun setVerify(isVerify: Boolean) {

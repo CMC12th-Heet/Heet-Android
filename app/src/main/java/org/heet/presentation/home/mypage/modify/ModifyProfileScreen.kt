@@ -37,7 +37,7 @@ import org.heet.util.pretendardFamily
 @Composable
 fun ModifyProfileScreen(
     navController: NavController,
-    modifyProfileViewModel: ModifyProfileViewModel = hiltViewModel()
+    modifyProfileViewModel: ModifyProfileViewModel = hiltViewModel(),
 ) {
     modifyProfileViewModel.getMyPage()
     val profile = modifyProfileViewModel.profile.collectAsState().value
@@ -59,7 +59,7 @@ fun ModifyProfileScreen(
 
     LaunchedEffect(
         modifyProfileViewModel.withdrawSuccess.collectAsState().value,
-        modifyProfileViewModel.modifySuccess.collectAsState().value
+        modifyProfileViewModel.modifySuccess.collectAsState().value,
     ) {
         if (modifyProfileViewModel.withdrawSuccess.value) {
             navController.navigate(Graph.AUTHENTICATION) {
@@ -76,13 +76,13 @@ fun ModifyProfileScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(top = 18.dp),
-            verticalArrangement = Arrangement.SpaceBetween
+            verticalArrangement = Arrangement.SpaceBetween,
         ) {
             Column {
                 Row(
                     modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
                     horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Back { showTown.value = false }
                     Title(title = "동네 설정하기")
@@ -103,14 +103,14 @@ fun ModifyProfileScreen(
                     items(LocalHometownDataSource().loadHometowns()) { city ->
                         val expanded = remember { mutableStateOf(false) }
                         val image = if (expanded.value) {
-                            painterResource(id = R.drawable.ic_down_grey_24)
+                            painterResource(id = R.drawable.ic_arrow_down_grey)
                         } else {
-                            painterResource(id = R.drawable.ic_next_grey_24)
+                            painterResource(id = R.drawable.ic_arrow_next_22)
                         }
                         Row(
                             modifier = Modifier.fillMaxSize(),
                             horizontalArrangement = Arrangement.SpaceBetween,
-                            verticalAlignment = Alignment.CenterVertically
+                            verticalAlignment = Alignment.CenterVertically,
                         ) {
                             CityItem(
                                 city.cityKr,
@@ -118,7 +118,7 @@ fun ModifyProfileScreen(
                                 expanded,
                                 checkWard,
                                 checkCity,
-                                cityName
+                                cityName,
                             )
                         }
                         if (expanded.value) {
@@ -140,7 +140,7 @@ fun ModifyProfileScreen(
                             Spacer(modifier = Modifier.height(18.dp))
                             LazyRow(modifier = Modifier.padding(start = 30.dp)) {
                                 items(
-                                    where
+                                    where,
                                 ) { ward ->
                                     WardItem(
                                         updateResidence = { town.value = "${city.cityKr} $ward" },
@@ -148,7 +148,7 @@ fun ModifyProfileScreen(
                                         city.cityKr,
                                         checkWard,
                                         wardName,
-                                        cityName
+                                        cityName,
                                     )
                                 }
                             }
@@ -169,11 +169,11 @@ fun ModifyProfileScreen(
         Column(
             modifier = Modifier.padding(start = 20.dp, top = 14.dp, end = 20.dp).fillMaxSize(),
             verticalArrangement = Arrangement.SpaceBetween,
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
             ) {
                 TopBar(navController, town, id, introduce)
                 Spacer(modifier = Modifier.height(40.dp))
@@ -209,7 +209,7 @@ private fun IntroduceTextField(introduce: MutableState<String>) {
         color = Grey50,
         fontSize = 12.sp,
         fontWeight = FontWeight.Normal,
-        fontFamily = pretendardFamily
+        fontFamily = pretendardFamily,
     )
     Spacer(modifier = Modifier.height(7.dp))
     RoundInputField(
@@ -218,7 +218,7 @@ private fun IntroduceTextField(introduce: MutableState<String>) {
         placeholder = "소개글",
         enabled = true,
         isSingleLine = true,
-        color = Grey150
+        color = Grey150,
     )
     Spacer(modifier = Modifier.height(7.dp))
     Text(
@@ -228,7 +228,7 @@ private fun IntroduceTextField(introduce: MutableState<String>) {
         color = Grey50,
         fontSize = 12.sp,
         fontWeight = FontWeight.Normal,
-        fontFamily = pretendardFamily
+        fontFamily = pretendardFamily,
     )
 }
 
@@ -241,7 +241,7 @@ private fun IdTextField(id: MutableState<String>) {
         color = Grey50,
         fontSize = 12.sp,
         fontWeight = FontWeight.Normal,
-        fontFamily = pretendardFamily
+        fontFamily = pretendardFamily,
     )
     Spacer(modifier = Modifier.height(7.dp))
     RoundInputField(
@@ -249,7 +249,7 @@ private fun IdTextField(id: MutableState<String>) {
         placeholder = "아이디",
         enabled = true,
         isSingleLine = true,
-        color = Grey150
+        color = Grey150,
     )
 }
 
@@ -257,16 +257,16 @@ private fun IdTextField(id: MutableState<String>) {
 private fun Location(
     profile: ResponseGetMyPage,
     showTown: MutableState<Boolean>,
-    town: MutableState<String>
+    town: MutableState<String>,
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Image(
                 painter = painterResource(id = R.drawable.ic_location_red_15),
-                contentDescription = null
+                contentDescription = null,
             )
             Spacer(modifier = Modifier.width(10.dp))
             Text(
@@ -274,7 +274,7 @@ private fun Location(
                 color = Red500,
                 fontSize = 15.sp,
                 fontWeight = FontWeight.Bold,
-                fontFamily = pretendardFamily
+                fontFamily = pretendardFamily,
             )
         }
         Text(
@@ -284,7 +284,7 @@ private fun Location(
             },
             color = Grey50,
             fontSize = 12.sp,
-            fontWeight = FontWeight.Normal
+            fontWeight = FontWeight.Normal,
         )
     }
 }
@@ -295,17 +295,17 @@ private fun ProfileImage() {
         Surface(
             modifier = Modifier.size(71.dp),
             shape = CircleShape,
-            border = BorderStroke(1.dp, White250)
+            border = BorderStroke(1.dp, White250),
         ) {
             Image(
                 painter = painterResource(id = R.drawable.img_profile_modify),
-                contentDescription = null
+                contentDescription = null,
             )
         }
         Image(
-            painter = painterResource(id = R.drawable.ic_gallery_grey_26),
+            painter = painterResource(id = R.drawable.ic_camera),
             contentDescription = null,
-            modifier = Modifier.align(Alignment.BottomEnd)
+            modifier = Modifier.align(Alignment.BottomEnd),
         )
     }
 }
@@ -316,18 +316,18 @@ private fun TopBar(
     town: MutableState<String>,
     id: MutableState<String>,
     introduce: MutableState<String>,
-    modifyProfileViewModel: ModifyProfileViewModel = hiltViewModel()
+    modifyProfileViewModel: ModifyProfileViewModel = hiltViewModel(),
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
+        horizontalArrangement = Arrangement.SpaceBetween,
     ) {
         Back { navController.popBackStack() }
         Title(title = "프로필 수정")
         Finish(
             modifier = Modifier.clickable {
                 modifyProfileViewModel.modifyProfile(id.value, town.value, introduce.value)
-            }
+            },
         )
     }
 }
@@ -341,14 +341,14 @@ private fun WithdrawBtn(showDialog: MutableState<Boolean>) {
         fontFamily = pretendardFamily,
         modifier = Modifier.clickable {
             showDialog.value = true
-        }
+        },
     )
 }
 
 @Composable
 private fun LogoutBtn(
     modifyProfileViewModel: ModifyProfileViewModel,
-    navController: NavController
+    navController: NavController,
 ) {
     Text(
         text = "로그아웃",
@@ -359,7 +359,7 @@ private fun LogoutBtn(
         },
         fontSize = 13.sp,
         fontWeight = FontWeight.Normal,
-        fontFamily = pretendardFamily
+        fontFamily = pretendardFamily,
     )
 }
 
@@ -368,7 +368,7 @@ fun Withdraw(showDialog: MutableState<Boolean>, modifyProfileViewModel: ModifyPr
     Dialog(onDismissRequest = { }) {
         Surface(
             shape = RoundedCornerShape(10.dp),
-            color = Color.White
+            color = Color.White,
         ) {
             WithdrawDialog(showDialog = showDialog) {
                 modifyProfileViewModel.withdraw()

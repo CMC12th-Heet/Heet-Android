@@ -9,7 +9,7 @@ import org.heet.domain.repository.ResetRepository
 import javax.inject.Inject
 
 class ResetRepositoryImpl @Inject constructor(
-    private val resetService: ResetService
+    private val resetService: ResetService,
 ) : ResetRepository {
 
     override suspend fun postEmail(requestPostEmail: RequestPostEmail): ResponseResetPostEmail {

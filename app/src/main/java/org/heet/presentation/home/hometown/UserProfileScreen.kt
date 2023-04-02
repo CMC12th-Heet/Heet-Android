@@ -33,49 +33,49 @@ fun UserProfileScreen(navController: NavController) {
     Box(modifier = Modifier.fillMaxSize()) {
         Surface(
             shape = RoundedCornerShape(bottomStart = 10.dp, bottomEnd = 10.dp),
-            elevation = 20.dp
+            elevation = 20.dp,
         ) {
             Column(
                 modifier = Modifier.padding(start = 20.dp, top = 14.dp, end = 20.dp).fillMaxWidth(),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Back(modifier = Modifier.align(Alignment.Start)) { navController.popBackStack() }
                 Spacer(modifier = Modifier.height(31.dp))
                 Image(
                     painter = painterResource(id = R.drawable.ic_profile_grey_55),
-                    contentDescription = null
+                    contentDescription = null,
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
                     text = "abcdef112",
                     color = Grey350,
                     fontSize = 17.sp,
-                    fontWeight = FontWeight.ExtraBold
+                    fontWeight = FontWeight.ExtraBold,
                 )
                 Spacer(modifier = Modifier.height(9.dp))
                 Text(
                     text = "소개글을 작성해주세요",
                     color = White650,
                     fontSize = 11.sp,
-                    fontWeight = FontWeight.Normal
+                    fontWeight = FontWeight.Normal,
                 )
                 Spacer(modifier = Modifier.height(24.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Image(
                         painter = painterResource(id = R.drawable.ic_location_red_15),
-                        contentDescription = null
+                        contentDescription = null,
                     )
                     Spacer(modifier = Modifier.width(2.dp))
                     Text(
                         text = "중구 약수동",
                         color = Red500,
                         fontSize = 13.sp,
-                        fontWeight = FontWeight.Bold
+                        fontWeight = FontWeight.Bold,
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Image(
-                        painter = painterResource(id = R.drawable.ic_local_red_27),
-                        contentDescription = null
+                        painter = painterResource(id = R.drawable.ic_local_red),
+                        contentDescription = null,
                     )
                 }
                 Spacer(modifier = Modifier.height(12.dp))
@@ -84,27 +84,27 @@ fun UserProfileScreen(navController: NavController) {
                         text = "게시글 0",
                         color = Grey850,
                         fontSize = 12.sp,
-                        fontWeight = FontWeight.Normal
+                        fontWeight = FontWeight.Normal,
                     )
                     Divider(
                         modifier = Modifier.size(width = 1.dp, height = 12.dp),
-                        color = Grey750
+                        color = Grey750,
                     )
                     Text(
                         text = "팔로잉 0",
                         color = Grey850,
                         fontSize = 12.sp,
-                        fontWeight = FontWeight.Normal
+                        fontWeight = FontWeight.Normal,
                     )
                     Divider(
                         modifier = Modifier.size(width = 1.dp, height = 12.dp),
-                        color = Grey750
+                        color = Grey750,
                     )
                     Text(
                         text = "팔로워 0",
                         color = Grey850,
                         fontSize = 12.sp,
-                        fontWeight = FontWeight.Normal
+                        fontWeight = FontWeight.Normal,
                     )
                 }
                 Spacer(modifier = Modifier.height(18.dp))
@@ -113,29 +113,29 @@ fun UserProfileScreen(navController: NavController) {
                         columns = GridCells.Fixed(2),
                         modifier = Modifier.padding(start = 20.dp, end = 20.dp, bottom = 65.dp),
                         horizontalArrangement = Arrangement.spacedBy(4.dp),
-                        verticalArrangement = Arrangement.spacedBy((-13).dp)
+                        verticalArrangement = Arrangement.spacedBy((-13).dp),
                     ) {
                         items(listOf(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)) {
                             Surface(
                                 shape = RoundedCornerShape(5.dp),
-                                modifier = Modifier.padding(top = 18.dp)
+                                modifier = Modifier.padding(top = 18.dp),
                             ) {
                                 Box {
                                     Image(
-                                        painter = painterResource(id = R.drawable.img_default_scrap),
+                                        painter = painterResource(id = R.drawable.img_profile_modify),
                                         contentDescription = "image",
                                         contentScale = ContentScale.FillWidth,
-                                        modifier = Modifier.fillMaxWidth()
+                                        modifier = Modifier.fillMaxWidth(),
                                     )
                                     Row(
                                         modifier = Modifier
                                             .align(Alignment.TopStart)
                                             .padding(start = 6.dp, top = 7.dp),
-                                        verticalAlignment = Alignment.CenterVertically
+                                        verticalAlignment = Alignment.CenterVertically,
                                     ) {
                                         Image(
                                             painter = painterResource(id = R.drawable.ic_location_white_16),
-                                            contentDescription = null
+                                            contentDescription = null,
                                         )
                                         Spacer(modifier = Modifier.width(3.dp))
                                         Text(
@@ -143,7 +143,7 @@ fun UserProfileScreen(navController: NavController) {
                                             color = Color.White,
                                             fontSize = 13.sp,
                                             fontWeight = FontWeight.Bold,
-                                            fontFamily = pretendardFamily
+                                            fontFamily = pretendardFamily,
                                         )
                                     }
                                 }
@@ -155,11 +155,11 @@ fun UserProfileScreen(navController: NavController) {
         }
         if (!existPost.value) {
             Image(
-                painter = painterResource(id = R.drawable.img_notify),
+                painter = painterResource(id = R.drawable.img_profile_modify),
                 contentDescription = null,
                 contentScale = ContentScale.FillWidth,
                 modifier = Modifier.align(Alignment.BottomCenter).fillMaxWidth()
-                    .padding(start = 38.dp, end = 38.dp, bottom = 141.dp)
+                    .padding(start = 38.dp, end = 38.dp, bottom = 141.dp),
             )
         }
     }

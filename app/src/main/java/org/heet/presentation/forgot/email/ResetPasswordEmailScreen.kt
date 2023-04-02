@@ -25,34 +25,34 @@ import java.util.*
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun ForgotEmailScreen(
+fun ResetPasswordEmailScreen(
     navController: NavController,
-    forgotEmailViewModel: ForgotEmailViewModel = hiltViewModel()
+    resetPasswordEmailViewModel: ResetPasswordEmailViewModel = hiltViewModel(),
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val email = remember { mutableStateOf("") }
     val code = remember { mutableStateOf("") }
-    val requestCode = remember { mutableStateOf(false) }
-    val verificationTimer = forgotEmailViewModel.timer.collectAsState().value
-    val sendEmail = forgotEmailViewModel.sendEmail.collectAsState().value
-    val isCorrectCode = forgotEmailViewModel.isCorrectCode.collectAsState().value
+    val didRequestCode = remember { mutableStateOf(false) }
+    val didSendEmail = resetPasswordEmailViewModel.sendEmail.collectAsState().value
+    val isCorrectCode = resetPasswordEmailViewModel.isCorrectCode.collectAsState().value
+    val verificationTimer = resetPasswordEmailViewModel.timer.collectAsState().value
 
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 20.dp)
-            .padding(top = 14.dp)
+            .padding(top = 14.dp),
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Back { navController.popBackStack() }
             Title("비밀번호 찾기")
             if (isCorrectCode) {
                 Next {
-                    forgotEmailViewModel.deleteCode()
+                    resetPasswordEmailViewModel.deleteCode()
                     navController.navigate(ForgotScreen.ForgotPwd.withArgs(email.value))
                 }
             } else {
@@ -66,7 +66,7 @@ fun ForgotEmailScreen(
             modifier = Modifier
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             FlatTextField(
                 modifier = Modifier.width(203.dp),
@@ -77,11 +77,11 @@ fun ForgotEmailScreen(
                 onAction = KeyboardActions {
                     if (email.value.trim().isEmpty()) return@KeyboardActions
                     keyboardController?.hide()
-                }
+                },
             )
-            RequestBtn(sendEmail, "인증 요청") {
+            RequestBtn(didSendEmail, "인증 요청") {
                 if (email.value.trim().isNotEmpty()) {
-                    forgotEmailViewModel.postEmail(RequestPostEmail(email = email.value))
+                    resetPasswordEmailViewModel.postEmail(RequestPostEmail(email = email.value))
                 }
             }
         }
@@ -90,50 +90,50 @@ fun ForgotEmailScreen(
             Modifier
                 .fillMaxWidth()
                 .height(3.dp),
-            color = White350
+            color = White350,
         )
-        if (sendEmail) {
+        if (didSendEmail) {
             Column {
                 Spacer(modifier = Modifier.height(36.dp))
                 SendCode(
                     verificationCode = code,
                     verificationTimer = verificationTimer,
                     verificationCodeValidState = code.value.trim().isNotEmpty(),
-                    requestCode = requestCode,
+                    requestCode = didRequestCode,
                     isCorrectCode = isCorrectCode,
-                    forgotEmailViewModel = forgotEmailViewModel,
-                    keyboardController = keyboardController
+                    resetPasswordEmailViewModel = resetPasswordEmailViewModel,
+                    keyboardController = keyboardController,
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 Divider(
                     Modifier
                         .fillMaxWidth()
                         .height(2.dp),
-                    color = White350
+                    color = White350,
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 Row(
                     modifier = Modifier
                         .fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = Alignment.CenterVertically,
                 ) {
                     Description("인증번호를 받지 못하셨나요?", modifier = Modifier.padding(start = 8.5.dp))
                     Column(
-                        modifier = Modifier.width(IntrinsicSize.Max).padding(end = 8.5.dp)
+                        modifier = Modifier.width(IntrinsicSize.Max).padding(end = 8.5.dp),
                     ) {
                         ReSendBtn(isCorrectCode) {
-                            forgotEmailViewModel.postEmail(
+                            resetPasswordEmailViewModel.postEmail(
                                 RequestPostEmail(
-                                    email.value
-                                )
+                                    email.value,
+                                ),
                             )
                         }
                         Divider(
                             Modifier
                                 .padding(top = 2.dp)
                                 .height(1.dp),
-                            color = Grey700
+                            color = Grey700,
                         )
                     }
                 }
@@ -150,12 +150,12 @@ private fun SendCode(
     verificationCodeValidState: Boolean,
     requestCode: MutableState<Boolean>,
     isCorrectCode: Boolean,
-    forgotEmailViewModel: ForgotEmailViewModel,
-    keyboardController: SoftwareKeyboardController?
+    resetPasswordEmailViewModel: ResetPasswordEmailViewModel,
+    keyboardController: SoftwareKeyboardController?,
 ) {
     Box(
         modifier = Modifier
-            .fillMaxWidth()
+            .fillMaxWidth(),
     ) {
         FlatTextField(
             modifier = Modifier
@@ -169,11 +169,11 @@ private fun SendCode(
             onAction = KeyboardActions {
                 if (!verificationCodeValidState) return@KeyboardActions
                 keyboardController?.hide()
-            }
+            },
         )
         Row(
             modifier = Modifier.align(Alignment.CenterEnd),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             val text = if (isCorrectCode) "인증 완료" else "인증 요청"
             Text(
@@ -182,16 +182,16 @@ private fun SendCode(
                 color = Red900,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Normal,
-                fontFamily = pretendardFamily
+                fontFamily = pretendardFamily,
             )
             RedSmallRoundButton22(
                 onClick = {
                     if (!requestCode.value) {
-                        forgotEmailViewModel.postCode(verificationCode.value)
+                        resetPasswordEmailViewModel.postCode(verificationCode.value)
                     }
                 },
                 text = text,
-                isCheck = isCorrectCode
+                isCheck = isCorrectCode,
             )
         }
     }

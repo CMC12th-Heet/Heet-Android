@@ -56,19 +56,19 @@ fun MyPage(
                             verticalAlignment = Alignment.CenterVertically,
                         ) {
                             Image(
-                                painter = painterResource(id = R.drawable.ic_text_logo_67),
+                                painter = painterResource(id = R.drawable.ic_text_logo_red),
                                 contentDescription = null,
                             )
                             Row {
                                 Image(
-                                    painter = painterResource(id = R.drawable.ic_bookmark_grey_44),
+                                    painter = painterResource(id = R.drawable.ic_bookmark_grey),
                                     contentDescription = null,
                                     modifier = Modifier.clickable {
                                         navController.navigate(MyPageScreen.Scrap.route)
                                     },
                                 )
                                 Image(
-                                    painter = painterResource(id = R.drawable.ic_setting_grey_44),
+                                    painter = painterResource(id = R.drawable.ic_setting),
                                     contentDescription = null,
                                     modifier = Modifier.clickable {
                                         navController.navigate(MyPageScreen.Setting.route)
@@ -111,7 +111,7 @@ fun MyPage(
                             Spacer(modifier = Modifier.width(4.dp))
                             if (myPageInfo.is_verify) {
                                 Image(
-                                    painter = painterResource(id = R.drawable.ic_local_red_27),
+                                    painter = painterResource(id = R.drawable.ic_local_red),
                                     contentDescription = null,
                                 )
                             } else {
@@ -159,7 +159,7 @@ fun MyPage(
             }
             if (!existPost) {
                 Image(
-                    painter = painterResource(id = R.drawable.img_notify),
+                    painter = painterResource(id = R.drawable.img_profile_modify),
                     contentDescription = null,
                     modifier = Modifier.align(Alignment.End)
                         .padding(end = 38.dp, bottom = 141.dp),

@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ModifyPostViewModel @Inject constructor(
-    private val postRepository: PostRepository
+    private val postRepository: PostRepository,
 ) : ViewModel() {
 
     @Inject
@@ -49,7 +49,7 @@ class ModifyPostViewModel @Inject constructor(
         dayTip: String?,
         movingTip: String?,
         orderingTip: String?,
-        otherTip: String?
+        otherTip: String?,
     ) {
         viewModelScope.launch {
             runCatching {
@@ -64,8 +64,8 @@ class ModifyPostViewModel @Inject constructor(
                         dayTip,
                         movingTip,
                         orderingTip,
-                        otherTip
-                    )
+                        otherTip,
+                    ),
                 )
             }.onSuccess {
                 _updateSuccess.value = true

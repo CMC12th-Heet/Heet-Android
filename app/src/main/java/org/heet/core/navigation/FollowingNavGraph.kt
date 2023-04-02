@@ -11,7 +11,7 @@ import org.heet.presentation.home.following.followinglist.FollowingListScreen
 fun NavGraphBuilder.followingNavGraph(navController: NavHostController) {
     navigation(
         route = Graph.FOLLOWING,
-        startDestination = Graph.HOME
+        startDestination = Graph.HOME,
     ) {
         composable(route = FollowingScreen.FollowingList.route) {
             FollowingListScreen(navController = navController)

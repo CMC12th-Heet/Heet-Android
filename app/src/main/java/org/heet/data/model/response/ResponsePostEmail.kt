@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ResponsePostEmail(
-    val code: Long
+    val code: Long,
 )

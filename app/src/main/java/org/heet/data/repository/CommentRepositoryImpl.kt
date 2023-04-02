@@ -9,12 +9,12 @@ import org.heet.domain.repository.CommentRepository
 import javax.inject.Inject
 
 class CommentRepositoryImpl @Inject constructor(
-    private val commentService: CommentService
+    private val commentService: CommentService,
 ) : CommentRepository {
 
     override suspend fun postComment(
         id: String,
-        requestPostComment: RequestPostComment
+        requestPostComment: RequestPostComment,
     ): ResponsePostComment {
         return commentService.postComment(id, requestPostComment)
     }

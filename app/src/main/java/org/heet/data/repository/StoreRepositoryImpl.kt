@@ -7,7 +7,7 @@ import org.heet.domain.repository.StoreRepository
 import javax.inject.Inject
 
 class StoreRepositoryImpl @Inject constructor(
-    private val storeService: StoreService
+    private val storeService: StoreService,
 ) : StoreRepository {
 
     override suspend fun postStore(requestPostStore: RequestPostStore): Int {

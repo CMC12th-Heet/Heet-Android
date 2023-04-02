@@ -15,7 +15,7 @@ import javax.inject.Inject
 @HiltViewModel
 class SingUpIdViewModel @Inject constructor(
     private val userInfoRepository: UserInfoRepository,
-    private val singUpRepository: SignUpRepository
+    private val singUpRepository: SignUpRepository,
 ) : ViewModel() {
 
     private val _isDuplicate = MutableStateFlow(true)

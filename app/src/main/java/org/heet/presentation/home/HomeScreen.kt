@@ -34,7 +34,7 @@ import org.heet.util.pretendardFamily
 @Composable
 fun HomeScreen(
     navController: NavHostController = rememberNavController(),
-    homeScreenViewModel: HomeScreenViewModel = hiltViewModel()
+    homeScreenViewModel: HomeScreenViewModel = hiltViewModel(),
 ) {
     val isWrite = remember { mutableStateOf(false) }
     val isFloatingButton = remember { mutableStateOf(false) }
@@ -47,7 +47,7 @@ fun HomeScreen(
         bottomBar = {
             BottomBar(
                 navController = navController,
-                isFloatingButton = isFloatingButton
+                isFloatingButton = isFloatingButton,
             )
         },
         floatingActionButton = {
@@ -55,10 +55,10 @@ fun HomeScreen(
                 WriteButton(
                     isWrite = isWrite,
                     navController = navController,
-                    homeScreenViewModel = homeScreenViewModel
+                    homeScreenViewModel = homeScreenViewModel,
                 )
             }
-        }
+        },
     ) {
         HomeNavGraph(navController = navController)
     }
@@ -68,13 +68,8 @@ fun HomeScreen(
 private fun WriteButton(
     isWrite: MutableState<Boolean>,
     navController: NavHostController,
-    homeScreenViewModel: HomeScreenViewModel
+    homeScreenViewModel: HomeScreenViewModel,
 ) {
-    val writeImage = if (isWrite.value) {
-        R.drawable.ic_pencil_white_25
-    } else {
-        R.drawable.ic_pencil_red_25
-    }
     val backgroundColor = if (isWrite.value) {
         Red500
     } else {
@@ -94,11 +89,11 @@ private fun WriteButton(
             .size(42.dp),
         shape = RoundedCornerShape(7.dp),
         backgroundColor = backgroundColor,
-        elevation = FloatingActionButtonDefaults.elevation(2.dp)
+        elevation = FloatingActionButtonDefaults.elevation(2.dp),
     ) {
         Image(
-            painter = painterResource(writeImage),
-            contentDescription = "write"
+            painter = painterResource(R.drawable.ic_pencil),
+            contentDescription = "write",
         )
     }
 }
@@ -108,7 +103,7 @@ fun BottomBar(navController: NavHostController, isFloatingButton: MutableState<B
     val screens = listOf(
         BottomBarScreen.Hometown,
         BottomBarScreen.Following,
-        BottomBarScreen.MyPage
+        BottomBarScreen.MyPage,
     )
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
@@ -124,13 +119,13 @@ fun BottomBar(navController: NavHostController, isFloatingButton: MutableState<B
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 41.dp, end = 38.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
                 screens.forEach { screen ->
                     AddItem(
                         screen = screen,
                         currentDestination = currentDestination,
-                        navController = navController
+                        navController = navController,
                     )
                 }
             }
@@ -142,7 +137,7 @@ fun BottomBar(navController: NavHostController, isFloatingButton: MutableState<B
 fun AddItem(
     screen: BottomBarScreen,
     currentDestination: NavDestination?,
-    navController: NavHostController
+    navController: NavHostController,
 ) {
     val selected = currentDestination?.hierarchy?.any { it.route == screen.route } == true
     val background = Color.White
@@ -156,18 +151,18 @@ fun AddItem(
                     popUpTo(navController.graph.findStartDestination().id)
                     launchSingleTop = true
                 }
-            })
+            }),
     ) {
         Column(
             modifier = Modifier
                 .fillMaxHeight(),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
             Icon(
                 painter = painterResource(id = if (selected) screen.icon_focused else screen.icon),
                 contentDescription = "icon",
-                tint = contentColor
+                tint = contentColor,
             )
             Spacer(modifier = Modifier.height(3.dp))
             Text(
@@ -175,7 +170,7 @@ fun AddItem(
                 color = contentColor,
                 fontSize = 10.sp,
                 fontWeight = FontWeight.Bold,
-                fontFamily = pretendardFamily
+                fontFamily = pretendardFamily,
             )
         }
     }

@@ -14,7 +14,7 @@ import org.heet.presentation.signup.welcome.WelcomeScreen
 fun NavGraphBuilder.signupNavGraph(navController: NavHostController) {
     navigation(
         route = Graph.SIGNUP,
-        startDestination = SignUpScreen.SignUpEmail.route
+        startDestination = SignUpScreen.SignUpEmail.route,
     ) {
         composable(route = SignUpScreen.SignUpEmail.route) {
             SignUpEmailScreen(navController = navController)

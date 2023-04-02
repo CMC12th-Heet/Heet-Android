@@ -17,7 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CommentViewModel @Inject constructor(
     private val commentRepository: CommentRepository,
-    private val myPageRepository: MyPageRepository
+    private val myPageRepository: MyPageRepository,
 ) : ViewModel() {
     @Inject
     lateinit var resolutionMetrics: ResolutionMetrics

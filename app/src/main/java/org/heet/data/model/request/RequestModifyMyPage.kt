@@ -6,5 +6,5 @@ import kotlinx.serialization.Serializable
 data class RequestModifyMyPage(
     val username: String,
     val town: String,
-    val status: String
+    val status: String,
 )

@@ -18,14 +18,14 @@ data class ResponsePost(
     val ordering_tip: String?,
     val other_tips: String?,
     val post_id: Int?,
-    val created_at: String?
+    val created_at: String?,
 ) {
     @Serializable
     data class Store(
         val store_id: Int,
         val name: String,
         val url: String,
-        val address: String
+        val address: String,
     )
 
     @Serializable
@@ -36,6 +36,6 @@ data class ResponsePost(
         val password: String,
         val is_verify: Boolean,
         val town: String,
-        val status: String?
+        val status: String?,
     )
 }

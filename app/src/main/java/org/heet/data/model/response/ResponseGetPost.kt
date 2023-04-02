@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ResponseGetPost(
-    val posts: List<Post>
+    val posts: List<Post>,
 ) {
     @Serializable
     data class Post(
@@ -23,14 +23,14 @@ data class ResponseGetPost(
         val created_at: String,
         val user: User,
         val store: Store,
-        val urlList: List<String>
+        val urlList: List<String>,
     ) {
         @Serializable
         data class Store(
             val address: String,
             val name: String,
             val store_id: Int,
-            val url: String
+            val url: String,
         )
 
         @Serializable
@@ -41,7 +41,7 @@ data class ResponseGetPost(
             val town: String,
             val user_id: Int,
             val username: String,
-            val status: String?
+            val status: String?,
         )
     }
 }

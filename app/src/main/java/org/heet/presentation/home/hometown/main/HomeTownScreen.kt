@@ -97,7 +97,7 @@ private fun ContentList(navController: NavController, post: ResponseGetPost?) {
                                 )
                             }
                             Image(
-                                painter = painterResource(id = R.drawable.ic_local_red_28),
+                                painter = painterResource(id = R.drawable.ic_local_red),
                                 contentDescription = "local",
                                 modifier = Modifier.padding(end = 10.dp),
                             )
@@ -150,14 +150,14 @@ private fun ContentList(navController: NavController, post: ResponseGetPost?) {
                     }
                     Row {
                         Image(
-                            painter = painterResource(id = R.drawable.ic_comment_grey_19),
+                            painter = painterResource(id = R.drawable.ic_comment_grey),
                             contentDescription = "comment",
                             modifier = Modifier.padding(end = 22.dp).clickable {
                                 navController.navigate(HomeTownScreen.Comment.route)
                             },
                         )
                         Image(
-                            painter = painterResource(id = R.drawable.ic_bookmark_grey_17),
+                            painter = painterResource(id = R.drawable.ic_bookmark_grey),
                             contentDescription = "bookmark",
                             modifier = Modifier.padding(end = 3.dp),
                         )
@@ -213,14 +213,14 @@ private fun TopBar(navController: NavController, town: String?) {
         }
         Row {
             Image(
-                painter = painterResource(id = R.drawable.ic_search_grey_44),
+                painter = painterResource(id = R.drawable.ic_search_grey),
                 contentDescription = "search",
                 modifier = Modifier.clickable {
                     navController.navigate(HomeTownScreen.FindUser.route)
                 },
             )
             Image(
-                painter = painterResource(id = R.drawable.ic_grey_bookmark_44),
+                painter = painterResource(id = R.drawable.ic_bookmark_44),
                 contentDescription = "bookmark",
                 modifier = Modifier.clickable {
                     navController.navigate(HomeTownScreen.Scrap.route)
@@ -239,7 +239,7 @@ private fun Filter(homeTownViewModel: HomeTownViewModel) {
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Image(
-            painter = painterResource(id = R.drawable.ic_grey_filter_25),
+            painter = painterResource(id = R.drawable.ic_filter),
             contentDescription = null,
         )
         Divider(

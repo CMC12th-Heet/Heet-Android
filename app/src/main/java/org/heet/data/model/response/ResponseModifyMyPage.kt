@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ResponseModifyMyPage(
-    val empty: String
+    val empty: String,
 )

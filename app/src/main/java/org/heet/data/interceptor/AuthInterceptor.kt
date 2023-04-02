@@ -6,7 +6,7 @@ import org.heet.domain.repository.AutoLoginRepository
 import javax.inject.Inject
 
 class AuthInterceptor @Inject constructor(
-    private val autoLoginRepository: AutoLoginRepository
+    private val autoLoginRepository: AutoLoginRepository,
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {

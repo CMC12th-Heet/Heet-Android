@@ -29,39 +29,39 @@ fun SettingScreen(navController: NavController) {
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 20.dp)
-            .padding(top = 14.dp)
+            .padding(top = 14.dp),
     ) {
         Column {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                verticalAlignment = Alignment.CenterVertically,
             ) {
                 Back { navController.popBackStack() }
                 Title(title = "설정")
                 EmptyText()
             }
             LazyColumn(
-                modifier = Modifier.padding(start = 10.dp, top = 43.5.dp, end = 7.dp)
+                modifier = Modifier.padding(start = 10.dp, top = 43.5.dp, end = 7.dp),
             ) {
                 items(LocalSettingDataSource().loadSettingItems()) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        horizontalArrangement = Arrangement.SpaceBetween,
                     ) {
                         Text(
                             it.title,
                             color = Grey400,
                             fontSize = 16.sp,
                             fontWeight = FontWeight.Normal,
-                            fontFamily = pretendardFamily
+                            fontFamily = pretendardFamily,
                         )
                         Image(
-                            painter = painterResource(id = org.heet.R.drawable.ic_next_grey_24),
+                            painter = painterResource(id = org.heet.R.drawable.ic_arrow_next_22),
                             contentDescription = "move",
                             modifier = Modifier.clickable {
                                 navController.navigate(it.destination.route)
-                            }
+                            },
                         )
                     }
                     Spacer(modifier = Modifier.height(18.dp))
@@ -74,7 +74,7 @@ fun SettingScreen(navController: NavController) {
                 color = Red500,
                 fontSize = 11.sp,
                 fontWeight = FontWeight.Bold,
-                fontFamily = pretendardFamily
+                fontFamily = pretendardFamily,
             )
             Spacer(modifier = Modifier.height(14.dp))
             Text(
@@ -82,7 +82,7 @@ fun SettingScreen(navController: NavController) {
                 color = Color.Black,
                 fontSize = 11.sp,
                 fontWeight = FontWeight.Normal,
-                fontFamily = pretendardFamily
+                fontFamily = pretendardFamily,
             )
             Spacer(modifier = Modifier.height(14.dp))
             Text(
@@ -90,7 +90,7 @@ fun SettingScreen(navController: NavController) {
                 color = Color.Black,
                 fontSize = 11.sp,
                 fontWeight = FontWeight.Normal,
-                fontFamily = pretendardFamily
+                fontFamily = pretendardFamily,
             )
             Spacer(modifier = Modifier.height(46.dp))
         }

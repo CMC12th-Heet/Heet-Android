@@ -14,7 +14,7 @@ data class ResponseGetMyPage(
     val post: List<Post>,
     val post_count: Int,
     val follower_count: Int,
-    val following_count: Int
+    val following_count: Int,
 ) {
     @Serializable
     data class Post(
@@ -32,14 +32,14 @@ data class ResponseGetMyPage(
         val store: Store,
         val title: String,
         val together_with: String?,
-        val user: User
+        val user: User,
     ) {
         @Serializable
         data class Store(
             val address: String,
             val name: String,
             val store_id: Int,
-            val url: String
+            val url: String,
         )
 
         @Serializable
@@ -50,7 +50,7 @@ data class ResponseGetMyPage(
             val status: String?,
             val town: String,
             val user_id: Int,
-            val username: String
+            val username: String,
         )
     }
 }

@@ -17,9 +17,9 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class ForgotEmailViewModel @Inject constructor(
+class ResetPasswordEmailViewModel @Inject constructor(
     private val resetRepository: ResetRepository,
-    private val codeRepository: CodeRepository
+    private val codeRepository: CodeRepository,
 ) : ViewModel() {
 
     private var timerCount = 300000
@@ -79,7 +79,7 @@ class ForgotEmailViewModel @Inject constructor(
         }
     }
 
-    fun timerStart() {
+    private fun timerStart() {
         if (::job.isInitialized) job.cancel()
         _timer.value = "05:00"
         timerCount = 300000
@@ -93,7 +93,7 @@ class ForgotEmailViewModel @Inject constructor(
         }
     }
 
-    fun timerReset() {
+    private fun timerReset() {
         _timer.value = "05:00"
         job.cancel()
     }

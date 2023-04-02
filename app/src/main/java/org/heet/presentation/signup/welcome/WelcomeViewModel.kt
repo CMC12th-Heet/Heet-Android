@@ -16,7 +16,7 @@ import javax.inject.Inject
 @HiltViewModel
 class WelcomeViewModel @Inject constructor(
     private val userInfoRepository: UserInfoRepository,
-    private val signUpRepository: SignUpRepository
+    private val signUpRepository: SignUpRepository,
 ) : ViewModel() {
 
     private val _signUp = MutableStateFlow(false)
@@ -30,8 +30,8 @@ class WelcomeViewModel @Inject constructor(
                         userInfoRepository.getEmail(),
                         userInfoRepository.getId(),
                         userInfoRepository.getPwd(),
-                        userInfoRepository.getHometown()
-                    )
+                        userInfoRepository.getHometown(),
+                    ),
                 )
             }.onSuccess {
                 _signUp.value = true

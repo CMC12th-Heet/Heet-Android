@@ -41,7 +41,7 @@ fun GreyRoundTextField23(
     onAction: KeyboardActions = KeyboardActions.Default,
     isPwd: Boolean = false,
     imeAction: ImeAction = ImeAction.Next,
-    onStateChange: () -> Unit = {}
+    onStateChange: () -> Unit = {},
 ) {
     RoundInputField(
         modifier = modifier,
@@ -52,7 +52,7 @@ fun GreyRoundTextField23(
         onAction = onAction,
         isPwd = isPwd,
         imeAction = imeAction,
-        onStateChange = onStateChange
+        onStateChange = onStateChange,
     )
 }
 
@@ -67,7 +67,7 @@ fun FlatTextField(
     imeAction: ImeAction = ImeAction.Done,
     onAction: KeyboardActions = KeyboardActions.Default,
     isPassword: Boolean = false,
-    onValueChange: (String) -> Unit = { valueState.value = it }
+    onValueChange: (String) -> Unit = { valueState.value = it },
 ) {
     BasicTextField(
         value = valueState.value,
@@ -77,7 +77,7 @@ fun FlatTextField(
         textStyle = TextStyle.Default.copy(
             color = Grey200,
             fontSize = 16.sp,
-            fontWeight = FontWeight.SemiBold
+            fontWeight = FontWeight.SemiBold,
         ),
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
         keyboardActions = onAction,
@@ -91,12 +91,12 @@ fun FlatTextField(
                         fontFamily = pretendardFamily,
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Normal,
-                        color = White700
+                        color = White700,
                     )
                 }
                 innerTextField()
             }
-        }
+        },
     )
 }
 
@@ -111,7 +111,7 @@ fun PostFlatTextField(
     imeAction: ImeAction = ImeAction.Done,
     onAction: KeyboardActions = KeyboardActions.Default,
     isPassword: Boolean = false,
-    onValueChange: (String) -> Unit = { valueState.value = it }
+    onValueChange: (String) -> Unit = { valueState.value = it },
 ) {
     BasicTextField(
         value = valueState.value,
@@ -122,7 +122,7 @@ fun PostFlatTextField(
             color = Grey1200,
             fontSize = 11.sp,
             fontWeight = FontWeight.SemiBold,
-            fontFamily = pretendardFamily
+            fontFamily = pretendardFamily,
         ),
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
         keyboardActions = onAction,
@@ -136,12 +136,12 @@ fun PostFlatTextField(
                         fontFamily = pretendardFamily,
                         fontSize = 11.sp,
                         fontWeight = FontWeight.Normal,
-                        color = Grey1100
+                        color = Grey1100,
                     )
                 }
                 innerTextField()
             }
-        }
+        },
     )
 }
 
@@ -157,13 +157,13 @@ fun PwdField(
     isSpecialChar: MutableState<Boolean>,
     isValidateLength: MutableState<Boolean>,
     isValidatePwd: MutableState<Boolean>,
-    checkPwd: MutableState<Boolean>
+    checkPwd: MutableState<Boolean>,
 ) {
     val containValidation = listOf(isNumber.value, isAlphabet.value, isSpecialChar.value)
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 13.dp)
+            .padding(top = 13.dp),
     ) {
         isNumber.value = pwd.value.contains("[0-9]".toRegex())
         isAlphabet.value = pwd.value.contains("[a-zA-Z]".toRegex())
@@ -185,12 +185,12 @@ fun PwdField(
                 if (!pwdValidState) return@KeyboardActions
                 keyboardController?.hide()
             },
-            isPassword = isHide.value
+            isPassword = isHide.value,
         )
         val passwordImage = if (isHide.value) {
-            painterResource(id = R.drawable.ic_eye_close_grey_44)
+            painterResource(id = R.drawable.ic_eye_close)
         } else {
-            painterResource(id = R.drawable.ic_eye_open_grey_44)
+            painterResource(id = R.drawable.ic_eye_open)
         }
         Image(
             painter = passwordImage,
@@ -198,7 +198,7 @@ fun PwdField(
             modifier = Modifier
                 .size(44.dp)
                 .align(Alignment.CenterEnd)
-                .clickable { isHide.value = !isHide.value }
+                .clickable { isHide.value = !isHide.value },
         )
     }
 }
@@ -211,12 +211,12 @@ fun SecondPwdField(
     secondPwdValidState: Boolean,
     isHide: MutableState<Boolean>,
     isSame: MutableState<Boolean>,
-    keyboardController: SoftwareKeyboardController?
+    keyboardController: SoftwareKeyboardController?,
 ) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 13.dp)
+            .padding(top = 13.dp),
     ) {
         if (pwd.value.isNotEmpty()) {
             isSame.value = pwd.value == secondPwd.value
@@ -234,12 +234,12 @@ fun SecondPwdField(
                 if (!secondPwdValidState) return@KeyboardActions
                 keyboardController?.hide()
             },
-            isPassword = isHide.value
+            isPassword = isHide.value,
         )
         val passwordImage = if (isHide.value) {
-            painterResource(id = R.drawable.ic_eye_close_grey_44)
+            painterResource(id = R.drawable.ic_eye_close)
         } else {
-            painterResource(id = R.drawable.ic_eye_open_grey_44)
+            painterResource(id = R.drawable.ic_eye_open)
         }
         Image(
             painter = passwordImage,
@@ -247,7 +247,7 @@ fun SecondPwdField(
             modifier = Modifier
                 .size(44.dp)
                 .align(Alignment.CenterEnd)
-                .clickable { isHide.value = !isHide.value }
+                .clickable { isHide.value = !isHide.value },
         )
     }
 }
@@ -265,18 +265,21 @@ fun RegularFlatInputField(
     isPassword: Boolean = false,
     onValueChange: (String) -> Unit = {
         valueState.value = it
-    }
+    },
 ) {
     BasicTextField(
         modifier = modifier,
         value = valueState.value,
         onValueChange = onValueChange,
-        visualTransformation = if (isPassword) PasswordVisualTransformation()
-        else VisualTransformation.None,
+        visualTransformation = if (isPassword) {
+            PasswordVisualTransformation()
+        } else {
+            VisualTransformation.None
+        },
         textStyle = TextStyle.Default.copy(
             color = White250,
             fontSize = 15.sp,
-            fontWeight = FontWeight.Normal
+            fontWeight = FontWeight.Normal,
         ),
         decorationBox = { innerTextField ->
             Box {
@@ -286,7 +289,7 @@ fun RegularFlatInputField(
                         fontFamily = pretendardFamily,
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Normal,
-                        color = White700
+                        color = White700,
                     )
                 }
                 innerTextField()
@@ -295,7 +298,7 @@ fun RegularFlatInputField(
         singleLine = isSingleLine,
         enabled = enabled,
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
-        keyboardActions = onAction
+        keyboardActions = onAction,
     )
 }
 
@@ -310,7 +313,7 @@ fun NormalInputField(
     fontWeight: FontWeight = FontWeight.SemiBold,
     keyboardType: KeyboardType = KeyboardType.Text,
     imeAction: ImeAction = ImeAction.Next,
-    onAction: KeyboardActions = KeyboardActions.Default
+    onAction: KeyboardActions = KeyboardActions.Default,
 ) {
     BasicTextField(
         value = valueState.value,
@@ -323,7 +326,7 @@ fun NormalInputField(
             color = Grey550,
             fontSize = fontSize,
             fontFamily = pretendardFamily,
-            fontWeight = fontWeight
+            fontWeight = fontWeight,
         ),
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
         keyboardActions = onAction,
@@ -331,7 +334,7 @@ fun NormalInputField(
         decorationBox = { innerTextField ->
             Box(
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .fillMaxWidth(),
             ) {
                 if (valueState.value.isEmpty()) {
                     Text(
@@ -339,12 +342,12 @@ fun NormalInputField(
                         fontFamily = pretendardFamily,
                         fontSize = fontSize,
                         fontWeight = fontWeight,
-                        color = White450
+                        color = White450,
                     )
                 }
                 innerTextField()
             }
-        }
+        },
     )
 }
 
@@ -360,7 +363,7 @@ fun RoundInputField(
     imeAction: ImeAction = ImeAction.Next,
     onAction: KeyboardActions = KeyboardActions.Default,
     isPwd: Boolean = false,
-    onStateChange: () -> Unit = {}
+    onStateChange: () -> Unit = {},
 ) {
     BasicTextField(
         value = valueState.value,
@@ -375,7 +378,7 @@ fun RoundInputField(
             color = color,
             fontSize = 15.sp,
             fontFamily = pretendardFamily,
-            fontWeight = FontWeight.Normal
+            fontWeight = FontWeight.Normal,
         ),
         keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
         keyboardActions = onAction,
@@ -385,7 +388,7 @@ fun RoundInputField(
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(shape = RoundedCornerShape(23.dp), color = White50)
-                    .padding(horizontal = 20.dp, vertical = 14.dp)
+                    .padding(horizontal = 20.dp, vertical = 14.dp),
             ) {
                 if (valueState.value.isEmpty()) {
                     Text(
@@ -393,11 +396,11 @@ fun RoundInputField(
                         fontFamily = pretendardFamily,
                         fontSize = 15.sp,
                         fontWeight = FontWeight.Normal,
-                        color = White700
+                        color = White700,
                     )
                 }
                 innerTextField()
             }
-        }
+        },
     )
 }

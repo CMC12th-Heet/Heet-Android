@@ -4,5 +4,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ResponseGyeonggiCity(
-    val gyeonggi: List<String>
+    val gyeonggi: List<String>,
 )

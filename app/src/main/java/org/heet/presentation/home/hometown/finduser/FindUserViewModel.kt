@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FindUserViewModel @Inject constructor(
-    private val searchRepository: SearchRepository
+    private val searchRepository: SearchRepository,
 ) : ViewModel() {
 
     private val _searchUserList = MutableStateFlow(emptyList<ResponseUserSearch>())

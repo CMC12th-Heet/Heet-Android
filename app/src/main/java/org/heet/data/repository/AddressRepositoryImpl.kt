@@ -7,7 +7,7 @@ import org.heet.domain.repository.AddressRepository
 import javax.inject.Inject
 
 class AddressRepositoryImpl @Inject constructor(
-    private val dataStore: DataStore<Preferences>
+    private val dataStore: DataStore<Preferences>,
 ) : AddressRepository {
 
     override suspend fun getSelectStore(): String = dataStore.data.first()[STORE_NAME] ?: ""

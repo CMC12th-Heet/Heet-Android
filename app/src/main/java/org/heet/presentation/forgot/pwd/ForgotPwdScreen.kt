@@ -27,7 +27,7 @@ import org.heet.util.pretendardFamily
 fun ForgotPwdScreen(
     navController: NavController,
     email: String,
-    pwdViewModel: PwdViewModel = hiltViewModel()
+    pwdViewModel: PwdViewModel = hiltViewModel(),
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     val pwd = remember { mutableStateOf("") }
@@ -53,12 +53,12 @@ fun ForgotPwdScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 20.dp)
-            .padding(top = 14.dp)
+            .padding(top = 14.dp),
     ) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Back { navController.popBackStack() }
             Title("비밀번호 재설정")
@@ -66,7 +66,7 @@ fun ForgotPwdScreen(
                 Finish(
                     modifier = Modifier.clickable {
                         pwdViewModel.resetEmail(pwd.value, email)
-                    }
+                    },
                 )
             } else {
                 EmptyText()
@@ -79,7 +79,7 @@ fun ForgotPwdScreen(
         Row(
             modifier = Modifier
                 .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.SpaceBetween,
         ) {
             PwdField(
                 pwd = pwd,
@@ -91,7 +91,7 @@ fun ForgotPwdScreen(
                 isSpecialChar = isSpecialChar,
                 isValidateLength = isValidateLength,
                 isValidatePwd = isValidatePwd,
-                checkPwd = checkPwd
+                checkPwd = checkPwd,
             )
             Hide(isHide = isHide.value) {
                 isHide.value = !isHide.value
@@ -101,7 +101,7 @@ fun ForgotPwdScreen(
             Modifier
                 .fillMaxWidth()
                 .height(3.dp),
-            color = White350
+            color = White350,
         )
         if (!checkPwd.value) {
             if (pwd.value.isNotEmpty()) {
@@ -123,27 +123,27 @@ fun ForgotPwdScreen(
                         .isNotEmpty(),
                     isHide = isHide,
                     isSame = isSame,
-                    keyboardController = keyboardController
+                    keyboardController = keyboardController,
                 )
                 Divider(
                     Modifier
                         .fillMaxWidth()
                         .height(3.dp),
-                    color = White350
+                    color = White350,
                 )
                 if (isSame.value) {
                     Row(modifier = Modifier.padding(top = 15.dp, start = 12.dp)) {
                         Image(
-                            painter = painterResource(id = R.drawable.ic_check_black_20),
+                            painter = painterResource(id = R.drawable.ic_check_20),
                             contentDescription = null,
-                            modifier = Modifier.padding(end = 7.dp)
+                            modifier = Modifier.padding(end = 7.dp),
                         )
                         Text(
                             text = "일치합니다.",
                             color = White750,
                             fontSize = 13.sp,
                             fontWeight = FontWeight.Normal,
-                            fontFamily = pretendardFamily
+                            fontFamily = pretendardFamily,
                         )
                     }
                 }
