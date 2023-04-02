@@ -126,12 +126,8 @@ fun requestPermission(
                 if (ActivityCompat.checkSelfPermission(
                         context,
                         Manifest.permission.ACCESS_FINE_LOCATION,
-                    ) ==
-                    PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                        context,
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                    ) ==
-                    PackageManager.PERMISSION_GRANTED
+                    ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED
                 ) {
                     LocationServices.getFusedLocationProviderClient(context).lastLocation.addOnSuccessListener {
                         latitude.value = abs(it.longitude).toString()
