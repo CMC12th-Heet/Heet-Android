@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import org.heet.data.provider.DispatcherProvider
 import org.heet.domain.repository.MyPageRepository
 import org.heet.domain.repository.VerifyRepository
 import timber.log.Timber
@@ -14,20 +15,21 @@ import javax.inject.Inject
 class HomeScreenViewModel @Inject constructor(
     private val verifyRepository: VerifyRepository,
     private val myPageRepository: MyPageRepository,
-) : ViewModel() {
+    private val dispatchers: DispatcherProvider,
+    ) : ViewModel() {
 
     private fun setVerify(isVerify: Boolean) {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             verifyRepository.updateIsVerify(isVerify)
         }
     }
 
-    fun getIsVerify(): Boolean = runBlocking {
+    fun getIsVerify(): Boolean = runBlocking(dispatchers.io) {
         verifyRepository.getIsVerify()
     }
 
     fun getMyPage() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             runCatching {
                 myPageRepository.getMyPage()
             }.onSuccess {

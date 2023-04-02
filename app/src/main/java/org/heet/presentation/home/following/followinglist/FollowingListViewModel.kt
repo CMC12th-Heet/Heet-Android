@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.heet.data.model.response.ResponseGetFollowing
+import org.heet.data.provider.DispatcherProvider
 import org.heet.domain.repository.FollowRepository
 import timber.log.Timber
 import javax.inject.Inject
@@ -14,13 +15,14 @@ import javax.inject.Inject
 @HiltViewModel
 class FollowingListViewModel @Inject constructor(
     private val followRepository: FollowRepository,
-) : ViewModel() {
+    private val dispatchers: DispatcherProvider,
+    ) : ViewModel() {
 
     private val _followingList = MutableStateFlow(emptyList<ResponseGetFollowing>())
     val followingList = _followingList.asStateFlow()
 
     fun postFollow(id: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             runCatching {
                 followRepository.postFollow(id)
             }.onSuccess {
@@ -31,7 +33,7 @@ class FollowingListViewModel @Inject constructor(
     }
 
     fun getFollowingList() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             runCatching {
                 followRepository.getFollowing()
             }.onSuccess {

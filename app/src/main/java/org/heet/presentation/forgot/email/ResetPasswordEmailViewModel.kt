@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.heet.data.model.request.RequestPostEmail
+import org.heet.data.provider.DispatcherProvider
 import org.heet.domain.repository.CodeRepository
 import org.heet.domain.repository.ResetRepository
 import timber.log.Timber
@@ -20,6 +21,7 @@ import javax.inject.Inject
 class ResetPasswordEmailViewModel @Inject constructor(
     private val resetRepository: ResetRepository,
     private val codeRepository: CodeRepository,
+    private val dispatchers: DispatcherProvider,
 ) : ViewModel() {
 
     private var timerCount = 300000
@@ -39,7 +41,7 @@ class ResetPasswordEmailViewModel @Inject constructor(
     val isCorrectCode = _isCorrectCode.asStateFlow()
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             codeRepository.getCode().collect() { code ->
                 _code.value = code
             }
@@ -54,7 +56,7 @@ class ResetPasswordEmailViewModel @Inject constructor(
     }
 
     fun postEmail(requestPostEmail: RequestPostEmail) {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             runCatching {
                 resetRepository.postEmail(requestPostEmail)
             }.onSuccess {
@@ -68,7 +70,7 @@ class ResetPasswordEmailViewModel @Inject constructor(
     }
 
     fun deleteCode() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             runCatching {
                 codeRepository.deleteCode()
             }.onSuccess {

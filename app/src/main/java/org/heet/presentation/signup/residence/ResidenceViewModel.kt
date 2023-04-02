@@ -6,6 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import org.heet.data.provider.DispatcherProvider
 import org.heet.domain.repository.SignUpRepository
 import org.heet.domain.repository.UserInfoRepository
 import timber.log.Timber
@@ -15,7 +16,8 @@ import javax.inject.Inject
 class ResidenceViewModel @Inject constructor(
     private val signUpRepository: SignUpRepository,
     private val userInfoRepository: UserInfoRepository,
-) : ViewModel() {
+    private val dispatchers: DispatcherProvider,
+    ) : ViewModel() {
 
     private val _seoul = MutableStateFlow(listOf<String>())
     val seoul = _seoul.asStateFlow()
@@ -25,13 +27,13 @@ class ResidenceViewModel @Inject constructor(
     val incheon = _incheon.asStateFlow()
 
     fun updateResidence(residence: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             userInfoRepository.updateHometown(residence)
         }
     }
 
     fun getSeoulCity(name: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             runCatching {
                 signUpRepository.getSeoulCity(name)
             }.onSuccess {
@@ -43,7 +45,7 @@ class ResidenceViewModel @Inject constructor(
     }
 
     fun getGyeonggiCity(name: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             runCatching {
                 signUpRepository.getGyeonggin(name)
             }.onSuccess {
@@ -55,7 +57,7 @@ class ResidenceViewModel @Inject constructor(
     }
 
     fun getIncheonCity(name: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             runCatching {
                 signUpRepository.getIncheon(name)
             }.onSuccess {

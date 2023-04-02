@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import org.heet.data.provider.DispatcherProvider
 import org.heet.domain.repository.SignUpRepository
 import org.heet.domain.repository.UserInfoRepository
 import timber.log.Timber
@@ -16,7 +17,8 @@ import javax.inject.Inject
 class SingUpIdViewModel @Inject constructor(
     private val userInfoRepository: UserInfoRepository,
     private val singUpRepository: SignUpRepository,
-) : ViewModel() {
+    private val dispatchers: DispatcherProvider,
+    ) : ViewModel() {
 
     private val _isDuplicate = MutableStateFlow(true)
     val isDuplicate = _isDuplicate.asStateFlow()
@@ -30,7 +32,7 @@ class SingUpIdViewModel @Inject constructor(
     }
 
     fun postFindDuplicate(username: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             runCatching {
                 singUpRepository.findDuplicate(username)
             }.onSuccess {

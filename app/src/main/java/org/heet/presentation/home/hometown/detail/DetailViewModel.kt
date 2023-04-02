@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.heet.data.model.response.ResponseGetDetailPost
+import org.heet.data.provider.DispatcherProvider
 import org.heet.domain.repository.PostRepository
 import timber.log.Timber
 import javax.inject.Inject
@@ -14,7 +15,8 @@ import javax.inject.Inject
 @HiltViewModel
 class DetailViewModel @Inject constructor(
     private val postRepository: PostRepository,
-) : ViewModel() {
+    private val dispatchers: DispatcherProvider,
+    ) : ViewModel() {
 
     private val _detail = MutableStateFlow<ResponseGetDetailPost?>(null)
     val detail = _detail.asStateFlow()
@@ -23,7 +25,7 @@ class DetailViewModel @Inject constructor(
     val deleteSuccess = _deleteSuccess.asStateFlow()
 
     fun getDetailPost(id: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             runCatching {
                 postRepository.getDetailPost(id)
             }.onSuccess {

@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.heet.data.model.response.ResponseUserSearch
+import org.heet.data.provider.DispatcherProvider
 import org.heet.domain.repository.SearchRepository
 import timber.log.Timber
 import javax.inject.Inject
@@ -14,13 +15,14 @@ import javax.inject.Inject
 @HiltViewModel
 class FindUserViewModel @Inject constructor(
     private val searchRepository: SearchRepository,
-) : ViewModel() {
+    private val dispatchers: DispatcherProvider,
+    ) : ViewModel() {
 
     private val _searchUserList = MutableStateFlow(emptyList<ResponseUserSearch>())
     val searchUserList = _searchUserList.asStateFlow()
 
     fun searchUser(keyword: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             runCatching {
                 searchRepository.userSearch(keyword)
             }.onSuccess {

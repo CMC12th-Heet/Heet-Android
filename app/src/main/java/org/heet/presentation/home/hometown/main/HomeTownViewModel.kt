@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.heet.data.model.response.ResponseGetMyPage
 import org.heet.data.model.response.ResponseGetPost
+import org.heet.data.provider.DispatcherProvider
 import org.heet.domain.repository.MyPageRepository
 import org.heet.domain.repository.PostRepository
 import timber.log.Timber
@@ -17,7 +18,8 @@ import javax.inject.Inject
 class HomeTownViewModel @Inject constructor(
     private val postRepository: PostRepository,
     private val myPageRepository: MyPageRepository,
-) : ViewModel() {
+    private val dispatchers: DispatcherProvider,
+    ) : ViewModel() {
 
     private val _newPost = MutableStateFlow<ResponseGetPost?>(null)
     val newPost = _newPost.asStateFlow()
@@ -38,7 +40,7 @@ class HomeTownViewModel @Inject constructor(
     val town = _town.asStateFlow()
 
     fun getMyPage() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             runCatching {
                 myPageRepository.getMyPage()
             }.onSuccess {
@@ -52,7 +54,7 @@ class HomeTownViewModel @Inject constructor(
     }
 
     fun getNewPost() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             runCatching {
                 postRepository.getNewPost("0")
             }.onSuccess {
@@ -64,7 +66,7 @@ class HomeTownViewModel @Inject constructor(
     }
 
     fun getCityPost() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             runCatching {
                 postRepository.getCityPost(town.value)
             }.onSuccess {
@@ -76,7 +78,7 @@ class HomeTownViewModel @Inject constructor(
     }
 
     fun getHotPost() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             runCatching {
                 postRepository.getHotPost("0")
             }.onSuccess {
