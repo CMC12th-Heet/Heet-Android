@@ -139,10 +139,8 @@ fun requestPermission(
 
         override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
         }
-    })
-        .setPermissions(
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-        )
-        .check()
+    }).setPermissions(
+        Manifest.permission.ACCESS_COARSE_LOCATION,
+        Manifest.permission.ACCESS_FINE_LOCATION,
+    ).check()
 }
