@@ -14,8 +14,8 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import org.heet.data.model.request.RequestPostStore
 import org.heet.data.model.response.ResponseGetStore
-import org.heet.data.provider.DispatcherProvider
 import org.heet.data.service.PostService
+import org.heet.domain.interfaces.DispatcherInterface
 import org.heet.domain.repository.AddressRepository
 import org.heet.domain.repository.StoreRepository
 import org.heet.util.ContentUriRequestBody
@@ -27,7 +27,7 @@ class PostViewModel @Inject constructor(
     private val addressRepository: AddressRepository,
     private val postService: PostService,
     private val storeRepository: StoreRepository,
-    private val dispatchers: DispatcherProvider,
+    private val dispatcherInterface: DispatcherInterface,
 ) : ViewModel() {
 
     private val _postSuccess = MutableStateFlow(false)
@@ -43,7 +43,7 @@ class PostViewModel @Inject constructor(
     val storeName = _storeName.asStateFlow()
 
     fun searchStore(keyword: String) {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             runCatching {
                 storeRepository.getStore(keyword)
             }.onSuccess {
@@ -59,7 +59,7 @@ class PostViewModel @Inject constructor(
     }
 
     fun postStore(requestPostStore: RequestPostStore) {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             runCatching {
                 storeRepository.postStore(requestPostStore)
             }.onSuccess {
@@ -74,33 +74,33 @@ class PostViewModel @Inject constructor(
     }
 
     private fun updateSelectStore(storeName: String) {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             addressRepository.updateSelectStore(storeName)
         }
     }
 
     private fun updateSelectStoreNum(storeNum: Int) {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             addressRepository.updateSelectStoreNum(storeNum)
         }
     }
 
-    fun getSelectStore(): String = runBlocking(dispatchers.io) {
+    fun getSelectStore(): String = runBlocking(dispatcherInterface.io) {
         addressRepository.getSelectStore()
     }
 
-    fun getSelectStoreNum(): Int = runBlocking(dispatchers.io) {
+    fun getSelectStoreNum(): Int = runBlocking(dispatcherInterface.io) {
         addressRepository.getSelectStoreNum()
     }
 
     fun deleteSelectStore() {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             addressRepository.deleteSelectStore()
         }
     }
 
     fun deleteSelectStoreNum() {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             addressRepository.deleteSelectStoreNum()
         }
     }
@@ -137,7 +137,7 @@ class PostViewModel @Inject constructor(
             imageListMultipartBody.add(imageMultipartBody)
         }
 
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             runCatching {
                 postService.post(
                     imageListMultipartBody,

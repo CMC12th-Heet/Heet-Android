@@ -6,7 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import org.heet.data.provider.DispatcherProvider
+import org.heet.domain.interfaces.DispatcherInterface
 import org.heet.domain.repository.SignUpRepository
 import org.heet.domain.repository.UserInfoRepository
 import timber.log.Timber
@@ -16,7 +16,7 @@ import javax.inject.Inject
 class ResidenceViewModel @Inject constructor(
     private val signUpRepository: SignUpRepository,
     private val userInfoRepository: UserInfoRepository,
-    private val dispatchers: DispatcherProvider,
+    private val dispatcherInterface: DispatcherInterface,
 ) : ViewModel() {
 
     private val _seoul = MutableStateFlow(listOf<String>())
@@ -27,13 +27,13 @@ class ResidenceViewModel @Inject constructor(
     val incheon = _incheon.asStateFlow()
 
     fun updateResidence(residence: String) {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             userInfoRepository.updateHometown(residence)
         }
     }
 
     fun getSeoulCity(name: String) {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             runCatching {
                 signUpRepository.getSeoulCity(name)
             }.onSuccess {
@@ -45,7 +45,7 @@ class ResidenceViewModel @Inject constructor(
     }
 
     fun getGyeonggiCity(name: String) {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             runCatching {
                 signUpRepository.getGyeonggin(name)
             }.onSuccess {
@@ -57,7 +57,7 @@ class ResidenceViewModel @Inject constructor(
     }
 
     fun getIncheonCity(name: String) {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             runCatching {
                 signUpRepository.getIncheon(name)
             }.onSuccess {

@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.heet.data.model.request.RequestPostSignUp
-import org.heet.data.provider.DispatcherProvider
+import org.heet.domain.interfaces.DispatcherInterface
 import org.heet.domain.repository.SignUpRepository
 import org.heet.domain.repository.UserInfoRepository
 import timber.log.Timber
@@ -18,14 +18,14 @@ import javax.inject.Inject
 class WelcomeViewModel @Inject constructor(
     private val userInfoRepository: UserInfoRepository,
     private val signUpRepository: SignUpRepository,
-    private val dispatchers: DispatcherProvider,
+    private val dispatcherInterface: DispatcherInterface,
 ) : ViewModel() {
 
     private val _signUp = MutableStateFlow(false)
     val signUp = _signUp.asStateFlow()
 
     fun signUp() {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             kotlin.runCatching {
                 signUpRepository.signUp(
                     RequestPostSignUp(
@@ -43,11 +43,11 @@ class WelcomeViewModel @Inject constructor(
         }
     }
 
-    fun getResidence(): String = runBlocking(dispatchers.io) {
+    fun getResidence(): String = runBlocking(dispatcherInterface.io) {
         userInfoRepository.getHometown()
     }
 
-    fun getUsername(): String = runBlocking(dispatchers.io) {
+    fun getUsername(): String = runBlocking(dispatcherInterface.io) {
         userInfoRepository.getId()
     }
 }

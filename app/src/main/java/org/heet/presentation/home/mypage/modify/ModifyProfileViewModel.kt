@@ -8,11 +8,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.heet.data.model.request.RequestModifyMyPage
 import org.heet.data.model.response.ResponseGetMyPage
-import org.heet.data.provider.DispatcherProvider
-import org.heet.domain.repository.AutoLoginRepository
-import org.heet.domain.repository.MyPageRepository
-import org.heet.domain.repository.SignUpRepository
-import org.heet.domain.repository.VerifyRepository
+import org.heet.domain.interfaces.DispatcherInterface
+import org.heet.domain.repository.*
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -22,7 +19,7 @@ class ModifyProfileViewModel @Inject constructor(
     private val verifyRepository: VerifyRepository,
     private val myPageRepository: MyPageRepository,
     private val signUpRepository: SignUpRepository,
-    private val dispatchers: DispatcherProvider,
+    private val dispatcherInterface: DispatcherInterface,
 ) : ViewModel() {
 
     private val _seoul = MutableStateFlow(listOf<String>())
@@ -42,7 +39,7 @@ class ModifyProfileViewModel @Inject constructor(
     val profile = _profile.asStateFlow()
 
     fun getSeoulCity(name: String) {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             runCatching {
                 signUpRepository.getSeoulCity(name)
             }.onSuccess {
@@ -54,7 +51,7 @@ class ModifyProfileViewModel @Inject constructor(
     }
 
     fun getGyeonggiCity(name: String) {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             runCatching {
                 signUpRepository.getGyeonggin(name)
             }.onSuccess {
@@ -66,7 +63,7 @@ class ModifyProfileViewModel @Inject constructor(
     }
 
     fun getIncheonCity(name: String) {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             runCatching {
                 signUpRepository.getIncheon(name)
             }.onSuccess {
@@ -78,7 +75,7 @@ class ModifyProfileViewModel @Inject constructor(
     }
 
     fun getMyPage() {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             runCatching {
                 myPageRepository.getMyPage()
             }.onSuccess {
@@ -90,7 +87,7 @@ class ModifyProfileViewModel @Inject constructor(
     }
 
     fun modifyProfile(username: String, town: String, status: String) {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             runCatching {
                 myPageRepository.modifyMyPage(RequestModifyMyPage(username, town, status))
             }.onSuccess {
@@ -102,19 +99,19 @@ class ModifyProfileViewModel @Inject constructor(
     }
 
     fun deleteUserPreferences() {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             autoLoginRepository.deleteAccessToken()
         }
     }
 
     fun deleteVerify() {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             verifyRepository.deleteIsVerify()
         }
     }
 
     fun withdraw() {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             runCatching {
                 myPageRepository.withDraw()
             }.onSuccess {

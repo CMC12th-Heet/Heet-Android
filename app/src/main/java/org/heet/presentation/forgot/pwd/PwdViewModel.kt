@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.heet.data.model.request.RequestResetPwd
-import org.heet.data.provider.DispatcherProvider
+import org.heet.domain.interfaces.DispatcherInterface
 import org.heet.domain.repository.ResetRepository
 import timber.log.Timber
 import javax.inject.Inject
@@ -15,14 +15,14 @@ import javax.inject.Inject
 @HiltViewModel
 class PwdViewModel @Inject constructor(
     private val resetRepository: ResetRepository,
-    private val dispatchers: DispatcherProvider,
+    private val dispatcherInterface: DispatcherInterface,
 ) : ViewModel() {
 
     private val _resetSuccess = MutableStateFlow(false)
     val resetSuccess = _resetSuccess.asStateFlow()
 
     fun resetEmail(password: String, email: String) {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             runCatching {
                 resetRepository.resetPwd(RequestResetPwd(password, email))
             }.onSuccess {

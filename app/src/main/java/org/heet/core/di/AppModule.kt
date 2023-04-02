@@ -6,8 +6,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import org.heet.data.provider.DispatcherProvider
-import org.heet.data.provider.StandardDispatchers
+import org.heet.data.dispatcher.StandardDispatcherProvider
+import org.heet.domain.interfaces.DispatcherInterface
 import javax.inject.Singleton
 
 @Module
@@ -19,7 +19,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideDispatcherProvider(): DispatcherProvider {
-        return StandardDispatchers()
+    fun provideDispatcherProvider(): DispatcherInterface {
+        return StandardDispatcherProvider()
     }
 }

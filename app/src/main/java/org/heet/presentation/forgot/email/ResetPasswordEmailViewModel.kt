@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.heet.data.model.request.RequestPostEmail
-import org.heet.data.provider.DispatcherProvider
+import org.heet.domain.interfaces.DispatcherInterface
 import org.heet.domain.repository.CodeRepository
 import org.heet.domain.repository.ResetRepository
 import timber.log.Timber
@@ -21,7 +21,7 @@ import javax.inject.Inject
 class ResetPasswordEmailViewModel @Inject constructor(
     private val resetRepository: ResetRepository,
     private val codeRepository: CodeRepository,
-    private val dispatchers: DispatcherProvider,
+    private val dispatcherInterface: DispatcherInterface,
 ) : ViewModel() {
 
     private var timerCount = 300000
@@ -41,7 +41,7 @@ class ResetPasswordEmailViewModel @Inject constructor(
     val isCorrectCode = _isCorrectCode.asStateFlow()
 
     init {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             codeRepository.getCode().collect() { code ->
                 _code.value = code
             }
@@ -56,7 +56,7 @@ class ResetPasswordEmailViewModel @Inject constructor(
     }
 
     fun postEmail(requestPostEmail: RequestPostEmail) {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             runCatching {
                 resetRepository.postEmail(requestPostEmail)
             }.onSuccess {
@@ -70,7 +70,7 @@ class ResetPasswordEmailViewModel @Inject constructor(
     }
 
     fun deleteCode() {
-        viewModelScope.launch(dispatchers.io) {
+        viewModelScope.launch(dispatcherInterface.io) {
             runCatching {
                 codeRepository.deleteCode()
             }.onSuccess {
