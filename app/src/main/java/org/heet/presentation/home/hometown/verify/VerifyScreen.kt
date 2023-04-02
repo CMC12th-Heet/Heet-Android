@@ -120,29 +120,26 @@ fun requestPermission(
     latitude: MutableState<String>,
     longitude: MutableState<String>,
 ) {
-    TedPermission.create()
-        .setPermissionListener(object : PermissionListener {
-            override fun onPermissionGranted() {
-                if (ActivityCompat.checkSelfPermission(
-                        context,
-                        Manifest.permission.ACCESS_FINE_LOCATION,
-                    )
-                    == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                        context,
-                        Manifest.permission.ACCESS_COARSE_LOCATION,
-                    )
-                    == PackageManager.PERMISSION_GRANTED
-                ) {
-                    LocationServices.getFusedLocationProviderClient(context).lastLocation.addOnSuccessListener {
-                        latitude.value = abs(it.longitude).toString()
-                        longitude.value = abs(it.latitude).toString()
-                    }
+    TedPermission.create().setPermissionListener(object : PermissionListener {
+        override fun onPermissionGranted() {
+            if (ActivityCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                ) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                    context,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                ) == PackageManager.PERMISSION_GRANTED
+            ) {
+                LocationServices.getFusedLocationProviderClient(context).lastLocation.addOnSuccessListener {
+                    latitude.value = abs(it.longitude).toString()
+                    longitude.value = abs(it.latitude).toString()
                 }
             }
+        }
 
-            override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
-            }
-        })
+        override fun onPermissionDenied(deniedPermissions: MutableList<String>?) {
+        }
+    })
         .setPermissions(
             Manifest.permission.ACCESS_COARSE_LOCATION,
             Manifest.permission.ACCESS_FINE_LOCATION,
