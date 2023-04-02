@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.heet.data.model.request.RequestUpdatePost
 import org.heet.data.model.response.ResponseGetDetailPost
+import org.heet.data.provider.DispatcherProvider
 import org.heet.domain.repository.PostRepository
 import org.heet.util.ResolutionMetrics
 import timber.log.Timber
@@ -16,6 +17,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ModifyPostViewModel @Inject constructor(
     private val postRepository: PostRepository,
+    private val dispatchers: DispatcherProvider,
 ) : ViewModel() {
 
     @Inject
@@ -28,7 +30,7 @@ class ModifyPostViewModel @Inject constructor(
     val updateSuccess = _updateSuccess.asStateFlow()
 
     fun getDetailPost(id: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             runCatching {
                 postRepository.getDetailPost(id)
             }.onSuccess {
@@ -51,7 +53,7 @@ class ModifyPostViewModel @Inject constructor(
         orderingTip: String?,
         otherTip: String?,
     ) {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             runCatching {
                 postRepository.updatePost(
                     id,

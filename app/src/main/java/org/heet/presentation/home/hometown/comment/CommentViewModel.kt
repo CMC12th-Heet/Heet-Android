@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import org.heet.data.model.request.RequestPostComment
 import org.heet.data.model.response.ResponseGetComment
+import org.heet.data.provider.DispatcherProvider
 import org.heet.domain.repository.CommentRepository
 import org.heet.domain.repository.MyPageRepository
 import org.heet.util.ResolutionMetrics
@@ -18,6 +19,7 @@ import javax.inject.Inject
 class CommentViewModel @Inject constructor(
     private val commentRepository: CommentRepository,
     private val myPageRepository: MyPageRepository,
+    private val dispatchers: DispatcherProvider,
 ) : ViewModel() {
     @Inject
     lateinit var resolutionMetrics: ResolutionMetrics
@@ -29,7 +31,7 @@ class CommentViewModel @Inject constructor(
     val myId = _myId.asStateFlow()
 
     fun getMyPage() {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             runCatching {
                 myPageRepository.getMyPage()
             }.onSuccess {
@@ -41,7 +43,7 @@ class CommentViewModel @Inject constructor(
     }
 
     fun postComment(postId: String, requestPostComment: RequestPostComment) {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             runCatching {
                 commentRepository.postComment(postId, requestPostComment)
             }.onSuccess {
@@ -53,7 +55,7 @@ class CommentViewModel @Inject constructor(
     }
 
     fun getComment(postId: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             runCatching {
                 commentRepository.getComment(postId)
             }.onSuccess {
@@ -65,7 +67,7 @@ class CommentViewModel @Inject constructor(
     }
 
     fun deleteComment(id: String, postId: String) {
-        viewModelScope.launch {
+        viewModelScope.launch(dispatchers.io) {
             runCatching {
                 commentRepository.deleteComment(id)
             }.onSuccess {
