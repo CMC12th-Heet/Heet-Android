@@ -16,7 +16,7 @@ import javax.inject.Inject
 class DetailViewModel @Inject constructor(
     private val postRepository: PostRepository,
     private val dispatchers: DispatcherProvider,
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val _detail = MutableStateFlow<ResponseGetDetailPost?>(null)
     val detail = _detail.asStateFlow()

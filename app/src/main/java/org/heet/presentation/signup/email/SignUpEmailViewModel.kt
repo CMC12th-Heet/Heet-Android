@@ -24,7 +24,7 @@ class SignUpEmailViewModel @Inject constructor(
     private val codeRepository: CodeRepository,
     private val userInfoRepository: UserInfoRepository,
     private val dispatchers: DispatcherProvider,
-    ) : ViewModel() {
+) : ViewModel() {
 
     private var timerCount = 300000
 

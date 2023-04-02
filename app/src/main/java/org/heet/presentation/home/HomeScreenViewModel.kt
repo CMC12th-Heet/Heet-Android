@@ -16,7 +16,7 @@ class HomeScreenViewModel @Inject constructor(
     private val verifyRepository: VerifyRepository,
     private val myPageRepository: MyPageRepository,
     private val dispatchers: DispatcherProvider,
-    ) : ViewModel() {
+) : ViewModel() {
 
     private fun setVerify(isVerify: Boolean) {
         viewModelScope.launch(dispatchers.io) {

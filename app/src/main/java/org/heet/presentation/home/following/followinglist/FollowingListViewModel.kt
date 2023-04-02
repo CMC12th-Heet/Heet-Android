@@ -16,7 +16,7 @@ import javax.inject.Inject
 class FollowingListViewModel @Inject constructor(
     private val followRepository: FollowRepository,
     private val dispatchers: DispatcherProvider,
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val _followingList = MutableStateFlow(emptyList<ResponseGetFollowing>())
     val followingList = _followingList.asStateFlow()

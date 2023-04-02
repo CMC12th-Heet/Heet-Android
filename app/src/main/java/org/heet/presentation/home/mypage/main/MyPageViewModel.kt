@@ -16,7 +16,7 @@ import javax.inject.Inject
 class MyPageViewModel @Inject constructor(
     private val myPageRepository: MyPageRepository,
     private val dispatchers: DispatcherProvider,
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val _profile = MutableStateFlow<ResponseGetMyPage?>(null)
     val profile = _profile.asStateFlow()

@@ -18,7 +18,7 @@ import javax.inject.Inject
 class ModifyPostViewModel @Inject constructor(
     private val postRepository: PostRepository,
     private val dispatchers: DispatcherProvider,
-    ) : ViewModel() {
+) : ViewModel() {
 
     @Inject
     lateinit var resolutionMetrics: ResolutionMetrics

@@ -17,7 +17,7 @@ class ResidenceViewModel @Inject constructor(
     private val signUpRepository: SignUpRepository,
     private val userInfoRepository: UserInfoRepository,
     private val dispatchers: DispatcherProvider,
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val _seoul = MutableStateFlow(listOf<String>())
     val seoul = _seoul.asStateFlow()

@@ -23,7 +23,7 @@ class ModifyProfileViewModel @Inject constructor(
     private val myPageRepository: MyPageRepository,
     private val signUpRepository: SignUpRepository,
     private val dispatchers: DispatcherProvider,
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val _seoul = MutableStateFlow(listOf<String>())
     val seoul = _seoul.asStateFlow()

@@ -18,7 +18,7 @@ class SingUpIdViewModel @Inject constructor(
     private val userInfoRepository: UserInfoRepository,
     private val singUpRepository: SignUpRepository,
     private val dispatchers: DispatcherProvider,
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val _isDuplicate = MutableStateFlow(true)
     val isDuplicate = _isDuplicate.asStateFlow()

@@ -13,7 +13,7 @@ import javax.inject.Inject
 class SingUpPwdViewModel @Inject constructor(
     private val userInfoRepository: UserInfoRepository,
     private val dispatchers: DispatcherProvider,
-    ) : ViewModel() {
+) : ViewModel() {
 
     fun getEmail(): String = runBlocking(dispatchers.io) {
         userInfoRepository.getEmail()

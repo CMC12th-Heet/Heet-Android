@@ -19,7 +19,7 @@ class HomeTownViewModel @Inject constructor(
     private val postRepository: PostRepository,
     private val myPageRepository: MyPageRepository,
     private val dispatchers: DispatcherProvider,
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val _newPost = MutableStateFlow<ResponseGetPost?>(null)
     val newPost = _newPost.asStateFlow()

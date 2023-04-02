@@ -20,7 +20,7 @@ class CommentViewModel @Inject constructor(
     private val commentRepository: CommentRepository,
     private val myPageRepository: MyPageRepository,
     private val dispatchers: DispatcherProvider,
-    ) : ViewModel() {
+) : ViewModel() {
     @Inject
     lateinit var resolutionMetrics: ResolutionMetrics
 

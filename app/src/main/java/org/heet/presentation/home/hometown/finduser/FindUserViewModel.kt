@@ -16,7 +16,7 @@ import javax.inject.Inject
 class FindUserViewModel @Inject constructor(
     private val searchRepository: SearchRepository,
     private val dispatchers: DispatcherProvider,
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val _searchUserList = MutableStateFlow(emptyList<ResponseUserSearch>())
     val searchUserList = _searchUserList.asStateFlow()

@@ -28,7 +28,7 @@ class PostViewModel @Inject constructor(
     private val postService: PostService,
     private val storeRepository: StoreRepository,
     private val dispatchers: DispatcherProvider,
-    ) : ViewModel() {
+) : ViewModel() {
 
     private val _postSuccess = MutableStateFlow(false)
     val postSuccess = _postSuccess.asStateFlow()
